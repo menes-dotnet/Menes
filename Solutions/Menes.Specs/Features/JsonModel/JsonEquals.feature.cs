@@ -179,6 +179,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"Hello\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"Hello\"", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"Hello\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"Hello\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"Hello\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"Hello\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         public virtual void EqualsForStringJsonElementBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
@@ -236,6 +237,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"Hello\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"Hello\"", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"Hello\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"Hello\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"Hello\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"Hello\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         public virtual void EqualsForStringDotnetBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
@@ -246,7 +248,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for string dotnet backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 49
+#line 50
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -266,13 +268,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 50
+#line 51
  testRunner.Given(string.Format("the dotnet backed JsonString {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 51
+#line 52
  testRunner.When(string.Format("I compare the string to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 52
+#line 53
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -293,6 +295,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"Hello\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"Hello\"", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"Hello\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"Hello\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"Hello\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"Hello\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"Hello\"", "<new object()>", "false", null)]
@@ -305,7 +308,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for string json element backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 71
+#line 73
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -325,13 +328,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 72
+#line 74
  testRunner.Given(string.Format("the JsonElement backed JsonString {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 73
+#line 75
  testRunner.When(string.Format("I compare the string to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 74
+#line 76
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -352,6 +355,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"Hello\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"Hello\"", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"Hello\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"Hello\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"Hello\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"Hello\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"Hello\"", "<new object()>", "false", null)]
@@ -369,7 +373,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for string dotnet backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 95
+#line 98
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -389,13 +393,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 96
+#line 99
  testRunner.Given(string.Format("the dotnet backed JsonString {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 97
+#line 100
  testRunner.When(string.Format("I compare the string to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 98
+#line 101
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -419,7 +423,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for json element backed value as a boolean", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 125
+#line 129
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -439,13 +443,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 126
+#line 130
  testRunner.Given(string.Format("the JsonElement backed JsonBoolean {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 127
+#line 131
  testRunner.When(string.Format("I compare it to the boolean {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 128
+#line 132
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -466,7 +470,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for dotnet backed value as a boolean", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 140
+#line 144
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -486,13 +490,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 141
+#line 145
  testRunner.Given(string.Format("the dotnet backed JsonBoolean {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 142
+#line 146
  testRunner.When(string.Format("I compare it to the boolean {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 143
+#line 147
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -514,6 +518,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("false", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("false", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("false", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("false", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("false", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("false", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         public virtual void EqualsForBooleanJsonElementBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
@@ -524,7 +529,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for boolean json element backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 152
+#line 156
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -544,13 +549,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 153
+#line 157
  testRunner.Given(string.Format("the JsonElement backed JsonBoolean {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 154
+#line 158
  testRunner.When(string.Format("I compare the boolean to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 155
+#line 159
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -572,6 +577,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("false", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("false", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("false", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("false", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("false", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("false", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         public virtual void EqualsForBooleanDotnetBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
@@ -582,7 +588,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for boolean dotnet backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 175
+#line 180
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -602,13 +608,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 176
+#line 181
  testRunner.Given(string.Format("the dotnet backed JsonBoolean {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 177
+#line 182
  testRunner.When(string.Format("I compare the boolean to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 178
+#line 183
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -630,6 +636,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("false", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("false", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("false", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("false", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("false", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("false", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("false", "<new object()>", "false", null)]
@@ -642,7 +649,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for boolean json element backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 198
+#line 204
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -662,13 +669,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 199
+#line 205
  testRunner.Given(string.Format("the JsonElement backed JsonBoolean {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 200
+#line 206
  testRunner.When(string.Format("I compare the boolean to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 201
+#line 207
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -690,6 +697,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("false", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("false", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("false", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("false", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("false", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("false", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("false", "<new object()>", "false", null)]
@@ -707,7 +715,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for boolean dotnet backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 223
+#line 230
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -727,13 +735,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 224
+#line 231
  testRunner.Given(string.Format("the dotnet backed JsonBoolean {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 225
+#line 232
  testRunner.When(string.Format("I compare the boolean to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 226
+#line 233
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -757,7 +765,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for json element backed value as an array", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 254
+#line 262
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -777,13 +785,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 255
+#line 263
  testRunner.Given(string.Format("the JsonElement backed JsonArray {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 256
+#line 264
  testRunner.When(string.Format("I compare it to the array {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 257
+#line 265
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -805,7 +813,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for dotnet backed value as an array", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 269
+#line 277
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -825,13 +833,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 270
+#line 278
  testRunner.Given(string.Format("the dotnet backed JsonArray {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 271
+#line 279
  testRunner.When(string.Format("I compare it to the array {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 272
+#line 280
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -851,6 +859,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("[1,2,3]", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("[1,2,3]", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("[1,2,3]", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("[1,2,3]", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("[1,2,3]", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("[1,2,3]", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         public virtual void EqualsForArrayJsonElementBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
@@ -861,7 +870,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for array json element backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 282
+#line 290
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -881,13 +890,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 283
+#line 291
  testRunner.Given(string.Format("the JsonElement backed JsonArray {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 284
+#line 292
  testRunner.When(string.Format("I compare the array to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 285
+#line 293
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -907,6 +916,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("[1,2,3]", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("[1,2,3]", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("[1,2,3]", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("[1,2,3]", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("[1,2,3]", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("[1,2,3]", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         public virtual void EqualsForArrayDotnetBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
@@ -917,7 +927,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for array dotnet backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 303
+#line 312
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -937,13 +947,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 304
+#line 313
  testRunner.Given(string.Format("the dotnet backed JsonArray {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 305
+#line 314
  testRunner.When(string.Format("I compare the array to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 306
+#line 315
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -963,6 +973,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("[1,2,3]", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("[1,2,3]", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("[1,2,3]", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("[1,2,3]", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("[1,2,3]", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("[1,2,3]", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         public virtual void EqualsForArrayJsonElementBackedValueAsAnObject(string jsonValue, string value, string result, string[] exampleTags)
@@ -973,7 +984,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for array json element backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 324
+#line 334
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -993,13 +1004,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 325
+#line 335
  testRunner.Given(string.Format("the JsonElement backed JsonArray {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 326
+#line 336
  testRunner.When(string.Format("I compare the array to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 327
+#line 337
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -1019,6 +1030,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("[1,2,3]", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("[1,2,3]", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("[1,2,3]", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("[1,2,3]", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("[1,2,3]", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("[1,2,3]", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("[1,2,3]", "<new object()>", "false", null)]
@@ -1036,7 +1048,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for array dotnet backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 345
+#line 356
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -1056,13 +1068,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 346
+#line 357
  testRunner.Given(string.Format("the dotnet backed JsonArray {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 347
+#line 358
  testRunner.When(string.Format("I compare the array to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 348
+#line 359
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -1083,51 +1095,6 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for json element backed value as a base64content", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 374
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 375
- testRunner.Given(string.Format("the JsonElement backed JsonBase64Content {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 376
- testRunner.When(string.Format("I compare it to the base64content {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 377
- testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Equals for dotnet backed value as a base64content")]
-        [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "true", null)]
-        [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"Goodbye\"", "false", null)]
-        public virtual void EqualsForDotnetBackedValueAsABase64Content(string jsonValue, string value, string result, string[] exampleTags)
-        {
-            string[] tagsOfScenario = exampleTags;
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("jsonValue", jsonValue);
-            argumentsOfScenario.Add("value", value);
-            argumentsOfScenario.Add("result", result);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for dotnet backed value as a base64content", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 386
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1149,12 +1116,57 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 387
- testRunner.Given(string.Format("the dotnet backed JsonBase64Content {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given(string.Format("the JsonElement backed JsonBase64Content {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 388
  testRunner.When(string.Format("I compare it to the base64content {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 389
+ testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Equals for dotnet backed value as a base64content")]
+        [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"Goodbye\"", "false", null)]
+        public virtual void EqualsForDotnetBackedValueAsABase64Content(string jsonValue, string value, string result, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("jsonValue", jsonValue);
+            argumentsOfScenario.Add("value", value);
+            argumentsOfScenario.Add("result", result);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for dotnet backed value as a base64content", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 398
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 399
+ testRunner.Given(string.Format("the dotnet backed JsonBase64Content {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 400
+ testRunner.When(string.Format("I compare it to the base64content {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 401
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -1175,6 +1187,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "true", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         public virtual void EqualsForBase64ContentJsonElementBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
@@ -1185,7 +1198,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for base64content json element backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 396
+#line 408
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -1205,13 +1218,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 397
+#line 409
  testRunner.Given(string.Format("the JsonElement backed JsonBase64Content {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 398
+#line 410
  testRunner.When(string.Format("I compare the base64content to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 399
+#line 411
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -1232,6 +1245,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "true", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         public virtual void EqualsForBase64ContentDotnetBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
@@ -1242,7 +1256,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for base64content dotnet backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 418
+#line 431
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -1262,13 +1276,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 419
+#line 432
  testRunner.Given(string.Format("the dotnet backed JsonBase64Content {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 420
+#line 433
  testRunner.When(string.Format("I compare the base64content to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 421
+#line 434
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -1289,6 +1303,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "true", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "<new object()>", "false", null)]
@@ -1301,7 +1316,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for base64content json element backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 440
+#line 454
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -1321,13 +1336,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 441
+#line 455
  testRunner.Given(string.Format("the JsonElement backed JsonBase64Content {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 442
+#line 456
  testRunner.When(string.Format("I compare the base64content to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 443
+#line 457
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -1348,6 +1363,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "true", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "<new object()>", "false", null)]
@@ -1365,7 +1381,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for base64content dotnet backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 464
+#line 479
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -1385,13 +1401,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 465
+#line 480
  testRunner.Given(string.Format("the dotnet backed JsonBase64Content {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 466
+#line 481
  testRunner.When(string.Format("I compare the base64content to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 467
+#line 482
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -1412,7 +1428,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for json element backed value as a base64string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 494
+#line 510
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -1432,13 +1448,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 495
+#line 511
  testRunner.Given(string.Format("the JsonElement backed JsonBase64String {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 496
+#line 512
  testRunner.When(string.Format("I compare it to the base64string {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 497
+#line 513
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -1457,7 +1473,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for dotnet backed value as a base64string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 506
+#line 522
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -1477,13 +1493,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 507
+#line 523
  testRunner.Given(string.Format("the dotnet backed JsonBase64String {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 508
+#line 524
  testRunner.When(string.Format("I compare it to the base64string {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 509
+#line 525
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -1504,6 +1520,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "true", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         public virtual void EqualsForBase64StringJsonElementBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
@@ -1514,7 +1531,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for base64string json element backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 516
+#line 532
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -1534,13 +1551,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 517
+#line 533
  testRunner.Given(string.Format("the JsonElement backed JsonBase64String {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 518
+#line 534
  testRunner.When(string.Format("I compare the base64string to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 519
+#line 535
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -1561,6 +1578,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "true", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         public virtual void EqualsForBase64StringDotnetBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
@@ -1571,7 +1589,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for base64string dotnet backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 538
+#line 555
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -1591,13 +1609,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 539
+#line 556
  testRunner.Given(string.Format("the dotnet backed JsonBase64String {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 540
+#line 557
  testRunner.When(string.Format("I compare the base64string to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 541
+#line 558
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -1618,6 +1636,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "true", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "<new object()>", "false", null)]
@@ -1630,7 +1649,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for base64string json element backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 560
+#line 578
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -1650,13 +1669,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 561
+#line 579
  testRunner.Given(string.Format("the JsonElement backed JsonBase64String {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 562
+#line 580
  testRunner.When(string.Format("I compare the base64string to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 563
+#line 581
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -1677,6 +1696,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "true", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "<new object()>", "false", null)]
@@ -1694,7 +1714,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for base64string dotnet backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 584
+#line 603
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -1714,13 +1734,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 585
+#line 604
  testRunner.Given(string.Format("the dotnet backed JsonBase64String {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 586
+#line 605
  testRunner.When(string.Format("I compare the base64string to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 587
+#line 606
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -1741,7 +1761,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for json element backed value as a content", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 614
+#line 634
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -1761,13 +1781,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 615
+#line 635
  testRunner.Given(string.Format("the JsonElement backed JsonContent {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 616
+#line 636
  testRunner.When(string.Format("I compare it to the content {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 617
+#line 637
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -1786,7 +1806,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for dotnet backed value as a content", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 626
+#line 646
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -1806,13 +1826,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 627
+#line 647
  testRunner.Given(string.Format("the dotnet backed JsonContent {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 628
+#line 648
  testRunner.When(string.Format("I compare it to the content {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 629
+#line 649
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -1833,6 +1853,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"{ \\\"first\\\": \\\"1\\\" }\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"{ \\\"first\\\": \\\"1\\\" }\"", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"{ \\\"first\\\": \\\"1\\\" }\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"{ \\\"first\\\": \\\"1\\\" }\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"{ \\\"first\\\": \\\"1\\\" }\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"{ \\\"first\\\": \\\"1\\\" }\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "true", null)]
         public virtual void EqualsForContentJsonElementBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
@@ -1843,7 +1864,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for content json element backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 636
+#line 656
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -1863,13 +1884,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 637
+#line 657
  testRunner.Given(string.Format("the JsonElement backed JsonContent {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 638
+#line 658
  testRunner.When(string.Format("I compare the content to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 639
+#line 659
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -1890,6 +1911,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"{ \\\"first\\\": \\\"1\\\" }\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"{ \\\"first\\\": \\\"1\\\" }\"", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"{ \\\"first\\\": \\\"1\\\" }\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"{ \\\"first\\\": \\\"1\\\" }\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"{ \\\"first\\\": \\\"1\\\" }\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"{ \\\"first\\\": \\\"1\\\" }\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "true", null)]
         public virtual void EqualsForContentDotnetBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
@@ -1900,7 +1922,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for content dotnet backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 658
+#line 679
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -1920,13 +1942,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 659
+#line 680
  testRunner.Given(string.Format("the dotnet backed JsonContent {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 660
+#line 681
  testRunner.When(string.Format("I compare the content to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 661
+#line 682
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -1947,6 +1969,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"{ \\\"first\\\": \\\"1\\\" }\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"{ \\\"first\\\": \\\"1\\\" }\"", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"{ \\\"first\\\": \\\"1\\\" }\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"{ \\\"first\\\": \\\"1\\\" }\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"{ \\\"first\\\": \\\"1\\\" }\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"{ \\\"first\\\": \\\"1\\\" }\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "true", null)]
         [NUnit.Framework.TestCaseAttribute("\"{ \\\"first\\\": \\\"1\\\" }\"", "<new object()>", "false", null)]
@@ -1959,7 +1982,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for content json element backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 680
+#line 702
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -1979,13 +2002,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 681
+#line 703
  testRunner.Given(string.Format("the JsonElement backed JsonContent {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 682
+#line 704
  testRunner.When(string.Format("I compare the content to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 683
+#line 705
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -2006,6 +2029,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"{ \\\"first\\\": \\\"1\\\" }\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"{ \\\"first\\\": \\\"1\\\" }\"", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"{ \\\"first\\\": \\\"1\\\" }\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"{ \\\"first\\\": \\\"1\\\" }\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"{ \\\"first\\\": \\\"1\\\" }\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"{ \\\"first\\\": \\\"1\\\" }\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "true", null)]
         [NUnit.Framework.TestCaseAttribute("\"{ \\\"first\\\": \\\"1\\\" }\"", "<new object()>", "false", null)]
@@ -2023,7 +2047,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for content dotnet backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 704
+#line 727
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -2043,13 +2067,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 705
+#line 728
  testRunner.Given(string.Format("the dotnet backed JsonContent {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 706
+#line 729
  testRunner.When(string.Format("I compare the content to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 707
+#line 730
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -2071,110 +2095,6 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for json element backed value as a date", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 734
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 735
- testRunner.Given(string.Format("the JsonElement backed JsonDate {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 736
- testRunner.When(string.Format("I compare it to the date {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 737
- testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Equals for dotnet backed value as a date")]
-        [NUnit.Framework.TestCaseAttribute("\"Garbage\"", "\"2018-11-13\"", "false", null)]
-        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"2018-11-13\"", "true", null)]
-        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"Goodbye\"", "false", null)]
-        public virtual void EqualsForDotnetBackedValueAsADate(string jsonValue, string value, string result, string[] exampleTags)
-        {
-            string[] tagsOfScenario = exampleTags;
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("jsonValue", jsonValue);
-            argumentsOfScenario.Add("value", value);
-            argumentsOfScenario.Add("result", result);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for dotnet backed value as a date", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 747
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 748
- testRunner.Given(string.Format("the dotnet backed JsonDate {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 749
- testRunner.When(string.Format("I compare it to the date {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 750
- testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Equals for date json element backed value as an IJsonValue")]
-        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"Hello\"", "false", null)]
-        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"Goodbye\"", "false", null)]
-        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "1", "false", null)]
-        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "1.1", "false", null)]
-        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "[1,2,3]", "false", null)]
-        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "{ \"first\": \"1\" }", "false", null)]
-        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "true", "false", null)]
-        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "false", "false", null)]
-        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"2018-11-13T20:20:39+00:00\"", "false", null)]
-        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
-        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"2018-11-13\"", "true", null)]
-        [NUnit.Framework.TestCaseAttribute("\"Garbage\"", "\"2018-11-13\"", "false", null)]
-        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"hello@endjin.com\"", "false", null)]
-        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
-        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
-        public virtual void EqualsForDateJsonElementBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
-        {
-            string[] tagsOfScenario = exampleTags;
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            argumentsOfScenario.Add("jsonValue", jsonValue);
-            argumentsOfScenario.Add("value", value);
-            argumentsOfScenario.Add("result", result);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for date json element backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 758
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -2199,9 +2119,114 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Given(string.Format("the JsonElement backed JsonDate {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 760
- testRunner.When(string.Format("I compare the date to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I compare it to the date {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 761
+ testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Equals for dotnet backed value as a date")]
+        [NUnit.Framework.TestCaseAttribute("\"Garbage\"", "\"2018-11-13\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"2018-11-13\"", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"Goodbye\"", "false", null)]
+        public virtual void EqualsForDotnetBackedValueAsADate(string jsonValue, string value, string result, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("jsonValue", jsonValue);
+            argumentsOfScenario.Add("value", value);
+            argumentsOfScenario.Add("result", result);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for dotnet backed value as a date", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 771
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 772
+ testRunner.Given(string.Format("the dotnet backed JsonDate {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 773
+ testRunner.When(string.Format("I compare it to the date {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 774
+ testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Equals for date json element backed value as an IJsonValue")]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"Hello\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"Goodbye\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "1", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "1.1", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "[1,2,3]", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "{ \"first\": \"1\" }", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "true", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "false", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"2018-11-13T20:20:39+00:00\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"2018-11-13\"", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("\"Garbage\"", "\"2018-11-13\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"www.example.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
+        public virtual void EqualsForDateJsonElementBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("jsonValue", jsonValue);
+            argumentsOfScenario.Add("value", value);
+            argumentsOfScenario.Add("result", result);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for date json element backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 782
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 783
+ testRunner.Given(string.Format("the JsonElement backed JsonDate {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 784
+ testRunner.When(string.Format("I compare the date to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 785
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -2223,6 +2248,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"2018-11-13\"", "true", null)]
         [NUnit.Framework.TestCaseAttribute("\"Garbage\"", "\"2018-11-13T20:20:39+00:00\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         public virtual void EqualsForDateDotnetBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
@@ -2233,7 +2259,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for date dotnet backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 781
+#line 806
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -2253,13 +2279,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 782
+#line 807
  testRunner.Given(string.Format("the dotnet backed JsonDate {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 783
+#line 808
  testRunner.When(string.Format("I compare the date to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 784
+#line 809
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -2280,6 +2306,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"2018-11-13\"", "true", null)]
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "<new object()>", "false", null)]
@@ -2292,7 +2319,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for date json element backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 804
+#line 830
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -2312,13 +2339,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 805
+#line 831
  testRunner.Given(string.Format("the JsonElement backed JsonDate {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 806
+#line 832
  testRunner.When(string.Format("I compare the date to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 807
+#line 833
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -2339,6 +2366,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"2018-11-13\"", "true", null)]
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13\"", "<new object()>", "false", null)]
@@ -2356,7 +2384,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for date dotnet backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 828
+#line 855
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -2376,13 +2404,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 829
+#line 856
  testRunner.Given(string.Format("the dotnet backed JsonDate {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 830
+#line 857
  testRunner.When(string.Format("I compare the date to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 831
+#line 858
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -2404,7 +2432,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for json element backed value as a dateTime", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 858
+#line 886
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -2424,13 +2452,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 859
+#line 887
  testRunner.Given(string.Format("the JsonElement backed JsonDateTime {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 860
+#line 888
  testRunner.When(string.Format("I compare it to the dateTime {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 861
+#line 889
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -2450,7 +2478,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for dotnet backed value as a dateTime", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 871
+#line 899
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -2470,13 +2498,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 872
+#line 900
  testRunner.Given(string.Format("the dotnet backed JsonDateTime {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 873
+#line 901
  testRunner.When(string.Format("I compare it to the dateTime {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 874
+#line 902
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -2498,6 +2526,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"Garbage\"", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         public virtual void EqualsForDateTimeJsonElementBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
@@ -2508,7 +2537,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for dateTime json element backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 882
+#line 910
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -2528,13 +2557,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 883
+#line 911
  testRunner.Given(string.Format("the JsonElement backed JsonDateTime {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 884
+#line 912
  testRunner.When(string.Format("I compare the dateTime to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 885
+#line 913
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -2556,6 +2585,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"Garbage\"", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         public virtual void EqualsForDateTimeDotnetBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
@@ -2566,7 +2596,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for dateTime dotnet backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 905
+#line 934
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -2586,13 +2616,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 906
+#line 935
  testRunner.Given(string.Format("the dotnet backed JsonDateTime {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 907
+#line 936
  testRunner.When(string.Format("I compare the dateTime to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 908
+#line 937
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -2613,6 +2643,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "<new object()>", "false", null)]
@@ -2625,7 +2656,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for dateTime json element backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 928
+#line 958
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -2645,13 +2676,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 929
+#line 959
  testRunner.Given(string.Format("the JsonElement backed JsonDateTime {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 930
+#line 960
  testRunner.When(string.Format("I compare the dateTime to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 931
+#line 961
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -2672,6 +2703,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"2018-11-13T20:20:39+00:00\"", "<new object()>", "false", null)]
@@ -2689,7 +2721,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for dateTime dotnet backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 952
+#line 983
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -2709,13 +2741,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 953
+#line 984
  testRunner.Given(string.Format("the dotnet backed JsonDateTime {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 954
+#line 985
  testRunner.When(string.Format("I compare the dateTime to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 955
+#line 986
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -2737,7 +2769,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for json element backed value as a duration", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 982
+#line 1014
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -2757,13 +2789,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 983
+#line 1015
  testRunner.Given(string.Format("the JsonElement backed JsonDuration {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 984
+#line 1016
  testRunner.When(string.Format("I compare it to the duration {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 985
+#line 1017
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -2783,7 +2815,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for dotnet backed value as a duration", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 995
+#line 1027
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -2803,13 +2835,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 996
+#line 1028
  testRunner.Given(string.Format("the dotnet backed JsonDuration {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 997
+#line 1029
  testRunner.When(string.Format("I compare it to the duration {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 998
+#line 1030
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -2831,6 +2863,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"P3Y6M4DT12H30M5S\"", "\"P3Y6M4DT12H30M5S\"", "true", null)]
         [NUnit.Framework.TestCaseAttribute("\"Garbage\"", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"P3Y6M4DT12H30M5S\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"P3Y6M4DT12H30M5S\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"P3Y6M4DT12H30M5S\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"P3Y6M4DT12H30M5S\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         public virtual void EqualsForDurationJsonElementBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
@@ -2841,7 +2874,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for duration json element backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 1006
+#line 1038
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -2861,13 +2894,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 1007
+#line 1039
  testRunner.Given(string.Format("the JsonElement backed JsonDuration {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 1008
+#line 1040
  testRunner.When(string.Format("I compare the duration to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 1009
+#line 1041
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -2889,6 +2922,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"P3Y6M4DT12H30M5S\"", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"Garbage\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"P3Y6M4DT12H30M5S\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"P3Y6M4DT12H30M5S\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"P3Y6M4DT12H30M5S\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"P3Y6M4DT12H30M5S\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         public virtual void EqualsForDurationDotnetBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
@@ -2899,7 +2933,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for duration dotnet backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 1029
+#line 1062
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -2919,13 +2953,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 1030
+#line 1063
  testRunner.Given(string.Format("the dotnet backed JsonDuration {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 1031
+#line 1064
  testRunner.When(string.Format("I compare the duration to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 1032
+#line 1065
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -2946,6 +2980,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"P3Y6M4DT12H30M5S\"", "\"P3Y6M4DT12H30M5S\"", "true", null)]
         [NUnit.Framework.TestCaseAttribute("\"P3Y6M4DT12H30M5S\"", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"P3Y6M4DT12H30M5S\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"P3Y6M4DT12H30M5S\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"P3Y6M4DT12H30M5S\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"P3Y6M4DT12H30M5S\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"P3Y6M4DT12H30M5S\"", "<new object()>", "false", null)]
@@ -2958,7 +2993,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for duration json element backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 1052
+#line 1086
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -2978,13 +3013,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 1053
+#line 1087
  testRunner.Given(string.Format("the JsonElement backed JsonDuration {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 1054
+#line 1088
  testRunner.When(string.Format("I compare the duration to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 1055
+#line 1089
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -3005,6 +3040,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"P3Y6M4DT12H30M5S\"", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"P3Y6M4DT12H30M5S\"", "\"P3Y6M4DT12H30M5S\"", "true", null)]
         [NUnit.Framework.TestCaseAttribute("\"P3Y6M4DT12H30M5S\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"P3Y6M4DT12H30M5S\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"P3Y6M4DT12H30M5S\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"P3Y6M4DT12H30M5S\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"P3Y6M4DT12H30M5S\"", "<new object()>", "false", null)]
@@ -3022,7 +3058,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for duration dotnet backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 1076
+#line 1111
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -3042,13 +3078,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 1077
+#line 1112
  testRunner.Given(string.Format("the dotnet backed JsonDuration {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 1078
+#line 1113
  testRunner.When(string.Format("I compare the duration to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 1079
+#line 1114
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -3070,7 +3106,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for json element backed value as a email", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 1106
+#line 1142
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -3090,13 +3126,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 1107
+#line 1143
  testRunner.Given(string.Format("the JsonElement backed JsonEmail {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 1108
+#line 1144
  testRunner.When(string.Format("I compare it to the email {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 1109
+#line 1145
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -3116,7 +3152,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for dotnet backed value as a email", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 1119
+#line 1155
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -3136,13 +3172,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 1120
+#line 1156
  testRunner.Given(string.Format("the dotnet backed JsonEmail {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 1121
+#line 1157
  testRunner.When(string.Format("I compare it to the email {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 1122
+#line 1158
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -3164,6 +3200,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"Garbage\"", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"hello@endjin.com\"", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         public virtual void EqualsForEmailJsonElementBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
@@ -3174,7 +3211,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for email json element backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 1130
+#line 1166
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -3194,13 +3231,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 1131
+#line 1167
  testRunner.Given(string.Format("the JsonElement backed JsonEmail {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 1132
+#line 1168
  testRunner.When(string.Format("I compare the email to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 1133
+#line 1169
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -3220,6 +3257,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"2018-11-13T20:20:39+00:00\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"2018-11-13\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"Garbage\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"hello@endjin.com\"", "true", null)]
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
@@ -3232,7 +3270,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for email dotnet backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 1153
+#line 1190
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -3252,13 +3290,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 1154
+#line 1191
  testRunner.Given(string.Format("the dotnet backed JsonEmail {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 1155
+#line 1192
  testRunner.When(string.Format("I compare the email to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 1156
+#line 1193
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -3279,6 +3317,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"hello@endjin.com\"", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "<new object()>", "false", null)]
@@ -3291,7 +3330,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for email json element backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 1176
+#line 1214
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -3311,13 +3350,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 1177
+#line 1215
  testRunner.Given(string.Format("the JsonElement backed JsonEmail {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 1178
+#line 1216
  testRunner.When(string.Format("I compare the email to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 1179
+#line 1217
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -3338,6 +3377,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"hello@endjin.com\"", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "<new object()>", "false", null)]
@@ -3355,7 +3395,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for email dotnet backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 1200
+#line 1239
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -3375,13 +3415,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 1201
+#line 1240
  testRunner.Given(string.Format("the dotnet backed JsonEmail {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 1202
+#line 1241
  testRunner.When(string.Format("I compare the email to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 1203
+#line 1242
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -3403,7 +3443,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for json element backed value as a idnEmail", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 1230
+#line 1270
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -3423,13 +3463,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 1231
+#line 1271
  testRunner.Given(string.Format("the JsonElement backed JsonIdnEmail {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 1232
+#line 1272
  testRunner.When(string.Format("I compare it to the idnEmail {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 1233
+#line 1273
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -3449,7 +3489,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for dotnet backed value as a idnEmail", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 1243
+#line 1283
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -3469,13 +3509,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 1244
+#line 1284
  testRunner.Given(string.Format("the dotnet backed JsonIdnEmail {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 1245
+#line 1285
  testRunner.When(string.Format("I compare it to the idnEmail {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 1246
+#line 1286
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -3497,6 +3537,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"Garbage\"", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"hello@endjin.com\"", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         public virtual void EqualsForIdnEmailJsonElementBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
@@ -3507,7 +3548,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for idnEmail json element backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 1254
+#line 1294
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -3527,13 +3568,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 1255
+#line 1295
  testRunner.Given(string.Format("the JsonElement backed JsonIdnEmail {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 1256
+#line 1296
  testRunner.When(string.Format("I compare the idnEmail to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 1257
+#line 1297
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -3555,6 +3596,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"Garbage\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"hello@endjin.com\"", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         public virtual void EqualsForIdnEmailDotnetBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
@@ -3565,7 +3607,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for idnEmail dotnet backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 1277
+#line 1318
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -3585,13 +3627,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 1278
+#line 1319
  testRunner.Given(string.Format("the dotnet backed JsonIdnEmail {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 1279
+#line 1320
  testRunner.When(string.Format("I compare the idnEmail to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 1280
+#line 1321
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -3612,6 +3654,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"hello@endjin.com\"", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "<new object()>", "false", null)]
@@ -3624,7 +3667,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for idnEmail json element backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 1300
+#line 1342
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -3644,13 +3687,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 1301
+#line 1343
  testRunner.Given(string.Format("the JsonElement backed JsonIdnEmail {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 1302
+#line 1344
  testRunner.When(string.Format("I compare the idnEmail to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 1303
+#line 1345
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -3671,6 +3714,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"2018-11-13\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"hello@endjin.com\"", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"hello@endjin.com\"", "<new object()>", "false", null)]
@@ -3688,7 +3732,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for idnEmail dotnet backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 1324
+#line 1367
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -3708,13 +3752,687 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 1325
+#line 1368
  testRunner.Given(string.Format("the dotnet backed JsonIdnEmail {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 1326
+#line 1369
  testRunner.When(string.Format("I compare the idnEmail to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 1327
+#line 1370
+ testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Equals for json element backed value as a hostname")]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"www.example.com\"", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("\"Garbage\"", "\"www.example.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"Goodbye\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("null", "null", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("null", "\"www.example.com\"", "false", null)]
+        public virtual void EqualsForJsonElementBackedValueAsAHostname(string jsonValue, string value, string result, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("jsonValue", jsonValue);
+            argumentsOfScenario.Add("value", value);
+            argumentsOfScenario.Add("result", result);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for json element backed value as a hostname", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 1398
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 1399
+ testRunner.Given(string.Format("the JsonElement backed JsonHostname {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 1400
+ testRunner.When(string.Format("I compare it to the hostname {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 1401
+ testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Equals for dotnet backed value as a hostname")]
+        [NUnit.Framework.TestCaseAttribute("\"Garbage\"", "\"www.example.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"www.example.com\"", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"Goodbye\"", "false", null)]
+        public virtual void EqualsForDotnetBackedValueAsAHostname(string jsonValue, string value, string result, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("jsonValue", jsonValue);
+            argumentsOfScenario.Add("value", value);
+            argumentsOfScenario.Add("result", result);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for dotnet backed value as a hostname", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 1411
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 1412
+ testRunner.Given(string.Format("the dotnet backed JsonHostname {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 1413
+ testRunner.When(string.Format("I compare it to the hostname {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 1414
+ testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Equals for hostname json element backed value as an IJsonValue")]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"Hello\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"Goodbye\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "1", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "1.1", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "[1,2,3]", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "{ \"first\": \"1\" }", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "true", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "false", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"2018-11-13T20:20:39+00:00\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"2018-11-13\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"Garbage\"", "\"2018-11-13\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"www.example.com\"", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
+        public virtual void EqualsForHostnameJsonElementBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("jsonValue", jsonValue);
+            argumentsOfScenario.Add("value", value);
+            argumentsOfScenario.Add("result", result);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for hostname json element backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 1422
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 1423
+ testRunner.Given(string.Format("the JsonElement backed JsonHostname {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 1424
+ testRunner.When(string.Format("I compare the hostname to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 1425
+ testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Equals for hostname dotnet backed value as an IJsonValue")]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"Hello\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"Goodbye\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "1", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "1.1", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "[1,2,3]", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "{ \"first\": \"1\" }", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "true", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "false", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"2018-11-13T20:20:39+00:00\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"2018-11-13\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"Garbage\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"www.example.com\"", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
+        public virtual void EqualsForHostnameDotnetBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("jsonValue", jsonValue);
+            argumentsOfScenario.Add("value", value);
+            argumentsOfScenario.Add("result", result);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for hostname dotnet backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 1446
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 1447
+ testRunner.Given(string.Format("the dotnet backed JsonHostname {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 1448
+ testRunner.When(string.Format("I compare the hostname to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 1449
+ testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Equals for hostname json element backed value as an object")]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"Hello\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"Goodbye\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "1", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "1.1", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "[1,2,3]", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "{ \"first\": \"1\" }", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "true", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "false", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"2018-11-13T20:20:39+00:00\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"2018-11-13\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"www.example.com\"", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "<new object()>", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "null", "false", null)]
+        public virtual void EqualsForHostnameJsonElementBackedValueAsAnObject(string jsonValue, string value, string result, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("jsonValue", jsonValue);
+            argumentsOfScenario.Add("value", value);
+            argumentsOfScenario.Add("result", result);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for hostname json element backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 1470
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 1471
+ testRunner.Given(string.Format("the JsonElement backed JsonHostname {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 1472
+ testRunner.When(string.Format("I compare the hostname to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 1473
+ testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Equals for hostname dotnet backed value as an object")]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"Hello\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"Goodbye\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "1", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "1.1", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "[1,2,3]", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "{ \"first\": \"1\" }", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "true", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "false", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"2018-11-13T20:20:39+00:00\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"2018-11-13\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"www.example.com\"", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "<new object()>", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "null", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "<null>", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "<undefined>", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("null", "null", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("null", "<null>", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("null", "<undefined>", "false", null)]
+        public virtual void EqualsForHostnameDotnetBackedValueAsAnObject(string jsonValue, string value, string result, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("jsonValue", jsonValue);
+            argumentsOfScenario.Add("value", value);
+            argumentsOfScenario.Add("result", result);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for hostname dotnet backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 1495
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 1496
+ testRunner.Given(string.Format("the dotnet backed JsonHostname {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 1497
+ testRunner.When(string.Format("I compare the hostname to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 1498
+ testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Equals for json element backed value as a idnHostname")]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"www.example.com\"", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("\"Garbage\"", "\"www.example.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"Goodbye\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("null", "null", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("null", "\"www.example.com\"", "false", null)]
+        public virtual void EqualsForJsonElementBackedValueAsAIdnHostname(string jsonValue, string value, string result, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("jsonValue", jsonValue);
+            argumentsOfScenario.Add("value", value);
+            argumentsOfScenario.Add("result", result);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for json element backed value as a idnHostname", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 1526
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 1527
+ testRunner.Given(string.Format("the JsonElement backed JsonIdnHostname {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 1528
+ testRunner.When(string.Format("I compare it to the idnHostname {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 1529
+ testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Equals for dotnet backed value as a idnHostname")]
+        [NUnit.Framework.TestCaseAttribute("\"Garbage\"", "\"www.example.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"www.example.com\"", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"Goodbye\"", "false", null)]
+        public virtual void EqualsForDotnetBackedValueAsAIdnHostname(string jsonValue, string value, string result, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("jsonValue", jsonValue);
+            argumentsOfScenario.Add("value", value);
+            argumentsOfScenario.Add("result", result);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for dotnet backed value as a idnHostname", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 1539
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 1540
+ testRunner.Given(string.Format("the dotnet backed JsonIdnHostname {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 1541
+ testRunner.When(string.Format("I compare it to the idnHostname {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 1542
+ testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Equals for idnHostname json element backed value as an IJsonValue")]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"Hello\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"Goodbye\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "1", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "1.1", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "[1,2,3]", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "{ \"first\": \"1\" }", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "true", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "false", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"2018-11-13T20:20:39+00:00\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"2018-11-13\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"Garbage\"", "\"2018-11-13\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"www.example.com\"", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
+        public virtual void EqualsForIdnHostnameJsonElementBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("jsonValue", jsonValue);
+            argumentsOfScenario.Add("value", value);
+            argumentsOfScenario.Add("result", result);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for idnHostname json element backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 1550
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 1551
+ testRunner.Given(string.Format("the JsonElement backed JsonIdnHostname {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 1552
+ testRunner.When(string.Format("I compare the idnHostname to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 1553
+ testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Equals for idnHostname dotnet backed value as an IJsonValue")]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"Hello\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"Goodbye\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "1", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "1.1", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "[1,2,3]", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "{ \"first\": \"1\" }", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "true", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "false", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"2018-11-13T20:20:39+00:00\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"2018-11-13\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"Garbage\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"www.example.com\"", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
+        public virtual void EqualsForIdnHostnameDotnetBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("jsonValue", jsonValue);
+            argumentsOfScenario.Add("value", value);
+            argumentsOfScenario.Add("result", result);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for idnHostname dotnet backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 1574
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 1575
+ testRunner.Given(string.Format("the dotnet backed JsonIdnHostname {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 1576
+ testRunner.When(string.Format("I compare the idnHostname to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 1577
+ testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Equals for idnHostname json element backed value as an object")]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"Hello\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"Goodbye\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "1", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "1.1", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "[1,2,3]", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "{ \"first\": \"1\" }", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "true", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "false", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"2018-11-13T20:20:39+00:00\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"2018-11-13\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"www.example.com\"", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "<new object()>", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "null", "false", null)]
+        public virtual void EqualsForIdnHostnameJsonElementBackedValueAsAnObject(string jsonValue, string value, string result, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("jsonValue", jsonValue);
+            argumentsOfScenario.Add("value", value);
+            argumentsOfScenario.Add("result", result);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for idnHostname json element backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 1598
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 1599
+ testRunner.Given(string.Format("the JsonElement backed JsonIdnHostname {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 1600
+ testRunner.When(string.Format("I compare the idnHostname to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 1601
+ testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Equals for idnHostname dotnet backed value as an object")]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"Hello\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"Goodbye\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "1", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "1.1", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "[1,2,3]", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "{ \"first\": \"1\" }", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "true", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "false", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"2018-11-13T20:20:39+00:00\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"2018-11-13\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"P3Y6M4DT12H30M5S\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"hello@endjin.com\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"www.example.com\"", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "<new object()>", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "null", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "<null>", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "<undefined>", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("null", "null", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("null", "<null>", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("null", "<undefined>", "false", null)]
+        public virtual void EqualsForIdnHostnameDotnetBackedValueAsAnObject(string jsonValue, string value, string result, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("jsonValue", jsonValue);
+            argumentsOfScenario.Add("value", value);
+            argumentsOfScenario.Add("result", result);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for idnHostname dotnet backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 1623
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 1624
+ testRunner.Given(string.Format("the dotnet backed JsonIdnHostname {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 1625
+ testRunner.When(string.Format("I compare the idnHostname to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 1626
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

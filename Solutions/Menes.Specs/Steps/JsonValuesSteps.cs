@@ -825,6 +825,150 @@ namespace Steps
             }
         }
 
+        /* hostname */
+
+        /// <summary>
+        /// Store a <see cref="JsonElement"/>-backed value in the context variable <c>Value</c>.
+        /// </summary>
+        /// <param name="value">The json value.</param>
+        [Given(@"the JsonElement backed JsonHostname (.*)")]
+        public void GivenTheJsonElementBackedJsonHostname(string value)
+        {
+            this.scenarioContext.Set<JsonHostname>(JsonAny.ParseUriValue(value), ValueKey);
+        }
+
+        /// <summary>
+        /// Store a dotnet-type-backed value in the context variable <c>Value</c>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        [Given(@"the dotnet backed JsonHostname (.*)")]
+        public void GivenTheDotnetBackedJsonHostname(string value)
+        {
+            if (value == "null")
+            {
+                this.scenarioContext.Set((JsonHostname)JsonNull.Instance.AsAny.AsString, ValueKey);
+            }
+            else
+            {
+                this.scenarioContext.Set(new JsonHostname((string)JsonAny.ParseUriValue(value)), ValueKey);
+            }
+        }
+
+        /// <summary>
+        /// Compares the value in JsonHostname in the context variable <c>Value</c> with the expected base64String, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare it to the hostname (.*)")]
+        public void WhenICompareItToTheHostname(string expected)
+        {
+            if (expected != "null")
+            {
+                this.scenarioContext.Set(this.scenarioContext.Get<JsonHostname>(ValueKey).Equals(new JsonHostname((string)JsonAny.ParseUriValue(expected))), EqualsObjectBackedResultKey);
+            }
+
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonHostname>(ValueKey).Equals((JsonHostname)JsonAny.ParseUriValue(expected)), EqualsResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonHostname>(ValueKey) == (JsonHostname)JsonAny.ParseUriValue(expected), EqualityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonHostname>(ValueKey) != (JsonHostname)JsonAny.ParseUriValue(expected), InequalityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonHostname>(ValueKey).GetHashCode() == ((JsonHostname)JsonAny.ParseUriValue(expected)).GetHashCode(), HashCodeResultKey);
+        }
+
+        /// <summary>
+        /// Compares the value in JsonHostname in the context variable <c>Value</c> with the expected base64String, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare the hostname to the IJsonValue (.*)")]
+        public void WhenICompareTheHostnameToTheIJsonValue(string expected)
+        {
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonHostname>(ValueKey).Equals(JsonAny.ParseUriValue(expected)), EqualsResultKey);
+        }
+
+        /// <summary>
+        /// Compares the value in JsonHostname in the context variable <c>Value</c> with the expected base64String, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare the hostname to the object (.*)")]
+        public void WhenICompareTheHostnameToTheObject(string expected)
+        {
+            object? obj = expected == "<undefined>" ? default(JsonHostname) : expected == "<null>" ? null : expected == "<new object()>" ? new object() : JsonAny.ParseUriValue(expected);
+            this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonHostname>(ValueKey)).Equals(obj), EqualsResultKey);
+            if (obj is not null)
+            {
+                this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonHostname>(ValueKey)).GetHashCode() == obj.GetHashCode(), HashCodeResultKey);
+            }
+        }
+
+        /* idnHostname */
+
+        /// <summary>
+        /// Store a <see cref="JsonElement"/>-backed value in the context variable <c>Value</c>.
+        /// </summary>
+        /// <param name="value">The json value.</param>
+        [Given(@"the JsonElement backed JsonIdnHostname (.*)")]
+        public void GivenTheJsonElementBackedJsonIdnHostname(string value)
+        {
+            this.scenarioContext.Set<JsonIdnHostname>(JsonAny.ParseUriValue(value), ValueKey);
+        }
+
+        /// <summary>
+        /// Store a dotnet-type-backed value in the context variable <c>Value</c>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        [Given(@"the dotnet backed JsonIdnHostname (.*)")]
+        public void GivenTheDotnetBackedJsonIdnHostname(string value)
+        {
+            if (value == "null")
+            {
+                this.scenarioContext.Set((JsonIdnHostname)JsonNull.Instance.AsAny.AsString, ValueKey);
+            }
+            else
+            {
+                this.scenarioContext.Set(new JsonIdnHostname((string)JsonAny.ParseUriValue(value)), ValueKey);
+            }
+        }
+
+        /// <summary>
+        /// Compares the value in JsonIdnHostname in the context variable <c>Value</c> with the expected base64String, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare it to the idnHostname (.*)")]
+        public void WhenICompareItToTheIdnHostname(string expected)
+        {
+            if (expected != "null")
+            {
+                this.scenarioContext.Set(this.scenarioContext.Get<JsonIdnHostname>(ValueKey).Equals(new JsonIdnHostname((string)JsonAny.ParseUriValue(expected))), EqualsObjectBackedResultKey);
+            }
+
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonIdnHostname>(ValueKey).Equals((JsonIdnHostname)JsonAny.ParseUriValue(expected)), EqualsResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonIdnHostname>(ValueKey) == (JsonIdnHostname)JsonAny.ParseUriValue(expected), EqualityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonIdnHostname>(ValueKey) != (JsonIdnHostname)JsonAny.ParseUriValue(expected), InequalityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonIdnHostname>(ValueKey).GetHashCode() == ((JsonIdnHostname)JsonAny.ParseUriValue(expected)).GetHashCode(), HashCodeResultKey);
+        }
+
+        /// <summary>
+        /// Compares the value in JsonIdnHostname in the context variable <c>Value</c> with the expected base64String, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare the idnHostname to the IJsonValue (.*)")]
+        public void WhenICompareTheIdnHostnameToTheIJsonValue(string expected)
+        {
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonIdnHostname>(ValueKey).Equals(JsonAny.ParseUriValue(expected)), EqualsResultKey);
+        }
+
+        /// <summary>
+        /// Compares the value in JsonIdnHostname in the context variable <c>Value</c> with the expected base64String, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare the idnHostname to the object (.*)")]
+        public void WhenICompareTheIdnHostnameToTheObject(string expected)
+        {
+            object? obj = expected == "<undefined>" ? default(JsonIdnHostname) : expected == "<null>" ? null : expected == "<new object()>" ? new object() : JsonAny.ParseUriValue(expected);
+            this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonIdnHostname>(ValueKey)).Equals(obj), EqualsResultKey);
+            if (obj is not null)
+            {
+                this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonIdnHostname>(ValueKey)).GetHashCode() == obj.GetHashCode(), HashCodeResultKey);
+            }
+        }
+
         /// <summary>
         /// Asserts that the result from a previous comparison stored in the context variable <c>Result</c> is as expected.
         /// </summary>

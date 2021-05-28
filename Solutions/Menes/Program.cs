@@ -67,6 +67,8 @@ namespace Menes
                     },
                 });
 
+            JsonObject.From(new { notsemi = "&", notdot = "!", notcomma = "_" });
+
             ////Schema schema = JsonAny.Parse(@"{""foo"": {""bar"": false}}");
 
             ////var result = schema.Validate();
