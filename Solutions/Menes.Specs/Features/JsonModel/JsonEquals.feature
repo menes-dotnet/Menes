@@ -46,6 +46,8 @@ Scenario Outline: Equals for string json element backed value as an IJsonValue
 		| "Hello"   | "www.example.com"              | false  |
 		| "Hello"   | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "Hello"   | "{ \"first\": \"1\" }"         | false  |
+		| "Hello"   | "192.168.0.1"                  | false  |
+		| "Hello"   | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 
 Scenario Outline: Equals for string dotnet backed value as an IJsonValue
 	Given the dotnet backed JsonString <jsonValue>
@@ -69,6 +71,8 @@ Scenario Outline: Equals for string dotnet backed value as an IJsonValue
 		| "Hello"   | "www.example.com"              | false  |
 		| "Hello"   | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "Hello"   | "{ \"first\": \"1\" }"         | false  |
+		| "Hello"   | "192.168.0.1"                  | false  |
+		| "Hello"   | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 
 Scenario Outline: Equals for string json element backed value as an object
 	Given the JsonElement backed JsonString <jsonValue>
@@ -92,6 +96,8 @@ Scenario Outline: Equals for string json element backed value as an object
 		| "Hello"   | "www.example.com"              | false  |
 		| "Hello"   | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "Hello"   | "{ \"first\": \"1\" }"         | false  |
+		| "Hello"   | "192.168.0.1"                  | false  |
+		| "Hello"   | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 		| "Hello"   | <new object()>                 | false  |
 		| "Hello"   | null                           | false  |
 
@@ -117,6 +123,8 @@ Scenario Outline: Equals for string dotnet backed value as an object
 		| "Hello"   | "www.example.com"              | false  |
 		| "Hello"   | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "Hello"   | "{ \"first\": \"1\" }"         | false  |
+		| "Hello"   | "192.168.0.1"                  | false  |
+		| "Hello"   | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 		| "Hello"   | <new object()>                 | false  |
 		| "Hello"   | null                           | false  |
 		| "Hello"   | <null>                         | false  |
@@ -176,6 +184,8 @@ Scenario Outline: Equals for boolean json element backed value as an IJsonValue
 		| false     | "www.example.com"              | false  |
 		| false     | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| false     | "{ \"first\": \"1\" }"         | false  |
+		| false     | "192.168.0.1"                  | false  |
+		| false     | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 
 Scenario Outline: Equals for boolean dotnet backed value as an IJsonValue
 	Given the dotnet backed JsonBoolean <jsonValue>
@@ -200,6 +210,8 @@ Scenario Outline: Equals for boolean dotnet backed value as an IJsonValue
 		| false     | "www.example.com"              | false  |
 		| false     | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| false     | "{ \"first\": \"1\" }"         | false  |
+		| false     | "192.168.0.1"                  | false  |
+		| false     | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 
 Scenario Outline: Equals for boolean json element backed value as an object
 	Given the JsonElement backed JsonBoolean <jsonValue>
@@ -224,6 +236,8 @@ Scenario Outline: Equals for boolean json element backed value as an object
 		| false     | "www.example.com"              | false  |
 		| false     | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| false     | "{ \"first\": \"1\" }"         | false  |
+		| false     | "192.168.0.1"                  | false  |
+		| false     | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 		| false     | <new object()>                 | false  |
 		| false     | null                           | false  |
 
@@ -250,6 +264,8 @@ Scenario Outline: Equals for boolean dotnet backed value as an object
 		| false     | "www.example.com"              | false  |
 		| false     | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| false     | "{ \"first\": \"1\" }"         | false  |
+		| false     | "192.168.0.1"                  | false  |
+		| false     | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 		| false     | <new object()>                 | false  |
 		| false     | null                           | false  |
 		| false     | <null>                         | false  |
@@ -308,6 +324,8 @@ Scenario Outline: Equals for array json element backed value as an IJsonValue
 		| [1,2,3]   | "www.example.com"              | false  |
 		| [1,2,3]   | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| [1,2,3]   | "{ \"first\": \"1\" }"         | false  |
+		| [1,2,3]   | "192.168.0.1"                  | false  |
+		| [1,2,3]   | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 
 Scenario Outline: Equals for array dotnet backed value as an IJsonValue
 	Given the dotnet backed JsonArray <jsonValue>
@@ -330,6 +348,8 @@ Scenario Outline: Equals for array dotnet backed value as an IJsonValue
 		| [1,2,3]   | "www.example.com"              | false  |
 		| [1,2,3]   | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| [1,2,3]   | "{ \"first\": \"1\" }"         | false  |
+		| [1,2,3]   | "192.168.0.1"                  | false  |
+		| [1,2,3]   | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 
 Scenario Outline: Equals for array json element backed value as an object
 	Given the JsonElement backed JsonArray <jsonValue>
@@ -352,6 +372,8 @@ Scenario Outline: Equals for array json element backed value as an object
 		| [1,2,3]   | "www.example.com"              | false  |
 		| [1,2,3]   | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| [1,2,3]   | "{ \"first\": \"1\" }"         | false  |
+		| [1,2,3]   | "192.168.0.1"                  | false  |
+		| [1,2,3]   | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 
 Scenario Outline: Equals for array dotnet backed value as an object
 	Given the dotnet backed JsonArray <jsonValue>
@@ -374,6 +396,8 @@ Scenario Outline: Equals for array dotnet backed value as an object
 		| [1,2,3]   | "www.example.com"              | false  |
 		| [1,2,3]   | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| [1,2,3]   | "{ \"first\": \"1\" }"         | false  |
+		| [1,2,3]   | "192.168.0.1"                  | false  |
+		| [1,2,3]   | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 		| [1,2,3]   | <new object()>                 | false  |
 		| [1,2,3]   | null                           | false  |
 		| [1,2,3]   | <null>                         | false  |
@@ -427,6 +451,8 @@ Scenario Outline: Equals for base64content json element backed value as an IJson
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "www.example.com"              | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "{ \"first\": \"1\" }"         | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "192.168.0.1"                  | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 
 Scenario Outline: Equals for base64content dotnet backed value as an IJsonValue
 	Given the dotnet backed JsonBase64Content <jsonValue>
@@ -450,6 +476,8 @@ Scenario Outline: Equals for base64content dotnet backed value as an IJsonValue
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "www.example.com"              | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "{ \"first\": \"1\" }"         | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "192.168.0.1"                  | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 
 Scenario Outline: Equals for base64content json element backed value as an object
 	Given the JsonElement backed JsonBase64Content <jsonValue>
@@ -473,6 +501,8 @@ Scenario Outline: Equals for base64content json element backed value as an objec
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "www.example.com"              | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "{ \"first\": \"1\" }"         | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "192.168.0.1"                  | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | <new object()>                 | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | null                           | false  |
 
@@ -498,6 +528,8 @@ Scenario Outline: Equals for base64content dotnet backed value as an object
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "www.example.com"              | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "{ \"first\": \"1\" }"         | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "192.168.0.1"                  | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | <new object()>                 | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | null                           | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | <null>                         | false  |
@@ -551,6 +583,8 @@ Scenario Outline: Equals for base64string json element backed value as an IJsonV
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "www.example.com"              | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "{ \"first\": \"1\" }"         | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "192.168.0.1"                  | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 
 Scenario Outline: Equals for base64string dotnet backed value as an IJsonValue
 	Given the dotnet backed JsonBase64String <jsonValue>
@@ -574,6 +608,8 @@ Scenario Outline: Equals for base64string dotnet backed value as an IJsonValue
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "www.example.com"              | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "{ \"first\": \"1\" }"         | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "192.168.0.1"                  | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 
 Scenario Outline: Equals for base64string json element backed value as an object
 	Given the JsonElement backed JsonBase64String <jsonValue>
@@ -597,6 +633,8 @@ Scenario Outline: Equals for base64string json element backed value as an object
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "www.example.com"              | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "{ \"first\": \"1\" }"         | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "192.168.0.1"                  | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | <new object()>                 | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | null                           | false  |
 
@@ -622,6 +660,8 @@ Scenario Outline: Equals for base64string dotnet backed value as an object
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "www.example.com"              | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | true   |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "{ \"first\": \"1\" }"         | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "192.168.0.1"                  | false  |
+		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | <new object()>                 | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | null                           | false  |
 		| "eyAiaGVsbG8iOiAid29ybGQiIH0=" | <null>                         | false  |
@@ -675,6 +715,8 @@ Scenario Outline: Equals for content json element backed value as an IJsonValue
 		| "{ \"first\": \"1\" }" | "www.example.com"              | false  |
 		| "{ \"first\": \"1\" }" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "{ \"first\": \"1\" }" | "{ \"first\": \"1\" }"         | true   |
+		| "{ \"first\": \"1\" }" | "192.168.0.1"                  | false  |
+		| "{ \"first\": \"1\" }" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 
 Scenario Outline: Equals for content dotnet backed value as an IJsonValue
 	Given the dotnet backed JsonContent <jsonValue>
@@ -698,6 +740,8 @@ Scenario Outline: Equals for content dotnet backed value as an IJsonValue
 		| "{ \"first\": \"1\" }" | "www.example.com"              | false  |
 		| "{ \"first\": \"1\" }" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "{ \"first\": \"1\" }" | "{ \"first\": \"1\" }"         | true   |
+		| "{ \"first\": \"1\" }" | "192.168.0.1"                  | false  |
+		| "{ \"first\": \"1\" }" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 
 Scenario Outline: Equals for content json element backed value as an object
 	Given the JsonElement backed JsonContent <jsonValue>
@@ -721,6 +765,8 @@ Scenario Outline: Equals for content json element backed value as an object
 		| "{ \"first\": \"1\" }" | "www.example.com"              | false  |
 		| "{ \"first\": \"1\" }" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "{ \"first\": \"1\" }" | "{ \"first\": \"1\" }"         | true   |
+		| "{ \"first\": \"1\" }" | "192.168.0.1"                  | false  |
+		| "{ \"first\": \"1\" }" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 		| "{ \"first\": \"1\" }" | <new object()>                 | false  |
 		| "{ \"first\": \"1\" }" | null                           | false  |
 
@@ -746,6 +792,8 @@ Scenario Outline: Equals for content dotnet backed value as an object
 		| "{ \"first\": \"1\" }" | "www.example.com"              | false  |
 		| "{ \"first\": \"1\" }" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "{ \"first\": \"1\" }" | "{ \"first\": \"1\" }"         | true   |
+		| "{ \"first\": \"1\" }" | "192.168.0.1"                  | false  |
+		| "{ \"first\": \"1\" }" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 		| "{ \"first\": \"1\" }" | <new object()>                 | false  |
 		| "{ \"first\": \"1\" }" | null                           | false  |
 		| "{ \"first\": \"1\" }" | <null>                         | false  |
@@ -802,6 +850,8 @@ Scenario Outline: Equals for date json element backed value as an IJsonValue
 		| "2018-11-13" | "www.example.com"              | false  |
 		| "2018-11-13" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "2018-11-13" | "{ \"first\": \"1\" }"         | false  |
+		| "2018-11-13" | "192.168.0.1"                  | false  |
+		| "2018-11-13" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 
 Scenario Outline: Equals for date dotnet backed value as an IJsonValue
 	Given the dotnet backed JsonDate <jsonValue>
@@ -826,6 +876,8 @@ Scenario Outline: Equals for date dotnet backed value as an IJsonValue
 		| "2018-11-13" | "www.example.com"              | false  |
 		| "2018-11-13" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "2018-11-13" | "{ \"first\": \"1\" }"         | false  |
+		| "2018-11-13" | "192.168.0.1"                  | false  |
+		| "2018-11-13" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 
 Scenario Outline: Equals for date json element backed value as an object
 	Given the JsonElement backed JsonDate <jsonValue>
@@ -849,6 +901,8 @@ Scenario Outline: Equals for date json element backed value as an object
 		| "2018-11-13" | "www.example.com"              | false  |
 		| "2018-11-13" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "2018-11-13" | "{ \"first\": \"1\" }"         | false  |
+		| "2018-11-13" | "192.168.0.1"                  | false  |
+		| "2018-11-13" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 		| "2018-11-13" | <new object()>                 | false  |
 		| "2018-11-13" | null                           | false  |
 
@@ -874,6 +928,8 @@ Scenario Outline: Equals for date dotnet backed value as an object
 		| "2018-11-13" | "www.example.com"              | false  |
 		| "2018-11-13" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "2018-11-13" | "{ \"first\": \"1\" }"         | false  |
+		| "2018-11-13" | "192.168.0.1"                  | false  |
+		| "2018-11-13" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 		| "2018-11-13" | <new object()>                 | false  |
 		| "2018-11-13" | null                           | false  |
 		| "2018-11-13" | <null>                         | false  |
@@ -930,6 +986,8 @@ Scenario Outline: Equals for dateTime json element backed value as an IJsonValue
 		| "2018-11-13T20:20:39+00:00" | "www.example.com"              | false  |
 		| "2018-11-13T20:20:39+00:00" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "2018-11-13T20:20:39+00:00" | "{ \"first\": \"1\" }"         | false  |
+		| "2018-11-13T20:20:39+00:00" | "192.168.0.1"                  | false  |
+		| "2018-11-13T20:20:39+00:00" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 
 Scenario Outline: Equals for dateTime dotnet backed value as an IJsonValue
 	Given the dotnet backed JsonDateTime <jsonValue>
@@ -954,6 +1012,8 @@ Scenario Outline: Equals for dateTime dotnet backed value as an IJsonValue
 		| "2018-11-13T20:20:39+00:00" | "www.example.com"              | false  |
 		| "2018-11-13T20:20:39+00:00" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "2018-11-13T20:20:39+00:00" | "{ \"first\": \"1\" }"         | false  |
+		| "2018-11-13T20:20:39+00:00" | "192.168.0.1"                  | false  |
+		| "2018-11-13T20:20:39+00:00" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 
 Scenario Outline: Equals for dateTime json element backed value as an object
 	Given the JsonElement backed JsonDateTime <jsonValue>
@@ -977,6 +1037,8 @@ Scenario Outline: Equals for dateTime json element backed value as an object
 		| "2018-11-13T20:20:39+00:00" | "www.example.com"              | false  |
 		| "2018-11-13T20:20:39+00:00" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "2018-11-13T20:20:39+00:00" | "{ \"first\": \"1\" }"         | false  |
+		| "2018-11-13T20:20:39+00:00" | "192.168.0.1"                  | false  |
+		| "2018-11-13T20:20:39+00:00" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 		| "2018-11-13T20:20:39+00:00" | <new object()>                 | false  |
 		| "2018-11-13T20:20:39+00:00" | null                           | false  |
 
@@ -1002,6 +1064,8 @@ Scenario Outline: Equals for dateTime dotnet backed value as an object
 		| "2018-11-13T20:20:39+00:00" | "www.example.com"              | false  |
 		| "2018-11-13T20:20:39+00:00" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "2018-11-13T20:20:39+00:00" | "{ \"first\": \"1\" }"         | false  |
+		| "2018-11-13T20:20:39+00:00" | "192.168.0.1"                  | false  |
+		| "2018-11-13T20:20:39+00:00" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 		| "2018-11-13T20:20:39+00:00" | <new object()>                 | false  |
 		| "2018-11-13T20:20:39+00:00" | null                           | false  |
 		| "2018-11-13T20:20:39+00:00" | <null>                         | false  |
@@ -1058,6 +1122,8 @@ Scenario Outline: Equals for duration json element backed value as an IJsonValue
 		| "P3Y6M4DT12H30M5S" | "www.example.com"              | false  |
 		| "P3Y6M4DT12H30M5S" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "P3Y6M4DT12H30M5S" | "{ \"first\": \"1\" }"         | false  |
+		| "P3Y6M4DT12H30M5S" | "192.168.0.1"                  | false  |
+		| "P3Y6M4DT12H30M5S" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 
 Scenario Outline: Equals for duration dotnet backed value as an IJsonValue
 	Given the dotnet backed JsonDuration <jsonValue>
@@ -1082,6 +1148,8 @@ Scenario Outline: Equals for duration dotnet backed value as an IJsonValue
 		| "P3Y6M4DT12H30M5S" | "www.example.com"              | false  |
 		| "P3Y6M4DT12H30M5S" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "P3Y6M4DT12H30M5S" | "{ \"first\": \"1\" }"         | false  |
+		| "P3Y6M4DT12H30M5S" | "192.168.0.1"                  | false  |
+		| "P3Y6M4DT12H30M5S" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 
 Scenario Outline: Equals for duration json element backed value as an object
 	Given the JsonElement backed JsonDuration <jsonValue>
@@ -1105,6 +1173,8 @@ Scenario Outline: Equals for duration json element backed value as an object
 		| "P3Y6M4DT12H30M5S" | "www.example.com"              | false  |
 		| "P3Y6M4DT12H30M5S" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "P3Y6M4DT12H30M5S" | "{ \"first\": \"1\" }"         | false  |
+		| "P3Y6M4DT12H30M5S" | "192.168.0.1"                  | false  |
+		| "P3Y6M4DT12H30M5S" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 		| "P3Y6M4DT12H30M5S" | <new object()>                 | false  |
 		| "P3Y6M4DT12H30M5S" | null                           | false  |
 
@@ -1130,6 +1200,8 @@ Scenario Outline: Equals for duration dotnet backed value as an object
 		| "P3Y6M4DT12H30M5S" | "www.example.com"              | false  |
 		| "P3Y6M4DT12H30M5S" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "P3Y6M4DT12H30M5S" | "{ \"first\": \"1\" }"         | false  |
+		| "P3Y6M4DT12H30M5S" | "192.168.0.1"                  | false  |
+		| "P3Y6M4DT12H30M5S" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 		| "P3Y6M4DT12H30M5S" | <new object()>                 | false  |
 		| "P3Y6M4DT12H30M5S" | null                           | false  |
 		| "P3Y6M4DT12H30M5S" | <null>                         | false  |
@@ -1186,6 +1258,8 @@ Scenario Outline: Equals for email json element backed value as an IJsonValue
 		| "hello@endjin.com" | "www.example.com"              | false  |
 		| "hello@endjin.com" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "hello@endjin.com" | "{ \"first\": \"1\" }"         | false  |
+		| "hello@endjin.com" | "192.168.0.1"                  | false  |
+		| "hello@endjin.com" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 
 Scenario Outline: Equals for email dotnet backed value as an IJsonValue
 	Given the dotnet backed JsonEmail <jsonValue>
@@ -1210,6 +1284,8 @@ Scenario Outline: Equals for email dotnet backed value as an IJsonValue
 		| "hello@endjin.com" | "hello@endjin.com"             | true   |
 		| "hello@endjin.com" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "hello@endjin.com" | "{ \"first\": \"1\" }"         | false  |
+		| "hello@endjin.com" | "192.168.0.1"                  | false  |
+		| "hello@endjin.com" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 
 Scenario Outline: Equals for email json element backed value as an object
 	Given the JsonElement backed JsonEmail <jsonValue>
@@ -1233,6 +1309,8 @@ Scenario Outline: Equals for email json element backed value as an object
 		| "hello@endjin.com" | "www.example.com"              | false  |
 		| "hello@endjin.com" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "hello@endjin.com" | "{ \"first\": \"1\" }"         | false  |
+		| "hello@endjin.com" | "192.168.0.1"                  | false  |
+		| "hello@endjin.com" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 		| "hello@endjin.com" | <new object()>                 | false  |
 		| "hello@endjin.com" | null                           | false  |
 
@@ -1258,6 +1336,8 @@ Scenario Outline: Equals for email dotnet backed value as an object
 		| "hello@endjin.com" | "www.example.com"              | false  |
 		| "hello@endjin.com" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "hello@endjin.com" | "{ \"first\": \"1\" }"         | false  |
+		| "hello@endjin.com" | "192.168.0.1"                  | false  |
+		| "hello@endjin.com" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 		| "hello@endjin.com" | <new object()>                 | false  |
 		| "hello@endjin.com" | null                           | false  |
 		| "hello@endjin.com" | <null>                         | false  |
@@ -1314,6 +1394,8 @@ Scenario Outline: Equals for idnEmail json element backed value as an IJsonValue
 		| "hello@endjin.com" | "www.example.com"              | false  |
 		| "hello@endjin.com" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "hello@endjin.com" | "{ \"first\": \"1\" }"         | false  |
+		| "hello@endjin.com" | "192.168.0.1"                  | false  |
+		| "hello@endjin.com" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 
 Scenario Outline: Equals for idnEmail dotnet backed value as an IJsonValue
 	Given the dotnet backed JsonIdnEmail <jsonValue>
@@ -1338,6 +1420,7 @@ Scenario Outline: Equals for idnEmail dotnet backed value as an IJsonValue
 		| "hello@endjin.com" | "www.example.com"              | false  |
 		| "hello@endjin.com" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "hello@endjin.com" | "{ \"first\": \"1\" }"         | false  |
+		| "hello@endjin.com" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 
 Scenario Outline: Equals for idnEmail json element backed value as an object
 	Given the JsonElement backed JsonIdnEmail <jsonValue>
@@ -1361,6 +1444,8 @@ Scenario Outline: Equals for idnEmail json element backed value as an object
 		| "hello@endjin.com" | "www.example.com"              | false  |
 		| "hello@endjin.com" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "hello@endjin.com" | "{ \"first\": \"1\" }"         | false  |
+		| "hello@endjin.com" | "192.168.0.1"                  | false  |
+		| "hello@endjin.com" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 		| "hello@endjin.com" | <new object()>                 | false  |
 		| "hello@endjin.com" | null                           | false  |
 
@@ -1386,6 +1471,8 @@ Scenario Outline: Equals for idnEmail dotnet backed value as an object
 		| "hello@endjin.com" | "www.example.com"              | false  |
 		| "hello@endjin.com" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "hello@endjin.com" | "{ \"first\": \"1\" }"         | false  |
+		| "hello@endjin.com" | "192.168.0.1"                  | false  |
+		| "hello@endjin.com" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 		| "hello@endjin.com" | <new object()>                 | false  |
 		| "hello@endjin.com" | null                           | false  |
 		| "hello@endjin.com" | <null>                         | false  |
@@ -1442,6 +1529,8 @@ Scenario Outline: Equals for hostname json element backed value as an IJsonValue
 		| "www.example.com" | "www.example.com"              | true   |
 		| "www.example.com" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "www.example.com" | "{ \"first\": \"1\" }"         | false  |
+		| "www.example.com" | "192.168.0.1"                  | false  |
+		| "www.example.com" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 
 Scenario Outline: Equals for hostname dotnet backed value as an IJsonValue
 	Given the dotnet backed JsonHostname <jsonValue>
@@ -1466,6 +1555,8 @@ Scenario Outline: Equals for hostname dotnet backed value as an IJsonValue
 		| "www.example.com" | "www.example.com"              | true   |
 		| "www.example.com" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "www.example.com" | "{ \"first\": \"1\" }"         | false  |
+		| "www.example.com" | "192.168.0.1"                  | false  |
+		| "www.example.com" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 
 Scenario Outline: Equals for hostname json element backed value as an object
 	Given the JsonElement backed JsonHostname <jsonValue>
@@ -1489,6 +1580,8 @@ Scenario Outline: Equals for hostname json element backed value as an object
 		| "www.example.com" | "www.example.com"              | true   |
 		| "www.example.com" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "www.example.com" | "{ \"first\": \"1\" }"         | false  |
+		| "www.example.com" | "192.168.0.1"                  | false  |
+		| "www.example.com" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 		| "www.example.com" | <new object()>                 | false  |
 		| "www.example.com" | null                           | false  |
 
@@ -1514,6 +1607,8 @@ Scenario Outline: Equals for hostname dotnet backed value as an object
 		| "www.example.com" | "www.example.com"              | true   |
 		| "www.example.com" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "www.example.com" | "{ \"first\": \"1\" }"         | false  |
+		| "www.example.com" | "192.168.0.1"                  | false  |
+		| "www.example.com" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 		| "www.example.com" | <new object()>                 | false  |
 		| "www.example.com" | null                           | false  |
 		| "www.example.com" | <null>                         | false  |
@@ -1570,6 +1665,8 @@ Scenario Outline: Equals for idnHostname json element backed value as an IJsonVa
 		| "www.example.com" | "www.example.com"              | true   |
 		| "www.example.com" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "www.example.com" | "{ \"first\": \"1\" }"         | false  |
+		| "www.example.com" | "192.168.0.1"                  | false  |
+		| "www.example.com" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 
 Scenario Outline: Equals for idnHostname dotnet backed value as an IJsonValue
 	Given the dotnet backed JsonIdnHostname <jsonValue>
@@ -1594,6 +1691,8 @@ Scenario Outline: Equals for idnHostname dotnet backed value as an IJsonValue
 		| "www.example.com" | "www.example.com"              | true   |
 		| "www.example.com" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "www.example.com" | "{ \"first\": \"1\" }"         | false  |
+		| "www.example.com" | "192.168.0.1"                  | false  |
+		| "www.example.com" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 
 Scenario Outline: Equals for idnHostname json element backed value as an object
 	Given the JsonElement backed JsonIdnHostname <jsonValue>
@@ -1617,6 +1716,8 @@ Scenario Outline: Equals for idnHostname json element backed value as an object
 		| "www.example.com" | "www.example.com"              | true   |
 		| "www.example.com" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "www.example.com" | "{ \"first\": \"1\" }"         | false  |
+		| "www.example.com" | "192.168.0.1"                  | false  |
+		| "www.example.com" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 		| "www.example.com" | <new object()>                 | false  |
 		| "www.example.com" | null                           | false  |
 
@@ -1642,6 +1743,8 @@ Scenario Outline: Equals for idnHostname dotnet backed value as an object
 		| "www.example.com" | "www.example.com"              | true   |
 		| "www.example.com" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| "www.example.com" | "{ \"first\": \"1\" }"         | false  |
+		| "www.example.com" | "192.168.0.1"                  | false  |
+		| "www.example.com" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 		| "www.example.com" | <new object()>                 | false  |
 		| "www.example.com" | null                           | false  |
 		| "www.example.com" | <null>                         | false  |
@@ -1696,6 +1799,8 @@ Scenario Outline: Equals for integer json element backed value as an IJsonValue
 		| 1         | "www.example.com"              | false  |
 		| 1         | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| 1         | "{ \"first\": \"1\" }"         | false  |
+		| 1         | "192.168.0.1"                  | false  |
+		| 1         | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 
 Scenario Outline: Equals for integer dotnet backed value as an IJsonValue
 	Given the dotnet backed JsonInteger <jsonValue>
@@ -1720,6 +1825,8 @@ Scenario Outline: Equals for integer dotnet backed value as an IJsonValue
 		| 1         | "www.example.com"              | false  |
 		| 1         | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| 1         | "{ \"first\": \"1\" }"         | false  |
+		| 1         | "192.168.0.1"                  | false  |
+		| 1         | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 
 Scenario Outline: Equals for integer json element backed value as an object
 	Given the JsonElement backed JsonInteger <jsonValue>
@@ -1743,6 +1850,8 @@ Scenario Outline: Equals for integer json element backed value as an object
 		| 1         | "www.example.com"              | false  |
 		| 1         | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| 1         | "{ \"first\": \"1\" }"         | false  |
+		| 1         | "192.168.0.1"                  | false  |
+		| 1         | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 		| 1         | <new object()>                 | false  |
 		| 1         | null                           | false  |
 
@@ -1768,6 +1877,8 @@ Scenario Outline: Equals for integer dotnet backed value as an object
 		| 1         | "www.example.com"              | false  |
 		| 1         | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
 		| 1         | "{ \"first\": \"1\" }"         | false  |
+		| 1         | "192.168.0.1"                  | false  |
+		| 1         | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
 		| 1         | <new object()>                 | false  |
 		| 1         | null                           | false  |
 		| 1         | <null>                         | false  |
@@ -1775,3 +1886,271 @@ Scenario Outline: Equals for integer dotnet backed value as an object
 		| null      | null                           | true   |
 		| null      | <null>                         | true   |
 		| null      | <undefined>                    | false  |
+
+# JsonIpV4
+Scenario Outline: Equals for json element backed value as a ipV4
+	Given the JsonElement backed JsonIpV4 <jsonValue>
+	When I compare it to the ipV4 <value>
+	Then the result should be <result>
+
+	Examples:
+		| jsonValue     | value         | result |
+		| "192.168.0.1" | "192.168.0.1" | true   |
+		| "192.168.0.1" | "192.168.0.2" | false  |
+		| null          | null          | true   |
+		| null          | "192.168.0.1" | false  |
+
+Scenario Outline: Equals for dotnet backed value as a ipV4
+	Given the dotnet backed JsonIpV4 <jsonValue>
+	When I compare it to the ipV4 <value>
+	Then the result should be <result>
+
+	Examples:
+		| jsonValue     | value         | result |
+		| "192.168.0.1" | "192.168.0.1" | true   |
+		| "192.168.0.1" | "192.168.0.2" | false  |
+
+Scenario Outline: Equals for ipV4 json element backed value as an IJsonValue
+	Given the JsonElement backed JsonIpV4 <jsonValue>
+	When I compare the ipV4 to the IJsonValue <value>
+	Then the result should be <result>
+
+	Examples:
+		| jsonValue     | value                          | result |
+		| "192.168.0.1" | "Hello"                        | false  |
+		| "192.168.0.1" | "Goodbye"                      | false  |
+		| "192.168.0.1" | 1                              | false  |
+		| "192.168.0.1" | 1.1                            | false  |
+		| "192.168.0.1" | [1,2,3]                        | false  |
+		| "192.168.0.1" | { "first": "1" }               | false  |
+		| "192.168.0.1" | true                           | false  |
+		| "192.168.0.1" | false                          | false  |
+		| "192.168.0.1" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "192.168.0.1" | "2018-11-13"                   | false  |
+		| "192.168.0.1" | "P3Y6M4DT12H30M5S"             | false  |
+		| "192.168.0.1" | "2018-11-13"                   | false  |
+		| "192.168.0.1" | "hello@endjin.com"             | false  |
+		| "192.168.0.1" | "www.example.com"              | false  |
+		| "192.168.0.1" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
+		| "192.168.0.1" | "{ \"first\": \"1\" }"         | false  |
+		| "192.168.0.1" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
+		| "192.168.0.1" | "192.168.0.1"                  | true   |
+
+Scenario Outline: Equals for ipV4 dotnet backed value as an IJsonValue
+	Given the dotnet backed JsonIpV4 <jsonValue>
+	When I compare the ipV4 to the IJsonValue <value>
+	Then the result should be <result>
+
+	Examples:
+		| jsonValue     | value                          | result |
+		| "192.168.0.1" | "Hello"                        | false  |
+		| "192.168.0.1" | "Goodbye"                      | false  |
+		| "192.168.0.1" | 1                              | false  |
+		| "192.168.0.1" | 1.1                            | false  |
+		| "192.168.0.1" | [1,2,3]                        | false  |
+		| "192.168.0.1" | { "first": "1" }               | false  |
+		| "192.168.0.1" | true                           | false  |
+		| "192.168.0.1" | false                          | false  |
+		| "192.168.0.1" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "192.168.0.1" | "P3Y6M4DT12H30M5S"             | false  |
+		| "192.168.0.1" | "2018-11-13"                   | false  |
+		| "192.168.0.1" | "P3Y6M4DT12H30M5S"             | false  |
+		| "192.168.0.1" | "hello@endjin.com"             | false  |
+		| "192.168.0.1" | "www.example.com"              | false  |
+		| "192.168.0.1" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
+		| "192.168.0.1" | "{ \"first\": \"1\" }"         | false  |
+		| "192.168.0.1" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
+		| "192.168.0.1" | "192.168.0.1"                  | true   |
+
+Scenario Outline: Equals for ipV4 json element backed value as an object
+	Given the JsonElement backed JsonIpV4 <jsonValue>
+	When I compare the ipV4 to the object <value>
+	Then the result should be <result>
+
+	Examples:
+		| jsonValue     | value                          | result |
+		| "192.168.0.1" | "Hello"                        | false  |
+		| "192.168.0.1" | "Goodbye"                      | false  |
+		| "192.168.0.1" | 1                              | false  |
+		| "192.168.0.1" | 1.1                            | false  |
+		| "192.168.0.1" | [1,2,3]                        | false  |
+		| "192.168.0.1" | { "first": "1" }               | false  |
+		| "192.168.0.1" | true                           | false  |
+		| "192.168.0.1" | false                          | false  |
+		| "192.168.0.1" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "192.168.0.1" | "P3Y6M4DT12H30M5S"             | false  |
+		| "192.168.0.1" | "2018-11-13"                   | false  |
+		| "192.168.0.1" | "hello@endjin.com"             | false  |
+		| "192.168.0.1" | "www.example.com"              | false  |
+		| "192.168.0.1" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
+		| "192.168.0.1" | "{ \"first\": \"1\" }"         | false  |
+		| "192.168.0.1" | <new object()>                 | false  |
+		| "192.168.0.1" | "192.168.0.1"                  | true   |
+		| "192.168.0.1" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
+		| "192.168.0.1" | null                           | false  |
+
+Scenario Outline: Equals for ipV4 dotnet backed value as an object
+	Given the dotnet backed JsonIpV4 <jsonValue>
+	When I compare the ipV4 to the object <value>
+	Then the result should be <result>
+
+	Examples:
+		| jsonValue     | value                          | result |
+		| "192.168.0.1" | "Hello"                        | false  |
+		| "192.168.0.1" | "Goodbye"                      | false  |
+		| "192.168.0.1" | 1                              | false  |
+		| "192.168.0.1" | 1.1                            | false  |
+		| "192.168.0.1" | [1,2,3]                        | false  |
+		| "192.168.0.1" | { "first": "1" }               | false  |
+		| "192.168.0.1" | true                           | false  |
+		| "192.168.0.1" | false                          | false  |
+		| "192.168.0.1" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "192.168.0.1" | "2018-11-13"                   | false  |
+		| "192.168.0.1" | "P3Y6M4DT12H30M5S"             | false  |
+		| "192.168.0.1" | "hello@endjin.com"             | false  |
+		| "192.168.0.1" | "www.example.com"              | false  |
+		| "192.168.0.1" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
+		| "192.168.0.1" | "{ \"first\": \"1\" }"         | false  |
+		| "192.168.0.1" | "192.168.0.1"                  | true   |
+		| "192.168.0.1" | "0:0:0:0:0:ffff:c0a8:0001"     | false  |
+		| "192.168.0.1" | <new object()>                 | false  |
+		| "192.168.0.1" | null                           | false  |
+		| "192.168.0.1" | <null>                         | false  |
+		| "192.168.0.1" | <undefined>                    | false  |
+		| null          | null                           | true   |
+		| null          | <null>                         | true   |
+		| null          | <undefined>                    | false  |
+
+# JsonIpV6
+Scenario Outline: Equals for json element backed value as a ipV6
+	Given the JsonElement backed JsonIpV6 <jsonValue>
+	When I compare it to the ipV6 <value>
+	Then the result should be <result>
+
+	Examples:
+		| jsonValue                  | value                      | result |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "0:0:0:0:0:ffff:c0a8:0001" | true   |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "0:0:0:0:0:ffff:c0a8:0002" | false  |
+		| null                       | null                       | true   |
+		| null                       | "0:0:0:0:0:ffff:c0a8:0001" | false  |
+
+Scenario Outline: Equals for dotnet backed value as a ipV6
+	Given the dotnet backed JsonIpV6 <jsonValue>
+	When I compare it to the ipV6 <value>
+	Then the result should be <result>
+
+	Examples:
+		| jsonValue                  | value                      | result |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "0:0:0:0:0:ffff:c0a8:0001" | true   |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "0:0:0:0:0:ffff:c0a8:0002" | false  |
+
+Scenario Outline: Equals for ipV6 json element backed value as an IJsonValue
+	Given the JsonElement backed JsonIpV6 <jsonValue>
+	When I compare the ipV6 to the IJsonValue <value>
+	Then the result should be <result>
+
+	Examples:
+		| jsonValue                  | value                          | result |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "Hello"                        | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "Goodbye"                      | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | 1                              | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | 1.1                            | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | [1,2,3]                        | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | { "first": "1" }               | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | true                           | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | false                          | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "2018-11-13"                   | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "P3Y6M4DT12H30M5S"             | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "2018-11-13"                   | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "hello@endjin.com"             | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "www.example.com"              | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "{ \"first\": \"1\" }"         | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "192.168.0.1"                  | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "0:0:0:0:0:ffff:c0a8:0001"     | true   |
+
+Scenario Outline: Equals for ipV6 dotnet backed value as an IJsonValue
+	Given the dotnet backed JsonIpV6 <jsonValue>
+	When I compare the ipV6 to the IJsonValue <value>
+	Then the result should be <result>
+
+	Examples:
+		| jsonValue                  | value                          | result |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "Hello"                        | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "Goodbye"                      | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | 1                              | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | 1.1                            | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | [1,2,3]                        | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | { "first": "1" }               | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | true                           | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | false                          | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "P3Y6M4DT12H30M5S"             | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "2018-11-13"                   | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "P3Y6M4DT12H30M5S"             | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "hello@endjin.com"             | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "www.example.com"              | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "{ \"first\": \"1\" }"         | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "192.168.0.1"                  | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "0:0:0:0:0:ffff:c0a8:0001"     | true   |
+
+Scenario Outline: Equals for ipV6 json element backed value as an object
+	Given the JsonElement backed JsonIpV6 <jsonValue>
+	When I compare the ipV6 to the object <value>
+	Then the result should be <result>
+
+	Examples:
+		| jsonValue                  | value                          | result |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "Hello"                        | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "Goodbye"                      | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | 1                              | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | 1.1                            | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | [1,2,3]                        | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | { "first": "1" }               | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | true                           | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | false                          | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "P3Y6M4DT12H30M5S"             | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "2018-11-13"                   | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "hello@endjin.com"             | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "www.example.com"              | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "{ \"first\": \"1\" }"         | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "192.168.0.1"                  | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "0:0:0:0:0:ffff:c0a8:0001"     | true   |
+		| "0:0:0:0:0:ffff:c0a8:0001" | <new object()>                 | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | null                           | false  |
+
+Scenario Outline: Equals for ipV6 dotnet backed value as an object
+	Given the dotnet backed JsonIpV6 <jsonValue>
+	When I compare the ipV6 to the object <value>
+	Then the result should be <result>
+
+	Examples:
+		| jsonValue                  | value                          | result |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "Hello"                        | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "Goodbye"                      | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | 1                              | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | 1.1                            | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | [1,2,3]                        | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | { "first": "1" }               | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | true                           | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | false                          | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "2018-11-13T20:20:39+00:00"    | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "2018-11-13"                   | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "P3Y6M4DT12H30M5S"             | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "hello@endjin.com"             | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "www.example.com"              | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "eyAiaGVsbG8iOiAid29ybGQiIH0=" | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "{ \"first\": \"1\" }"         | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "192.168.0.1"                  | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | "0:0:0:0:0:ffff:c0a8:0001"     | true   |
+		| "0:0:0:0:0:ffff:c0a8:0001" | <new object()>                 | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | null                           | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | <null>                         | false  |
+		| "0:0:0:0:0:ffff:c0a8:0001" | <undefined>                    | false  |
+		| null                       | null                           | true   |
+		| null                       | <null>                         | true   |
+		| null                       | <undefined>                    | false  |
