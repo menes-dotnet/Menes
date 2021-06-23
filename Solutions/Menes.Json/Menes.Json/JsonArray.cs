@@ -20,7 +20,7 @@ namespace Menes.Json
         /// <summary>
         /// An empty JsonArray.
         /// </summary>
-        public static readonly JsonArray Empty = new JsonArray(ImmutableList<JsonAny>.Empty);
+        public static readonly JsonArray Empty = new (ImmutableList<JsonAny>.Empty);
 
         private readonly JsonElement jsonElement;
         private readonly ImmutableList<JsonAny>? items;

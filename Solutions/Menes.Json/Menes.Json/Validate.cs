@@ -16,18 +16,18 @@ namespace Menes.Json
     /// </summary>
     public static class Validate
     {
-        private static readonly Regex DurationPattern = new Regex(@"^P(?!$)((\d+(?:\.\d+)?Y)?(\d+(?:\.\d+)?M)?|(\d+(?:\.\d+)?W)?)?(\d+(?:\.\d+)?D)?(T(?=\d)(\d+(?:\.\d+)?H)?(\d+(?:\.\d+)?M)?(\d+(?:\.\d+)?S)?)?$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
-        private static readonly Regex EmailPattern = new Regex("^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])$", RegexOptions.Compiled);
-        private static readonly Regex HostnamePattern = new Regex("^(?=.{1,255}$)((?!_)\\w)((((?!_)\\w)|\\b-){0,61}((?!_)\\w))?(\\.((?!_)\\w)((((?!_)\\w)|\\b-){0,61}((?!_)\\w))?)*\\.?$", RegexOptions.Compiled);
-        private static readonly Regex InvalidIdnHostnamePattern = new Regex(@"(^[\p{Mn}\p{Mc}\p{Me}\u302E\u00b7])|.*\u302E.*|.*[^l]\u00b7.*|.*\u00b7[^l].*|.*\u00b7$|\u0374$|\u0375$|\u0374[^\p{IsGreekandCoptic}]|\u0375[^\p{IsGreekandCoptic}]|^\u05F3|[^\p{IsHebrew}]\u05f3|^\u05f4|[^\p{IsHebrew}]\u05f4|[\u0660-\u0669][\u06F0-\u06F9]|[\u06F0-\u06F9][\u0660-\u0669]|^\u200D|[^\uA953\u094d\u0acd\u0c4d\u0d3b\u09cd\u0a4d\u0b4d\u0bcd\u0ccd\u0d4d\u1039\u0d3c\u0eba\ua8f3\ua8f4]\u200D|^\u30fb$|[^\p{IsHiragana}\p{IsKatakana}\p{IsCJKUnifiedIdeographs}]\u30fb|\u30fb[^\p{IsHiragana}\p{IsKatakana}\p{IsCJKUnifiedIdeographs}]|[\u0640\u07fa\u3031\u3032\u3033\u3034\u3035\u302e\u302f\u303b]|..--", RegexOptions.Compiled);
-        private static readonly Regex IpV4Pattern = new Regex("^(?:(?:^|\\.)(?:2(?:5[0-5]|[0-4]\\d)|1?\\d?\\d)){4}$", RegexOptions.Compiled);
-        private static readonly Regex ZoneIdExpression = new Regex("%.*$", RegexOptions.Compiled);
-        private static readonly Regex JsonPointerPattern = new Regex("^((/(([^/~])|(~[01]))*))*$", RegexOptions.Compiled);
-        private static readonly Regex RelativeJsonPointerPattern = new Regex("^(0|[1-9]+)(#|(/(/|[^/~]|(~[01]))*))?$", RegexOptions.Compiled);
-        private static readonly Regex UriTemplatePattern = new Regex(@"^([^\x00-\x20\x7f""'%<>\\^`{|}]|%[0-9A-Fa-f]{2}|{[+#./;?&=,!@|]?((\w|%[0-9A-Fa-f]{2})(\.?(\w|%[0-9A-Fa-f]{2}))*(:[1-9]\d{0,3}|\*)?)(,((\w|%[0-9A-Fa-f]{2})(\.?(\w|%[0-9A-Fa-f]{2}))*(:[1-9]\d{0,3}|\*)?))*})*$", RegexOptions.Compiled);
-        private static readonly Regex UuidTemplatePattern = new Regex(@"[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}", RegexOptions.Compiled);
+        private static readonly Regex DurationPattern = new (@"^P(?!$)((\d+(?:\.\d+)?Y)?(\d+(?:\.\d+)?M)?|(\d+(?:\.\d+)?W)?)?(\d+(?:\.\d+)?D)?(T(?=\d)(\d+(?:\.\d+)?H)?(\d+(?:\.\d+)?M)?(\d+(?:\.\d+)?S)?)?$", RegexOptions.Compiled | RegexOptions.IgnoreCase);
+        private static readonly Regex EmailPattern = new ("^(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?|\\[(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?|[a-z0-9-]*[a-z0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])$", RegexOptions.Compiled);
+        private static readonly Regex HostnamePattern = new ("^(?=.{1,255}$)((?!_)\\w)((((?!_)\\w)|\\b-){0,61}((?!_)\\w))?(\\.((?!_)\\w)((((?!_)\\w)|\\b-){0,61}((?!_)\\w))?)*\\.?$", RegexOptions.Compiled);
+        private static readonly Regex InvalidIdnHostnamePattern = new (@"(^[\p{Mn}\p{Mc}\p{Me}\u302E\u00b7])|.*\u302E.*|.*[^l]\u00b7.*|.*\u00b7[^l].*|.*\u00b7$|\u0374$|\u0375$|\u0374[^\p{IsGreekandCoptic}]|\u0375[^\p{IsGreekandCoptic}]|^\u05F3|[^\p{IsHebrew}]\u05f3|^\u05f4|[^\p{IsHebrew}]\u05f4|[\u0660-\u0669][\u06F0-\u06F9]|[\u06F0-\u06F9][\u0660-\u0669]|^\u200D|[^\uA953\u094d\u0acd\u0c4d\u0d3b\u09cd\u0a4d\u0b4d\u0bcd\u0ccd\u0d4d\u1039\u0d3c\u0eba\ua8f3\ua8f4]\u200D|^\u30fb$|[^\p{IsHiragana}\p{IsKatakana}\p{IsCJKUnifiedIdeographs}]\u30fb|\u30fb[^\p{IsHiragana}\p{IsKatakana}\p{IsCJKUnifiedIdeographs}]|[\u0640\u07fa\u3031\u3032\u3033\u3034\u3035\u302e\u302f\u303b]|..--", RegexOptions.Compiled);
+        private static readonly Regex IpV4Pattern = new ("^(?:(?:^|\\.)(?:2(?:5[0-5]|[0-4]\\d)|1?\\d?\\d)){4}$", RegexOptions.Compiled);
+        private static readonly Regex ZoneIdExpression = new ("%.*$", RegexOptions.Compiled);
+        private static readonly Regex JsonPointerPattern = new ("^((/(([^/~])|(~[01]))*))*$", RegexOptions.Compiled);
+        private static readonly Regex RelativeJsonPointerPattern = new ("^(0|[1-9]+)(#|(/(/|[^/~]|(~[01]))*))?$", RegexOptions.Compiled);
+        private static readonly Regex UriTemplatePattern = new (@"^([^\x00-\x20\x7f""'%<>\\^`{|}]|%[0-9A-Fa-f]{2}|{[+#./;?&=,!@|]?((\w|%[0-9A-Fa-f]{2})(\.?(\w|%[0-9A-Fa-f]{2}))*(:[1-9]\d{0,3}|\*)?)(,((\w|%[0-9A-Fa-f]{2})(\.?(\w|%[0-9A-Fa-f]{2}))*(:[1-9]\d{0,3}|\*)?))*})*$", RegexOptions.Compiled);
+        private static readonly Regex UuidTemplatePattern = new (@"[0-9a-fA-F]{8}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{4}\-[0-9a-fA-F]{12}", RegexOptions.Compiled);
 
-        private static readonly IdnMapping IdnMapping = new IdnMapping() { AllowUnassigned = true, UseStd3AsciiRules = true };
+        private static readonly IdnMapping IdnMapping = new () { AllowUnassigned = true, UseStd3AsciiRules = true };
 
         /// <summary>
         /// Validate a string type value.

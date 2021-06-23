@@ -33,7 +33,7 @@ namespace Drivers
         private readonly IConfiguration configuration;
         private readonly JsonSchemaBuilder builder;
         private readonly IDocumentResolver documentResolver = new FileSystemDocumentResolver();
-        private TestAssemblyLoadContext? assemblyLoadContext = new TestAssemblyLoadContext();
+        private TestAssemblyLoadContext? assemblyLoadContext = new ();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonSchemaBuilderDriver202012"/> class.

@@ -19,10 +19,10 @@ namespace Menes.Json.SchemaModel.Draft202012
     /// </summary>
     public class JsonSchemaBuilder : IJsonSchemaBuilder
     {
-        private readonly HashSet<TypeDeclaration> typeDeclarations = new HashSet<TypeDeclaration>();
-        private readonly Dictionary<string, TypeDeclaration> locatedTypeDeclarations = new Dictionary<string, TypeDeclaration>();
+        private readonly HashSet<TypeDeclaration> typeDeclarations = new ();
+        private readonly Dictionary<string, TypeDeclaration> locatedTypeDeclarations = new ();
         private readonly JsonWalker walker;
-        private readonly Dictionary<string, TypeDeclaration> dynamicAnchors = new Dictionary<string, TypeDeclaration>();
+        private readonly Dictionary<string, TypeDeclaration> dynamicAnchors = new ();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonSchemaBuilder"/> class.

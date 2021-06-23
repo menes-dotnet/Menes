@@ -18,7 +18,7 @@ namespace Menes.Json
         /// <summary>
         /// Gets a reference to the root fragment.
         /// </summary>
-        public static readonly JsonReference RootFragment = new JsonReference("#");
+        public static readonly JsonReference RootFragment = new ("#");
 
         private readonly ReadOnlyMemory<char> reference;
 

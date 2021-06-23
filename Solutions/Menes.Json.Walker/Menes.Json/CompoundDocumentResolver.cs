@@ -15,7 +15,7 @@ namespace Menes.Json
     public class CompoundDocumentResolver : IDocumentResolver
     {
         private readonly IDocumentResolver[] documentResolvers;
-        private readonly Dictionary<string, JsonDocument> documents = new Dictionary<string, JsonDocument>();
+        private readonly Dictionary<string, JsonDocument> documents = new ();
         private bool disposedValue;
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace Menes.Json
         public async Task<JsonElement?> TryResolve(JsonReference reference)
         {
             this.CheckDisposed();
-            string uri = new string(reference.Uri);
+            string uri = new (reference.Uri);
 
             if (this.documents.TryGetValue(uri, out JsonDocument? result))
             {

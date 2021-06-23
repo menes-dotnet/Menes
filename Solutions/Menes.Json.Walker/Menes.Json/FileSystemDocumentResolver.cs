@@ -16,7 +16,7 @@ namespace Menes.Json
     public class FileSystemDocumentResolver : IDocumentResolver
     {
         private readonly string baseDirectory;
-        private readonly Dictionary<string, JsonDocument> documents = new Dictionary<string, JsonDocument>();
+        private readonly Dictionary<string, JsonDocument> documents = new ();
         private bool disposedValue;
 
         /// <summary>

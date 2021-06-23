@@ -22,7 +22,7 @@ namespace Menes.Json.SchemaModel.Draft201909
         /// </summary>
         public const string SchemaContent = "application/vnd.menes.jsonschemawalker.draft201909schemacontent";
 
-        private readonly Dictionary<string, LocatedElement> anchoredSchema = new Dictionary<string, LocatedElement>();
+        private readonly Dictionary<string, LocatedElement> anchoredSchema = new ();
 
         /// <summary>
         /// Register this with the given <see cref="JsonWalker"/>.

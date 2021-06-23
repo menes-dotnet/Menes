@@ -14,7 +14,7 @@ namespace Menes.Json
     /// </summary>
     public readonly struct JsonIriReference : IJsonValue, IEquatable<JsonIriReference>
     {
-        private static readonly Uri EmptyUri = new Uri(string.Empty, UriKind.RelativeOrAbsolute);
+        private static readonly Uri EmptyUri = new (string.Empty, UriKind.RelativeOrAbsolute);
 
         private readonly JsonElement jsonElement;
         private readonly string? value;

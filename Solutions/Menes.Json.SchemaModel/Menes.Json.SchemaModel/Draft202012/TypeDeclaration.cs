@@ -442,7 +442,7 @@ namespace Menes.Json.SchemaModel.Draft202012
 
         private class PropertyDeclarationEqualityComparer : IEqualityComparer<PropertyDeclaration>
         {
-            public static readonly PropertyDeclarationEqualityComparer Instance = new PropertyDeclarationEqualityComparer();
+            public static readonly PropertyDeclarationEqualityComparer Instance = new ();
 
             public bool Equals(PropertyDeclaration x, PropertyDeclaration y)
             {

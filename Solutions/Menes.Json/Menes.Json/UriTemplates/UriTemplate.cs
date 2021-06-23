@@ -23,10 +23,10 @@ namespace Menes.Json.UriTemplates
         private const string Op = "(?<op>[+#./;?&]?)";
         private const string Var = "(?<var>(?:(?<lvar>" + Varname + ")[*]?,?)*)";
         private const string Varspec = "(?<varspec>{" + Op + Var + "})";
-        private static readonly Regex FindParam = new Regex(Varspec, RegexOptions.Compiled);
-        private static readonly Regex TemplateConversion = new Regex(@"([^{]|^)\?", RegexOptions.Compiled);
+        private static readonly Regex FindParam = new (Varspec, RegexOptions.Compiled);
+        private static readonly Regex TemplateConversion = new (@"([^{]|^)\?", RegexOptions.Compiled);
 
-        private static readonly Dictionary<char, OperatorInfo> Operators = new Dictionary<char, OperatorInfo>()
+        private static readonly Dictionary<char, OperatorInfo> Operators = new ()
             {
                 { '\0', new OperatorInfo(@default: true, first: string.Empty, separator: ',', named: false, ifEmpty: string.Empty, allowReserved: false) },
                 { '+', new OperatorInfo(@default: false, first: string.Empty, separator: ',', named: false, ifEmpty: string.Empty, allowReserved: true) },

@@ -19,7 +19,7 @@ namespace Menes.Json
         private static readonly ReadOnlyMemory<char> LocalHost = "localhost".AsMemory();
 
         private readonly HttpClient httpClient;
-        private readonly Dictionary<string, JsonDocument> documents = new Dictionary<string, JsonDocument>();
+        private readonly Dictionary<string, JsonDocument> documents = new ();
         private readonly bool supportLocalhost;
         private bool disposedValue;
 
@@ -64,7 +64,7 @@ namespace Menes.Json
                 }
             }
 
-            string uri = new string(reference.Uri);
+            string uri = new (reference.Uri);
             if (this.documents.TryGetValue(uri, out JsonDocument? result))
             {
                 return JsonPointerUtilities.ResolvePointer(result, reference.Fragment);

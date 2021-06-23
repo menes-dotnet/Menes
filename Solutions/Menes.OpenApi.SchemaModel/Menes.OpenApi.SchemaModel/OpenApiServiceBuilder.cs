@@ -39,12 +39,12 @@ namespace Menes.OpenApi.SchemaModel
     /// </remarks>
     public class OpenApiServiceBuilder
     {
-        private readonly Stack<Document.ServerValueArray> serverStack = new Stack<Document.ServerValueArray>();
-        private readonly Stack<ImmutableList<Parameter>> parametersStack = new Stack<ImmutableList<Parameter>>();
+        private readonly Stack<Document.ServerValueArray> serverStack = new ();
+        private readonly Stack<ImmutableList<Parameter>> parametersStack = new ();
         private readonly IDocumentResolver resolver;
-        private readonly List<Operation> operations = new List<Operation>();
+        private readonly List<Operation> operations = new ();
         private readonly IJsonSchemaBuilder schemaBuilder;
-        private readonly Stack<string> locationStack = new Stack<string>();
+        private readonly Stack<string> locationStack = new ();
         private ImmutableDictionary<string, (string, string)> generatedTypesForSchema;
         private string rootReference;
         private string rootNamespace;

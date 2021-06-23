@@ -20,17 +20,17 @@ namespace Menes.Json
         /// </summary>
         public const string DefaultContent = "application/vnd.menes.element-default";
 
-        private readonly List<Func<JsonWalker, JsonElement, Task<bool>>> handlers = new List<Func<JsonWalker, JsonElement, Task<bool>>>();
-        private readonly List<Func<JsonWalker, JsonReference, bool, bool, Func<Task<LocatedElement?>>, Task<LocatedElement?>>> resolvers = new List<Func<JsonWalker, JsonReference, bool, bool, Func<Task<LocatedElement?>>, Task<LocatedElement?>>>();
+        private readonly List<Func<JsonWalker, JsonElement, Task<bool>>> handlers = new ();
+        private readonly List<Func<JsonWalker, JsonReference, bool, bool, Func<Task<LocatedElement?>>, Task<LocatedElement?>>> resolvers = new ();
 
-        private readonly Dictionary<string, LocatedElement> locatedElements = new Dictionary<string, LocatedElement>();
+        private readonly Dictionary<string, LocatedElement> locatedElements = new ();
 
         private readonly IDocumentResolver documentResolver;
         private readonly string baseLocation;
 
-        private readonly List<(string, bool, bool, List<string>, Action<JsonWalker, LocatedElement>)> unresolvedReferences = new List<(string, bool, bool, List<string>, Action<JsonWalker, LocatedElement>)>();
+        private readonly List<(string, bool, bool, List<string>, Action<JsonWalker, LocatedElement>)> unresolvedReferences = new ();
 
-        private Stack<string> scopedLocationStack = new Stack<string>();
+        private Stack<string> scopedLocationStack = new ();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonWalker"/> class.

@@ -18,7 +18,7 @@ namespace Menes.Json
     /// </summary>
     public static class JsonValueExtensions
     {
-        private static readonly ConcurrentDictionary<ConverterType, object> FactoryCache = new ConcurrentDictionary<ConverterType, object>();
+        private static readonly ConcurrentDictionary<ConverterType, object> FactoryCache = new ();
 
         private delegate TTarget JsonValueConverter<TSource, TTarget>(TSource source)
             where TTarget : struct, IJsonValue;

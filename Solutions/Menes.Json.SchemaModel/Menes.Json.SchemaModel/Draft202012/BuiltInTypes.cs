@@ -27,12 +27,12 @@ namespace Menes.Json.SchemaModel.Draft202012
         /// <summary>
         /// Gets a type declaration instance for the Any type declaration.
         /// </summary>
-        public static readonly TypeDeclaration AnyTypeDeclarationInstance = new TypeDeclaration(new Schema(true));
+        public static readonly TypeDeclaration AnyTypeDeclarationInstance = new (new Schema(true));
 
         /// <summary>
         /// Gets a type declaration instance for the NotAny type declaration.
         /// </summary>
-        public static readonly TypeDeclaration NotAnyTypeDeclarationInstance = new TypeDeclaration(new Schema(false));
+        public static readonly TypeDeclaration NotAnyTypeDeclarationInstance = new (new Schema(false));
 
         /// <summary>
         /// The not {}/false type declaration.

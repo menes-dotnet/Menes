@@ -20,9 +20,9 @@ namespace Menes.Json
         /// <summary>
         /// Gets a null value.
         /// </summary>
-        public static readonly JsonNull Instance = new JsonNull(JsonAny.ParseUriValue("null").AsJsonElement);
+        public static readonly JsonNull Instance = new (JsonAny.ParseUriValue("null").AsJsonElement);
 
-        private static readonly JsonAny NullAnyInstance = new JsonAny(Instance.AsJsonElement);
+        private static readonly JsonAny NullAnyInstance = new (Instance.AsJsonElement);
 
         private readonly JsonElement jsonElementBacking;
 

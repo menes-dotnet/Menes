@@ -15,12 +15,12 @@ namespace Menes.Json
         /// <summary>
         /// Gets a valid context.
         /// </summary>
-        public static readonly ValidationContext ValidContext = new ValidationContext(true);
+        public static readonly ValidationContext ValidContext = new (true);
 
         /// <summary>
         /// Gets an invalid context.
         /// </summary>
-        public static readonly ValidationContext InvalidContext = new ValidationContext(false);
+        public static readonly ValidationContext InvalidContext = new (false);
 
         private static readonly ImmutableStack<string> RootLocationStack = ImmutableStack.Create("#");
         private static readonly ImmutableStack<string> RootAbsoluteLocationStack = ImmutableStack.Create("#");
