@@ -73,6 +73,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Features\JsonModel\JsonRegexEquals.feature.cs">
+      <DependentUpon>JsonRegexEquals.feature</DependentUpon>
+    </Compile>
     <Compile Update="Features\JsonModel\JsonRelativePointerEquals.feature.cs">
       <DependentUpon>JsonRelativePointerEquals.feature</DependentUpon>
     </Compile>
@@ -157,6 +160,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <SpecFlowFeatureFiles Update="Features\JsonModel\JsonRegexEquals.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\JsonModel\JsonRelativePointerEquals.feature">
       <Visible>$(UsingMicrosoftNETSdk)</Visible>
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
