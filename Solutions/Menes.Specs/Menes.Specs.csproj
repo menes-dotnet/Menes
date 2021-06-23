@@ -36,6 +36,7 @@
     <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\JsonIriEquals - Copy.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\JsonIriReferenceEquals - Copy.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\JsonNumberEquals - Copy.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\JsonPointerEquals - Copy.feature.cs" />
   </ItemGroup>
 
 
@@ -72,6 +73,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Features\JsonModel\JsonRelativePointerEquals.feature.cs">
+      <DependentUpon>JsonRelativePointerEquals.feature</DependentUpon>
+    </Compile>
     <Compile Update="Features\JsonModel\JsonPointerEquals.feature.cs">
       <DependentUpon>JsonPointerEquals.feature</DependentUpon>
     </Compile>
@@ -153,6 +157,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <SpecFlowFeatureFiles Update="Features\JsonModel\JsonRelativePointerEquals.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\JsonModel\JsonPointerEquals.feature">
       <Visible>$(UsingMicrosoftNETSdk)</Visible>
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
