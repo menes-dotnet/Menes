@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Features.JsonModel
+namespace Features.JsonModel.Equals
 {
     using TechTalk.SpecFlow;
     using System;
@@ -35,7 +35,7 @@ namespace Features.JsonModel
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/JsonModel", "JsonUriTemplateEquals", "\tValidate the Json Equals operator, equality overrides and hashcode", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/JsonModel/Equals", "JsonUriTemplateEquals", "\tValidate the Json Equals operator, equality overrides and hashcode", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -310,7 +310,6 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"http://example.com/dictionary/{term:1}/{term}\"", "\"192.168.0.1\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"http://example.com/dictionary/{term:1}/{term}\"", "\"0:0:0:0:0:ffff:c0a8:0001\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"http://example.com/dictionary/{term:1}/{term}\"", "null", "false", null)]
-        [NUnit.Framework.TestCaseAttribute("\"http://example.com/dictionary/{term:1}/{term}\"", "<new object()>", "false", null)]
         public virtual void EqualsForUriTemplateJsonElementBackedValueAsAnObject(string jsonValue, string value, string result, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -378,7 +377,6 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("null", "null", "true", null)]
         [NUnit.Framework.TestCaseAttribute("null", "<null>", "true", null)]
         [NUnit.Framework.TestCaseAttribute("null", "<undefined>", "false", null)]
-        [NUnit.Framework.TestCaseAttribute("\"http://example.com/dictionary/{term:1}/{term}\"", "<new object()>", "false", null)]
         public virtual void EqualsForUriTemplateDotnetBackedValueAsAnObject(string jsonValue, string value, string result, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;

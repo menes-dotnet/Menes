@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Features.JsonModel
+namespace Features.JsonModel.Equals
 {
     using TechTalk.SpecFlow;
     using System;
@@ -20,22 +20,22 @@ namespace Features.JsonModel
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.7.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("JsonIdnHostnameEquals")]
-    public partial class JsonIdnHostnameEqualsFeature
+    [NUnit.Framework.DescriptionAttribute("JsonHostnameEquals")]
+    public partial class JsonHostnameEqualsFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private string[] _featureTags = ((string[])(null));
         
-#line 1 "JsonIdnHostnameEquals.feature"
+#line 1 "JsonHostnameEquals.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/JsonModel", "JsonIdnHostnameEquals", "\tValidate the Json Equals operator, equality overrides and hashcode", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/JsonModel/Equals", "JsonHostnameEquals", "\tValidate the Json Equals operator, equality overrides and hashcode", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -74,20 +74,20 @@ namespace Features.JsonModel
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Equals for json element backed value as a idnHostname")]
+        [NUnit.Framework.DescriptionAttribute("Equals for json element backed value as a hostname")]
         [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"www.example.com\"", "true", null)]
         [NUnit.Framework.TestCaseAttribute("\"Garbage\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"Goodbye\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("null", "null", "true", null)]
         [NUnit.Framework.TestCaseAttribute("null", "\"www.example.com\"", "false", null)]
-        public virtual void EqualsForJsonElementBackedValueAsAIdnHostname(string jsonValue, string value, string result, string[] exampleTags)
+        public virtual void EqualsForJsonElementBackedValueAsAHostname(string jsonValue, string value, string result, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("jsonValue", jsonValue);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for json element backed value as a idnHostname", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for json element backed value as a hostname", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 5
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -109,10 +109,10 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 6
- testRunner.Given(string.Format("the JsonElement backed JsonIdnHostname {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given(string.Format("the JsonElement backed JsonHostname {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 7
- testRunner.When(string.Format("I compare it to the idnHostname {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I compare it to the hostname {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 8
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -122,18 +122,18 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Equals for dotnet backed value as a idnHostname")]
+        [NUnit.Framework.DescriptionAttribute("Equals for dotnet backed value as a hostname")]
         [NUnit.Framework.TestCaseAttribute("\"Garbage\"", "\"www.example.com\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"www.example.com\"", "true", null)]
         [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"Goodbye\"", "false", null)]
-        public virtual void EqualsForDotnetBackedValueAsAIdnHostname(string jsonValue, string value, string result, string[] exampleTags)
+        public virtual void EqualsForDotnetBackedValueAsAHostname(string jsonValue, string value, string result, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("jsonValue", jsonValue);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for dotnet backed value as a idnHostname", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for dotnet backed value as a hostname", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 18
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -155,10 +155,10 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 19
- testRunner.Given(string.Format("the dotnet backed JsonIdnHostname {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given(string.Format("the dotnet backed JsonHostname {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 20
- testRunner.When(string.Format("I compare it to the idnHostname {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I compare it to the hostname {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 21
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -168,7 +168,7 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Equals for idnHostname json element backed value as an IJsonValue")]
+        [NUnit.Framework.DescriptionAttribute("Equals for hostname json element backed value as an IJsonValue")]
         [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"Hello\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"Goodbye\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "1", "false", null)]
@@ -188,14 +188,14 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"192.168.0.1\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"0:0:0:0:0:ffff:c0a8:0001\"", "false", null)]
-        public virtual void EqualsForIdnHostnameJsonElementBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
+        public virtual void EqualsForHostnameJsonElementBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("jsonValue", jsonValue);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for idnHostname json element backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for hostname json element backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 29
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -217,10 +217,10 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 30
- testRunner.Given(string.Format("the JsonElement backed JsonIdnHostname {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given(string.Format("the JsonElement backed JsonHostname {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 31
- testRunner.When(string.Format("I compare the idnHostname to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I compare the hostname to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 32
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -230,7 +230,7 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Equals for idnHostname dotnet backed value as an IJsonValue")]
+        [NUnit.Framework.DescriptionAttribute("Equals for hostname dotnet backed value as an IJsonValue")]
         [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"Hello\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"Goodbye\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "1", "false", null)]
@@ -250,14 +250,14 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"192.168.0.1\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"0:0:0:0:0:ffff:c0a8:0001\"", "false", null)]
-        public virtual void EqualsForIdnHostnameDotnetBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
+        public virtual void EqualsForHostnameDotnetBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("jsonValue", jsonValue);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for idnHostname dotnet backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for hostname dotnet backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 56
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -279,10 +279,10 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 57
- testRunner.Given(string.Format("the dotnet backed JsonIdnHostname {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given(string.Format("the dotnet backed JsonHostname {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 58
- testRunner.When(string.Format("I compare the idnHostname to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I compare the hostname to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 59
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -292,7 +292,7 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Equals for idnHostname json element backed value as an object")]
+        [NUnit.Framework.DescriptionAttribute("Equals for hostname json element backed value as an object")]
         [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"Hello\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"Goodbye\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "1", "false", null)]
@@ -313,14 +313,14 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"0:0:0:0:0:ffff:c0a8:0001\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "<new object()>", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "null", "false", null)]
-        public virtual void EqualsForIdnHostnameJsonElementBackedValueAsAnObject(string jsonValue, string value, string result, string[] exampleTags)
+        public virtual void EqualsForHostnameJsonElementBackedValueAsAnObject(string jsonValue, string value, string result, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("jsonValue", jsonValue);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for idnHostname json element backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for hostname json element backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 83
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -342,10 +342,10 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 84
- testRunner.Given(string.Format("the JsonElement backed JsonIdnHostname {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given(string.Format("the JsonElement backed JsonHostname {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 85
- testRunner.When(string.Format("I compare the idnHostname to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I compare the hostname to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 86
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -355,7 +355,7 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Equals for idnHostname dotnet backed value as an object")]
+        [NUnit.Framework.DescriptionAttribute("Equals for hostname dotnet backed value as an object")]
         [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"Hello\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "\"Goodbye\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"www.example.com\"", "1", "false", null)]
@@ -381,14 +381,14 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("null", "null", "true", null)]
         [NUnit.Framework.TestCaseAttribute("null", "<null>", "true", null)]
         [NUnit.Framework.TestCaseAttribute("null", "<undefined>", "false", null)]
-        public virtual void EqualsForIdnHostnameDotnetBackedValueAsAnObject(string jsonValue, string value, string result, string[] exampleTags)
+        public virtual void EqualsForHostnameDotnetBackedValueAsAnObject(string jsonValue, string value, string result, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("jsonValue", jsonValue);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for idnHostname dotnet backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for hostname dotnet backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 111
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -410,10 +410,10 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 112
- testRunner.Given(string.Format("the dotnet backed JsonIdnHostname {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given(string.Format("the dotnet backed JsonHostname {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 113
- testRunner.When(string.Format("I compare the idnHostname to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I compare the hostname to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 114
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");

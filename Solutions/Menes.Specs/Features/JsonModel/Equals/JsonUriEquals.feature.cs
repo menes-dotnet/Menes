@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Features.JsonModel
+namespace Features.JsonModel.Equals
 {
     using TechTalk.SpecFlow;
     using System;
@@ -20,22 +20,22 @@ namespace Features.JsonModel
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.7.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("JsonIriReferenceEquals")]
-    public partial class JsonIriReferenceEqualsFeature
+    [NUnit.Framework.DescriptionAttribute("JsonUriEquals")]
+    public partial class JsonUriEqualsFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private string[] _featureTags = ((string[])(null));
         
-#line 1 "JsonIriReferenceEquals.feature"
+#line 1 "JsonUriEquals.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/JsonModel", "JsonIriReferenceEquals", "\tValidate the Json Equals operator, equality overrides and hashcode", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/JsonModel/Equals", "JsonUriEquals", "\tValidate the Json Equals operator, equality overrides and hashcode", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -74,19 +74,19 @@ namespace Features.JsonModel
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Equals for json element backed value as a iriReference")]
+        [NUnit.Framework.DescriptionAttribute("Equals for json element backed value as a uri")]
         [NUnit.Framework.TestCaseAttribute("\"http://foo.bar/?baz=qux#quux\"", "\"http://foo.bar/?baz=qux#quux\"", "true", null)]
         [NUnit.Framework.TestCaseAttribute("\"http://foo.bar/?baz=qux#quux\"", "\"http://jim.bob/?sue=sally#tina\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("null", "null", "true", null)]
         [NUnit.Framework.TestCaseAttribute("null", "\"http://foo.bar/?baz=qux#quux\"", "false", null)]
-        public virtual void EqualsForJsonElementBackedValueAsAIriReference(string jsonValue, string value, string result, string[] exampleTags)
+        public virtual void EqualsForJsonElementBackedValueAsAUri(string jsonValue, string value, string result, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("jsonValue", jsonValue);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for json element backed value as a iriReference", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for json element backed value as a uri", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 5
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -108,10 +108,10 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 6
- testRunner.Given(string.Format("the JsonElement backed JsonIriReference {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given(string.Format("the JsonElement backed JsonUri {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 7
- testRunner.When(string.Format("I compare it to the iriReference {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I compare it to the uri {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 8
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -121,17 +121,17 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Equals for dotnet backed value as a iriReference")]
+        [NUnit.Framework.DescriptionAttribute("Equals for dotnet backed value as a uri")]
         [NUnit.Framework.TestCaseAttribute("\"http://foo.bar/?baz=qux#quux\"", "\"http://foo.bar/?baz=qux#quux\"", "true", null)]
         [NUnit.Framework.TestCaseAttribute("\"http://foo.bar/?baz=qux#quux\"", "\"http://jim.bob/?sue=sally#tina\"", "false", null)]
-        public virtual void EqualsForDotnetBackedValueAsAIriReference(string jsonValue, string value, string result, string[] exampleTags)
+        public virtual void EqualsForDotnetBackedValueAsAUri(string jsonValue, string value, string result, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("jsonValue", jsonValue);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for dotnet backed value as a iriReference", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for dotnet backed value as a uri", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 17
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -153,10 +153,10 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 18
- testRunner.Given(string.Format("the dotnet backed JsonIriReference {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given(string.Format("the dotnet backed JsonUri {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 19
- testRunner.When(string.Format("I compare it to the iriReference {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I compare it to the uri {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 20
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -166,7 +166,7 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Equals for iriReference json element backed value as an IJsonValue")]
+        [NUnit.Framework.DescriptionAttribute("Equals for uri json element backed value as an IJsonValue")]
         [NUnit.Framework.TestCaseAttribute("\"http://foo.bar/?baz=qux#quux\"", "\"Hello\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"http://foo.bar/?baz=qux#quux\"", "\"Goodbye\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"http://foo.bar/?baz=qux#quux\"", "1", "false", null)]
@@ -186,14 +186,14 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"http://foo.bar/?baz=qux#quux\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"http://foo.bar/?baz=qux#quux\"", "\"192.168.0.1\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"http://foo.bar/?baz=qux#quux\"", "\"0:0:0:0:0:ffff:c0a8:0001\"", "false", null)]
-        public virtual void EqualsForIriReferenceJsonElementBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
+        public virtual void EqualsForUriJsonElementBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("jsonValue", jsonValue);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for iriReference json element backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for uri json element backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 27
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -215,10 +215,10 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 28
- testRunner.Given(string.Format("the JsonElement backed JsonIriReference {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given(string.Format("the JsonElement backed JsonUri {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 29
- testRunner.When(string.Format("I compare the iriReference to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I compare the uri to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 30
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -228,7 +228,7 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Equals for iriReference dotnet backed value as an IJsonValue")]
+        [NUnit.Framework.DescriptionAttribute("Equals for uri dotnet backed value as an IJsonValue")]
         [NUnit.Framework.TestCaseAttribute("\"http://foo.bar/?baz=qux#quux\"", "\"Hello\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"http://foo.bar/?baz=qux#quux\"", "\"Goodbye\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"http://foo.bar/?baz=qux#quux\"", "1", "false", null)]
@@ -248,14 +248,14 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"http://foo.bar/?baz=qux#quux\"", "\"{ \\\"first\\\": \\\"1\\\" }\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"http://foo.bar/?baz=qux#quux\"", "\"192.168.0.1\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"http://foo.bar/?baz=qux#quux\"", "\"0:0:0:0:0:ffff:c0a8:0001\"", "false", null)]
-        public virtual void EqualsForIriReferenceDotnetBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
+        public virtual void EqualsForUriDotnetBackedValueAsAnIJsonValue(string jsonValue, string value, string result, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("jsonValue", jsonValue);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for iriReference dotnet backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for uri dotnet backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 54
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -277,10 +277,10 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 55
- testRunner.Given(string.Format("the dotnet backed JsonIriReference {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given(string.Format("the dotnet backed JsonUri {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 56
- testRunner.When(string.Format("I compare the iriReference to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I compare the uri to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 57
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -290,7 +290,7 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Equals for iriReference json element backed value as an object")]
+        [NUnit.Framework.DescriptionAttribute("Equals for uri json element backed value as an object")]
         [NUnit.Framework.TestCaseAttribute("\"http://foo.bar/?baz=qux#quux\"", "\"Hello\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"http://foo.bar/?baz=qux#quux\"", "\"Goodbye\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"http://foo.bar/?baz=qux#quux\"", "1", "false", null)]
@@ -311,14 +311,14 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("\"http://foo.bar/?baz=qux#quux\"", "\"0:0:0:0:0:ffff:c0a8:0001\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"http://foo.bar/?baz=qux#quux\"", "<new object()>", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"http://foo.bar/?baz=qux#quux\"", "null", "false", null)]
-        public virtual void EqualsForIriReferenceJsonElementBackedValueAsAnObject(string jsonValue, string value, string result, string[] exampleTags)
+        public virtual void EqualsForUriJsonElementBackedValueAsAnObject(string jsonValue, string value, string result, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("jsonValue", jsonValue);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for iriReference json element backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for uri json element backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 81
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -340,10 +340,10 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 82
- testRunner.Given(string.Format("the JsonElement backed JsonIriReference {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given(string.Format("the JsonElement backed JsonUri {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 83
- testRunner.When(string.Format("I compare the iriReference to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I compare the uri to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 84
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -353,7 +353,7 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Equals for iriReference dotnet backed value as an object")]
+        [NUnit.Framework.DescriptionAttribute("Equals for uri dotnet backed value as an object")]
         [NUnit.Framework.TestCaseAttribute("\"http://foo.bar/?baz=qux#quux\"", "\"Hello\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"http://foo.bar/?baz=qux#quux\"", "\"Goodbye\"", "false", null)]
         [NUnit.Framework.TestCaseAttribute("\"http://foo.bar/?baz=qux#quux\"", "1", "false", null)]
@@ -379,14 +379,14 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("null", "null", "true", null)]
         [NUnit.Framework.TestCaseAttribute("null", "<null>", "true", null)]
         [NUnit.Framework.TestCaseAttribute("null", "<undefined>", "false", null)]
-        public virtual void EqualsForIriReferenceDotnetBackedValueAsAnObject(string jsonValue, string value, string result, string[] exampleTags)
+        public virtual void EqualsForUriDotnetBackedValueAsAnObject(string jsonValue, string value, string result, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("jsonValue", jsonValue);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for iriReference dotnet backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for uri dotnet backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 109
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -408,10 +408,10 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 110
- testRunner.Given(string.Format("the dotnet backed JsonIriReference {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given(string.Format("the dotnet backed JsonUri {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 111
- testRunner.When(string.Format("I compare the iriReference to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("I compare the uri to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 112
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");

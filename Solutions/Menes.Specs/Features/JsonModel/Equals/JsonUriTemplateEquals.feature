@@ -104,7 +104,7 @@ Scenario Outline: Equals for uriTemplate json element backed value as an object
 		| "http://example.com/dictionary/{term:1}/{term}" | "192.168.0.1"                                   | false  |
 		| "http://example.com/dictionary/{term:1}/{term}" | "0:0:0:0:0:ffff:c0a8:0001"                      | false  |
 		| "http://example.com/dictionary/{term:1}/{term}" | null                                            | false  |
-		| "http://example.com/dictionary/{term:1}/{term}" | <new object()>                                  | false  |
+		#| "http://example.com/dictionary/{term:1}/{term}" | <new object()>                                  | false  |
 
 Scenario Outline: Equals for uriTemplate dotnet backed value as an object
 	Given the dotnet backed JsonUriTemplate <jsonValue>
@@ -137,4 +137,4 @@ Scenario Outline: Equals for uriTemplate dotnet backed value as an object
 		| null                                            | null                                            | true   |
 		| null                                            | <null>                                          | true   |
 		| null                                            | <undefined>                                     | false  |
-		| "http://example.com/dictionary/{term:1}/{term}" | <new object()>                                  | false  |
+		#| "http://example.com/dictionary/{term:1}/{term}" | <new object()>                                  | false  |

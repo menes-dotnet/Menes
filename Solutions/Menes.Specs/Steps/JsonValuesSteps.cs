@@ -4,6 +4,7 @@
 
 namespace Steps
 {
+    using System.Collections.Immutable;
     using System.Text.Json;
     using Menes.Json;
     using NUnit.Framework;
@@ -16,6 +17,7 @@ namespace Steps
     public class JsonValuesSteps
     {
         private const string ValueKey = "Value";
+        private const string CastResultKey = "CastResult";
         private const string EqualsResultKey = "EqualsResult";
         private const string EqualsObjectBackedResultKey = "EqualsObjectBackedResult";
         private const string EqualityResultKey = "EqualityResult";
@@ -2076,6 +2078,94 @@ namespace Steps
             {
                 Assert.AreEqual(expected, this.scenarioContext.Get<bool>(EqualsObjectBackedResultKey));
             }
+        }
+
+        /// <summary>
+        /// Cast the value stored in the context variable <see cref="ValueKey"/> to a JsonAny and store in the <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonArray to JsonAny")]
+        public void WhenICastTheJsonArrayToJsonAny()
+        {
+            this.scenarioContext.Set((JsonAny)this.scenarioContext.Get<JsonArray>(ValueKey), CastResultKey);
+        }
+
+        /// <summary>
+        /// Gets the value store in <see cref="CastResultKey"/> and matches it against the JsonAny serialized in <paramref name="match"/>.
+        /// </summary>
+        /// <param name="match">The serialized form of the result to match.</param>
+        [Then(@"the result should equal the JsonAny '(.*)'")]
+        public void ThenTheResultShouldEqualTheJsonAny(string match)
+        {
+            Assert.AreEqual(JsonAny.ParseUriValue(match), this.scenarioContext.Get<JsonAny>(CastResultKey));
+        }
+
+        /// <summary>
+        /// Gets a JsonAny for the given <paramref name="value"/> and stores it in the context variable <see cref="ValueKey"/>.
+        /// </summary>
+        /// <param name="value">The serialized value to parse.</param>
+        [Given(@"the JsonAny for (.*)")]
+        public void GivenTheJsonAnyFor(string value)
+        {
+            this.scenarioContext.Set(JsonAny.ParseUriValue(value), ValueKey);
+        }
+
+        /// <summary>
+        /// Cast the value stored in the context variable <see cref="ValueKey"/> to a JsonArray and store it in the <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonAny to JsonArray")]
+        public void WhenICastTheJsonAnyToJsonArray()
+        {
+            this.scenarioContext.Set<IJsonValue>((JsonArray)this.scenarioContext.Get<JsonAny>(ValueKey), CastResultKey);
+        }
+
+        /// <summary>
+        /// Comparse the IJsonValue in the <see cref="CastResultKey"/> with the serialized <paramref name="jsonArray"/>.
+        /// </summary>
+        /// <param name="jsonArray">The serialized JsonArray with which to compare the result.</param>
+        [Then(@"the result should equal the JsonArray '(.*)'")]
+        public void ThenTheResultShouldEqualTheJsonArray(string jsonArray)
+        {
+            Assert.AreEqual(JsonAny.ParseUriValue(jsonArray).AsArray, this.scenarioContext.Get<IJsonValue>(CastResultKey));
+        }
+
+        /// <summary>
+        /// Compares the two lists.
+        /// </summary>
+        /// <param name="immutableList">The immutable list with which to compare the result.</param>
+        [Then(@"the result should equal the ImmutableList<JsonAny> '(.*)'")]
+        public void ThenTheResultShouldEqualTheImmutableList(string immutableList)
+        {
+            ImmutableList<JsonAny> expected = JsonAny.ParseUriValue(immutableList).AsArray.AsItemsList;
+            ImmutableList<JsonAny> actual = this.scenarioContext.Get<ImmutableList<JsonAny>>(CastResultKey);
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        /// <summary>
+        /// Gets the item in the <see cref="ValueKey"/>, casts it to <see cref="ImmutableList{JsonAny}"/> and stores it in the <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonArray to ImmutableList<JsonAny>")]
+        public void WhenICastTheJsonArrayToImmutableList()
+        {
+            this.scenarioContext.Set((ImmutableList<JsonAny>)this.scenarioContext.Get<JsonArray>(ValueKey), CastResultKey);
+        }
+
+        /// <summary>
+        /// Gets the <see cref="ImmutableList{JsonAny}"/> for the <paramref name="list"/> and stores it in the context key <see cref="ValueKey"/>.
+        /// </summary>
+        /// <param name="list">The serialized from of the immutable list.</param>
+        [Given(@"the ImmutableList<JsonAny> for (.*)")]
+        public void GivenTheImmutableListFor(string list)
+        {
+            this.scenarioContext.Set(JsonAny.ParseUriValue(list).AsArray.AsItemsList, ValueKey);
+        }
+
+        /// <summary>
+        /// Gets the item in the <see cref="ValueKey"/>, casts it to <see cref="JsonArray"/> and stores it in the <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the ImmutableList<JsonAny> to JsonArray")]
+        public void WhenICastTheImmutableListToJsonArray()
+        {
+            this.scenarioContext.Set((JsonArray)this.scenarioContext.Get<ImmutableList<JsonAny>>(ValueKey), CastResultKey);
         }
     }
 }
