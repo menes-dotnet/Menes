@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\JsonDateEquals - Copy.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\JsonTimeEquals - Copy.feature.cs" />
   </ItemGroup>
 
 
@@ -53,6 +54,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Features\JsonModel\JsonUuidEquals.feature.cs">
+      <DependentUpon>JsonUuidEquals.feature</DependentUpon>
+    </Compile>
     <Compile Update="Features\JsonModel\JsonTimeEquals.feature.cs">
       <DependentUpon>JsonTimeEquals.feature</DependentUpon>
     </Compile>
@@ -73,6 +77,10 @@
 
 
   <ItemGroup>
+    <SpecFlowFeatureFiles Update="Features\JsonModel\JsonUuidEquals.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\JsonModel\JsonTimeEquals.feature">
       <Visible>$(UsingMicrosoftNETSdk)</Visible>
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>

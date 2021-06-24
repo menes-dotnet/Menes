@@ -1977,6 +1977,78 @@ namespace Steps
             }
         }
 
+        /* uuid */
+
+        /// <summary>
+        /// Store a <see cref="JsonElement"/>-backed value in the context variable <c>Value</c>.
+        /// </summary>
+        /// <param name="value">The json value.</param>
+        [Given(@"the JsonElement backed JsonUuid (.*)")]
+        public void GivenTheJsonElementBackedJsonUuid(string value)
+        {
+            this.scenarioContext.Set<JsonUuid>(JsonAny.ParseUriValue(value), ValueKey);
+        }
+
+        /// <summary>
+        /// Store a dotnet-type-backed value in the context variable <c>Value</c>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        [Given(@"the dotnet backed JsonUuid (.*)")]
+        public void GivenTheDotnetBackedJsonUuid(string value)
+        {
+            if (value == "null")
+            {
+                this.scenarioContext.Set((JsonUuid)JsonNull.Instance.AsAny.AsString, ValueKey);
+            }
+            else
+            {
+                this.scenarioContext.Set(new JsonUuid((string)JsonAny.ParseUriValue(value)), ValueKey);
+            }
+        }
+
+        /// <summary>
+        /// Compares the value in JsonUuid in the context variable <c>Value</c> with the expected base64String, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare it to the uuid (.*)")]
+        public void WhenICompareItToTheUuid(string expected)
+        {
+            if (expected != "null")
+            {
+                this.scenarioContext.Set(this.scenarioContext.Get<JsonUuid>(ValueKey).Equals(new JsonUuid((string)JsonAny.ParseUriValue(expected))), EqualsObjectBackedResultKey);
+            }
+
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonUuid>(ValueKey).Equals((JsonUuid)JsonAny.ParseUriValue(expected)), EqualsResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonUuid>(ValueKey) == (JsonUuid)JsonAny.ParseUriValue(expected), EqualityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonUuid>(ValueKey) != (JsonUuid)JsonAny.ParseUriValue(expected), InequalityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonUuid>(ValueKey).GetHashCode() == ((JsonUuid)JsonAny.ParseUriValue(expected)).GetHashCode(), HashCodeResultKey);
+        }
+
+        /// <summary>
+        /// Compares the value in JsonUuid in the context variable <c>Value</c> with the expected base64String, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare the uuid to the IJsonValue (.*)")]
+        public void WhenICompareTheUuidToTheIJsonValue(string expected)
+        {
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonUuid>(ValueKey).Equals(JsonAny.ParseUriValue(expected)), EqualsResultKey);
+        }
+
+        /// <summary>
+        /// Compares the value in JsonUuid in the context variable <c>Value</c> with the expected base64String, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare the uuid to the object (.*)")]
+        public void WhenICompareTheUuidToTheObject(string expected)
+        {
+            object? obj = expected == "<undefined>" ? default(JsonUuid) : expected == "<null>" ? null : expected == "<new object()>" ? new object() : JsonAny.ParseUriValue(expected);
+            this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonUuid>(ValueKey)).Equals(obj), EqualsResultKey);
+            if (obj is not null)
+            {
+                this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonUuid>(ValueKey)).GetHashCode() == obj.GetHashCode(), HashCodeResultKey);
+            }
+        }
+
         /// <summary>
         /// Asserts that the result from a previous comparison stored in the context variable <c>Result</c> is as expected.
         /// </summary>
