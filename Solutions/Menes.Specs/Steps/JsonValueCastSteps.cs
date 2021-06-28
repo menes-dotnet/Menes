@@ -90,16 +90,6 @@ namespace Steps
         }
 
         /// <summary>
-        /// Gets the <see cref="ImmutableList{JsonAny}"/> for the <paramref name="list"/> and stores it in the context key <see cref="JsonValueSteps.SubjectUnderTest"/>.
-        /// </summary>
-        /// <param name="list">The serialized from of the immutable list.</param>
-        [Given(@"the ImmutableList<JsonAny> for (.*)")]
-        public void GivenTheImmutableListFor(string list)
-        {
-            this.scenarioContext.Set(JsonAny.ParseUriValue(list).AsArray.AsItemsList, JsonValueSteps.SubjectUnderTest);
-        }
-
-        /// <summary>
         /// Gets the item in the <see cref="JsonValueSteps.SubjectUnderTest"/>, casts it to <see cref="JsonArray"/> and stores it in the <see cref="CastResultKey"/>.
         /// </summary>
         [When(@"I cast the ImmutableList<JsonAny> to JsonArray")]

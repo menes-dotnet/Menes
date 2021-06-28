@@ -860,7 +860,7 @@ namespace Steps
         /// </summary>
         /// <param name="list">The serialized from of the immutable list.</param>
         [Given(@"the ImmutableList<JsonAny> for (.*)")]
-        public void GivenTheImmutableListFor(string list)
+        public void GivenTheImmutableListOfJsonAnyFor(string list)
         {
             this.scenarioContext.Set(JsonAny.ParseUriValue(list).AsArray.AsItemsList, SubjectUnderTest);
         }
