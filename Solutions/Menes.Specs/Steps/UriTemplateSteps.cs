@@ -5,7 +5,6 @@
 namespace Steps
 {
     using System;
-    using System.Collections.Generic;
     using System.Collections.Immutable;
     using System.Linq;
     using System.Text.Json;
@@ -14,7 +13,6 @@ namespace Steps
     using Menes.Json.UriTemplates;
     using NUnit.Framework;
     using TechTalk.SpecFlow;
-    using TechTalk.SpecFlow.Assist;
 
     /// <summary>
     /// Steps for URI template validation.

@@ -10,7 +10,6 @@ namespace Menes.Json
     using System.Collections.Immutable;
     using System.Text;
     using System.Text.Json;
-    using Corvus.Extensions;
 
     /// <summary>
     /// A JSON array.
