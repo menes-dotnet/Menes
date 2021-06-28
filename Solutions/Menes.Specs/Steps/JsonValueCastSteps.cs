@@ -247,5 +247,108 @@ namespace Steps
         {
             this.scenarioContext.Set((JsonBase64Content)this.scenarioContext.Get<string>(JsonValueSteps.SubjectUnderTest), CastResultKey);
         }
+
+        /* base64String */
+
+        /// <summary>
+        /// Casts the <see cref="JsonBase64String"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonAny"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonBase64String to JsonAny")]
+        public void WhenICastTheJsonBase64StringToJsonAny()
+        {
+            this.scenarioContext.Set((JsonAny)this.scenarioContext.Get<JsonBase64String>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonAny"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonBase64String"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonAny to JsonBase64String")]
+        public void WhenICastTheJsonAnyToJsonBase64String()
+        {
+            this.scenarioContext.Set((JsonBase64String)this.scenarioContext.Get<JsonAny>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Compares the <see cref="JsonBase64String"/> in the context value <see cref="CastResultKey"/> with the given JsonBase64String.
+        /// </summary>
+        /// <param name="expectedValue">The serialized form of the <see cref="JsonBase64String"/>.</param>
+        [Then(@"the result should equal the JsonBase64String '(.*)'")]
+        public void ThenTheResultShouldEqualTheJsonBase64String(string expectedValue)
+        {
+            JsonBase64String expected = JsonAny.ParseUriValue(expectedValue).AsString;
+            Assert.AreEqual(expected, this.scenarioContext.Get<JsonBase64String>(CastResultKey));
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonBase64String"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonString"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonBase64String to JsonString")]
+        public void WhenICastTheJsonBase64StringToJsonString()
+        {
+            this.scenarioContext.Set((JsonString)this.scenarioContext.Get<JsonBase64String>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonString"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonBase64String"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonString to JsonBase64String")]
+        public void WhenICastTheJsonStringToJsonBase64String()
+        {
+            this.scenarioContext.Set((JsonBase64String)this.scenarioContext.Get<JsonString>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonBase64String"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="ReadOnlySpan{Char}"/>, converts that to a <see cref="ReadOnlyMemory{Char}"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonBase64String to ReadOnlySpan<char>")]
+        public void WhenICastTheJsonBase64StringToReadOnlySpanOfChar()
+        {
+            this.scenarioContext.Set<ReadOnlyMemory<char>>(((ReadOnlySpan<char>)this.scenarioContext.Get<JsonBase64String>(JsonValueSteps.SubjectUnderTest)).ToArray().AsMemory(), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonBase64String"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="ReadOnlySpan{Char}"/>, converts that to a <see cref="ReadOnlyMemory{Char}"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the ReadOnlySpan<char> to JsonBase64String")]
+        public void WhenICastTheReadOnlySpanOfCharToJsonBase64String()
+        {
+            this.scenarioContext.Set((JsonBase64String)this.scenarioContext.Get<ReadOnlyMemory<char>>(JsonValueSteps.SubjectUnderTest).Span, CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonBase64String"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="ReadOnlySpan{Byte}"/>, converts that to a <see cref="ReadOnlyMemory{Byte}"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonBase64String to ReadOnlySpan<byte>")]
+        public void WhenICastTheJsonBase64StringToReadOnlySpanOfByte()
+        {
+            this.scenarioContext.Set<ReadOnlyMemory<byte>>(((ReadOnlySpan<byte>)this.scenarioContext.Get<JsonBase64String>(JsonValueSteps.SubjectUnderTest)).ToArray().AsMemory(), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="ReadOnlySpan{Byte}"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonBase64String"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the ReadOnlySpan<byte> to JsonBase64String")]
+        public void WhenICastTheReadOnlySpanOfByteToJsonBase64String()
+        {
+            this.scenarioContext.Set((JsonBase64String)this.scenarioContext.Get<ReadOnlyMemory<byte>>(JsonValueSteps.SubjectUnderTest).Span, CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonBase64String"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="string"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonBase64String to string")]
+        public void WhenICastTheJsonBase64StringToString()
+        {
+            this.scenarioContext.Set((string)this.scenarioContext.Get<JsonBase64String>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="string"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonBase64String"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the string to JsonBase64String")]
+        public void WhenICastTheStringToJsonBase64String()
+        {
+            this.scenarioContext.Set((JsonBase64String)this.scenarioContext.Get<string>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
     }
 }

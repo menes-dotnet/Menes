@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Cast\JsonArrayCast - Copy.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Cast\JsonBase64ContentCast - Copy.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\JsonArrayEquals - Copy.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\JsonDateEquals - Copy.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\JsonTimeEquals - Copy.feature.cs" />
@@ -56,6 +57,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Features\JsonModel\Cast\JsonBase64StringCast.feature.cs">
+      <DependentUpon>JsonBase64StringCast.feature</DependentUpon>
+    </Compile>
     <Compile Update="Features\JsonModel\Cast\JsonBase64ContentCast.feature.cs">
       <DependentUpon>JsonBase64ContentCast.feature</DependentUpon>
     </Compile>
@@ -85,6 +89,10 @@
 
 
   <ItemGroup>
+    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonBase64StringCast.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonBase64ContentCast.feature">
       <Visible>$(UsingMicrosoftNETSdk)</Visible>
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
