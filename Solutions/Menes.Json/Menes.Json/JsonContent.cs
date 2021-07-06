@@ -251,7 +251,8 @@ namespace Menes.Json
         /// <param name="value">The number from which to convert.</param>
         public static implicit operator ReadOnlySpan<byte>(JsonContent value)
         {
-            return Encoding.UTF8.GetBytes(value);
+            string result = value.GetString();
+            return Encoding.UTF8.GetBytes(result);
         }
 
         /// <summary>
@@ -274,6 +275,12 @@ namespace Menes.Json
         public static bool operator !=(JsonContent lhs, JsonContent rhs)
         {
             return !lhs.Equals(rhs);
+        }
+
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            return this.GetString();
         }
 
         /// <summary>
@@ -475,9 +482,23 @@ namespace Menes.Json
         /// <returns><c>True</c> if the value could be retrieved.</returns>
         public bool TryGetString(out string result)
         {
-            if (this.value is string)
+            if (this.value is string value)
             {
-                result = this.AsSpan().ToString();
+                ReadOnlySpan<byte> utf8Source = Encoding.UTF8.GetBytes(value);
+
+                int idx = utf8Source.IndexOf(JsonConstants.BackSlash);
+
+                ReadOnlySpan<byte> utf8Unescaped;
+                if (idx >= 0)
+                {
+                    utf8Unescaped = JsonReaderHelper.GetUnescapedSpan(utf8Source, idx);
+                }
+                else
+                {
+                    utf8Unescaped = utf8Source;
+                }
+
+                result = Encoding.UTF8.GetString(utf8Unescaped);
                 return true;
             }
 
@@ -500,28 +521,23 @@ namespace Menes.Json
         {
             if (this.value is string value)
             {
-                Span<byte> source = stackalloc byte[JsonReaderHelper.GetUtf8ByteCount(value)];
-                Span<byte> target = stackalloc byte[source.Length];
-                int written = JsonReaderHelper.GetUtf8FromText(value, source);
-                int totalWritten = 0;
-                for (int i = 0; i < written; ++i)
+                ReadOnlySpan<byte> utf8Source = Encoding.UTF8.GetBytes(value);
+
+                int idx = utf8Source.IndexOf(JsonConstants.BackSlash);
+
+                ReadOnlySpan<byte> utf8Unescaped;
+                if (idx >= 0)
                 {
-                    if (source[i] == JsonConstants.BackSlash)
-                    {
-                        ReadOnlySpan<byte> unescaped = JsonReaderHelper.GetUnescapedSpan(source, i);
-                        unescaped.CopyTo(target[totalWritten..]);
-                        totalWritten += unescaped.Length;
-                        break;
-                    }
-                    else
-                    {
-                        target[totalWritten++] = source[i];
-                    }
+                    utf8Unescaped = JsonReaderHelper.GetUnescapedSpan(utf8Source, idx);
+                }
+                else
+                {
+                    utf8Unescaped = utf8Source;
                 }
 
-                Span<char> result = new char[Encoding.UTF8.GetCharCount(target.Slice(0, totalWritten))];
-                Encoding.UTF8.GetChars(target.Slice(0, totalWritten), result);
-                return result;
+                Span<char> result = new char[Encoding.UTF8.GetMaxCharCount(utf8Unescaped.Length)];
+                int written = Encoding.UTF8.GetChars(utf8Unescaped, result);
+                return result.Slice(0, written);
             }
 
             if (this.jsonElement.ValueKind == JsonValueKind.String)

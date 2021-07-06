@@ -105,7 +105,7 @@ namespace Steps
         [Then(@"the result should equal the JsonString '(.*)'")]
         public void ThenTheResultShouldEqualTheJsonString(string expectedString)
         {
-            JsonString expected = new (expectedString);
+            JsonString expected = JsonAny.ParseUriValue(expectedString);
             JsonString actual = this.scenarioContext.Get<JsonString>(CastResultKey);
             Assert.AreEqual(expected, actual);
         }
@@ -378,7 +378,7 @@ namespace Steps
         [Then(@"the result should equal the JsonContent '(.*)'")]
         public void ThenTheResultShouldEqualTheJsonContent(string expectedValue)
         {
-            JsonContent expected = JsonAny.ParseUriValue(expectedValue).AsString;
+            JsonContent expected = JsonAny.ParseUriValue(expectedValue);
             Assert.AreEqual(expected, this.scenarioContext.Get<JsonContent>(CastResultKey));
         }
 
@@ -452,6 +452,109 @@ namespace Steps
         public void WhenICastTheStringToJsonContent()
         {
             this.scenarioContext.Set((JsonContent)this.scenarioContext.Get<string>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /* email */
+
+        /// <summary>
+        /// Casts the <see cref="JsonEmail"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonAny"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonEmail to JsonAny")]
+        public void WhenICastTheJsonEmailToJsonAny()
+        {
+            this.scenarioContext.Set((JsonAny)this.scenarioContext.Get<JsonEmail>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonAny"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonEmail"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonAny to JsonEmail")]
+        public void WhenICastTheJsonAnyToJsonEmail()
+        {
+            this.scenarioContext.Set((JsonEmail)this.scenarioContext.Get<JsonAny>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Compares the <see cref="JsonEmail"/> in the context value <see cref="CastResultKey"/> with the given JsonEmail.
+        /// </summary>
+        /// <param name="expectedValue">The serialized form of the <see cref="JsonEmail"/>.</param>
+        [Then(@"the result should equal the JsonEmail '(.*)'")]
+        public void ThenTheResultShouldEqualTheJsonEmail(string expectedValue)
+        {
+            JsonEmail expected = JsonAny.ParseUriValue(expectedValue).AsString;
+            Assert.AreEqual(expected, this.scenarioContext.Get<JsonEmail>(CastResultKey));
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonEmail"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonString"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonEmail to JsonString")]
+        public void WhenICastTheJsonEmailToJsonString()
+        {
+            this.scenarioContext.Set((JsonString)this.scenarioContext.Get<JsonEmail>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonString"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonEmail"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonString to JsonEmail")]
+        public void WhenICastTheJsonStringToJsonEmail()
+        {
+            this.scenarioContext.Set((JsonEmail)this.scenarioContext.Get<JsonString>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonEmail"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="ReadOnlySpan{Char}"/>, converts that to a <see cref="ReadOnlyMemory{Char}"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonEmail to ReadOnlySpan<char>")]
+        public void WhenICastTheJsonEmailToReadOnlySpanOfChar()
+        {
+            this.scenarioContext.Set<ReadOnlyMemory<char>>(((ReadOnlySpan<char>)this.scenarioContext.Get<JsonEmail>(JsonValueSteps.SubjectUnderTest)).ToArray().AsMemory(), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonEmail"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="ReadOnlySpan{Char}"/>, converts that to a <see cref="ReadOnlyMemory{Char}"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the ReadOnlySpan<char> to JsonEmail")]
+        public void WhenICastTheReadOnlySpanOfCharToJsonEmail()
+        {
+            this.scenarioContext.Set((JsonEmail)this.scenarioContext.Get<ReadOnlyMemory<char>>(JsonValueSteps.SubjectUnderTest).Span, CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonEmail"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="ReadOnlySpan{Byte}"/>, converts that to a <see cref="ReadOnlyMemory{Byte}"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonEmail to ReadOnlySpan<byte>")]
+        public void WhenICastTheJsonEmailToReadOnlySpanOfByte()
+        {
+            this.scenarioContext.Set<ReadOnlyMemory<byte>>(((ReadOnlySpan<byte>)this.scenarioContext.Get<JsonEmail>(JsonValueSteps.SubjectUnderTest)).ToArray().AsMemory(), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="ReadOnlySpan{Byte}"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonEmail"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the ReadOnlySpan<byte> to JsonEmail")]
+        public void WhenICastTheReadOnlySpanOfByteToJsonEmail()
+        {
+            this.scenarioContext.Set((JsonEmail)this.scenarioContext.Get<ReadOnlyMemory<byte>>(JsonValueSteps.SubjectUnderTest).Span, CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonEmail"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="string"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonEmail to string")]
+        public void WhenICastTheJsonEmailToString()
+        {
+            this.scenarioContext.Set((string)this.scenarioContext.Get<JsonEmail>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="string"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonEmail"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the string to JsonEmail")]
+        public void WhenICastTheStringToJsonEmail()
+        {
+            this.scenarioContext.Set((JsonEmail)this.scenarioContext.Get<string>(JsonValueSteps.SubjectUnderTest), CastResultKey);
         }
     }
 }

@@ -879,10 +879,10 @@ namespace Steps
         /// Stores the <see cref="JsonString"/> <paramref name="value"/> in the context key <see cref="SubjectUnderTest"/>.
         /// </summary>
         /// <param name="value">The string value.</param>
-        [Given(@"the JsonString for ""(.*)""")]
+        [Given(@"the JsonString for (.*)")]
         public void GivenTheJsonStringFor(string value)
         {
-            this.scenarioContext.Set<JsonString>(value, SubjectUnderTest);
+            this.scenarioContext.Set<JsonString>(JsonAny.ParseUriValue(value), SubjectUnderTest);
         }
 
         /// <summary>

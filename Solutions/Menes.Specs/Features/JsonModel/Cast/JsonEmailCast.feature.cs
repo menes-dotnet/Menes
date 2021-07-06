@@ -20,22 +20,22 @@ namespace Features.JsonModel.Cast
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.7.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("JsonContentCast")]
-    public partial class JsonContentCastFeature
+    [NUnit.Framework.DescriptionAttribute("JsonEmailCast")]
+    public partial class JsonEmailCastFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private string[] _featureTags = ((string[])(null));
         
-#line 1 "JsonContentCast.feature"
+#line 1 "JsonEmailCast.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/JsonModel/Cast", "JsonContentCast", "\tValidate the Json cast operators", ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features/JsonModel/Cast", "JsonEmailCast", "\tValidate the Json cast operators", ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -74,12 +74,12 @@ namespace Features.JsonModel.Cast
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast to JsonAny for json element backed value as an content")]
-        public virtual void CastToJsonAnyForJsonElementBackedValueAsAnContent()
+        [NUnit.Framework.DescriptionAttribute("Cast to JsonAny for json element backed value as an email")]
+        public virtual void CastToJsonAnyForJsonElementBackedValueAsAnEmail()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to JsonAny for json element backed value as an content", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to JsonAny for json element backed value as an email", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 4
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -101,25 +101,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 5
- testRunner.Given("the JsonElement backed JsonContent \"{\\\"foo\\\": \\\"bar\\\"}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonEmail \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 6
- testRunner.When("I cast the JsonContent to JsonAny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonEmail to JsonAny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 7
- testRunner.Then("the result should equal the JsonAny \'\"{\\\"foo\\\": \\\"bar\\\"}\"\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the JsonAny \'hello@endjin.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast to JsonAny for dotnet backed value as an content")]
-        public virtual void CastToJsonAnyForDotnetBackedValueAsAnContent()
+        [NUnit.Framework.DescriptionAttribute("Cast to JsonAny for dotnet backed value as an email")]
+        public virtual void CastToJsonAnyForDotnetBackedValueAsAnEmail()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to JsonAny for dotnet backed value as an content", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to JsonAny for dotnet backed value as an email", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 9
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -141,25 +141,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 10
- testRunner.Given("the dotnet backed JsonContent \"{\\\"foo\\\": \\\"bar\\\"}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the dotnet backed JsonEmail hello@endjin.com", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 11
- testRunner.When("I cast the JsonContent to JsonAny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonEmail to JsonAny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 12
- testRunner.Then("the result should equal the JsonAny \'\"{\\\"foo\\\": \\\"bar\\\"}\"\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the JsonAny \'hello@endjin.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast from JsonAny for json element backed value as an content")]
-        public virtual void CastFromJsonAnyForJsonElementBackedValueAsAnContent()
+        [NUnit.Framework.DescriptionAttribute("Cast from JsonAny for json element backed value as an email")]
+        public virtual void CastFromJsonAnyForJsonElementBackedValueAsAnEmail()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from JsonAny for json element backed value as an content", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from JsonAny for json element backed value as an email", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 14
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -181,25 +181,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 15
- testRunner.Given("the JsonAny for \"{\\\"foo\\\": \\\"bar\\\"}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonAny for \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 16
- testRunner.When("I cast the JsonAny to JsonContent", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonAny to JsonEmail", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 17
- testRunner.Then("the result should equal the JsonContent \'\"{\\\"foo\\\": \\\"bar\\\"}\"\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the JsonEmail \'hello@endjin.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast to JsonString for json element backed value as an content")]
-        public virtual void CastToJsonStringForJsonElementBackedValueAsAnContent()
+        [NUnit.Framework.DescriptionAttribute("Cast to JsonString for json element backed value as an email")]
+        public virtual void CastToJsonStringForJsonElementBackedValueAsAnEmail()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to JsonString for json element backed value as an content", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to JsonString for json element backed value as an email", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 19
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -221,25 +221,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 20
- testRunner.Given("the JsonElement backed JsonContent \"{\\\"foo\\\": \\\"bar\\\"}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonEmail \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 21
- testRunner.When("I cast the JsonContent to JsonString", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonEmail to JsonString", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 22
- testRunner.Then("the result should equal the JsonString \'\"{\\\"foo\\\": \\\"bar\\\"}\"\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the JsonString \'hello@endjin.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast to JsonString for dotnet backed value as an content")]
-        public virtual void CastToJsonStringForDotnetBackedValueAsAnContent()
+        [NUnit.Framework.DescriptionAttribute("Cast to JsonString for dotnet backed value as an email")]
+        public virtual void CastToJsonStringForDotnetBackedValueAsAnEmail()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to JsonString for dotnet backed value as an content", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to JsonString for dotnet backed value as an email", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 24
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -261,25 +261,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 25
- testRunner.Given("the dotnet backed JsonContent \"{\\\"foo\\\": \\\"bar\\\"}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the dotnet backed JsonEmail hello@endjin.com", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 26
- testRunner.When("I cast the JsonContent to JsonString", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonEmail to JsonString", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 27
- testRunner.Then("the result should equal the JsonString \'\"{\\\"foo\\\": \\\"bar\\\"}\"\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the JsonString \'hello@endjin.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast from JsonString for json element backed value as an content")]
-        public virtual void CastFromJsonStringForJsonElementBackedValueAsAnContent()
+        [NUnit.Framework.DescriptionAttribute("Cast from JsonString for json element backed value as an email")]
+        public virtual void CastFromJsonStringForJsonElementBackedValueAsAnEmail()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from JsonString for json element backed value as an content", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from JsonString for json element backed value as an email", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 29
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -301,25 +301,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 30
- testRunner.Given("the JsonString for \"{\\\"foo\\\": \\\"bar\\\"}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonString for \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 31
- testRunner.When("I cast the JsonString to JsonContent", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonString to JsonEmail", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 32
- testRunner.Then("the result should equal the JsonContent \'\"{\\\"foo\\\": \\\"bar\\\"}\"\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the JsonEmail \'hello@endjin.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast to ReadOnlySpan<byte> for json element backed value as an content")]
-        public virtual void CastToReadOnlySpanByteForJsonElementBackedValueAsAnContent()
+        [NUnit.Framework.DescriptionAttribute("Cast to ReadOnlySpan<byte> for json element backed value as an email")]
+        public virtual void CastToReadOnlySpanByteForJsonElementBackedValueAsAnEmail()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to ReadOnlySpan<byte> for json element backed value as an content", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to ReadOnlySpan<byte> for json element backed value as an email", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 34
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -341,25 +341,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 35
- testRunner.Given("the JsonElement backed JsonContent \"{\\\"foo\\\": \\\"bar\\\"}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonEmail \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 36
- testRunner.When("I cast the JsonContent to ReadOnlySpan<byte>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonEmail to ReadOnlySpan<byte>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 37
- testRunner.Then("the result should equal the ReadOnlySpan<byte> \'{\"foo\": \"bar\"}\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the ReadOnlySpan<byte> \'hello@endjin.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast to ReadOnlySpan<byte> for dotnet backed value as an content")]
-        public virtual void CastToReadOnlySpanByteForDotnetBackedValueAsAnContent()
+        [NUnit.Framework.DescriptionAttribute("Cast to ReadOnlySpan<byte> for dotnet backed value as an email")]
+        public virtual void CastToReadOnlySpanByteForDotnetBackedValueAsAnEmail()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to ReadOnlySpan<byte> for dotnet backed value as an content", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to ReadOnlySpan<byte> for dotnet backed value as an email", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 39
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -381,25 +381,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 40
- testRunner.Given("the dotnet backed JsonContent \"{\\\"foo\\\": \\\"bar\\\"}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the dotnet backed JsonEmail hello@endjin.com", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 41
- testRunner.When("I cast the JsonContent to ReadOnlySpan<byte>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonEmail to ReadOnlySpan<byte>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 42
- testRunner.Then("the result should equal the ReadOnlySpan<byte> \'{\"foo\": \"bar\"}\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the ReadOnlySpan<byte> \'hello@endjin.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast from ReadOnlySpan<byte> for json element backed value as an content")]
-        public virtual void CastFromReadOnlySpanByteForJsonElementBackedValueAsAnContent()
+        [NUnit.Framework.DescriptionAttribute("Cast from ReadOnlySpan<byte> for json element backed value as an email")]
+        public virtual void CastFromReadOnlySpanByteForJsonElementBackedValueAsAnEmail()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from ReadOnlySpan<byte> for json element backed value as an content", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from ReadOnlySpan<byte> for json element backed value as an email", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 44
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -421,25 +421,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 45
- testRunner.Given("the ReadOnlyMemory<byte> for \"{\\\"foo\\\": \\\"bar\\\"}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the ReadOnlyMemory<byte> for \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 46
- testRunner.When("I cast the ReadOnlySpan<byte> to JsonContent", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the ReadOnlySpan<byte> to JsonEmail", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 47
- testRunner.Then("the result should equal the JsonContent \'\"{\\\"foo\\\": \\\"bar\\\"}\"\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the JsonEmail \'hello@endjin.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast to ReadOnlySpan<char> for json element backed value as an content")]
-        public virtual void CastToReadOnlySpanCharForJsonElementBackedValueAsAnContent()
+        [NUnit.Framework.DescriptionAttribute("Cast to ReadOnlySpan<char> for json element backed value as an email")]
+        public virtual void CastToReadOnlySpanCharForJsonElementBackedValueAsAnEmail()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to ReadOnlySpan<char> for json element backed value as an content", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to ReadOnlySpan<char> for json element backed value as an email", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 49
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -461,25 +461,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 50
- testRunner.Given("the JsonElement backed JsonContent \"{\\\"foo\\\": \\\"bar\\\"}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonEmail \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 51
- testRunner.When("I cast the JsonContent to ReadOnlySpan<char>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonEmail to ReadOnlySpan<char>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 52
- testRunner.Then("the result should equal the ReadOnlySpan<char> \'{\"foo\": \"bar\"}\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the ReadOnlySpan<char> \'hello@endjin.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast to ReadOnlySpan<char> for dotnet backed value as an content")]
-        public virtual void CastToReadOnlySpanCharForDotnetBackedValueAsAnContent()
+        [NUnit.Framework.DescriptionAttribute("Cast to ReadOnlySpan<char> for dotnet backed value as an email")]
+        public virtual void CastToReadOnlySpanCharForDotnetBackedValueAsAnEmail()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to ReadOnlySpan<char> for dotnet backed value as an content", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to ReadOnlySpan<char> for dotnet backed value as an email", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 54
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -501,25 +501,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 55
- testRunner.Given("the dotnet backed JsonContent \"{\\\"foo\\\": \\\"bar\\\"}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the dotnet backed JsonEmail hello@endjin.com", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 56
- testRunner.When("I cast the JsonContent to ReadOnlySpan<char>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonEmail to ReadOnlySpan<char>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 57
- testRunner.Then("the result should equal the ReadOnlySpan<char> \'{\"foo\": \"bar\"}\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the ReadOnlySpan<char> \'hello@endjin.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast from ReadOnlySpan<char> for json element backed value as an content")]
-        public virtual void CastFromReadOnlySpanCharForJsonElementBackedValueAsAnContent()
+        [NUnit.Framework.DescriptionAttribute("Cast from ReadOnlySpan<char> for json element backed value as an email")]
+        public virtual void CastFromReadOnlySpanCharForJsonElementBackedValueAsAnEmail()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from ReadOnlySpan<char> for json element backed value as an content", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from ReadOnlySpan<char> for json element backed value as an email", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 59
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -541,25 +541,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 60
- testRunner.Given("the ReadOnlyMemory<char> for \"{\\\"foo\\\": \\\"bar\\\"}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the ReadOnlyMemory<char> for \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 61
- testRunner.When("I cast the ReadOnlySpan<char> to JsonContent", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the ReadOnlySpan<char> to JsonEmail", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 62
- testRunner.Then("the result should equal the JsonContent \'\"{\\\"foo\\\": \\\"bar\\\"}\"\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the JsonEmail \'hello@endjin.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast to string for json element backed value as an content")]
-        public virtual void CastToStringForJsonElementBackedValueAsAnContent()
+        [NUnit.Framework.DescriptionAttribute("Cast to string for json element backed value as an email")]
+        public virtual void CastToStringForJsonElementBackedValueAsAnEmail()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to string for json element backed value as an content", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to string for json element backed value as an email", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 64
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -581,25 +581,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 65
- testRunner.Given("the JsonElement backed JsonContent \"{\\\"foo\\\": \\\"bar\\\"}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonEmail \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 66
- testRunner.When("I cast the JsonContent to string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonEmail to string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 67
- testRunner.Then("the result should equal the string \'{\"foo\": \"bar\"}\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the string \'hello@endjin.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast to string for dotnet backed value as an content")]
-        public virtual void CastToStringForDotnetBackedValueAsAnContent()
+        [NUnit.Framework.DescriptionAttribute("Cast to string for dotnet backed value as an email")]
+        public virtual void CastToStringForDotnetBackedValueAsAnEmail()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to string for dotnet backed value as an content", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to string for dotnet backed value as an email", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 69
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -621,25 +621,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 70
- testRunner.Given("the dotnet backed JsonContent \"{\\\"foo\\\": \\\"bar\\\"}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the dotnet backed JsonEmail hello@endjin.com", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 71
- testRunner.When("I cast the JsonContent to string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonEmail to string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 72
- testRunner.Then("the result should equal the string \'{\"foo\": \"bar\"}\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the string \'hello@endjin.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast from string for json element backed value as an content")]
-        public virtual void CastFromStringForJsonElementBackedValueAsAnContent()
+        [NUnit.Framework.DescriptionAttribute("Cast from string for json element backed value as an email")]
+        public virtual void CastFromStringForJsonElementBackedValueAsAnEmail()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from string for json element backed value as an content", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from string for json element backed value as an email", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 74
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -661,13 +661,13 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 75
- testRunner.Given("the string for \"{\\\"foo\\\": \\\"bar\\\"}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the string for \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 76
- testRunner.When("I cast the string to JsonContent", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the string to JsonEmail", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 77
- testRunner.Then("the result should equal the JsonContent \'\"{\\\"foo\\\": \\\"bar\\\"}\"\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the JsonEmail \'hello@endjin.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
