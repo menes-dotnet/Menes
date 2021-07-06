@@ -886,6 +886,16 @@ namespace Steps
         }
 
         /// <summary>
+        /// Stores the <see cref="bool"/> <paramref name="value"/> in the context key <see cref="SubjectUnderTest"/>.
+        /// </summary>
+        /// <param name="value">The boolean value.</param>
+        [Given(@"the bool for (.*)")]
+        public void GivenTheBoolForTrue(bool value)
+        {
+            this.scenarioContext.Set(value, SubjectUnderTest);
+        }
+
+        /// <summary>
         /// Stores the <see cref="JsonString"/> <paramref name="value"/> in the context key <see cref="SubjectUnderTest"/>.
         /// </summary>
         /// <param name="value">The string value.</param>

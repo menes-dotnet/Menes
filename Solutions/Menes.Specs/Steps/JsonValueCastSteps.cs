@@ -556,5 +556,61 @@ namespace Steps
         {
             this.scenarioContext.Set((JsonEmail)this.scenarioContext.Get<string>(JsonValueSteps.SubjectUnderTest), CastResultKey);
         }
+
+        /// <summary>
+        /// Casts the <see cref="JsonBoolean"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonAny"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonBoolean to JsonAny")]
+        public void WhenICastTheJsonBooleanToJsonAny()
+        {
+            this.scenarioContext.Set((JsonAny)this.scenarioContext.Get<JsonBoolean>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonAny"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonBoolean"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonAny to JsonBoolean")]
+        public void WhenICastTheJsonAnyToJsonBoolean()
+        {
+            this.scenarioContext.Set<IJsonValue>((JsonBoolean)this.scenarioContext.Get<JsonAny>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Compares the <see cref="JsonBoolean"/> in the context value <see cref="CastResultKey"/> with the given JsonBoolean.
+        /// </summary>
+        /// <param name="expectedValue">The serialized form of the <see cref="JsonContent"/>.</param>
+        [Then(@"the result should equal the JsonBoolean '(.*)'")]
+        public void ThenTheResultShouldEqualTheJsonBoolean(string expectedValue)
+        {
+            Assert.AreEqual(JsonAny.ParseUriValue(expectedValue).AsBoolean, this.scenarioContext.Get<IJsonValue>(CastResultKey));
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonBoolean"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="bool"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonBoolean to bool")]
+        public void WhenICastTheJsonBooleanToBool()
+        {
+            this.scenarioContext.Set((bool)this.scenarioContext.Get<JsonBoolean>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Compares the <see cref="bool"/> in the context value <see cref="CastResultKey"/> with the given bool.
+        /// </summary>
+        /// <param name="expectedValue">The serialized form of the <see cref="JsonContent"/>.</param>
+        [Then(@"the result should equal the bool (.*)")]
+        public void ThenTheResultShouldEqualTheBool(bool expectedValue)
+        {
+            Assert.AreEqual(expectedValue, this.scenarioContext.Get<bool>(CastResultKey));
+        }
+
+        /// <summary>
+        /// Casts the <see cref="bool"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonBoolean"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the bool to JsonBoolean")]
+        public void WhenICastTheBoolToJsonBoolean()
+        {
+            this.scenarioContext.Set<IJsonValue>((JsonBoolean)this.scenarioContext.Get<bool>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
     }
 }
