@@ -928,5 +928,16 @@ namespace Steps
             ParseResult<LocalDate> parseResult = LocalDatePattern.Iso.Parse(value);
             this.scenarioContext.Set(parseResult.Value, SubjectUnderTest);
         }
+
+        /// <summary>
+        /// Stores the <see cref="OffsetDateTime"/> <paramref name="value"/> in the context key <see cref="SubjectUnderTest"/>.
+        /// </summary>
+        /// <param name="value">The string value of the <see cref="OffsetDateTime"/>.</param>
+        [Given(@"the OffsetDateTime for ""(.*)""")]
+        public void GivenTheOffsetDateTimeFor(string value)
+        {
+            ParseResult<OffsetDateTime> parseResult = OffsetDateTimePattern.ExtendedIso.Parse(value);
+            this.scenarioContext.Set(parseResult.Value, SubjectUnderTest);
+        }
     }
 }

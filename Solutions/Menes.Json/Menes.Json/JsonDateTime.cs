@@ -230,6 +230,15 @@ namespace Menes.Json
         }
 
         /// <summary>
+        /// Conversion from string.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator JsonDateTime(ReadOnlySpan<char> value)
+        {
+            return new JsonDateTime(value);
+        }
+
+        /// <summary>
         /// Conversion to string.
         /// </summary>
         /// <param name="value">The number from which to convert.</param>
