@@ -930,6 +930,17 @@ namespace Steps
         }
 
         /// <summary>
+        /// Stores the <see cref="Period"/> <paramref name="value"/> in the context key <see cref="SubjectUnderTest"/>.
+        /// </summary>
+        /// <param name="value">The string value of the <see cref="LocalDate"/>.</param>
+        [Given(@"the Period for ""(.*)""")]
+        public void GivenThePeriodFor(string value)
+        {
+            ParseResult<Period> parseResult = PeriodPattern.NormalizingIso.Parse(value);
+            this.scenarioContext.Set(parseResult.Value, SubjectUnderTest);
+        }
+
+        /// <summary>
         /// Stores the <see cref="OffsetDateTime"/> <paramref name="value"/> in the context key <see cref="SubjectUnderTest"/>.
         /// </summary>
         /// <param name="value">The string value of the <see cref="OffsetDateTime"/>.</param>
