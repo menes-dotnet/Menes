@@ -229,63 +229,6 @@ namespace Menes.Json.SchemaModel.Draft202012
             };
         }
 
-        /// <summary>
-        /// Gets the conversions for a built-in type declaration.
-        /// </summary>
-        /// <param name="typeDeclaration">The built-in type declaration for which to get valid conversions.</param>
-        /// <returns>The list of type declarations for the conversions.</returns>
-        public static IEnumerable<TypeDeclaration> GetConversionsFor(TypeDeclaration typeDeclaration)
-        {
-            if (!typeDeclaration.IsBuiltInType)
-            {
-                throw new ArgumentException("The type declaration must be a built-in type.", nameof(typeDeclaration));
-            }
-
-            return typeDeclaration.FullyQualifiedDotnetTypeName switch
-            {
-                "Menes.Json.JsonAny" => Enumerable.Empty<TypeDeclaration>(),
-                "Menes.Json.JsonNotAny" => Enumerable.Empty<TypeDeclaration>(),
-                "Menes.Json.JsonNull" => Enumerable.Empty<TypeDeclaration>(),
-                "Menes.Json.JsonNumber" => new[] { new TypeDeclaration(null, "int"), new TypeDeclaration(null, "long"), new TypeDeclaration(null, "double"), new TypeDeclaration(null, "float") },
-                "Menes.Json.JsonInteger" => new[] { new TypeDeclaration("Menes.Json", "JsonNumber"), new TypeDeclaration(null, "int"), new TypeDeclaration(null, "long"), new TypeDeclaration(null, "double"), new TypeDeclaration(null, "float") },
-                "Menes.Json.JsonString" => new[] { new TypeDeclaration(null, "string"), new TypeDeclaration("System", "ReadOnlySpan<char>"), new TypeDeclaration("System", "ReadOnlyMemory<char>") },
-                "Menes.Json.JsonBoolean" => new[] { new TypeDeclaration(null, "bool") },
-                "Menes.Json.JsonUuid" => new[] { new TypeDeclaration("Menes.Json", "JsonString"), new TypeDeclaration(null, "string"), new TypeDeclaration("System", "Guid") },
-                "Menes.Json.JsonUri" => new[] { new TypeDeclaration("Menes.Json", "JsonString"), new TypeDeclaration(null, "string"), new TypeDeclaration("System", "Uri") },
-                "Menes.Json.JsonUriReference" => new[] { new TypeDeclaration("Menes.Json", "JsonString"), new TypeDeclaration(null, "string"), new TypeDeclaration("System", "Uri") },
-                "Menes.Json.JsonUriTemplate" => new[] { new TypeDeclaration("Menes.Json", "JsonString"), new TypeDeclaration(null, "string"), new TypeDeclaration("System", "ReadOnlySpan<char>"), new TypeDeclaration("System", "ReadOnlyMemory<char>") },
-                "Menes.Json.JsonIri" => new[] { new TypeDeclaration("Menes.Json", "JsonString"), new TypeDeclaration(null, "string"), new TypeDeclaration("System", "ReadOnlySpan<char>"), new TypeDeclaration("System", "ReadOnlyMemory<char>"), new TypeDeclaration("System", "Uri") },
-                "Menes.Json.JsonPointer" => new[] { new TypeDeclaration("Menes.Json", "JsonString"), new TypeDeclaration(null, "string"), new TypeDeclaration("System", "ReadOnlySpan<char>"), new TypeDeclaration("System", "ReadOnlyMemory<char>") },
-                "Menes.Json.RelativeJsonPointer" => new[] { new TypeDeclaration("Menes.Json", "JsonString"), new TypeDeclaration(null, "string"), new TypeDeclaration("System", "ReadOnlySpan<char>"), new TypeDeclaration("System", "ReadOnlyMemory<char>") },
-                "Menes.Json.JsonRegex" => new[] { new TypeDeclaration("Menes.Json", "JsonString"), new TypeDeclaration(null, "string"), new TypeDeclaration("System", "ReadOnlySpan<char>"), new TypeDeclaration("System", "ReadOnlyMemory<char>") },
-                "Menes.Json.JsonIriReference" => new[] { new TypeDeclaration("Menes.Json", "JsonString"), new TypeDeclaration(null, "string"), new TypeDeclaration("System", "ReadOnlySpan<char>"), new TypeDeclaration("System", "ReadOnlyMemory<char>"), new TypeDeclaration("System", "Uri") },
-                "Menes.Json.JsonBase64String" => new[] { new TypeDeclaration("Menes.Json", "JsonString"), new TypeDeclaration(null, "string"), new TypeDeclaration("System", "ReadOnlySpan<char>"), new TypeDeclaration("System", "ReadOnlyMemory<char>"), new TypeDeclaration("System", "ReadOnlySpan<byte>"), new TypeDeclaration("System", "ReadOnlyMemory<byte>") },
-                "Menes.Json.JsonBase64Content" => new[] { new TypeDeclaration("Menes.Json", "JsonString"), new TypeDeclaration(null, "string"), new TypeDeclaration("System", "ReadOnlySpan<char>"), new TypeDeclaration("System", "ReadOnlyMemory<char>"), new TypeDeclaration("System.Text.Json", "JsonDocument") },
-                "Menes.Json.JsonContent" => new[] { new TypeDeclaration("Menes.Json", "JsonString"), new TypeDeclaration(null, "string"), new TypeDeclaration("System", "ReadOnlySpan<char>"), new TypeDeclaration("System", "ReadOnlyMemory<char>"), new TypeDeclaration("System.Text.Json", "JsonDocument") },
-                "Menes.Json.JsonDate" => new[] { new TypeDeclaration("Menes.Json", "JsonString"), new TypeDeclaration(null, "string"), new TypeDeclaration("System", "ReadOnlySpan<char>"), new TypeDeclaration("System", "ReadOnlyMemory<char>"), new TypeDeclaration("NodaTime", "LocalDate") },
-                "Menes.Json.JsonDateTime" => new[] { new TypeDeclaration("Menes.Json", "JsonString"), new TypeDeclaration(null, "string"), new TypeDeclaration("System", "ReadOnlySpan<char>"), new TypeDeclaration("System", "ReadOnlyMemory<char>"), new TypeDeclaration("NodaTime", "OffsetDateTime") },
-                "Menes.Json.JsonTime" => new[] { new TypeDeclaration("Menes.Json", "JsonString"), new TypeDeclaration(null, "string"), new TypeDeclaration("System", "ReadOnlySpan<char>"), new TypeDeclaration("System", "ReadOnlyMemory<char>"), new TypeDeclaration("NodaTime", "OffsetTime") },
-                "Menes.Json.JsonDuration" => new[] { new TypeDeclaration("Menes.Json", "JsonString"), new TypeDeclaration(null, "string"), new TypeDeclaration("System", "ReadOnlySpan<char>"), new TypeDeclaration("System", "ReadOnlyMemory<char>"), new TypeDeclaration("NodaTime", "Period") },
-                "Menes.Json.JsonEmail" => new[] { new TypeDeclaration("Menes.Json", "JsonString"), new TypeDeclaration(null, "string"), new TypeDeclaration("System", "ReadOnlySpan<char>"), new TypeDeclaration("System", "ReadOnlyMemory<char>") },
-                "Menes.Json.JsonIdnEmail" => new[] { new TypeDeclaration("Menes.Json", "JsonString"), new TypeDeclaration(null, "string"), new TypeDeclaration("System", "ReadOnlySpan<char>"), new TypeDeclaration("System", "ReadOnlyMemory<char>") },
-                "Menes.Json.JsonHostname" => new[] { new TypeDeclaration("Menes.Json", "JsonString"), new TypeDeclaration(null, "string"), new TypeDeclaration("System", "ReadOnlySpan<char>"), new TypeDeclaration("System", "ReadOnlyMemory<char>") },
-                "Menes.Json.JsonIdnHostname" => new[] { new TypeDeclaration("Menes.Json", "JsonString"), new TypeDeclaration(null, "string"), new TypeDeclaration("System", "ReadOnlySpan<char>"), new TypeDeclaration("System", "ReadOnlyMemory<char>") },
-                "Menes.Json.JsonIpV4" => new[] { new TypeDeclaration("Menes.Json", "JsonString"), new TypeDeclaration(null, "string"), new TypeDeclaration("System", "ReadOnlySpan<char>"), new TypeDeclaration("System", "ReadOnlyMemory<char>") },
-                "Menes.Json.JsonIpV6" => new[] { new TypeDeclaration("Menes.Json", "JsonString"), new TypeDeclaration(null, "string"), new TypeDeclaration("System", "ReadOnlySpan<char>"), new TypeDeclaration("System", "ReadOnlyMemory<char>") },
-                _ => throw new InvalidOperationException($"Unsupported built-in type {typeDeclaration.FullyQualifiedDotnetTypeName}"),
-            };
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether the supplied format is a numeric format.
-        /// </summary>
-        /// <param name="format">The format to check.</param>
-        /// <returns>True if this is a numeric format.</returns>
-        public static bool IsNumericFormat(string format)
-        {
-            return (GetNumberFor(format) ?? GetIntegerFor(format)) is not null;
-        }
-
         private static (string ns, string type)? GetStringFor(string? format, string? contentEcoding, string? contentMediaType)
         {
             return format switch
