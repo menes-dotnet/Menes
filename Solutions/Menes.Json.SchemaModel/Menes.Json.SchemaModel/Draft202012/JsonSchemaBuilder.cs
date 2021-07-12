@@ -71,7 +71,7 @@ namespace Menes.Json.SchemaModel.Draft202012
             this.SetNames(typesForGenerationByLocation, rootNamespace, baseUriToNamespaceMap, rootTypeName, rootLocation);
 
             // Now, find and add all our properties.
-            this.FindProperties(typesForGenerationByLocation, referencedTypesByLocation);
+            this.FindProperties(typesForGenerationByLocation);
 
             rootTypeName = this.locatedTypeDeclarations[rootLocation].FullyQualifiedDotnetTypeName!;
             return (
@@ -547,7 +547,7 @@ namespace Menes.Json.SchemaModel.Draft202012
             }
         }
 
-        private void FindProperties(Dictionary<string, TypeDeclaration> typesForGenerationByLocation, Dictionary<string, TypeDeclaration> referencedTypesByLocation)
+        private void FindProperties(Dictionary<string, TypeDeclaration> typesForGenerationByLocation)
         {
             // Find all the properties in everything
             foreach (TypeDeclaration type in typesForGenerationByLocation.Values)

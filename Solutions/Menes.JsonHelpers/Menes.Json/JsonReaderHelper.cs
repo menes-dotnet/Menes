@@ -16,7 +16,7 @@ using System.Text;
 
 namespace Menes.Json
 {
-    internal static partial class JsonReaderHelper
+    public static partial class JsonReaderHelper
     {
         public static bool TryGetUnescapedBase64Bytes(ReadOnlySpan<byte> utf8Source, int idx, [NotNullWhen(true)] out byte[]? bytes)
         {

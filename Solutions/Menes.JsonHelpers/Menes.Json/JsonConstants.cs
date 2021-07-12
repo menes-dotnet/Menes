@@ -11,7 +11,7 @@ using System;
 
 namespace Menes.Json
 {
-    internal static class JsonConstants
+    public static class JsonConstants
     {
         public const byte OpenBrace = (byte)'{';
         public const byte CloseBrace = (byte)'}';
