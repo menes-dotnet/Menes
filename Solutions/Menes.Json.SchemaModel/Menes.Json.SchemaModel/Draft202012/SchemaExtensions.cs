@@ -68,17 +68,6 @@ namespace Menes.Json.SchemaModel.Draft202012
         }
 
         /// <summary>
-        /// Determines if this is an explicit null type.
-        /// </summary>
-        /// <param name="draft202012Schema">The schema to test.</param>
-        /// <returns><c>True</c> if the schema has a single type value.</returns>
-        public static bool IsExplicitNullType(this Schema draft202012Schema)
-        {
-            return
-                draft202012Schema.Type.IsSimpleTypesEntity && draft202012Schema.Type.Equals(Validation.SimpleTypesEntity.EnumValues.Null);
-        }
-
-        /// <summary>
         /// Determines if this is an explicit string type.
         /// </summary>
         /// <param name="draft202012Schema">The schema to test.</param>
@@ -134,17 +123,6 @@ namespace Menes.Json.SchemaModel.Draft202012
         }
 
         /// <summary>
-        /// Determines if this can be a null type.
-        /// </summary>
-        /// <param name="draft202012Schema">The schema to test.</param>
-        /// <returns><c>True</c> if the schema has a single type value, or no type value but a format value.</returns>
-        public static bool IsNullType(this Schema draft202012Schema)
-        {
-            return
-                draft202012Schema.IsExplicitNullType() || (draft202012Schema.Type.IsSimpleTypesEntityArray && draft202012Schema.Type.AsSimpleTypesEntityArray.EnumerateItems().Any(type => type.Equals(Validation.SimpleTypesEntity.EnumValues.Null))) || draft202012Schema.HasNullEnum() || draft202012Schema.HasNullConst();
-        }
-
-        /// <summary>
         /// Determines if this can be a boolean type.
         /// </summary>
         /// <param name="draft202012Schema">The schema to test.</param>
@@ -186,17 +164,6 @@ namespace Menes.Json.SchemaModel.Draft202012
         {
             return draft202012Schema.Enum.ValueKind == JsonValueKind.Array &&
                 draft202012Schema.Enum.EnumerateArray().Any(e => e.ValueKind == JsonValueKind.Number);
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether is has an null enum type.
-        /// </summary>
-        /// <param name="draft202012Schema">The schema to validate.</param>
-        /// <returns>True if the schema has at least one enum value of the correct type.</returns>
-        public static bool HasNullEnum(this Schema draft202012Schema)
-        {
-            return draft202012Schema.Enum.ValueKind == JsonValueKind.Array &&
-                draft202012Schema.Enum.EnumerateArray().Any(e => e.ValueKind == JsonValueKind.Null);
         }
 
         /// <summary>
@@ -259,16 +226,6 @@ namespace Menes.Json.SchemaModel.Draft202012
         public static bool HasNumberConst(this Schema draft202012Schema)
         {
             return draft202012Schema.Const.ValueKind == JsonValueKind.Number;
-        }
-
-        /// <summary>
-        /// Gets a value indicating whether is has a null const type.
-        /// </summary>
-        /// <param name="draft202012Schema">The schema to validate.</param>
-        /// <returns>True if the schema has a const value of the correct type.</returns>
-        public static bool HasNullConst(this Schema draft202012Schema)
-        {
-            return draft202012Schema.Const.ValueKind == JsonValueKind.Null;
         }
 
         /// <summary>

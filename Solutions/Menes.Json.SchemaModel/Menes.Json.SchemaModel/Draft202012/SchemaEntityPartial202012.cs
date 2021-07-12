@@ -2081,17 +2081,17 @@ public partial class SchemaEntity202012
             }
         }
 
-        if (typeDeclaration.Schema.If.IsNotUndefined() && !(typeDeclaration.Schema.IsNakedReference() || typeDeclaration.Schema.IsNakedRecursiveReference()))
-        {
-            TypeDeclaration td = this.Builder.GetTypeDeclarationForProperty(typeDeclaration, "if");
+        ////if (typeDeclaration.Schema.If.IsNotUndefined() && !(typeDeclaration.Schema.IsNakedReference() || typeDeclaration.Schema.IsNakedRecursiveReference()))
+        ////{
+        ////    TypeDeclaration td = this.Builder.GetTypeDeclarationForProperty(typeDeclaration, "if");
 
-            // Do not add conversions for If
-            ////if (!conversions.ContainsKey(td))
-            ////{
-            ////    conversions.Add(td, new Conversion(td, parent));
-            ////    this.AddConversionsFor(td, conversions, typeDeclaration);
-            ////}
-        }
+        ////    // Do not add conversions for If
+        ////    ////if (!conversions.ContainsKey(td))
+        ////    ////{
+        ////    ////    conversions.Add(td, new Conversion(td, parent));
+        ////    ////    this.AddConversionsFor(td, conversions, typeDeclaration);
+        ////    ////}
+        ////}
 
         if (typeDeclaration.Schema.Then.IsNotUndefined() && !(typeDeclaration.Schema.IsNakedReference() || typeDeclaration.Schema.IsNakedRecursiveReference()))
         {
@@ -2281,11 +2281,6 @@ public partial class SchemaEntity202012
         /// Gets a value indicating whether this is a number value.
         /// </summary>
         public bool IsNumber => this.typeDeclaration.Schema.IsNumberType();
-
-        /// <summary>
-        /// Gets a value indicating whether this is a number value.
-        /// </summary>
-        public bool IsNull => this.typeDeclaration.Schema.IsNullType();
 
         /// <summary>
         /// Gets a value indicating whether this is a built-in type.
