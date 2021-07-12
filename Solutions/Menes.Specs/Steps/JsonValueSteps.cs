@@ -9,6 +9,8 @@ namespace Steps
     using System.Text;
     using System.Text.Json;
     using Menes.Json;
+    using NodaTime;
+    using NodaTime.Text;
     using TechTalk.SpecFlow;
 
     /// <summary>
@@ -914,6 +916,17 @@ namespace Steps
         public void GivenTheReadOnlyMemoryOfCharFor(string value)
         {
             this.scenarioContext.Set(value.AsMemory(), SubjectUnderTest);
+        }
+
+        /// <summary>
+        /// Stores the <see cref="LocalDate"/> <paramref name="value"/> in the context key <see cref="SubjectUnderTest"/>.
+        /// </summary>
+        /// <param name="value">The string value of the <see cref="LocalDate"/>.</param>
+        [Given(@"the LocalDate for ""(.*)""")]
+        public void GivenTheLocalDateFor(string value)
+        {
+            ParseResult<LocalDate> parseResult = LocalDatePattern.Iso.Parse(value);
+            this.scenarioContext.Set(parseResult.Value, SubjectUnderTest);
         }
     }
 }
