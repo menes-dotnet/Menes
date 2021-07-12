@@ -10,8 +10,8 @@
 namespace Marain.LineOfBusiness
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.Immutable;
-    using System.Text;
     using System.Text.Json;
     using System.Text.RegularExpressions;
     using Menes.Json;
@@ -463,7 +463,7 @@ namespace Marain.LineOfBusiness
                 return this.Equals(jv.AsAny);
             }
 
-            return false;
+            return obj is null && this.IsNull();
         }
 
         /// <inheritdoc/>
@@ -710,6 +710,19 @@ namespace Marain.LineOfBusiness
             return result;
         }
 
+        private static ImmutableDictionary<string, PropertyValidator<PersonListResource>> CreateLocalPropertyValidators()
+        {
+            ImmutableDictionary<string, PropertyValidator<PersonListResource>>.Builder builder = ImmutableDictionary.CreateBuilder<string, PropertyValidator<PersonListResource>>();
+            builder.Add(EmbeddedJsonPropertyName, __MenesValidateEmbedded);
+            return builder.ToImmutable();
+        }
+
+        private static ValidationContext __MenesValidateEmbedded(in PersonListResource that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Marain.LineOfBusiness.PersonListResource.EmbeddedValue property = that.Embedded;
+            return property.Validate(validationContext, level);
+        }
+
         /// <summary>
         /// Gets the value as a <see cref = "JsonObject"/>.
         /// </summary>
@@ -724,19 +737,6 @@ namespace Marain.LineOfBusiness
 
                 return new JsonObject(this.jsonElementBacking);
             }
-        }
-
-        private static ImmutableDictionary<string, PropertyValidator<PersonListResource>> CreateLocalPropertyValidators()
-        {
-            ImmutableDictionary<string, PropertyValidator<PersonListResource>>.Builder builder = ImmutableDictionary.CreateBuilder<string, PropertyValidator<PersonListResource>>();
-            builder.Add(EmbeddedJsonPropertyName, __MenesValidateEmbedded);
-            return builder.ToImmutable();
-        }
-
-        private static ValidationContext __MenesValidateEmbedded(in PersonListResource that, in ValidationContext validationContext, ValidationLevel level)
-        {
-            Marain.LineOfBusiness.PersonListResource.EmbeddedValue property = that.Embedded;
-            return property.Validate(validationContext, level);
         }
 
         private ValidationContext ValidateObject(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
@@ -1134,7 +1134,7 @@ namespace Marain.LineOfBusiness
                     return this.Equals(jv.AsAny);
                 }
 
-                return false;
+                return obj is null && this.IsNull();
             }
 
             /// <inheritdoc/>
@@ -1400,6 +1400,19 @@ namespace Marain.LineOfBusiness
                 return result;
             }
 
+            private static ImmutableDictionary<string, PropertyValidator<EmbeddedValue>> CreateLocalPropertyValidators()
+            {
+                ImmutableDictionary<string, PropertyValidator<EmbeddedValue>>.Builder builder = ImmutableDictionary.CreateBuilder<string, PropertyValidator<EmbeddedValue>>();
+                builder.Add(ItemsJsonPropertyName, __MenesValidateItems);
+                return builder.ToImmutable();
+            }
+
+            private static ValidationContext __MenesValidateItems(in EmbeddedValue that, in ValidationContext validationContext, ValidationLevel level)
+            {
+                Marain.LineOfBusiness.PersonListResource.PersonResourceArray property = that.Items;
+                return property.Validate(validationContext, level);
+            }
+
             /// <summary>
             /// Gets the value as a <see cref = "JsonObject"/>.
             /// </summary>
@@ -1414,19 +1427,6 @@ namespace Marain.LineOfBusiness
 
                     return new JsonObject(this.jsonElementBacking);
                 }
-            }
-
-            private static ImmutableDictionary<string, PropertyValidator<EmbeddedValue>> CreateLocalPropertyValidators()
-            {
-                ImmutableDictionary<string, PropertyValidator<EmbeddedValue>>.Builder builder = ImmutableDictionary.CreateBuilder<string, PropertyValidator<EmbeddedValue>>();
-                builder.Add(ItemsJsonPropertyName, __MenesValidateItems);
-                return builder.ToImmutable();
-            }
-
-            private static ValidationContext __MenesValidateItems(in EmbeddedValue that, in ValidationContext validationContext, ValidationLevel level)
-            {
-                Marain.LineOfBusiness.PersonListResource.PersonResourceArray property = that.Items;
-                return property.Validate(validationContext, level);
             }
 
             private ValidationContext ValidateObject(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
@@ -1775,7 +1775,7 @@ namespace Marain.LineOfBusiness
                     return this.Equals(jv.AsAny);
                 }
 
-                return false;
+                return obj is null && this.IsNull();
             }
 
             /// <inheritdoc/>
