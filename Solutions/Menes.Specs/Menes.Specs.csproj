@@ -15,6 +15,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Cast\JsonEmailCast - Copy.feature.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
     <PackageReference Include="SolidToken.SpecFlow.DependencyInjection" Version="3.7.0" />
@@ -32,10 +36,6 @@
     <PackageReference Include="nunit" Version="3.13.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
 
-
-
-
-
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
 
   </ItemGroup>
@@ -47,46 +47,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Features\JsonModel\Cast\JsonBooleanCast.feature.cs">
-      <DependentUpon>JsonBooleanCast.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Features\JsonModel\Cast\JsonDurationCast.feature.cs">
-      <DependentUpon>JsonDurationCast.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Features\JsonModel\Cast\JsonDateTimeCast.feature.cs">
-      <DependentUpon>JsonDateTimeCast.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Features\JsonModel\Cast\JsonDateCast.feature.cs">
-      <DependentUpon>JsonDateCast.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Features\JsonModel\Cast\JsonStringCast.feature.cs">
-      <DependentUpon>JsonStringCast.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Features\JsonModel\Cast\JsonEmailCast.feature.cs">
-      <DependentUpon>JsonEmailCast.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Features\JsonModel\Cast\JsonContentCast.feature.cs">
-      <DependentUpon>JsonContentCast.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Features\JsonModel\Cast\JsonBase64StringCast.feature.cs">
-      <DependentUpon>JsonBase64StringCast.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Features\JsonModel\Cast\JsonBase64ContentCast.feature.cs">
-      <DependentUpon>JsonBase64ContentCast.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Features\JsonModel\Cast\JsonArrayCast.feature.cs">
-      <DependentUpon>JsonArrayCast.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Features\JsonModel\Equals\JsonUuidEquals.feature.cs">
-      <DependentUpon>JsonUuidEquals.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Features\JsonModel\Equals\JsonTimeEquals.feature.cs">
-      <DependentUpon>JsonTimeEquals.feature</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-
-  <ItemGroup>
     <None Update="appsettings.local.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -96,58 +56,6 @@
     <None Update="appsettings.local.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-
-  <ItemGroup>
-    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonBooleanCast.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonDurationCast.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonDateTimeCast.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonDateCast.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonStringCast.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonEmailCast.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonContentCast.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonBase64StringCast.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonBase64ContentCast.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonArrayCast.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\JsonModel\Equals\JsonUuidEquals.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\JsonModel\Equals\JsonTimeEquals.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
   </ItemGroup>
 
 </Project>
