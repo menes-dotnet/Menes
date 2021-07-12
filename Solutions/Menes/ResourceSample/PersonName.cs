@@ -10,8 +10,8 @@
 namespace Marain.LineOfBusiness
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.Immutable;
-    using System.Text;
     using System.Text.Json;
     using System.Text.RegularExpressions;
     using Menes.Json;
@@ -481,7 +481,7 @@ namespace Marain.LineOfBusiness
                 return this.Equals(jv.AsAny);
             }
 
-            return false;
+            return obj is null && this.IsNull();
         }
 
         /// <inheritdoc/>
@@ -722,22 +722,6 @@ namespace Marain.LineOfBusiness
             return result;
         }
 
-        /// <summary>
-        /// Gets the value as a <see cref = "JsonObject"/>.
-        /// </summary>
-        private JsonObject AsObject
-        {
-            get
-            {
-                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
-                {
-                    return new JsonObject(objectBacking);
-                }
-
-                return new JsonObject(this.jsonElementBacking);
-            }
-        }
-
         private static ImmutableDictionary<string, PropertyValidator<PersonName>> CreateLocalPropertyValidators()
         {
             ImmutableDictionary<string, PropertyValidator<PersonName>>.Builder builder = ImmutableDictionary.CreateBuilder<string, PropertyValidator<PersonName>>();
@@ -777,6 +761,22 @@ namespace Marain.LineOfBusiness
         {
             Menes.Json.JsonString property = that.Suffix;
             return property.Validate(validationContext, level);
+        }
+
+        /// <summary>
+        /// Gets the value as a <see cref = "JsonObject"/>.
+        /// </summary>
+        private JsonObject AsObject
+        {
+            get
+            {
+                if (this.objectBacking is ImmutableDictionary<string, JsonAny> objectBacking)
+                {
+                    return new JsonObject(objectBacking);
+                }
+
+                return new JsonObject(this.jsonElementBacking);
+            }
         }
 
         private ValidationContext ValidateObject(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)
@@ -1129,7 +1129,7 @@ namespace Marain.LineOfBusiness
                     return this.Equals(jv.AsAny);
                 }
 
-                return false;
+                return obj is null && this.IsNull();
             }
 
             /// <inheritdoc/>
@@ -1503,7 +1503,7 @@ namespace Marain.LineOfBusiness
                     return this.Equals(jv.AsAny);
                 }
 
-                return false;
+                return obj is null && this.IsNull();
             }
 
             /// <inheritdoc/>
@@ -1877,7 +1877,7 @@ namespace Marain.LineOfBusiness
                     return this.Equals(jv.AsAny);
                 }
 
-                return false;
+                return obj is null && this.IsNull();
             }
 
             /// <inheritdoc/>
@@ -2271,7 +2271,7 @@ namespace Marain.LineOfBusiness
                     return this.Equals(jv.AsAny);
                 }
 
-                return false;
+                return obj is null && this.IsNull();
             }
 
             /// <inheritdoc/>
@@ -2796,7 +2796,7 @@ namespace Marain.LineOfBusiness
                     return this.Equals(jv.AsAny);
                 }
 
-                return false;
+                return obj is null && this.IsNull();
             }
 
             /// <inheritdoc/>

@@ -10,8 +10,8 @@
 namespace Marain.LineOfBusiness
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.Immutable;
-    using System.Text;
     using System.Text.Json;
     using System.Text.RegularExpressions;
     using Menes.Json;
@@ -261,7 +261,7 @@ namespace Marain.LineOfBusiness
                 return this.Equals(jv.AsAny);
             }
 
-            return false;
+            return obj is null && this.IsNull();
         }
 
         /// <inheritdoc/>
@@ -521,6 +521,19 @@ namespace Marain.LineOfBusiness
             return result;
         }
 
+        private static ImmutableDictionary<string, PropertyValidator<LinksProperty>> CreateLocalPropertyValidators()
+        {
+            ImmutableDictionary<string, PropertyValidator<LinksProperty>>.Builder builder = ImmutableDictionary.CreateBuilder<string, PropertyValidator<LinksProperty>>();
+            builder.Add(SelfJsonPropertyName, __MenesValidateSelf);
+            return builder.ToImmutable();
+        }
+
+        private static ValidationContext __MenesValidateSelf(in LinksProperty that, in ValidationContext validationContext, ValidationLevel level)
+        {
+            Marain.LineOfBusiness.Link property = that.Self;
+            return property.Validate(validationContext, level);
+        }
+
         /// <summary>
         /// Gets the value as a <see cref = "JsonObject"/>.
         /// </summary>
@@ -535,19 +548,6 @@ namespace Marain.LineOfBusiness
 
                 return new JsonObject(this.jsonElementBacking);
             }
-        }
-
-        private static ImmutableDictionary<string, PropertyValidator<LinksProperty>> CreateLocalPropertyValidators()
-        {
-            ImmutableDictionary<string, PropertyValidator<LinksProperty>>.Builder builder = ImmutableDictionary.CreateBuilder<string, PropertyValidator<LinksProperty>>();
-            builder.Add(SelfJsonPropertyName, __MenesValidateSelf);
-            return builder.ToImmutable();
-        }
-
-        private static ValidationContext __MenesValidateSelf(in LinksProperty that, in ValidationContext validationContext, ValidationLevel level)
-        {
-            Marain.LineOfBusiness.Link property = that.Self;
-            return property.Validate(validationContext, level);
         }
 
         private ValidationContext ValidateObject(JsonValueKind valueKind, in ValidationContext validationContext, ValidationLevel level)

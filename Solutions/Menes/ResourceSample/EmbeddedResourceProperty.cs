@@ -10,8 +10,8 @@
 namespace Marain.LineOfBusiness
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.Immutable;
-    using System.Text;
     using System.Text.Json;
     using System.Text.RegularExpressions;
     using Menes.Json;
@@ -500,7 +500,7 @@ namespace Marain.LineOfBusiness
                 return this.Equals(jv.AsAny);
             }
 
-            return false;
+            return obj is null && this.IsNull();
         }
 
         /// <inheritdoc/>
