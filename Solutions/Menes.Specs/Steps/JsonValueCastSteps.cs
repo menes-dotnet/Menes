@@ -740,7 +740,7 @@ namespace Steps
         [When(@"I cast the string to JsonDate")]
         public void WhenICastTheStringToJsonDate()
         {
-            this.scenarioContext.Set((JsonEmail)this.scenarioContext.Get<string>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+            this.scenarioContext.Set((JsonDate)this.scenarioContext.Get<string>(JsonValueSteps.SubjectUnderTest), CastResultKey);
         }
 
         /// <summary>
@@ -868,7 +868,7 @@ namespace Steps
         [When(@"I cast the string to JsonDateTime")]
         public void WhenICastTheStringToJsonDateTime()
         {
-            this.scenarioContext.Set((JsonEmail)this.scenarioContext.Get<string>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+            this.scenarioContext.Set((JsonDateTime)this.scenarioContext.Get<string>(JsonValueSteps.SubjectUnderTest), CastResultKey);
         }
 
         /// <summary>
@@ -996,7 +996,7 @@ namespace Steps
         [When(@"I cast the string to JsonDuration")]
         public void WhenICastTheStringToJsonDuration()
         {
-            this.scenarioContext.Set((JsonEmail)this.scenarioContext.Get<string>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+            this.scenarioContext.Set((JsonDuration)this.scenarioContext.Get<string>(JsonValueSteps.SubjectUnderTest), CastResultKey);
         }
     }
 }
