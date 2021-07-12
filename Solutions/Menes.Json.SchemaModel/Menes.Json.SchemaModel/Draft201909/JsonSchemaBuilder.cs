@@ -712,7 +712,7 @@ namespace Menes.Json.SchemaModel.Draft201909
 
             type.SetDotnetTypeNameAndNamespace(ns, index is null ? "Entity" : $"Entity{index + 1}");
 
-            if (type.Location == rootLocation && rootTypeName is string rtn)
+            if (type.Location == rootLocation && rootTypeName is string rtn && !string.IsNullOrEmpty(rtn))
             {
                 type.OverrideDotnetTypeName(rtn);
             }
