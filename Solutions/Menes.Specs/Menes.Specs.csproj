@@ -15,20 +15,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Cast\JsonArrayCast - Copy.feature.cs" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Cast\JsonBase64ContentCast - Copy.feature.cs" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Cast\JsonBase64StringCast - Copy.feature.cs" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Cast\JsonContentCast - Copy.feature.cs" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Cast\JsonDateCast - Copy.feature.cs" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Cast\JsonEmailCast - Copy.feature.cs" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\JsonArrayEquals - Copy.feature.cs" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\JsonDateEquals - Copy.feature.cs" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\JsonTimeEquals - Copy.feature.cs" />
-  </ItemGroup>
-
-
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
     <PackageReference Include="SolidToken.SpecFlow.DependencyInjection" Version="3.7.0" />
@@ -72,6 +58,9 @@
     </Compile>
     <Compile Update="Features\JsonModel\Cast\JsonDateCast.feature.cs">
       <DependentUpon>JsonDateCast.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Features\JsonModel\Cast\JsonStringCast.feature.cs">
+      <DependentUpon>JsonStringCast.feature</DependentUpon>
     </Compile>
     <Compile Update="Features\JsonModel\Cast\JsonEmailCast.feature.cs">
       <DependentUpon>JsonEmailCast.feature</DependentUpon>
@@ -124,6 +113,10 @@
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonDateCast.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonStringCast.feature">
       <Visible>$(UsingMicrosoftNETSdk)</Visible>
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
     </SpecFlowFeatureFiles>
