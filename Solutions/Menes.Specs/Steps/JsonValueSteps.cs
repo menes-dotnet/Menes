@@ -898,6 +898,46 @@ namespace Steps
         }
 
         /// <summary>
+        /// Stores the <see cref="long"/> <paramref name="value"/> in the context key <see cref="SubjectUnderTest"/>.
+        /// </summary>
+        /// <param name="value">The int64 value.</param>
+        [Given(@"the long for (.*)")]
+        public void GivenTheLongFor(long value)
+        {
+            this.scenarioContext.Set(value, SubjectUnderTest);
+        }
+
+        /// <summary>
+        /// Stores the <see cref="int"/> <paramref name="value"/> in the context key <see cref="SubjectUnderTest"/>.
+        /// </summary>
+        /// <param name="value">The int32 value.</param>
+        [Given(@"the int for (.*)")]
+        public void GivenTheIntFor(int value)
+        {
+            this.scenarioContext.Set(value, SubjectUnderTest);
+        }
+
+        /// <summary>
+        /// Stores the <see cref="double"/> <paramref name="value"/> in the context key <see cref="SubjectUnderTest"/>.
+        /// </summary>
+        /// <param name="value">The float value.</param>
+        [Given(@"the double for (.*)")]
+        public void GivenTheDoubleFor(double value)
+        {
+            this.scenarioContext.Set(value, SubjectUnderTest);
+        }
+
+        /// <summary>
+        /// Stores the <see cref="float"/> <paramref name="value"/> in the context key <see cref="SubjectUnderTest"/>.
+        /// </summary>
+        /// <param name="value">The float value.</param>
+        [Given(@"the float for (.*)")]
+        public void GivenTheFloatFor(float value)
+        {
+            this.scenarioContext.Set(value, SubjectUnderTest);
+        }
+
+        /// <summary>
         /// Stores the <see cref="JsonString"/> <paramref name="value"/> in the context key <see cref="SubjectUnderTest"/>.
         /// </summary>
         /// <param name="value">The string value.</param>

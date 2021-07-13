@@ -15,7 +15,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Cast\JsonBooleanCast - Copy.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Cast\JsonEmailCast - Copy.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Cast\JsonHostnameCast - Copy.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Cast\JsonIntegerCast - Copy.feature.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -47,6 +50,21 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Features\JsonModel\Cast\JsonNumberCast.feature.cs">
+      <DependentUpon>JsonNumberCast.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Features\JsonModel\Cast\JsonIntegerCast.feature.cs">
+      <DependentUpon>JsonIntegerCast.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Features\JsonModel\Cast\JsonIdnHostnameCast.feature.cs">
+      <DependentUpon>JsonIdnHostnameCast.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Features\JsonModel\Cast\JsonIdnEmailCast.feature.cs">
+      <DependentUpon>JsonIdnEmailCast.feature</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="appsettings.local.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -56,6 +74,25 @@
     <None Update="appsettings.local.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonNumberCast.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonIntegerCast.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonIdnHostnameCast.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonIdnEmailCast.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
   </ItemGroup>
 
 </Project>

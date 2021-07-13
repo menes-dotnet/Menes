@@ -559,6 +559,8 @@ namespace Steps
             this.scenarioContext.Set((JsonEmail)this.scenarioContext.Get<string>(JsonValueSteps.SubjectUnderTest), CastResultKey);
         }
 
+        /* boolean */
+
         /// <summary>
         /// Casts the <see cref="JsonBoolean"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonAny"/> and stores it in <see cref="CastResultKey"/>.
         /// </summary>
@@ -1183,6 +1185,456 @@ namespace Steps
         public void WhenICastTheStringToJsonHostname()
         {
             this.scenarioContext.Set((JsonHostname)this.scenarioContext.Get<string>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /* idnIdnEmail */
+
+        /// <summary>
+        /// Casts the <see cref="JsonIdnEmail"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonAny"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonIdnEmail to JsonAny")]
+        public void WhenICastTheJsonIdnEmailToJsonAny()
+        {
+            this.scenarioContext.Set((JsonAny)this.scenarioContext.Get<JsonIdnEmail>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonAny"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonIdnEmail"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonAny to JsonIdnEmail")]
+        public void WhenICastTheJsonAnyToJsonIdnEmail()
+        {
+            this.scenarioContext.Set((JsonIdnEmail)this.scenarioContext.Get<JsonAny>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Compares the <see cref="JsonIdnEmail"/> in the context value <see cref="CastResultKey"/> with the given JsonIdnEmail.
+        /// </summary>
+        /// <param name="expectedValue">The serialized form of the <see cref="JsonIdnEmail"/>.</param>
+        [Then(@"the result should equal the JsonIdnEmail '(.*)'")]
+        public void ThenTheResultShouldEqualTheJsonIdnEmail(string expectedValue)
+        {
+            JsonIdnEmail expected = JsonAny.ParseUriValue(expectedValue).AsString;
+            Assert.AreEqual(expected, this.scenarioContext.Get<JsonIdnEmail>(CastResultKey));
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonIdnEmail"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonString"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonIdnEmail to JsonString")]
+        public void WhenICastTheJsonIdnEmailToJsonString()
+        {
+            this.scenarioContext.Set((JsonString)this.scenarioContext.Get<JsonIdnEmail>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonString"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonIdnEmail"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonString to JsonIdnEmail")]
+        public void WhenICastTheJsonStringToJsonIdnEmail()
+        {
+            this.scenarioContext.Set((JsonIdnEmail)this.scenarioContext.Get<JsonString>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonIdnEmail"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="ReadOnlySpan{Char}"/>, converts that to a <see cref="ReadOnlyMemory{Char}"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonIdnEmail to ReadOnlySpan<char>")]
+        public void WhenICastTheJsonIdnEmailToReadOnlySpanOfChar()
+        {
+            this.scenarioContext.Set<ReadOnlyMemory<char>>(((ReadOnlySpan<char>)this.scenarioContext.Get<JsonIdnEmail>(JsonValueSteps.SubjectUnderTest)).ToArray().AsMemory(), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonIdnEmail"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="ReadOnlySpan{Char}"/>, converts that to a <see cref="ReadOnlyMemory{Char}"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the ReadOnlySpan<char> to JsonIdnEmail")]
+        public void WhenICastTheReadOnlySpanOfCharToJsonIdnEmail()
+        {
+            this.scenarioContext.Set((JsonIdnEmail)this.scenarioContext.Get<ReadOnlyMemory<char>>(JsonValueSteps.SubjectUnderTest).Span, CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonIdnEmail"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="ReadOnlySpan{Byte}"/>, converts that to a <see cref="ReadOnlyMemory{Byte}"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonIdnEmail to ReadOnlySpan<byte>")]
+        public void WhenICastTheJsonIdnEmailToReadOnlySpanOfByte()
+        {
+            this.scenarioContext.Set<ReadOnlyMemory<byte>>(((ReadOnlySpan<byte>)this.scenarioContext.Get<JsonIdnEmail>(JsonValueSteps.SubjectUnderTest)).ToArray().AsMemory(), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="ReadOnlySpan{Byte}"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonIdnEmail"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the ReadOnlySpan<byte> to JsonIdnEmail")]
+        public void WhenICastTheReadOnlySpanOfByteToJsonIdnEmail()
+        {
+            this.scenarioContext.Set((JsonIdnEmail)this.scenarioContext.Get<ReadOnlyMemory<byte>>(JsonValueSteps.SubjectUnderTest).Span, CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonIdnEmail"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="string"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonIdnEmail to string")]
+        public void WhenICastTheJsonIdnEmailToString()
+        {
+            this.scenarioContext.Set((string)this.scenarioContext.Get<JsonIdnEmail>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="string"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonIdnEmail"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the string to JsonIdnEmail")]
+        public void WhenICastTheStringToJsonIdnEmail()
+        {
+            this.scenarioContext.Set((JsonIdnEmail)this.scenarioContext.Get<string>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /* idnHostname */
+
+        /// <summary>
+        /// Casts the <see cref="JsonIdnHostname"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonAny"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonIdnHostname to JsonAny")]
+        public void WhenICastTheJsonIdnHostnameToJsonAny()
+        {
+            this.scenarioContext.Set((JsonAny)this.scenarioContext.Get<JsonIdnHostname>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonAny"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonIdnHostname"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonAny to JsonIdnHostname")]
+        public void WhenICastTheJsonAnyToJsonIdnHostname()
+        {
+            this.scenarioContext.Set((JsonIdnHostname)this.scenarioContext.Get<JsonAny>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Compares the <see cref="JsonIdnHostname"/> in the context value <see cref="CastResultKey"/> with the given JsonIdnHostname.
+        /// </summary>
+        /// <param name="expectedValue">The serialized form of the <see cref="JsonIdnHostname"/>.</param>
+        [Then(@"the result should equal the JsonIdnHostname '(.*)'")]
+        public void ThenTheResultShouldEqualTheJsonIdnHostname(string expectedValue)
+        {
+            JsonIdnHostname expected = JsonAny.ParseUriValue(expectedValue).AsString;
+            Assert.AreEqual(expected, this.scenarioContext.Get<JsonIdnHostname>(CastResultKey));
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonIdnHostname"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonString"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonIdnHostname to JsonString")]
+        public void WhenICastTheJsonIdnHostnameToJsonString()
+        {
+            this.scenarioContext.Set((JsonString)this.scenarioContext.Get<JsonIdnHostname>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonString"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonIdnHostname"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonString to JsonIdnHostname")]
+        public void WhenICastTheJsonStringToJsonIdnHostname()
+        {
+            this.scenarioContext.Set((JsonIdnHostname)this.scenarioContext.Get<JsonString>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonIdnHostname"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="ReadOnlySpan{Char}"/>, converts that to a <see cref="ReadOnlyMemory{Char}"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonIdnHostname to ReadOnlySpan<char>")]
+        public void WhenICastTheJsonIdnHostnameToReadOnlySpanOfChar()
+        {
+            this.scenarioContext.Set<ReadOnlyMemory<char>>(((ReadOnlySpan<char>)this.scenarioContext.Get<JsonIdnHostname>(JsonValueSteps.SubjectUnderTest)).ToArray().AsMemory(), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonIdnHostname"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="ReadOnlySpan{Char}"/>, converts that to a <see cref="ReadOnlyMemory{Char}"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the ReadOnlySpan<char> to JsonIdnHostname")]
+        public void WhenICastTheReadOnlySpanOfCharToJsonIdnHostname()
+        {
+            this.scenarioContext.Set((JsonIdnHostname)this.scenarioContext.Get<ReadOnlyMemory<char>>(JsonValueSteps.SubjectUnderTest).Span, CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonIdnHostname"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="ReadOnlySpan{Byte}"/>, converts that to a <see cref="ReadOnlyMemory{Byte}"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonIdnHostname to ReadOnlySpan<byte>")]
+        public void WhenICastTheJsonIdnHostnameToReadOnlySpanOfByte()
+        {
+            this.scenarioContext.Set<ReadOnlyMemory<byte>>(((ReadOnlySpan<byte>)this.scenarioContext.Get<JsonIdnHostname>(JsonValueSteps.SubjectUnderTest)).ToArray().AsMemory(), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="ReadOnlySpan{Byte}"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonIdnHostname"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the ReadOnlySpan<byte> to JsonIdnHostname")]
+        public void WhenICastTheReadOnlySpanOfByteToJsonIdnHostname()
+        {
+            this.scenarioContext.Set((JsonIdnHostname)this.scenarioContext.Get<ReadOnlyMemory<byte>>(JsonValueSteps.SubjectUnderTest).Span, CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonIdnHostname"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="string"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonIdnHostname to string")]
+        public void WhenICastTheJsonIdnHostnameToString()
+        {
+            this.scenarioContext.Set((string)this.scenarioContext.Get<JsonIdnHostname>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="string"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonIdnHostname"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the string to JsonIdnHostname")]
+        public void WhenICastTheStringToJsonIdnHostname()
+        {
+            this.scenarioContext.Set((JsonIdnHostname)this.scenarioContext.Get<string>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /* integer */
+
+        /// <summary>
+        /// Casts the <see cref="JsonInteger"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonAny"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonInteger to JsonAny")]
+        public void WhenICastTheJsonIntegerToJsonAny()
+        {
+            this.scenarioContext.Set((JsonAny)this.scenarioContext.Get<JsonInteger>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonAny"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonInteger"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonAny to JsonInteger")]
+        public void WhenICastTheJsonAnyToJsonInteger()
+        {
+            this.scenarioContext.Set<IJsonValue>((JsonInteger)this.scenarioContext.Get<JsonAny>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Compares the <see cref="JsonInteger"/> in the context value <see cref="CastResultKey"/> with the given JsonInteger.
+        /// </summary>
+        /// <param name="expectedValue">The serialized form of the <see cref="JsonContent"/>.</param>
+        [Then(@"the result should equal the JsonInteger '(.*)'")]
+        public void ThenTheResultShouldEqualTheJsonInteger(string expectedValue)
+        {
+            Assert.AreEqual((JsonInteger)JsonAny.ParseUriValue(expectedValue), this.scenarioContext.Get<IJsonValue>(CastResultKey));
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonInteger"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="long"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonInteger to long")]
+        public void WhenICastTheJsonIntegerToLong()
+        {
+            this.scenarioContext.Set((long)this.scenarioContext.Get<JsonInteger>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Compares the <see cref="long"/> in the context value <see cref="CastResultKey"/> with the given long.
+        /// </summary>
+        /// <param name="expectedValue">The serialized form of the <see cref="JsonContent"/>.</param>
+        [Then(@"the result should equal the long (.*)")]
+        public void ThenTheResultShouldEqualTheLong(long expectedValue)
+        {
+            Assert.AreEqual(expectedValue, this.scenarioContext.Get<long>(CastResultKey));
+        }
+
+        /// <summary>
+        /// Casts the <see cref="long"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonInteger"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the long to JsonInteger")]
+        public void WhenICastTheLongToJsonInteger()
+        {
+            this.scenarioContext.Set<IJsonValue>((JsonInteger)this.scenarioContext.Get<long>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonInteger"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="int"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonInteger to int")]
+        public void WhenICastTheJsonIntegerToInt()
+        {
+            this.scenarioContext.Set((int)this.scenarioContext.Get<JsonInteger>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Compares the <see cref="int"/> in the context value <see cref="CastResultKey"/> with the given int.
+        /// </summary>
+        /// <param name="expectedValue">The serialized form of the <see cref="JsonContent"/>.</param>
+        [Then(@"the result should equal the int (.*)")]
+        public void ThenTheResultShouldEqualTheInt(int expectedValue)
+        {
+            Assert.AreEqual(expectedValue, this.scenarioContext.Get<int>(CastResultKey));
+        }
+
+        /// <summary>
+        /// Casts the <see cref="int"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonInteger"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the int to JsonInteger")]
+        public void WhenICastTheIntToJsonInteger()
+        {
+            this.scenarioContext.Set<IJsonValue>((JsonInteger)this.scenarioContext.Get<int>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonInteger"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="double"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonInteger to double")]
+        public void WhenICastTheJsonIntegerToDouble()
+        {
+            this.scenarioContext.Set((double)this.scenarioContext.Get<JsonInteger>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Compares the <see cref="double"/> in the context value <see cref="CastResultKey"/> with the given double.
+        /// </summary>
+        /// <param name="expectedValue">The serialized form of the <see cref="JsonContent"/>.</param>
+        [Then(@"the result should equal the double (.*)")]
+        public void ThenTheResultShouldEqualTheDouble(double expectedValue)
+        {
+            Assert.AreEqual(expectedValue, this.scenarioContext.Get<double>(CastResultKey));
+        }
+
+        /// <summary>
+        /// Casts the <see cref="double"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonInteger"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the double to JsonInteger")]
+        public void WhenICastTheDoubleToJsonInteger()
+        {
+            this.scenarioContext.Set<IJsonValue>((JsonInteger)this.scenarioContext.Get<double>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonInteger"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="float"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonInteger to float")]
+        public void WhenICastTheJsonIntegerToFloat()
+        {
+            this.scenarioContext.Set((float)this.scenarioContext.Get<JsonInteger>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Compares the <see cref="float"/> in the context value <see cref="CastResultKey"/> with the given float.
+        /// </summary>
+        /// <param name="expectedValue">The serialized form of the <see cref="JsonContent"/>.</param>
+        [Then(@"the result should equal the float (.*)")]
+        public void ThenTheResultShouldEqualTheFloat(float expectedValue)
+        {
+            Assert.AreEqual(expectedValue, this.scenarioContext.Get<float>(CastResultKey), 0.00001);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="float"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonInteger"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the float to JsonInteger")]
+        public void WhenICastTheFloatToJsonInteger()
+        {
+            this.scenarioContext.Set<IJsonValue>((JsonInteger)this.scenarioContext.Get<float>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /* number */
+
+        /// <summary>
+        /// Casts the <see cref="JsonNumber"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonAny"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonNumber to JsonAny")]
+        public void WhenICastTheJsonNumberToJsonAny()
+        {
+            this.scenarioContext.Set((JsonAny)this.scenarioContext.Get<JsonNumber>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonAny"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonNumber"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonAny to JsonNumber")]
+        public void WhenICastTheJsonAnyToJsonNumber()
+        {
+            this.scenarioContext.Set<IJsonValue>((JsonNumber)this.scenarioContext.Get<JsonAny>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Compares the <see cref="JsonNumber"/> in the context value <see cref="CastResultKey"/> with the given JsonNumber.
+        /// </summary>
+        /// <param name="expectedValue">The serialized form of the <see cref="JsonContent"/>.</param>
+        [Then(@"the result should equal the JsonNumber '(.*)'")]
+        public void ThenTheResultShouldEqualTheJsonNumber(string expectedValue)
+        {
+            Assert.AreEqual((JsonNumber)JsonAny.ParseUriValue(expectedValue), this.scenarioContext.Get<IJsonValue>(CastResultKey).AsAny, 0.00001);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonNumber"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="long"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonNumber to long")]
+        public void WhenICastTheJsonNumberToLong()
+        {
+            this.scenarioContext.Set((long)this.scenarioContext.Get<JsonNumber>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="long"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonNumber"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the long to JsonNumber")]
+        public void WhenICastTheLongToJsonNumber()
+        {
+            this.scenarioContext.Set<IJsonValue>((JsonNumber)this.scenarioContext.Get<long>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonNumber"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="int"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonNumber to int")]
+        public void WhenICastTheJsonNumberToInt()
+        {
+            this.scenarioContext.Set((int)this.scenarioContext.Get<JsonNumber>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="int"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonNumber"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the int to JsonNumber")]
+        public void WhenICastTheIntToJsonNumber()
+        {
+            this.scenarioContext.Set<IJsonValue>((JsonNumber)this.scenarioContext.Get<int>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonNumber"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="double"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonNumber to double")]
+        public void WhenICastTheJsonNumberToDouble()
+        {
+            this.scenarioContext.Set((double)this.scenarioContext.Get<JsonNumber>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="double"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonNumber"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the double to JsonNumber")]
+        public void WhenICastTheDoubleToJsonNumber()
+        {
+            this.scenarioContext.Set<IJsonValue>((JsonNumber)this.scenarioContext.Get<double>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonNumber"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="float"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonNumber to float")]
+        public void WhenICastTheJsonNumberToFloat()
+        {
+            this.scenarioContext.Set((float)this.scenarioContext.Get<JsonNumber>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="float"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonNumber"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the float to JsonNumber")]
+        public void WhenICastTheFloatToJsonNumber()
+        {
+            this.scenarioContext.Set<IJsonValue>((JsonNumber)this.scenarioContext.Get<float>(JsonValueSteps.SubjectUnderTest), CastResultKey);
         }
     }
 }
