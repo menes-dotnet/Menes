@@ -25,6 +25,7 @@
     <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Cast\JsonIriCast - Copy.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Cast\JsonIriReferenceCast - Copy.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Cast\JsonPointerCast - Copy.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Cast\JsonUriCast - Copy.feature.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -64,6 +65,9 @@
     </Compile>
     <Compile Update="Features\JsonModel\Cast\JsonTimeCast.feature.cs">
       <DependentUpon>JsonTimeCast.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Features\JsonModel\Cast\JsonRegexCast.feature.cs">
+      <DependentUpon>JsonRegexCast.feature</DependentUpon>
     </Compile>
     <Compile Update="Features\JsonModel\Cast\JsonUriReferenceCast.feature.cs">
       <DependentUpon>JsonUriReferenceCast.feature</DependentUpon>
@@ -119,6 +123,10 @@
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonTimeCast.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonRegexCast.feature">
       <Visible>$(UsingMicrosoftNETSdk)</Visible>
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
     </SpecFlowFeatureFiles>

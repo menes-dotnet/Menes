@@ -420,6 +420,12 @@ namespace Menes.Json
         }
 
         /// <inheritdoc/>
+        public override string ToString()
+        {
+            return this.GetString();
+        }
+
+        /// <inheritdoc/>
         public override bool Equals(object? obj)
         {
             if (obj is IJsonValue jv)

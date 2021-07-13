@@ -8,6 +8,7 @@ namespace Steps
     using System.Collections.Immutable;
     using System.Net;
     using System.Text;
+    using System.Text.RegularExpressions;
     using Menes.Json;
     using NodaTime;
     using NodaTime.Text;
@@ -50,6 +51,16 @@ namespace Steps
         public void ThenTheResultShouldEqualTheJsonAny(string match)
         {
             Assert.AreEqual(JsonAny.ParseUriValue(match), this.scenarioContext.Get<JsonAny>(CastResultKey));
+        }
+
+        /// <summary>
+        /// Gets the value store in <see cref="CastResultKey"/> and matches it against the Regex serialized in <paramref name="expected"/>.
+        /// </summary>
+        /// <param name="expected">The serialized form of the result to match.</param>
+        [Then(@"the result should equal the Regex (.*)")]
+        public void ThenTheResultShouldEqualTheRegex(string expected)
+        {
+            Assert.AreEqual(new Regex(expected).ToString(), this.scenarioContext.Get<Regex>(CastResultKey).ToString());
         }
 
         /// <summary>
@@ -2256,6 +2267,127 @@ namespace Steps
         public void WhenICastTheIPAddressToJsonIpV6()
         {
             this.scenarioContext.Set((JsonIpV6)this.scenarioContext.Get<IPAddress>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /* regex */
+
+        /// <summary>
+        /// Casts the <see cref="JsonRegex"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonAny"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonRegex to JsonAny")]
+        public void WhenICastTheJsonRegexToJsonAny()
+        {
+            this.scenarioContext.Set((JsonAny)this.scenarioContext.Get<JsonRegex>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonAny"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonRegex"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonAny to JsonRegex")]
+        public void WhenICastTheJsonAnyToJsonRegex()
+        {
+            this.scenarioContext.Set((JsonRegex)this.scenarioContext.Get<JsonAny>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Compares the <see cref="JsonRegex"/> in the context value <see cref="CastResultKey"/> with the given JsonRegex.
+        /// </summary>
+        /// <param name="expectedValue">The serialized form of the <see cref="JsonRegex"/>.</param>
+        [Then(@"the result should equal the JsonRegex '(.*)'")]
+        public void ThenTheResultShouldEqualTheJsonRegex(string expectedValue)
+        {
+            JsonRegex expected = JsonAny.ParseUriValue(expectedValue).AsString;
+            Assert.AreEqual(expected, this.scenarioContext.Get<JsonRegex>(CastResultKey));
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonRegex"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonString"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonRegex to JsonString")]
+        public void WhenICastTheJsonRegexToJsonString()
+        {
+            this.scenarioContext.Set((JsonString)this.scenarioContext.Get<JsonRegex>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonString"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonRegex"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonString to JsonRegex")]
+        public void WhenICastTheJsonStringToJsonRegex()
+        {
+            this.scenarioContext.Set((JsonRegex)this.scenarioContext.Get<JsonString>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonRegex"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="ReadOnlySpan{Char}"/>, converts that to a <see cref="ReadOnlyMemory{Char}"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonRegex to ReadOnlySpan<char>")]
+        public void WhenICastTheJsonRegexToReadOnlySpanOfChar()
+        {
+            this.scenarioContext.Set<ReadOnlyMemory<char>>(((ReadOnlySpan<char>)this.scenarioContext.Get<JsonRegex>(JsonValueSteps.SubjectUnderTest)).ToArray().AsMemory(), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonRegex"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="ReadOnlySpan{Char}"/>, converts that to a <see cref="ReadOnlyMemory{Char}"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the ReadOnlySpan<char> to JsonRegex")]
+        public void WhenICastTheReadOnlySpanOfCharToJsonRegex()
+        {
+            this.scenarioContext.Set((JsonRegex)this.scenarioContext.Get<ReadOnlyMemory<char>>(JsonValueSteps.SubjectUnderTest).Span, CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonRegex"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="ReadOnlySpan{Byte}"/>, converts that to a <see cref="ReadOnlyMemory{Byte}"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonRegex to ReadOnlySpan<byte>")]
+        public void WhenICastTheJsonRegexToReadOnlySpanOfByte()
+        {
+            this.scenarioContext.Set<ReadOnlyMemory<byte>>(((ReadOnlySpan<byte>)this.scenarioContext.Get<JsonRegex>(JsonValueSteps.SubjectUnderTest)).ToArray().AsMemory(), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="ReadOnlySpan{Byte}"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonRegex"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the ReadOnlySpan<byte> to JsonRegex")]
+        public void WhenICastTheReadOnlySpanOfByteToJsonRegex()
+        {
+            this.scenarioContext.Set((JsonRegex)this.scenarioContext.Get<ReadOnlyMemory<byte>>(JsonValueSteps.SubjectUnderTest).Span, CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonRegex"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="string"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonRegex to string")]
+        public void WhenICastTheJsonRegexToString()
+        {
+            this.scenarioContext.Set((string)this.scenarioContext.Get<JsonRegex>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="string"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonRegex"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the string to JsonRegex")]
+        public void WhenICastTheStringToJsonRegex()
+        {
+            this.scenarioContext.Set((JsonRegex)this.scenarioContext.Get<string>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonRegex"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="Regex"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonRegex to Regex")]
+        public void WhenICastTheJsonRegexToRegex()
+        {
+            this.scenarioContext.Set((Regex)this.scenarioContext.Get<JsonRegex>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="Regex"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonRegex"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the Regex to JsonRegex")]
+        public void WhenICastTheRegexToJsonRegex()
+        {
+            this.scenarioContext.Set((JsonRegex)this.scenarioContext.Get<Regex>(JsonValueSteps.SubjectUnderTest), CastResultKey);
         }
 
         /* iri */

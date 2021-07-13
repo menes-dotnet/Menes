@@ -9,6 +9,7 @@ namespace Steps
     using System.Net;
     using System.Text;
     using System.Text.Json;
+    using System.Text.RegularExpressions;
     using Menes.Json;
     using NodaTime;
     using NodaTime.Text;
@@ -876,6 +877,16 @@ namespace Steps
         public void GivenTheStringFor(string value)
         {
             this.scenarioContext.Set(value, SubjectUnderTest);
+        }
+
+        /// <summary>
+        /// Stores the <see cref="Regex"/> <paramref name="value"/> in the context key <see cref="SubjectUnderTest"/>.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        [Given(@"the Regex for (.*)")]
+        public void GivenTheRegexFor(string value)
+        {
+            this.scenarioContext.Set(new Regex(value), SubjectUnderTest);
         }
 
         /// <summary>
