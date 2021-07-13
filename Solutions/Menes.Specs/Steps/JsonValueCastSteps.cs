@@ -1538,6 +1538,24 @@ namespace Steps
         /* number */
 
         /// <summary>
+        /// Casts the <see cref="JsonNumber"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonInteger"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonNumber to JsonInteger")]
+        public void WhenICastTheJsonNumberToJsonInteger()
+        {
+            this.scenarioContext.Set((JsonInteger)this.scenarioContext.Get<JsonNumber>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonInteger"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonNumber"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonInteger to JsonNumber")]
+        public void WhenICastTheJsonIntegerToJsonNumber()
+        {
+            this.scenarioContext.Set((JsonNumber)this.scenarioContext.Get<JsonInteger>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
         /// Casts the <see cref="JsonNumber"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonAny"/> and stores it in <see cref="CastResultKey"/>.
         /// </summary>
         [When(@"I cast the JsonNumber to JsonAny")]
