@@ -60,44 +60,6 @@ namespace Menes.Json
         /// <summary>
         /// Initializes a new instance of the <see cref="JsonInteger"/> struct.
         /// </summary>
-        /// <param name="value">The number value.</param>
-        public JsonInteger(JsonNumber value)
-        {
-            if (value.HasJsonElement)
-            {
-                this.jsonElement = value.AsJsonElement;
-                this.value = default;
-            }
-            else if (value.TryGetDouble(out double v1))
-            {
-                this.jsonElement = default;
-                this.value = v1;
-            }
-            else if (value.TryGetInt64(out long v2))
-            {
-                this.jsonElement = default;
-                this.value = v2;
-            }
-            else if (value.TryGetInt32(out int v3))
-            {
-                this.jsonElement = default;
-                this.value = v3;
-            }
-            else if (value.TryGetSingle(out float v4))
-            {
-                this.jsonElement = default;
-                this.value = v4;
-            }
-            else
-            {
-                this.jsonElement = default;
-                this.value = default;
-            }
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="JsonInteger"/> struct.
-        /// </summary>
         /// <param name="value">The long value.</param>
         public JsonInteger(long value)
         {
