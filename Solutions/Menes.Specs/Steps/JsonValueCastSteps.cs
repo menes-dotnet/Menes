@@ -618,6 +618,8 @@ namespace Steps
             this.scenarioContext.Set<IJsonValue>((JsonBoolean)this.scenarioContext.Get<bool>(JsonValueSteps.SubjectUnderTest), CastResultKey);
         }
 
+        /* date */
+
         /// <summary>
         /// Casts the <see cref="JsonDate"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonAny"/> and stores it in <see cref="CastResultKey"/>.
         /// </summary>
@@ -745,6 +747,138 @@ namespace Steps
         {
             this.scenarioContext.Set((JsonDate)this.scenarioContext.Get<string>(JsonValueSteps.SubjectUnderTest), CastResultKey);
         }
+
+        /* time */
+
+        /// <summary>
+        /// Casts the <see cref="JsonTime"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonAny"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonTime to JsonAny")]
+        public void WhenICastTheJsonTimeToJsonAny()
+        {
+            this.scenarioContext.Set((JsonAny)this.scenarioContext.Get<JsonTime>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonAny"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonTime"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonAny to JsonTime")]
+        public void WhenICastTheJsonAnyToJsonTime()
+        {
+            this.scenarioContext.Set<IJsonValue>((JsonTime)this.scenarioContext.Get<JsonAny>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Compares the <see cref="JsonTime"/> in the context value <see cref="CastResultKey"/> with the given JsonTime.
+        /// </summary>
+        /// <param name="value">The string representation of the time.</param>
+        [Then(@"the result should equal the JsonTime '(.*)'")]
+        public void ThenTheResultShouldEqualTheJsonTime(string value)
+        {
+            Assert.AreEqual(new JsonTime(value), this.scenarioContext.Get<IJsonValue>(CastResultKey));
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonTime"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonString"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonTime to JsonString")]
+        public void WhenICastTheJsonTimeToJsonString()
+        {
+            this.scenarioContext.Set((JsonString)this.scenarioContext.Get<JsonTime>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonString"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonTime"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonString to JsonTime")]
+        public void WhenICastTheJsonStringToJsonTime()
+        {
+            this.scenarioContext.Set((JsonTime)this.scenarioContext.Get<JsonString>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonTime"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="OffsetTime"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonTime to OffsetTime")]
+        public void WhenICastTheJsonTimeToOffsetTime()
+        {
+            this.scenarioContext.Set((OffsetTime)this.scenarioContext.Get<JsonTime>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Compares the <see cref="JsonTime"/> in the context value <see cref="CastResultKey"/> with the given OffsetTime.
+        /// </summary>
+        /// <param name="expectedValue">The serialized form of the <see cref="OffsetTime"/>.</param>
+        [Then(@"the result should equal the OffsetTime '(.*)'")]
+        public void ThenTheResultShouldEqualTheOffsetTime(string expectedValue)
+        {
+            Assert.AreEqual(OffsetTimePattern.ExtendedIso.Parse(expectedValue).Value, this.scenarioContext.Get<OffsetTime>(CastResultKey));
+        }
+
+        /// <summary>
+        /// Casts the <see cref="OffsetTime"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonTime"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the OffsetTime to JsonTime")]
+        public void WhenICastTheOffsetTimeToJsonTime()
+        {
+            this.scenarioContext.Set((JsonTime)this.scenarioContext.Get<OffsetTime>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonTime"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="ReadOnlySpan{Byte}"/>, converts that to a <see cref="ReadOnlyMemory{Byte}"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonTime to ReadOnlySpan<byte>")]
+        public void WhenICastTheJsonTimeToReadOnlySpanOfByte()
+        {
+            this.scenarioContext.Set<ReadOnlyMemory<byte>>(((ReadOnlySpan<byte>)this.scenarioContext.Get<JsonTime>(JsonValueSteps.SubjectUnderTest)).ToArray().AsMemory(), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonTime"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="ReadOnlySpan{Char}"/>, converts that to a <see cref="ReadOnlyMemory{Byte}"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonTime to ReadOnlySpan<char>")]
+        public void WhenICastTheJsonTimeToReadOnlySpanOfChar()
+        {
+            this.scenarioContext.Set<ReadOnlyMemory<char>>(((ReadOnlySpan<char>)this.scenarioContext.Get<JsonTime>(JsonValueSteps.SubjectUnderTest)).ToArray().AsMemory(), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="ReadOnlySpan{Byte}"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonTime"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the ReadOnlySpan<byte> to JsonTime")]
+        public void WhenICastTheReadOnlySpanOfByteToJsonTime()
+        {
+            this.scenarioContext.Set((JsonTime)this.scenarioContext.Get<ReadOnlyMemory<byte>>(JsonValueSteps.SubjectUnderTest).Span, CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="ReadOnlySpan{Char}"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonTime"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the ReadOnlySpan<char> to JsonTime")]
+        public void WhenICastTheReadOnlySpanOfCharToJsonTime()
+        {
+            this.scenarioContext.Set((JsonTime)this.scenarioContext.Get<ReadOnlyMemory<char>>(JsonValueSteps.SubjectUnderTest).Span, CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonTime"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see langword="string"/>, converts that to a <see cref="ReadOnlyMemory{Byte}"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonTime to string")]
+        public void WhenICastTheJsonTimeToString()
+        {
+            this.scenarioContext.Set((string)this.scenarioContext.Get<JsonTime>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="string"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonTime"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the string to JsonTime")]
+        public void WhenICastTheStringToJsonTime()
+        {
+            this.scenarioContext.Set((JsonTime)this.scenarioContext.Get<string>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /* datetime */
 
         /// <summary>
         /// Casts the <see cref="JsonDateTime"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonAny"/> and stores it in <see cref="CastResultKey"/>.
