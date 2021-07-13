@@ -6,6 +6,7 @@ namespace Steps
 {
     using System;
     using System.Collections.Immutable;
+    using System.Net;
     using System.Text;
     using System.Text.Json;
     using Menes.Json;
@@ -885,6 +886,16 @@ namespace Steps
         public void GivenTheJsonStringFor(string value)
         {
             this.scenarioContext.Set<JsonString>(JsonAny.ParseUriValue(value), SubjectUnderTest);
+        }
+
+        /// <summary>
+        /// Stores the <see cref="IPAddress"/> <paramref name="value"/> in the context key <see cref="SubjectUnderTest"/>.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        [Given(@"the IPAddress for (.*)")]
+        public void GivenTheIpAddressFor(string value)
+        {
+            this.scenarioContext.Set(IPAddress.Parse(value), SubjectUnderTest);
         }
 
         /// <summary>

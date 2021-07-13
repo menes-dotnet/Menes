@@ -400,6 +400,12 @@ namespace Menes.Json
             return ReadOnlySpan<char>.Empty;
         }
 
+        /// <inheritdoc />
+        public override string ToString()
+        {
+            return this.GetString();
+        }
+
         /// <inheritdoc/>
         public override bool Equals(object? obj)
         {
