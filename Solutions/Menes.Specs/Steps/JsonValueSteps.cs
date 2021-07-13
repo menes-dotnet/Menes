@@ -899,6 +899,16 @@ namespace Steps
         }
 
         /// <summary>
+        /// Stores the <see cref="Uri"/> <paramref name="value"/> in the context key <see cref="SubjectUnderTest"/>.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        [Given(@"the Uri for (.*)")]
+        public void GivenTheUriFor(string value)
+        {
+            this.scenarioContext.Set(new Uri(value, UriKind.RelativeOrAbsolute), SubjectUnderTest);
+        }
+
+        /// <summary>
         /// Stores the <see cref="bool"/> <paramref name="value"/> in the context key <see cref="SubjectUnderTest"/>.
         /// </summary>
         /// <param name="value">The boolean value.</param>
