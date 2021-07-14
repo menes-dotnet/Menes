@@ -910,6 +910,16 @@ namespace Steps
         }
 
         /// <summary>
+        /// Stores the <see cref="Guid"/> <paramref name="value"/> in the context key <see cref="SubjectUnderTest"/>.
+        /// </summary>
+        /// <param name="value">The string value.</param>
+        [Given(@"the Guid for (.*)")]
+        public void GivenTheGuidFor(string value)
+        {
+            this.scenarioContext.Set(Guid.Parse(value), SubjectUnderTest);
+        }
+
+        /// <summary>
         /// Stores the <see cref="Uri"/> <paramref name="value"/> in the context key <see cref="SubjectUnderTest"/>.
         /// </summary>
         /// <param name="value">The string value.</param>
