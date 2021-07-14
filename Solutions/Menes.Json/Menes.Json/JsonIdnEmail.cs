@@ -411,25 +411,5 @@ namespace Menes.Json
 
             return this.AsString().Equals(other.AsString());
         }
-
-        private static string FormatPeriod(Period value)
-        {
-            return PeriodPattern.NormalizingIso.Format(value);
-        }
-
-        private static bool TryParseDate(string text, out Period value)
-        {
-            string tupper = text.ToUpperInvariant();
-
-            ParseResult<Period> parseResult = PeriodPattern.NormalizingIso.Parse(tupper);
-            if (parseResult.Success)
-            {
-                value = parseResult.Value;
-                return true;
-            }
-
-            value = Period.Zero;
-            return false;
-        }
     }
 }
