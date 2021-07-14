@@ -860,6 +860,16 @@ namespace Steps
         }
 
         /// <summary>
+        /// Gets a dictionary for the given <paramref name="value"/> and stores it in the context variable <see cref="SubjectUnderTest"/>.
+        /// </summary>
+        /// <param name="value">The serialized value to parse.</param>
+        [Given(@"the ImmutableDictionary<string,JsonAny> for (.*)")]
+        public void GivenTheImmutableDictionaryOfStringToJsonAnyFor(string value)
+        {
+            this.scenarioContext.Set(JsonAny.ParseUriValue(value).AsObject.AsPropertyDictionary, SubjectUnderTest);
+        }
+
+        /// <summary>
         /// Gets the <see cref="ImmutableList{JsonAny}"/> for the <paramref name="list"/> and stores it in the context key <see cref="SubjectUnderTest"/>.
         /// </summary>
         /// <param name="list">The serialized from of the immutable list.</param>

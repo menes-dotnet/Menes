@@ -34,6 +34,8 @@ namespace Steps
             this.scenarioContext = scenarioContext;
         }
 
+        /* array */
+
         /// <summary>
         /// Cast the value stored in the context variable <see cref="JsonValueSteps.SubjectUnderTest"/> to a JsonAny and store in the <see cref="CastResultKey"/>.
         /// </summary>
@@ -51,16 +53,6 @@ namespace Steps
         public void ThenTheResultShouldEqualTheJsonAny(string match)
         {
             Assert.AreEqual(JsonAny.ParseUriValue(match), this.scenarioContext.Get<JsonAny>(CastResultKey));
-        }
-
-        /// <summary>
-        /// Gets the value store in <see cref="CastResultKey"/> and matches it against the Regex serialized in <paramref name="expected"/>.
-        /// </summary>
-        /// <param name="expected">The serialized form of the result to match.</param>
-        [Then(@"the result should equal the Regex (.*)")]
-        public void ThenTheResultShouldEqualTheRegex(string expected)
-        {
-            Assert.AreEqual(new Regex(expected).ToString(), this.scenarioContext.Get<Regex>(CastResultKey).ToString());
         }
 
         /// <summary>
@@ -111,6 +103,68 @@ namespace Steps
         {
             this.scenarioContext.Set((JsonArray)this.scenarioContext.Get<ImmutableList<JsonAny>>(JsonValueSteps.SubjectUnderTest), CastResultKey);
         }
+
+        /* object */
+
+        /// <summary>
+        /// Cast the value stored in the context variable <see cref="JsonValueSteps.SubjectUnderTest"/> to a JsonAny and store in the <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonObject to JsonAny")]
+        public void WhenICastTheJsonObjectToJsonAny()
+        {
+            this.scenarioContext.Set((JsonAny)this.scenarioContext.Get<JsonObject>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Cast the value stored in the context variable <see cref="JsonValueSteps.SubjectUnderTest"/> to a JsonObject and store it in the <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonAny to JsonObject")]
+        public void WhenICastTheJsonAnyToJsonObject()
+        {
+            this.scenarioContext.Set<IJsonValue>((JsonObject)this.scenarioContext.Get<JsonAny>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Comparse the IJsonValue in the <see cref="CastResultKey"/> with the serialized <paramref name="jsonObject"/>.
+        /// </summary>
+        /// <param name="jsonObject">The serialized JsonObject with which to compare the result.</param>
+        [Then(@"the result should equal the JsonObject '(.*)'")]
+        public void ThenTheResultShouldEqualTheJsonObject(string jsonObject)
+        {
+            Assert.AreEqual(JsonAny.ParseUriValue(jsonObject).AsObject, this.scenarioContext.Get<IJsonValue>(CastResultKey));
+        }
+
+        /// <summary>
+        /// Compares the two dictionaries.
+        /// </summary>
+        /// <param name="immutableDictionary">The immutable dictionary with which to compare the result.</param>
+        [Then(@"the result should equal the ImmutableDictionary<string,JsonAny> '(.*)'")]
+        public void ThenTheResultShouldEqualTheImmutablDictionary(string immutableDictionary)
+        {
+            ImmutableDictionary<string, JsonAny> expected = JsonAny.ParseUriValue(immutableDictionary).AsObject.AsPropertyDictionary;
+            ImmutableDictionary<string, JsonAny> actual = this.scenarioContext.Get<ImmutableDictionary<string, JsonAny>>(CastResultKey);
+            CollectionAssert.AreEqual(expected, actual);
+        }
+
+        /// <summary>
+        /// Gets the item in the <see cref="JsonValueSteps.SubjectUnderTest"/>, casts it to <see cref="ImmutableList{JsonAny}"/> and stores it in the <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonObject to ImmutableDictionary<string,JsonAny>")]
+        public void WhenICastTheJsonObjectToImmutableDictionary()
+        {
+            this.scenarioContext.Set((ImmutableDictionary<string, JsonAny>)this.scenarioContext.Get<JsonObject>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Gets the item in the <see cref="JsonValueSteps.SubjectUnderTest"/>, casts it to <see cref="JsonObject"/> and stores it in the <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the ImmutableDictionary<string,JsonAny> to JsonObject")]
+        public void WhenICastTheImmutableDictionaryToJsonObject()
+        {
+            this.scenarioContext.Set((JsonObject)this.scenarioContext.Get<ImmutableDictionary<string, JsonAny>>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /* string */
 
         /// <summary>
         /// Compares the two <see cref="JsonString"/> instances.
@@ -2494,6 +2548,16 @@ namespace Steps
         }
 
         /* regex */
+
+        /// <summary>
+        /// Gets the value store in <see cref="CastResultKey"/> and matches it against the Regex serialized in <paramref name="expected"/>.
+        /// </summary>
+        /// <param name="expected">The serialized form of the result to match.</param>
+        [Then(@"the result should equal the Regex (.*)")]
+        public void ThenTheResultShouldEqualTheRegex(string expected)
+        {
+            Assert.AreEqual(new Regex(expected).ToString(), this.scenarioContext.Get<Regex>(CastResultKey).ToString());
+        }
 
         /// <summary>
         /// Casts the <see cref="JsonRegex"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonAny"/> and stores it in <see cref="CastResultKey"/>.
