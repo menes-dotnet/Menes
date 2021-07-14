@@ -5,6 +5,7 @@
 namespace Steps
 {
     using System;
+    using System.Buffers;
     using System.Collections.Immutable;
     using System.Net;
     using System.Text;
@@ -13,6 +14,7 @@ namespace Steps
     using Menes.Json;
     using NodaTime;
     using NodaTime.Text;
+    using NUnit.Framework;
     using TechTalk.SpecFlow;
 
     /// <summary>
@@ -26,6 +28,11 @@ namespace Steps
         /// </summary>
         internal const string SubjectUnderTest = "Value";
 
+        /// <summary>
+        /// The key for a serialization result.
+        /// </summary>
+        internal const string SerializationResult = "SerializationResult";
+
         private readonly ScenarioContext scenarioContext;
 
         /// <summary>
@@ -35,6 +42,44 @@ namespace Steps
         public JsonValueSteps(ScenarioContext scenarioContext)
         {
             this.scenarioContext = scenarioContext;
+        }
+
+        /* validation */
+
+        /// <summary>
+        /// Validates that the object in the context variable <see cref="SerializationResult"/> is a <see cref="JsonValueKind.Object"/>.
+        /// </summary>
+        [Then(@"the round-tripped result should be an Object")]
+        public void ThenTheRound_TrippedResultShouldBeAnObject()
+        {
+            Assert.AreEqual(JsonValueKind.Object, this.scenarioContext.Get<JsonAny>(SerializationResult).ValueKind);
+        }
+
+        /* serialization */
+
+        /// <summary>
+        /// Serializes an <see cref="IJsonValue"/> from the context variable <see cref="SubjectUnderTest"/>, deserializaes and stores the resulting <see cref="JsonAny"/> in the context variable <see cref="SerializationResult"/>.
+        /// </summary>
+        [When(@"the json value is round-tripped via a string")]
+        public void WhenTheJsonValueIsRound_TrippedViaAString()
+        {
+            IJsonValue sut = this.scenarioContext.Get<IJsonValue>(SubjectUnderTest);
+            ArrayBufferWriter<byte> abw = new ();
+            using Utf8JsonWriter writer = new (abw);
+            sut.WriteTo(writer);
+            writer.Flush();
+
+            this.scenarioContext.Set(JsonAny.ParseUriValue(abw.WrittenMemory), SerializationResult);
+        }
+
+        /// <summary>
+        /// Compares the string from the context variable <see cref="SerializationResult"/> with the expected value.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [Then(@"the round-tripped result should be equal to the JsonAny (.*)")]
+        public void ThenTheRound_TrippedResultShouldBeEqualToTheJsonAny(string expected)
+        {
+            Assert.AreEqual(JsonAny.ParseUriValue(expected), this.scenarioContext.Get<JsonAny>(SerializationResult));
         }
 
         /* string */
