@@ -571,6 +571,109 @@ namespace Steps
             this.scenarioContext.Set((JsonEmail)this.scenarioContext.Get<string>(JsonValueSteps.SubjectUnderTest), CastResultKey);
         }
 
+        /* uriTemplate */
+
+        /// <summary>
+        /// Casts the <see cref="JsonUriTemplate"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonAny"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonUriTemplate to JsonAny")]
+        public void WhenICastTheJsonUriTemplateToJsonAny()
+        {
+            this.scenarioContext.Set((JsonAny)this.scenarioContext.Get<JsonUriTemplate>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonAny"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonUriTemplate"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonAny to JsonUriTemplate")]
+        public void WhenICastTheJsonAnyToJsonUriTemplate()
+        {
+            this.scenarioContext.Set((JsonUriTemplate)this.scenarioContext.Get<JsonAny>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Compares the <see cref="JsonUriTemplate"/> in the context value <see cref="CastResultKey"/> with the given JsonUriTemplate.
+        /// </summary>
+        /// <param name="expectedValue">The serialized form of the <see cref="JsonUriTemplate"/>.</param>
+        [Then(@"the result should equal the JsonUriTemplate '(.*)'")]
+        public void ThenTheResultShouldEqualTheJsonUriTemplate(string expectedValue)
+        {
+            JsonUriTemplate expected = JsonAny.ParseUriValue(expectedValue).AsString;
+            Assert.AreEqual(expected, this.scenarioContext.Get<JsonUriTemplate>(CastResultKey));
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonUriTemplate"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonString"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonUriTemplate to JsonString")]
+        public void WhenICastTheJsonUriTemplateToJsonString()
+        {
+            this.scenarioContext.Set((JsonString)this.scenarioContext.Get<JsonUriTemplate>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonString"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonUriTemplate"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonString to JsonUriTemplate")]
+        public void WhenICastTheJsonStringToJsonUriTemplate()
+        {
+            this.scenarioContext.Set((JsonUriTemplate)this.scenarioContext.Get<JsonString>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonUriTemplate"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="ReadOnlySpan{Char}"/>, converts that to a <see cref="ReadOnlyMemory{Char}"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonUriTemplate to ReadOnlySpan<char>")]
+        public void WhenICastTheJsonUriTemplateToReadOnlySpanOfChar()
+        {
+            this.scenarioContext.Set<ReadOnlyMemory<char>>(((ReadOnlySpan<char>)this.scenarioContext.Get<JsonUriTemplate>(JsonValueSteps.SubjectUnderTest)).ToArray().AsMemory(), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonUriTemplate"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="ReadOnlySpan{Char}"/>, converts that to a <see cref="ReadOnlyMemory{Char}"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the ReadOnlySpan<char> to JsonUriTemplate")]
+        public void WhenICastTheReadOnlySpanOfCharToJsonUriTemplate()
+        {
+            this.scenarioContext.Set((JsonUriTemplate)this.scenarioContext.Get<ReadOnlyMemory<char>>(JsonValueSteps.SubjectUnderTest).Span, CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonUriTemplate"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="ReadOnlySpan{Byte}"/>, converts that to a <see cref="ReadOnlyMemory{Byte}"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonUriTemplate to ReadOnlySpan<byte>")]
+        public void WhenICastTheJsonUriTemplateToReadOnlySpanOfByte()
+        {
+            this.scenarioContext.Set<ReadOnlyMemory<byte>>(((ReadOnlySpan<byte>)this.scenarioContext.Get<JsonUriTemplate>(JsonValueSteps.SubjectUnderTest)).ToArray().AsMemory(), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="ReadOnlySpan{Byte}"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonUriTemplate"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the ReadOnlySpan<byte> to JsonUriTemplate")]
+        public void WhenICastTheReadOnlySpanOfByteToJsonUriTemplate()
+        {
+            this.scenarioContext.Set((JsonUriTemplate)this.scenarioContext.Get<ReadOnlyMemory<byte>>(JsonValueSteps.SubjectUnderTest).Span, CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonUriTemplate"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="string"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonUriTemplate to string")]
+        public void WhenICastTheJsonUriTemplateToString()
+        {
+            this.scenarioContext.Set((string)this.scenarioContext.Get<JsonUriTemplate>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="string"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonUriTemplate"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the string to JsonUriTemplate")]
+        public void WhenICastTheStringToJsonUriTemplate()
+        {
+            this.scenarioContext.Set((JsonUriTemplate)this.scenarioContext.Get<string>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
         /* pointer */
 
         /// <summary>

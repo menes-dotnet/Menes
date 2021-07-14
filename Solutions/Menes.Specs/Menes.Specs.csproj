@@ -57,6 +57,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Features\JsonModel\Cast\JsonUriTemplateCast.feature.cs">
+      <DependentUpon>JsonUriTemplateCast.feature</DependentUpon>
+    </Compile>
     <Compile Update="Features\JsonModel\Cast\JsonRelativePointerCast.feature.cs">
       <DependentUpon>JsonRelativePointerCast.feature</DependentUpon>
     </Compile>
@@ -114,6 +117,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonUriTemplateCast.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonRelativePointerCast.feature">
       <Visible>$(UsingMicrosoftNETSdk)</Visible>
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
