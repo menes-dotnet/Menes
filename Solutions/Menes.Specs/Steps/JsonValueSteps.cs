@@ -119,6 +119,103 @@ namespace Steps
             Assert.AreEqual(JsonAny.ParseUriValue(expected), this.scenarioContext.Get<JsonAny>(SerializationResult));
         }
 
+        /* any */
+
+        /// <summary>
+        /// Store a <see cref="JsonElement"/>-backed value in the context variable <c>Value</c>.
+        /// </summary>
+        /// <param name="value">The json value.</param>
+        [Given(@"the JsonElement backed JsonAny (.*)")]
+        public void GivenTheJsonElementBackedJsonAny(string value)
+        {
+            this.scenarioContext.Set(JsonAny.ParseUriValue(value), SubjectUnderTest);
+        }
+
+        /// <summary>
+        /// Store a dotnet-type-backed value in the context variable <c>Value</c>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        [Given(@"the object backed JsonAny (.*)")]
+        public void GivenTheObjectBackedJsonAny(string value)
+        {
+            if (value == "null")
+            {
+                this.scenarioContext.Set(JsonNull.Instance.AsAny, SubjectUnderTest);
+            }
+            else
+            {
+                this.scenarioContext.Set(new JsonAny(JsonAny.ParseUriValue(value).AsObject.AsPropertyDictionary), SubjectUnderTest);
+            }
+        }
+
+        /// <summary>
+        /// Store a dotnet-type-backed value in the context variable <c>Value</c>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        [Given(@"the number backed JsonAny (.*)")]
+        public void GivenTheNumberBackedJsonAny(string value)
+        {
+            if (value == "null")
+            {
+                this.scenarioContext.Set(JsonNull.Instance.AsAny, SubjectUnderTest);
+            }
+            else
+            {
+                this.scenarioContext.Set(new JsonAny((double)JsonAny.ParseUriValue(value).AsNumber), SubjectUnderTest);
+            }
+        }
+
+        /// <summary>
+        /// Store a dotnet-type-backed value in the context variable <c>Value</c>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        [Given(@"the array backed JsonAny (.*)")]
+        public void GivenTheArrayBackedJsonAny(string value)
+        {
+            if (value == "null")
+            {
+                this.scenarioContext.Set(JsonNull.Instance.AsAny, SubjectUnderTest);
+            }
+            else
+            {
+                this.scenarioContext.Set(new JsonAny(JsonAny.ParseUriValue(value).AsArray.AsItemsList), SubjectUnderTest);
+            }
+        }
+
+        /// <summary>
+        /// Store a dotnet-type-backed value in the context variable <c>Value</c>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        [Given(@"the string backed JsonAny (.*)")]
+        public void GivenTheStringBackedJsonAny(string value)
+        {
+            if (value == "null")
+            {
+                this.scenarioContext.Set(JsonNull.Instance.AsAny, SubjectUnderTest);
+            }
+            else
+            {
+                this.scenarioContext.Set(new JsonAny((string)JsonAny.ParseUriValue(value).AsString), SubjectUnderTest);
+            }
+        }
+
+        /// <summary>
+        /// Store a dotnet-type-backed value in the context variable <c>Value</c>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        [Given(@"the boolean backed JsonAny (.*)")]
+        public void GivenTheBooleanBackedJsonAny(string value)
+        {
+            if (value == "null")
+            {
+                this.scenarioContext.Set(JsonNull.Instance.AsAny, SubjectUnderTest);
+            }
+            else
+            {
+                this.scenarioContext.Set(new JsonAny((bool)JsonAny.ParseUriValue(value).AsBoolean), SubjectUnderTest);
+            }
+        }
+
         /* string */
 
         /// <summary>

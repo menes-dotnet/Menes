@@ -482,6 +482,42 @@ namespace Menes.Json
         }
 
         /// <summary>
+        /// Implicit conversion to an <see cref="ImmutableList{T}"/> of <see cref="JsonAny"/>.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator ImmutableList<JsonAny>(JsonAny value)
+        {
+            return value.AsArray.AsItemsList;
+        }
+
+        /// <summary>
+        /// Implicit conversion from an <see cref="ImmutableList{T}"/> of <see cref="JsonAny"/>.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator JsonAny(ImmutableList<JsonAny> value)
+        {
+            return new JsonAny(value);
+        }
+
+        /// <summary>
+        /// Implicit conversion to a property dictionary.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator ImmutableDictionary<string, JsonAny>(JsonAny value)
+        {
+            return value.AsObject.AsPropertyDictionary;
+        }
+
+        /// <summary>
+        /// Implicit conversion from a property dictionary.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator JsonAny(ImmutableDictionary<string, JsonAny> value)
+        {
+            return new JsonObject(value);
+        }
+
+        /// <summary>
         /// Conversion from string.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
