@@ -55,6 +55,43 @@ namespace Steps
             Assert.AreEqual(JsonValueKind.Object, this.scenarioContext.Get<JsonAny>(SerializationResult).ValueKind);
         }
 
+        /// <summary>
+        /// Validates that the object in the context variable <see cref="SerializationResult"/> is a <see cref="JsonValueKind.Array"/>.
+        /// </summary>
+        [Then(@"the round-tripped result should be an Array")]
+        public void ThenTheRound_TrippedResultShouldBeAnArray()
+        {
+            Assert.AreEqual(JsonValueKind.Array, this.scenarioContext.Get<JsonAny>(SerializationResult).ValueKind);
+        }
+
+        /// <summary>
+        /// Validates that the object in the context variable <see cref="SerializationResult"/> is a <see cref="JsonValueKind.Number"/>.
+        /// </summary>
+        [Then(@"the round-tripped result should be a Number")]
+        public void ThenTheRound_TrippedResultShouldBeANumber()
+        {
+            Assert.AreEqual(JsonValueKind.Number, this.scenarioContext.Get<JsonAny>(SerializationResult).ValueKind);
+        }
+
+        /// <summary>
+        /// Validates that the object in the context variable <see cref="SerializationResult"/> is a <see cref="JsonValueKind.String"/>.
+        /// </summary>
+        [Then(@"the round-tripped result should be a String")]
+        public void ThenTheRound_TrippedResultShouldBeAString()
+        {
+            Assert.AreEqual(JsonValueKind.String, this.scenarioContext.Get<JsonAny>(SerializationResult).ValueKind);
+        }
+
+        /// <summary>
+        /// Validates that the object in the context variable <see cref="SerializationResult"/> is a <see cref="JsonValueKind.True"/> or <see cref="JsonValueKind.False"/>.
+        /// </summary>
+        [Then(@"the round-tripped result should be a Boolean")]
+        public void ThenTheRound_TrippedResultShouldBeABoolean()
+        {
+            JsonValueKind actual = this.scenarioContext.Get<JsonAny>(SerializationResult).ValueKind;
+            Assert.IsTrue(actual == JsonValueKind.True || actual == JsonValueKind.False);
+        }
+
         /* serialization */
 
         /// <summary>
