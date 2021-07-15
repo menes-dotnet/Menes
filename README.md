@@ -1,6 +1,6 @@
 # Menes
-[![Build Status](https://dev.azure.com/endjin-labs/Menes/_apis/build/status/menes-dotnet.Menes?branchName=master)](https://dev.azure.com/endjin-labs/Menes/_build/latest?definitionId=4&branchName=master)
-[![GitHub license](https://img.shields.io/badge/License-Apache%202-blue.svg)](https://raw.githubusercontent.com/menes-dotnet/Menes/master/LICENSE)
+[![Build Status](https://dev.azure.com/endjin-labs/Menes/_apis/build/status/menes-dotnet.Menes?branchName=main)](https://dev.azure.com/endjin-labs/Menes/_build/latest?definitionId=4&branchName=main)
+[![GitHub license](https://img.shields.io/badge/License-Apache%202-blue.svg)](https://raw.githubusercontent.com/menes-dotnet/Menes/main/LICENSE)
 [![IMM](https://endimmfuncdev.azurewebsites.net/api/imm/github/menes-dotnet/Menes/total?cache=false)](https://endimmfuncdev.azurewebsites.net/api/imm/github/menes-dotnet/Menes/total?cache=false)
 
 This provides abstractions for the Menes framework.
@@ -11,7 +11,7 @@ It is built for netstandard2.0.
 
 ## Licenses
 
-[![GitHub license](https://img.shields.io/badge/License-Apache%202-blue.svg)](https://raw.githubusercontent.com/menes-dotnet/Menes/master/LICENSE)
+[![GitHub license](https://img.shields.io/badge/License-Apache%202-blue.svg)](https://raw.githubusercontent.com/menes-dotnet/Menes/main/LICENSE)
 
 Menes is available under the Apache 2.0 open source license.
 
