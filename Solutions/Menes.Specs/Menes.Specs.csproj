@@ -15,6 +15,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Cast\JsonAnyCast - Copy.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Cast\JsonBooleanCast - Copy.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Cast\JsonDateCast - Copy.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Cast\JsonEmailCast - Copy.feature.cs" />
@@ -58,6 +59,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Features\JsonModel\Cast\JsonNotAnyCast.feature.cs">
+      <DependentUpon>JsonNotAnyCast.feature</DependentUpon>
+    </Compile>
     <Compile Update="Features\JsonModel\Cast\JsonAnyCast.feature.cs">
       <DependentUpon>JsonAnyCast.feature</DependentUpon>
     </Compile>
@@ -127,6 +131,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonNotAnyCast.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonAnyCast.feature">
       <Visible>$(UsingMicrosoftNETSdk)</Visible>
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>

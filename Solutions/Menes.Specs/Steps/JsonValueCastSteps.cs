@@ -56,6 +56,16 @@ namespace Steps
         }
 
         /// <summary>
+        /// Gets the value store in <see cref="CastResultKey"/> and matches it against the JsonNotAny serialized in <paramref name="match"/>.
+        /// </summary>
+        /// <param name="match">The serialized form of the result to match.</param>
+        [Then(@"the result should equal the JsonNotAny '(.*)'")]
+        public void ThenTheResultShouldEqualTheJsonNotAny(string match)
+        {
+            Assert.AreEqual((JsonNotAny)JsonAny.ParseUriValue(match), this.scenarioContext.Get<JsonNotAny>(CastResultKey));
+        }
+
+        /// <summary>
         /// Gets the value store in <see cref="CastResultKey"/> and matches it against the JsonAny serialized in <paramref name="match"/>, as a double, within the given margin.
         /// </summary>
         /// <param name="match">The serialized form of the result to match.</param>
@@ -64,6 +74,17 @@ namespace Steps
         public void ThenTheResultShouldEqualTheJsonAnyWithin(string match, double margin)
         {
             Assert.AreEqual((double)JsonAny.ParseUriValue(match), (double)this.scenarioContext.Get<JsonAny>(CastResultKey), margin);
+        }
+
+        /// <summary>
+        /// Gets the value store in <see cref="CastResultKey"/> and matches it against the JsonNotAny serialized in <paramref name="match"/>, as a double, within the given margin.
+        /// </summary>
+        /// <param name="match">The serialized form of the result to match.</param>
+        /// <param name="margin">The precision with which to match the JsonAny value.</param>
+        [Then(@"the result should equal the JsonNotAny '(.*)' within (.*)")]
+        public void ThenTheResultShouldEqualTheJsonNotAnyWithin(string match, double margin)
+        {
+            Assert.AreEqual((double)(JsonNotAny)JsonAny.ParseUriValue(match), (double)this.scenarioContext.Get<JsonNotAny>(CastResultKey), margin);
         }
 
         /// <summary>
@@ -223,6 +244,251 @@ namespace Steps
         public void WhenICastTheImmutableDictionaryToJsonAny()
         {
             this.scenarioContext.Set((JsonAny)this.scenarioContext.Get<ImmutableDictionary<string, JsonAny>>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /* notAny */
+
+        /// <summary>
+        /// Casts the <see cref="JsonNotAny"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="bool"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonNotAny to bool")]
+        public void WhenICastTheJsonNotAnyToBool()
+        {
+            this.scenarioContext.Set((bool)this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="bool"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonNotAny"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the bool to JsonNotAny")]
+        public void WhenICastTheBoolToJsonNotAny()
+        {
+            this.scenarioContext.Set<IJsonValue>((JsonNotAny)this.scenarioContext.Get<bool>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonNotAny"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonBoolean"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonNotAny to JsonBoolean")]
+        public void WhenICastTheJsonNotAnyToJsonBoolean()
+        {
+            this.scenarioContext.Set((JsonBoolean)this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonBoolean"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonNotAny"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonBoolean to JsonNotAny")]
+        public void WhenICastTheJsonBooleanToJsonNotAny()
+        {
+            this.scenarioContext.Set<IJsonValue>((JsonNotAny)this.scenarioContext.Get<JsonBoolean>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonNumber"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonNotAny"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonNumber to JsonNotAny")]
+        public void WhenICastTheJsonNumberToJsonNotAny()
+        {
+            this.scenarioContext.Set<IJsonValue>((JsonNotAny)this.scenarioContext.Get<JsonNumber>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonNotAny"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonNumber"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonNotAny to JsonNumber")]
+        public void WhenICastTheJsonNotAnyToJsonNumber()
+        {
+            this.scenarioContext.Set((JsonNumber)this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonNotAny"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="long"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonNotAny to long")]
+        public void WhenICastTheJsonNotAnyToLong()
+        {
+            this.scenarioContext.Set((long)this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="long"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonNotAny"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the long to JsonNotAny")]
+        public void WhenICastTheLongToJsonNotAny()
+        {
+            this.scenarioContext.Set<IJsonValue>((JsonNotAny)this.scenarioContext.Get<long>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonNotAny"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="int"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonNotAny to int")]
+        public void WhenICastTheJsonNotAnyToInt()
+        {
+            this.scenarioContext.Set((int)this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="int"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonNotAny"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the int to JsonNotAny")]
+        public void WhenICastTheIntToJsonNotAny()
+        {
+            this.scenarioContext.Set<IJsonValue>((JsonNotAny)this.scenarioContext.Get<int>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonNotAny"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="double"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonNotAny to double")]
+        public void WhenICastTheJsonNotAnyToDouble()
+        {
+            this.scenarioContext.Set((double)this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="double"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonNotAny"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the double to JsonNotAny")]
+        public void WhenICastTheDoubleToJsonNotAny()
+        {
+            this.scenarioContext.Set<IJsonValue>((JsonNotAny)this.scenarioContext.Get<double>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonNotAny"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="float"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonNotAny to float")]
+        public void WhenICastTheJsonNotAnyToFloat()
+        {
+            this.scenarioContext.Set((float)this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="float"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonNotAny"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the float to JsonNotAny")]
+        public void WhenICastTheFloatToJsonNotAny()
+        {
+            this.scenarioContext.Set<IJsonValue>((JsonNotAny)this.scenarioContext.Get<float>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Cast the value stored in the context variable <see cref="JsonValueSteps.SubjectUnderTest"/> to a JsonObject and store it in the <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonNotAny to JsonObject")]
+        public void WhenICastTheJsonNotAnyToJsonObject()
+        {
+            this.scenarioContext.Set<IJsonValue>((JsonObject)this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Gets the item in the <see cref="JsonValueSteps.SubjectUnderTest"/>, casts it to <see cref="ImmutableList{JsonNotAny}"/> and stores it in the <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonNotAny to ImmutableList<JsonAny>")]
+        public void WhenICastTheJsonNotAnyToImmutableList()
+        {
+            this.scenarioContext.Set((ImmutableList<JsonAny>)this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Gets the item in the <see cref="JsonValueSteps.SubjectUnderTest"/>, casts it to <see cref="JsonArray"/> and stores it in the <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the ImmutableList<JsonAny> to JsonNotAny")]
+        public void WhenICastTheImmutableListToJsonNotAny()
+        {
+            this.scenarioContext.Set((JsonNotAny)this.scenarioContext.Get<ImmutableList<JsonAny>>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Gets the item in the <see cref="JsonValueSteps.SubjectUnderTest"/>, casts it to <see cref="ImmutableList{JsonNotAny}"/> and stores it in the <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonNotAny to ImmutableDictionary<string,JsonAny>")]
+        public void WhenICastTheJsonNotAnyToImmutableDictionary()
+        {
+            this.scenarioContext.Set((ImmutableDictionary<string, JsonAny>)this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Gets the item in the <see cref="JsonValueSteps.SubjectUnderTest"/>, casts it to <see cref="JsonNotAny"/> and stores it in the <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the ImmutableDictionary<string,JsonAny> to JsonNotAny")]
+        public void WhenICastTheImmutableDictionaryToJsonNotAny()
+        {
+            this.scenarioContext.Set((JsonNotAny)this.scenarioContext.Get<ImmutableDictionary<string, JsonAny>>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonNotAny"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonString"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonNotAny to JsonString")]
+        public void WhenICastTheJsonNotAnyToJsonString()
+        {
+            this.scenarioContext.Set((JsonString)this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonString"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonNotAny"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonString to JsonNotAny")]
+        public void WhenICastTheJsonStringToJsonNotAny()
+        {
+            this.scenarioContext.Set((JsonNotAny)this.scenarioContext.Get<JsonString>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonNotAny"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="ReadOnlySpan{Char}"/>, converts that to a <see cref="ReadOnlyMemory{Char}"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonNotAny to ReadOnlySpan<char>")]
+        public void WhenICastTheJsonNotAnyToReadOnlySpanOfChar()
+        {
+            this.scenarioContext.Set<ReadOnlyMemory<char>>(((ReadOnlySpan<char>)this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest)).ToArray().AsMemory(), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonNotAny"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="ReadOnlySpan{Char}"/>, converts that to a <see cref="ReadOnlyMemory{Char}"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the ReadOnlySpan<char> to JsonNotAny")]
+        public void WhenICastTheReadOnlySpanOfCharToJsonNotAny()
+        {
+            this.scenarioContext.Set((JsonNotAny)this.scenarioContext.Get<ReadOnlyMemory<char>>(JsonValueSteps.SubjectUnderTest).Span, CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonNotAny"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="ReadOnlySpan{Byte}"/>, converts that to a <see cref="ReadOnlyMemory{Byte}"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonNotAny to ReadOnlySpan<byte>")]
+        public void WhenICastTheJsonNotAnyToReadOnlySpanOfByte()
+        {
+            this.scenarioContext.Set<ReadOnlyMemory<byte>>(((ReadOnlySpan<byte>)this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest)).ToArray().AsMemory(), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="ReadOnlySpan{Byte}"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonNotAny"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the ReadOnlySpan<byte> to JsonNotAny")]
+        public void WhenICastTheReadOnlySpanOfByteToJsonNotAny()
+        {
+            this.scenarioContext.Set((JsonNotAny)this.scenarioContext.Get<ReadOnlyMemory<byte>>(JsonValueSteps.SubjectUnderTest).Span, CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonNotAny"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="string"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonNotAny to string")]
+        public void WhenICastTheJsonNotAnyToString()
+        {
+            this.scenarioContext.Set((string)this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="string"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonNotAny"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the string to JsonNotAny")]
+        public void WhenICastTheStringToJsonNotAny()
+        {
+            this.scenarioContext.Set((JsonNotAny)this.scenarioContext.Get<string>(JsonValueSteps.SubjectUnderTest), CastResultKey);
         }
 
         /* object */
