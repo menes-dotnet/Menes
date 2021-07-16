@@ -194,6 +194,78 @@ namespace Steps
             }
         }
 
+        /* notAny */
+
+        /// <summary>
+        /// Compares the value in JsonNotAny in the context variable <c>Value</c> with the expected array, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare it to the notAny (.*)")]
+        public void WhenICompareItToTheNotAny(string expected)
+        {
+            if (expected != "null")
+            {
+                this.scenarioContext.Set(this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest).Equals((JsonNotAny)JsonAny.ParseUriValue(expected).AsDotnetBackedValue), EqualsObjectBackedResultKey);
+            }
+
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest).Equals((JsonNotAny)JsonAny.ParseUriValue(expected)), EqualsResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest) == (JsonNotAny)JsonAny.ParseUriValue(expected), EqualityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest) != (JsonNotAny)JsonAny.ParseUriValue(expected), InequalityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest).GetHashCode() == ((JsonNotAny)JsonAny.ParseUriValue(expected)).GetHashCode(), HashCodeResultKey);
+        }
+
+        /// <summary>
+        /// Compares the value in JsonNotAny in the context variable <c>Value</c> with the expected array, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare the notAny to the IJsonValue (.*)")]
+        public void WhenICompareTheNotAnyToTheIJsonValue(string expected)
+        {
+            var value = JsonAny.ParseUriValue(expected);
+            JsonValueKind valueKind = value.ValueKind;
+
+            switch (valueKind)
+            {
+                case JsonValueKind.Object:
+                    this.scenarioContext.Set(this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest).Equals(value.AsObject), EqualsResultKey);
+                    break;
+                case JsonValueKind.True:
+                case JsonValueKind.False:
+                    this.scenarioContext.Set(this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest).Equals(value.AsBoolean), EqualsResultKey);
+                    break;
+                case JsonValueKind.Number:
+                    this.scenarioContext.Set(this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest).Equals(value.AsNumber), EqualsResultKey);
+                    break;
+                case JsonValueKind.Null:
+                    this.scenarioContext.Set(this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest).Equals(value.AsNull), EqualsResultKey);
+                    break;
+                case JsonValueKind.Undefined:
+                    this.scenarioContext.Set(this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest).Equals(value), EqualsResultKey);
+                    break;
+                case JsonValueKind.String:
+                    this.scenarioContext.Set(this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest).Equals(value.AsString), EqualsResultKey);
+                    break;
+                case JsonValueKind.Array:
+                    this.scenarioContext.Set(this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest).Equals(value.AsArray), EqualsResultKey);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Compares the value in JsonNotAny in the context variable <c>Value</c> with the expected array, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare the notAny to the object (.*)")]
+        public void WhenICompareTheNotAnyToTheObject(string expected)
+        {
+            object? obj = expected == "<undefined>" ? default(JsonNotAny) : expected == "<null>" ? null : expected == "<new object()>" ? new object() : JsonAny.ParseUriValue(expected);
+            this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest)).Equals(obj), EqualsResultKey);
+            if (obj is not null)
+            {
+                this.scenarioContext.Set(this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest).GetHashCode() == obj.GetHashCode(), HashCodeResultKey);
+            }
+        }
+
         /* array */
 
         /// <summary>
