@@ -314,12 +314,12 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast to ReadOnlySpan<byte> for json element backed value as a JsonNotAny")]
-        public virtual void CastToReadOnlySpanByteForJsonElementBackedValueAsAJsonNotAny()
+        [NUnit.Framework.DescriptionAttribute("Cast from JsonString for dotnet backed value as a JsonNotAny")]
+        public virtual void CastFromJsonStringForDotnetBackedValueAsAJsonNotAny()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to ReadOnlySpan<byte> for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from JsonString for dotnet backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 34
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -341,25 +341,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 35
- testRunner.Given("the JsonElement backed JsonNotAny \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the dotnet backed JsonString hello@endjin.com", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 36
- testRunner.When("I cast the JsonNotAny to ReadOnlySpan<byte>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonString to JsonNotAny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 37
- testRunner.Then("the result should equal the ReadOnlySpan<byte> \'hello@endjin.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the JsonNotAny \'hello@endjin.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast to ReadOnlySpan<byte> for dotnet backed value as a string")]
-        public virtual void CastToReadOnlySpanByteForDotnetBackedValueAsAString()
+        [NUnit.Framework.DescriptionAttribute("Cast to ReadOnlySpan<byte> for json element backed value as a JsonNotAny")]
+        public virtual void CastToReadOnlySpanByteForJsonElementBackedValueAsAJsonNotAny()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to ReadOnlySpan<byte> for dotnet backed value as a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to ReadOnlySpan<byte> for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 39
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -381,7 +381,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 40
- testRunner.Given("the string backed JsonNotAny hello@endjin.com", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonNotAny \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 41
  testRunner.When("I cast the JsonNotAny to ReadOnlySpan<byte>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -394,12 +394,12 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast from ReadOnlySpan<byte> for json element backed value as a JsonNotAny")]
-        public virtual void CastFromReadOnlySpanByteForJsonElementBackedValueAsAJsonNotAny()
+        [NUnit.Framework.DescriptionAttribute("Cast to ReadOnlySpan<byte> for dotnet backed value as a string")]
+        public virtual void CastToReadOnlySpanByteForDotnetBackedValueAsAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from ReadOnlySpan<byte> for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to ReadOnlySpan<byte> for dotnet backed value as a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 44
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -421,25 +421,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 45
- testRunner.Given("the ReadOnlyMemory<byte> for \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the string backed JsonNotAny hello@endjin.com", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 46
- testRunner.When("I cast the ReadOnlySpan<byte> to JsonNotAny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonNotAny to ReadOnlySpan<byte>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 47
- testRunner.Then("the result should equal the JsonNotAny \'hello@endjin.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the ReadOnlySpan<byte> \'hello@endjin.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast to ReadOnlySpan<char> for json element backed value as a JsonNotAny")]
-        public virtual void CastToReadOnlySpanCharForJsonElementBackedValueAsAJsonNotAny()
+        [NUnit.Framework.DescriptionAttribute("Cast from ReadOnlySpan<byte> for json element backed value as a JsonNotAny")]
+        public virtual void CastFromReadOnlySpanByteForJsonElementBackedValueAsAJsonNotAny()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to ReadOnlySpan<char> for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from ReadOnlySpan<byte> for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 49
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -461,25 +461,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 50
- testRunner.Given("the JsonElement backed JsonNotAny \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the ReadOnlyMemory<byte> for \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 51
- testRunner.When("I cast the JsonNotAny to ReadOnlySpan<char>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the ReadOnlySpan<byte> to JsonNotAny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 52
- testRunner.Then("the result should equal the ReadOnlySpan<char> \'hello@endjin.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the JsonNotAny \'hello@endjin.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast to ReadOnlySpan<char> for dotnet backed value as a JsonNotAny")]
-        public virtual void CastToReadOnlySpanCharForDotnetBackedValueAsAJsonNotAny()
+        [NUnit.Framework.DescriptionAttribute("Cast to ReadOnlySpan<char> for json element backed value as a JsonNotAny")]
+        public virtual void CastToReadOnlySpanCharForJsonElementBackedValueAsAJsonNotAny()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to ReadOnlySpan<char> for dotnet backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to ReadOnlySpan<char> for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 54
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -501,7 +501,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 55
- testRunner.Given("the string backed JsonNotAny hello@endjin.com", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonNotAny \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 56
  testRunner.When("I cast the JsonNotAny to ReadOnlySpan<char>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -514,12 +514,12 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast from ReadOnlySpan<char> for json element backed value as a JsonNotAny")]
-        public virtual void CastFromReadOnlySpanCharForJsonElementBackedValueAsAJsonNotAny()
+        [NUnit.Framework.DescriptionAttribute("Cast to ReadOnlySpan<char> for dotnet backed value as a JsonNotAny")]
+        public virtual void CastToReadOnlySpanCharForDotnetBackedValueAsAJsonNotAny()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from ReadOnlySpan<char> for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to ReadOnlySpan<char> for dotnet backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 59
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -541,25 +541,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 60
- testRunner.Given("the ReadOnlyMemory<char> for \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the string backed JsonNotAny hello@endjin.com", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 61
- testRunner.When("I cast the ReadOnlySpan<char> to JsonNotAny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonNotAny to ReadOnlySpan<char>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 62
- testRunner.Then("the result should equal the JsonNotAny \'hello@endjin.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the ReadOnlySpan<char> \'hello@endjin.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast to string for json element backed value as a JsonNotAny")]
-        public virtual void CastToStringForJsonElementBackedValueAsAJsonNotAny()
+        [NUnit.Framework.DescriptionAttribute("Cast from ReadOnlySpan<char> for json element backed value as a JsonNotAny")]
+        public virtual void CastFromReadOnlySpanCharForJsonElementBackedValueAsAJsonNotAny()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to string for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from ReadOnlySpan<char> for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 64
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -581,25 +581,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 65
- testRunner.Given("the JsonElement backed JsonNotAny \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the ReadOnlyMemory<char> for \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 66
- testRunner.When("I cast the JsonNotAny to string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the ReadOnlySpan<char> to JsonNotAny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 67
- testRunner.Then("the result should equal the string \'hello@endjin.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the JsonNotAny \'hello@endjin.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast to string for dotnet backed value as a JsonNotAny")]
-        public virtual void CastToStringForDotnetBackedValueAsAJsonNotAny()
+        [NUnit.Framework.DescriptionAttribute("Cast to string for json element backed value as a JsonNotAny")]
+        public virtual void CastToStringForJsonElementBackedValueAsAJsonNotAny()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to string for dotnet backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to string for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 69
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -621,7 +621,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 70
- testRunner.Given("the string backed JsonNotAny hello@endjin.com", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonNotAny \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 71
  testRunner.When("I cast the JsonNotAny to string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -634,12 +634,12 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast from string for json element backed value as a JsonNotAny")]
-        public virtual void CastFromStringForJsonElementBackedValueAsAJsonNotAny()
+        [NUnit.Framework.DescriptionAttribute("Cast to string for dotnet backed value as a JsonNotAny")]
+        public virtual void CastToStringForDotnetBackedValueAsAJsonNotAny()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from string for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to string for dotnet backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 74
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -661,25 +661,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 75
- testRunner.Given("the string for \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the string backed JsonNotAny hello@endjin.com", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 76
- testRunner.When("I cast the string to JsonNotAny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonNotAny to string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 77
- testRunner.Then("the result should equal the JsonNotAny \'hello@endjin.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the string \'hello@endjin.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast to bool for json element backed value as a JsonNotAny")]
-        public virtual void CastToBoolForJsonElementBackedValueAsAJsonNotAny()
+        [NUnit.Framework.DescriptionAttribute("Cast from string for json element backed value as a JsonNotAny")]
+        public virtual void CastFromStringForJsonElementBackedValueAsAJsonNotAny()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to bool for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from string for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 79
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -701,25 +701,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 80
- testRunner.Given("the JsonElement backed JsonNotAny true", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the string for \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 81
- testRunner.When("I cast the JsonNotAny to bool", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the string to JsonNotAny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 82
- testRunner.Then("the result should equal the bool true", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the JsonNotAny \'hello@endjin.com\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast to bool for dotnet backed value as a JsonNotAny")]
-        public virtual void CastToBoolForDotnetBackedValueAsAJsonNotAny()
+        [NUnit.Framework.DescriptionAttribute("Cast to bool for json element backed value as a JsonNotAny")]
+        public virtual void CastToBoolForJsonElementBackedValueAsAJsonNotAny()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to bool for dotnet backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to bool for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 84
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -741,7 +741,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 85
- testRunner.Given("the boolean backed JsonNotAny true", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonNotAny true", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 86
  testRunner.When("I cast the JsonNotAny to bool", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -754,12 +754,12 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast from bool for json element backed value as a JsonNotAny")]
-        public virtual void CastFromBoolForJsonElementBackedValueAsAJsonNotAny()
+        [NUnit.Framework.DescriptionAttribute("Cast to bool for dotnet backed value as a JsonNotAny")]
+        public virtual void CastToBoolForDotnetBackedValueAsAJsonNotAny()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from bool for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to bool for dotnet backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 89
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -781,25 +781,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 90
- testRunner.Given("the bool for true", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the boolean backed JsonNotAny true", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 91
- testRunner.When("I cast the bool to JsonNotAny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonNotAny to bool", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 92
- testRunner.Then("the result should equal the JsonNotAny \'true\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the bool true", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast to JsonBoolean for json element backed value as a JsonNotAny")]
-        public virtual void CastToJsonBooleanForJsonElementBackedValueAsAJsonNotAny()
+        [NUnit.Framework.DescriptionAttribute("Cast from bool for json element backed value as a JsonNotAny")]
+        public virtual void CastFromBoolForJsonElementBackedValueAsAJsonNotAny()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to JsonBoolean for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from bool for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 94
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -821,25 +821,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 95
- testRunner.Given("the JsonElement backed JsonNotAny true", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the bool for true", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 96
- testRunner.When("I cast the JsonNotAny to JsonBoolean", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the bool to JsonNotAny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 97
- testRunner.Then("the result should equal the JsonBoolean \'true\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the JsonNotAny \'true\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast to JsonBoolean for dotnet backed value as a JsonNotAny")]
-        public virtual void CastToJsonBooleanForDotnetBackedValueAsAJsonNotAny()
+        [NUnit.Framework.DescriptionAttribute("Cast to JsonBoolean for json element backed value as a JsonNotAny")]
+        public virtual void CastToJsonBooleanForJsonElementBackedValueAsAJsonNotAny()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to JsonBoolean for dotnet backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to JsonBoolean for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 99
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -861,7 +861,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 100
- testRunner.Given("the boolean backed JsonNotAny true", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonNotAny true", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 101
  testRunner.When("I cast the JsonNotAny to JsonBoolean", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -874,12 +874,12 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast from JsonBoolean for json element backed value as a JsonNotAny")]
-        public virtual void CastFromJsonBooleanForJsonElementBackedValueAsAJsonNotAny()
+        [NUnit.Framework.DescriptionAttribute("Cast to JsonBoolean for dotnet backed value as a JsonNotAny")]
+        public virtual void CastToJsonBooleanForDotnetBackedValueAsAJsonNotAny()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from JsonBoolean for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to JsonBoolean for dotnet backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 104
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -901,25 +901,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 105
- testRunner.Given("the dotnet backed JsonBoolean true", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the boolean backed JsonNotAny true", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 106
- testRunner.When("I cast the JsonBoolean to JsonNotAny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonNotAny to JsonBoolean", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 107
- testRunner.Then("the result should equal the JsonNotAny \'true\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the JsonBoolean \'true\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast to JsonNumber for json element backed value as a JsonNotAny")]
-        public virtual void CastToJsonNumberForJsonElementBackedValueAsAJsonNotAny()
+        [NUnit.Framework.DescriptionAttribute("Cast from JsonBoolean for dotnet backed value as a JsonNotAny")]
+        public virtual void CastFromJsonBooleanForDotnetBackedValueAsAJsonNotAny()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to JsonNumber for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from JsonBoolean for dotnet backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 109
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -941,25 +941,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 110
- testRunner.Given("the JsonElement backed JsonNotAny 1.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the dotnet backed JsonBoolean true", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 111
- testRunner.When("I cast the JsonNotAny to JsonNumber", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonBoolean to JsonNotAny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 112
- testRunner.Then("the result should equal the JsonNumber \'1.2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the JsonNotAny \'true\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast to JsonNumber for dotnet backed value as a JsonNotAny")]
-        public virtual void CastToJsonNumberForDotnetBackedValueAsAJsonNotAny()
+        [NUnit.Framework.DescriptionAttribute("Cast from JsonBoolean for json element backed value as a JsonNotAny")]
+        public virtual void CastFromJsonBooleanForJsonElementBackedValueAsAJsonNotAny()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to JsonNumber for dotnet backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from JsonBoolean for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 114
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -981,25 +981,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 115
- testRunner.Given("the number backed JsonNotAny 1.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonBoolean true", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 116
- testRunner.When("I cast the JsonNotAny to JsonNumber", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonBoolean to JsonNotAny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 117
- testRunner.Then("the result should equal the JsonNumber \'1.2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the JsonNotAny \'true\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast from JsonNumber for json element backed value as a JsonNotAny")]
-        public virtual void CastFromJsonNumberForJsonElementBackedValueAsAJsonNotAny()
+        [NUnit.Framework.DescriptionAttribute("Cast to JsonNumber for json element backed value as a JsonNotAny")]
+        public virtual void CastToJsonNumberForJsonElementBackedValueAsAJsonNotAny()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from JsonNumber for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to JsonNumber for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 119
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1021,25 +1021,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 120
- testRunner.Given("the dotnet backed JsonNumber 1.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonNotAny 1.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 121
- testRunner.When("I cast the JsonNumber to JsonNotAny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonNotAny to JsonNumber", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 122
- testRunner.Then("the result should equal the JsonNotAny \'1.2\' within 0.00001", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the JsonNumber \'1.2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast to long for json element backed value as a JsonNotAny")]
-        public virtual void CastToLongForJsonElementBackedValueAsAJsonNotAny()
+        [NUnit.Framework.DescriptionAttribute("Cast to JsonNumber for dotnet backed value as a JsonNotAny")]
+        public virtual void CastToJsonNumberForDotnetBackedValueAsAJsonNotAny()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to long for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to JsonNumber for dotnet backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 124
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1061,25 +1061,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 125
- testRunner.Given("the JsonElement backed JsonNotAny 12", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the number backed JsonNotAny 1.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 126
- testRunner.When("I cast the JsonNotAny to long", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonNotAny to JsonNumber", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 127
- testRunner.Then("the result should equal the long 12", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the JsonNumber \'1.2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast to long for dotnet backed value as a JsonNotAny")]
-        public virtual void CastToLongForDotnetBackedValueAsAJsonNotAny()
+        [NUnit.Framework.DescriptionAttribute("Cast from JsonNumber for dotnet backed value as a JsonNotAny")]
+        public virtual void CastFromJsonNumberForDotnetBackedValueAsAJsonNotAny()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to long for dotnet backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from JsonNumber for dotnet backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 129
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1101,27 +1101,27 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 130
- testRunner.Given("the number backed JsonNotAny 12", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the dotnet backed JsonNumber 1.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 131
- testRunner.When("I cast the JsonNotAny to long", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonNumber to JsonNotAny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 132
- testRunner.Then("the result should equal the long 12", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the JsonNotAny \'1.2\' within 0.00001", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast from long for json element backed value as a JsonNotAny")]
-        public virtual void CastFromLongForJsonElementBackedValueAsAJsonNotAny()
+        [NUnit.Framework.DescriptionAttribute("Cast from JsonNumber for json element backed value as a JsonNotAny")]
+        public virtual void CastFromJsonNumberForJsonElementBackedValueAsAJsonNotAny()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from long for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from JsonNumber for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 134
-this.ScenarioInitialize(scenarioInfo);
+ this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
             bool isFeatureIgnored = default(bool);
@@ -1141,25 +1141,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 135
- testRunner.Given("the long for 12", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonNumber 1.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 136
- testRunner.When("I cast the long to JsonNotAny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonNumber to JsonNotAny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 137
- testRunner.Then("the result should equal the JsonNotAny \'12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the JsonNotAny \'1.2\' within 0.00001", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast to double for json element backed value as a JsonNotAny")]
-        public virtual void CastToDoubleForJsonElementBackedValueAsAJsonNotAny()
+        [NUnit.Framework.DescriptionAttribute("Cast to JsonObject for json element backed value as a JsonNotAny")]
+        public virtual void CastToJsonObjectForJsonElementBackedValueAsAJsonNotAny()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to double for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to JsonObject for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 139
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1181,25 +1181,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 140
- testRunner.Given("the JsonElement backed JsonNotAny 1.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonNotAny {\"foo\": \"bar\"}", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 141
- testRunner.When("I cast the JsonNotAny to double", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonNotAny to JsonObject", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 142
- testRunner.Then("the result should equal the double 1.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the JsonObject \'{\"foo\": \"bar\"}\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast to double for dotnet backed value as a JsonNotAny")]
-        public virtual void CastToDoubleForDotnetBackedValueAsAJsonNotAny()
+        [NUnit.Framework.DescriptionAttribute("Cast to JsonObject for dotnet backed value as a JsonNotAny")]
+        public virtual void CastToJsonObjectForDotnetBackedValueAsAJsonNotAny()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to double for dotnet backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to JsonObject for dotnet backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 144
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1221,25 +1221,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 145
- testRunner.Given("the number backed JsonNotAny 1.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the object backed JsonNotAny {\"foo\": \"bar\"}", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 146
- testRunner.When("I cast the JsonNotAny to double", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonNotAny to JsonObject", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 147
- testRunner.Then("the result should equal the double 1.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the JsonObject \'{\"foo\": \"bar\"}\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast from double for json element backed value as a JsonNotAny")]
-        public virtual void CastFromDoubleForJsonElementBackedValueAsAJsonNotAny()
+        [NUnit.Framework.DescriptionAttribute("Cast from JsonObject for dotnet backed value as a JsonNotAny")]
+        public virtual void CastFromJsonObjectForDotnetBackedValueAsAJsonNotAny()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from double for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from JsonObject for dotnet backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 149
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1261,25 +1261,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 150
- testRunner.Given("the double for 1.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the dotnet backed JsonObject {\"foo\": \"bar\"}", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 151
- testRunner.When("I cast the double to JsonNotAny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonObject to JsonNotAny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 152
- testRunner.Then("the result should equal the JsonNotAny \'1.2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the JsonNotAny \'{\"foo\": \"bar\"}\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast to int for json element backed value as a JsonNotAny")]
-        public virtual void CastToIntForJsonElementBackedValueAsAJsonNotAny()
+        [NUnit.Framework.DescriptionAttribute("Cast from JsonObject for json element backed value as a JsonNotAny")]
+        public virtual void CastFromJsonObjectForJsonElementBackedValueAsAJsonNotAny()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to int for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from JsonObject for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 154
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1301,25 +1301,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 155
- testRunner.Given("the JsonElement backed JsonNotAny 12", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonObject {\"foo\": \"bar\"}", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 156
- testRunner.When("I cast the JsonNotAny to int", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonObject to JsonNotAny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 157
- testRunner.Then("the result should equal the int 12", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the JsonNotAny \'{\"foo\": \"bar\"}\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast to int for dotnet backed value as a JsonNotAny")]
-        public virtual void CastToIntForDotnetBackedValueAsAJsonNotAny()
+        [NUnit.Framework.DescriptionAttribute("Cast to JsonArray for json element backed value as a JsonNotAny")]
+        public virtual void CastToJsonArrayForJsonElementBackedValueAsAJsonNotAny()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to int for dotnet backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to JsonArray for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 159
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1341,25 +1341,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 160
- testRunner.Given("the number backed JsonNotAny 12", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonNotAny [1,2,\"3\", 4]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 161
- testRunner.When("I cast the JsonNotAny to int", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonNotAny to JsonArray", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 162
- testRunner.Then("the result should equal the int 12", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the JsonArray \'[1,2,\"3\", 4]\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast from int for json element backed value as a JsonNotAny")]
-        public virtual void CastFromIntForJsonElementBackedValueAsAJsonNotAny()
+        [NUnit.Framework.DescriptionAttribute("Cast to JsonArray for dotnet backed value as a JsonNotAny")]
+        public virtual void CastToJsonArrayForDotnetBackedValueAsAJsonNotAny()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from int for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to JsonArray for dotnet backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 164
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1381,25 +1381,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 165
- testRunner.Given("the int for 12", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the array backed JsonNotAny [1,2,\"3\", 4]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 166
- testRunner.When("I cast the int to JsonNotAny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonNotAny to JsonArray", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 167
- testRunner.Then("the result should equal the JsonNotAny \'12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the JsonArray \'[1,2,\"3\", 4]\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast to float for json element backed value as a JsonNotAny")]
-        public virtual void CastToFloatForJsonElementBackedValueAsAJsonNotAny()
+        [NUnit.Framework.DescriptionAttribute("Cast from JsonArray for dotnet backed value as a JsonNotAny")]
+        public virtual void CastFromJsonArrayForDotnetBackedValueAsAJsonNotAny()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to float for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from JsonArray for dotnet backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 169
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1421,25 +1421,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 170
- testRunner.Given("the JsonElement backed JsonNotAny 1.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the dotnet backed JsonArray [1,2,\"3\", 4]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 171
- testRunner.When("I cast the JsonNotAny to float", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonArray to JsonNotAny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 172
- testRunner.Then("the result should equal the float 1.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the JsonNotAny \'[1,2,\"3\", 4]\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast to float for dotnet backed value as a number")]
-        public virtual void CastToFloatForDotnetBackedValueAsANumber()
+        [NUnit.Framework.DescriptionAttribute("Cast from JsonArray for json element backed value as a JsonNotAny")]
+        public virtual void CastFromJsonArrayForJsonElementBackedValueAsAJsonNotAny()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to float for dotnet backed value as a number", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from JsonArray for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 174
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1461,25 +1461,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 175
- testRunner.Given("the number backed JsonNotAny 1.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonArray [1,2,\"3\", 4]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 176
- testRunner.When("I cast the JsonNotAny to float", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonArray to JsonNotAny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 177
- testRunner.Then("the result should equal the float 1.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the JsonNotAny \'[1,2,\"3\", 4]\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast from float for json element backed value as a JsonNotAny")]
-        public virtual void CastFromFloatForJsonElementBackedValueAsAJsonNotAny()
+        [NUnit.Framework.DescriptionAttribute("Cast to long for json element backed value as a JsonNotAny")]
+        public virtual void CastToLongForJsonElementBackedValueAsAJsonNotAny()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from float for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to long for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 179
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1501,25 +1501,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 180
- testRunner.Given("the float for 1.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonNotAny 12", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 181
- testRunner.When("I cast the float to JsonNotAny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonNotAny to long", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 182
- testRunner.Then("the result should equal the JsonNotAny \'1.2\' within 0.00001", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the long 12", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast to ImmutableList for json element backed value as a JsonNotAny")]
-        public virtual void CastToImmutableListForJsonElementBackedValueAsAJsonNotAny()
+        [NUnit.Framework.DescriptionAttribute("Cast to long for dotnet backed value as a JsonNotAny")]
+        public virtual void CastToLongForDotnetBackedValueAsAJsonNotAny()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to ImmutableList for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to long for dotnet backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 184
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1541,25 +1541,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 185
- testRunner.Given("the JsonElement backed JsonNotAny [1,\"2\",3]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the number backed JsonNotAny 12", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 186
- testRunner.When("I cast the JsonNotAny to ImmutableList<JsonAny>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonNotAny to long", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 187
- testRunner.Then("the result should equal the ImmutableList<JsonAny> \'[1, \"2\", 3]\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the long 12", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast to ImmutableList for dotnet backed value as a JsonNotAny")]
-        public virtual void CastToImmutableListForDotnetBackedValueAsAJsonNotAny()
+        [NUnit.Framework.DescriptionAttribute("Cast from long for json element backed value as a JsonNotAny")]
+        public virtual void CastFromLongForJsonElementBackedValueAsAJsonNotAny()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to ImmutableList for dotnet backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from long for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 189
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1581,25 +1581,25 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 190
- testRunner.Given("the array backed JsonNotAny [1,\"2\",3]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the long for 12", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 191
- testRunner.When("I cast the JsonNotAny to ImmutableList<JsonAny>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the long to JsonNotAny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 192
- testRunner.Then("the result should equal the ImmutableList<JsonAny> \'[1, \"2\", 3]\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the result should equal the JsonNotAny \'12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Cast from ImmutableList for json element backed value as a JsonNotAny")]
-        public virtual void CastFromImmutableListForJsonElementBackedValueAsAJsonNotAny()
+        [NUnit.Framework.DescriptionAttribute("Cast to double for json element backed value as a JsonNotAny")]
+        public virtual void CastToDoubleForJsonElementBackedValueAsAJsonNotAny()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from ImmutableList for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to double for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 194
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1621,12 +1621,452 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 195
- testRunner.Given("the ImmutableList<JsonAny> for [1,\"2\",3]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonNotAny 1.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 196
- testRunner.When("I cast the ImmutableList<JsonAny> to JsonNotAny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I cast the JsonNotAny to double", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 197
+ testRunner.Then("the result should equal the double 1.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Cast to double for dotnet backed value as a JsonNotAny")]
+        public virtual void CastToDoubleForDotnetBackedValueAsAJsonNotAny()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to double for dotnet backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 199
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 200
+ testRunner.Given("the number backed JsonNotAny 1.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 201
+ testRunner.When("I cast the JsonNotAny to double", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 202
+ testRunner.Then("the result should equal the double 1.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Cast from double for json element backed value as a JsonNotAny")]
+        public virtual void CastFromDoubleForJsonElementBackedValueAsAJsonNotAny()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from double for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 204
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 205
+ testRunner.Given("the double for 1.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 206
+ testRunner.When("I cast the double to JsonNotAny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 207
+ testRunner.Then("the result should equal the JsonNotAny \'1.2\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Cast to int for json element backed value as a JsonNotAny")]
+        public virtual void CastToIntForJsonElementBackedValueAsAJsonNotAny()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to int for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 209
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 210
+ testRunner.Given("the JsonElement backed JsonNotAny 12", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 211
+ testRunner.When("I cast the JsonNotAny to int", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 212
+ testRunner.Then("the result should equal the int 12", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Cast to int for dotnet backed value as a JsonNotAny")]
+        public virtual void CastToIntForDotnetBackedValueAsAJsonNotAny()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to int for dotnet backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 214
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 215
+ testRunner.Given("the number backed JsonNotAny 12", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 216
+ testRunner.When("I cast the JsonNotAny to int", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 217
+ testRunner.Then("the result should equal the int 12", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Cast from int for json element backed value as a JsonNotAny")]
+        public virtual void CastFromIntForJsonElementBackedValueAsAJsonNotAny()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from int for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 219
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 220
+ testRunner.Given("the int for 12", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 221
+ testRunner.When("I cast the int to JsonNotAny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 222
+ testRunner.Then("the result should equal the JsonNotAny \'12\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Cast to float for json element backed value as a JsonNotAny")]
+        public virtual void CastToFloatForJsonElementBackedValueAsAJsonNotAny()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to float for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 224
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 225
+ testRunner.Given("the JsonElement backed JsonNotAny 1.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 226
+ testRunner.When("I cast the JsonNotAny to float", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 227
+ testRunner.Then("the result should equal the float 1.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Cast to float for dotnet backed value as a number")]
+        public virtual void CastToFloatForDotnetBackedValueAsANumber()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to float for dotnet backed value as a number", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 229
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 230
+ testRunner.Given("the number backed JsonNotAny 1.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 231
+ testRunner.When("I cast the JsonNotAny to float", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 232
+ testRunner.Then("the result should equal the float 1.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Cast from float for json element backed value as a JsonNotAny")]
+        public virtual void CastFromFloatForJsonElementBackedValueAsAJsonNotAny()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from float for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 234
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 235
+ testRunner.Given("the float for 1.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 236
+ testRunner.When("I cast the float to JsonNotAny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 237
+ testRunner.Then("the result should equal the JsonNotAny \'1.2\' within 0.00001", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Cast to ImmutableList for json element backed value as a JsonNotAny")]
+        public virtual void CastToImmutableListForJsonElementBackedValueAsAJsonNotAny()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to ImmutableList for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 239
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 240
+ testRunner.Given("the JsonElement backed JsonNotAny [1,\"2\",3]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 241
+ testRunner.When("I cast the JsonNotAny to ImmutableList<JsonAny>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 242
+ testRunner.Then("the result should equal the ImmutableList<JsonAny> \'[1, \"2\", 3]\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Cast to ImmutableList for dotnet backed value as a JsonNotAny")]
+        public virtual void CastToImmutableListForDotnetBackedValueAsAJsonNotAny()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast to ImmutableList for dotnet backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 244
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 245
+ testRunner.Given("the array backed JsonNotAny [1,\"2\",3]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 246
+ testRunner.When("I cast the JsonNotAny to ImmutableList<JsonAny>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 247
+ testRunner.Then("the result should equal the ImmutableList<JsonAny> \'[1, \"2\", 3]\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Cast from ImmutableList for json element backed value as a JsonNotAny")]
+        public virtual void CastFromImmutableListForJsonElementBackedValueAsAJsonNotAny()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cast from ImmutableList for json element backed value as a JsonNotAny", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 249
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 250
+ testRunner.Given("the ImmutableList<JsonAny> for [1,\"2\",3]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 251
+ testRunner.When("I cast the ImmutableList<JsonAny> to JsonNotAny", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 252
  testRunner.Then("the result should equal the JsonNotAny \'[1, \"2\", 3]\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

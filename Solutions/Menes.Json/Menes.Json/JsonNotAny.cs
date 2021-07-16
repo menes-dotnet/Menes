@@ -504,6 +504,24 @@ namespace Menes.Json
         }
 
         /// <summary>
+        /// Conversion from JsonArray.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator JsonNotAny(JsonArray value)
+        {
+            return new JsonNotAny(value);
+        }
+
+        /// <summary>
+        /// Conversion to JsonArray.
+        /// </summary>
+        /// <param name="value">The number from which to convert.</param>
+        public static implicit operator JsonArray(JsonNotAny value)
+        {
+            return value.AsArray;
+        }
+
+        /// <summary>
         /// Conversion from JsonBoolean.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>

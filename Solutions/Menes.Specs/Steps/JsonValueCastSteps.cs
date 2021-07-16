@@ -303,6 +303,60 @@ namespace Steps
         }
 
         /// <summary>
+        /// Casts the <see cref="JsonArray"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonNotAny"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonArray to JsonNotAny")]
+        public void WhenICastTheJsonArrayToJsonNotAny()
+        {
+            this.scenarioContext.Set<IJsonValue>((JsonNotAny)this.scenarioContext.Get<JsonArray>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonNotAny"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonArray"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonNotAny to JsonArray")]
+        public void WhenICastTheJsonNotAnyToJsonArray()
+        {
+            this.scenarioContext.Set((JsonArray)this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonObject"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonNotAny"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonObject to JsonNotAny")]
+        public void WhenICastTheJsonObjectToJsonNotAny()
+        {
+            this.scenarioContext.Set<IJsonValue>((JsonNotAny)this.scenarioContext.Get<JsonObject>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonNotAny"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonObject"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonNotAny to JsonObject")]
+        public void WhenICastTheJsonNotAnyToJsonObject()
+        {
+            this.scenarioContext.Set((JsonObject)this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonAny"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonNotAny"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonAny to JsonNotAny")]
+        public void WhenICastTheJsonAnyToJsonNotAny()
+        {
+            this.scenarioContext.Set<IJsonValue>((JsonNotAny)this.scenarioContext.Get<JsonAny>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
+        /// Casts the <see cref="JsonNotAny"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="JsonAny"/> and stores it in <see cref="CastResultKey"/>.
+        /// </summary>
+        [When(@"I cast the JsonNotAny to JsonAny")]
+        public void WhenICastTheJsonNotAnyToJsonAny()
+        {
+            this.scenarioContext.Set((JsonAny)this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest), CastResultKey);
+        }
+
+        /// <summary>
         /// Casts the <see cref="JsonNotAny"/> in the key <see cref="JsonValueSteps.SubjectUnderTest"/> to <see cref="long"/> and stores it in <see cref="CastResultKey"/>.
         /// </summary>
         [When(@"I cast the JsonNotAny to long")]
@@ -372,15 +426,6 @@ namespace Steps
         public void WhenICastTheFloatToJsonNotAny()
         {
             this.scenarioContext.Set<IJsonValue>((JsonNotAny)this.scenarioContext.Get<float>(JsonValueSteps.SubjectUnderTest), CastResultKey);
-        }
-
-        /// <summary>
-        /// Cast the value stored in the context variable <see cref="JsonValueSteps.SubjectUnderTest"/> to a JsonObject and store it in the <see cref="CastResultKey"/>.
-        /// </summary>
-        [When(@"I cast the JsonNotAny to JsonObject")]
-        public void WhenICastTheJsonNotAnyToJsonObject()
-        {
-            this.scenarioContext.Set<IJsonValue>((JsonObject)this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest), CastResultKey);
         }
 
         /// <summary>
