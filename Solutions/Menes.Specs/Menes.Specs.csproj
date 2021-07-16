@@ -15,21 +15,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Cast\JsonBooleanCast - Copy.feature.cs" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Cast\JsonDateCast - Copy.feature.cs" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Cast\JsonEmailCast - Copy.feature.cs" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Cast\JsonHostnameCast - Copy.feature.cs" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Cast\JsonIdnEmailCast - Copy.feature.cs" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Cast\JsonIntegerCast - Copy.feature.cs" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Cast\JsonIpV4Cast - Copy.feature.cs" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Cast\JsonIriCast - Copy.feature.cs" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Cast\JsonIriReferenceCast - Copy.feature.cs" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Cast\JsonObjectCast - Copy.feature.cs" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Cast\JsonPointerCast - Copy.feature.cs" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Cast\JsonUriCast - Copy.feature.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.9.4" />
     <PackageReference Include="SolidToken.SpecFlow.DependencyInjection" Version="3.7.0" />
@@ -58,63 +43,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Features\JsonModel\Cast\JsonAnyCast.feature.cs">
-      <DependentUpon>JsonAnyCast.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Features\JsonModel\Cast\JsonObjectCast.feature.cs">
-      <DependentUpon>JsonObjectCast.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Features\JsonModel\Cast\JsonUuidCast.feature.cs">
-      <DependentUpon>JsonUuidCast.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Features\JsonModel\Cast\JsonUriTemplateCast.feature.cs">
-      <DependentUpon>JsonUriTemplateCast.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Features\JsonModel\Cast\JsonRelativePointerCast.feature.cs">
-      <DependentUpon>JsonRelativePointerCast.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Features\JsonModel\Cast\JsonPointerCast.feature.cs">
-      <DependentUpon>JsonPointerCast.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Features\JsonModel\Cast\JsonTimeCast.feature.cs">
-      <DependentUpon>JsonTimeCast.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Features\JsonModel\Cast\JsonRegexCast.feature.cs">
-      <DependentUpon>JsonRegexCast.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Features\JsonModel\Cast\JsonUriReferenceCast.feature.cs">
-      <DependentUpon>JsonUriReferenceCast.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Features\JsonModel\Cast\JsonUriCast.feature.cs">
-      <DependentUpon>JsonUriCast.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Features\JsonModel\Cast\JsonIriReferenceCast.feature.cs">
-      <DependentUpon>JsonIriReferenceCast.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Features\JsonModel\Cast\JsonIriCast.feature.cs">
-      <DependentUpon>JsonIriCast.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Features\JsonModel\Cast\JsonIpV6Cast.feature.cs">
-      <DependentUpon>JsonIpV6Cast.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Features\JsonModel\Cast\JsonIpV4Cast.feature.cs">
-      <DependentUpon>JsonIpV4Cast.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Features\JsonModel\Cast\JsonNumberCast.feature.cs">
-      <DependentUpon>JsonNumberCast.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Features\JsonModel\Cast\JsonIntegerCast.feature.cs">
-      <DependentUpon>JsonIntegerCast.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Features\JsonModel\Cast\JsonIdnHostnameCast.feature.cs">
-      <DependentUpon>JsonIdnHostnameCast.feature</DependentUpon>
-    </Compile>
-    <Compile Update="Features\JsonModel\Cast\JsonIdnEmailCast.feature.cs">
-      <DependentUpon>JsonIdnEmailCast.feature</DependentUpon>
-    </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
+    <None Update="appsettings.local.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="appsettings.local.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -125,80 +56,4 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
-
-  <ItemGroup>
-    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonAnyCast.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonObjectCast.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonUuidCast.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonUriTemplateCast.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonRelativePointerCast.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonPointerCast.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonTimeCast.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonRegexCast.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonUriReferenceCast.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonUriCast.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonIriReferenceCast.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonIriCast.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonIpV6Cast.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonIpV4Cast.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonNumberCast.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonIntegerCast.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonIdnHostnameCast.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
-    <SpecFlowFeatureFiles Update="Features\JsonModel\Cast\JsonIdnEmailCast.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
-  </ItemGroup>
-
 </Project>
