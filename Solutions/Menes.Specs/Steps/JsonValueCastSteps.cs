@@ -2820,6 +2820,16 @@ namespace Steps
             this.scenarioContext.Set((JsonUuid)this.scenarioContext.Get<Guid>(JsonValueSteps.SubjectUnderTest), CastResultKey);
         }
 
+        /// <summary>
+        /// Compares the <see cref="Guid"/> in the context value <see cref="CastResultKey"/> with the given long.
+        /// </summary>
+        /// <param name="expectedValue">The serialized form of the <see cref="JsonContent"/>.</param>
+        [Then(@"the result should equal the Guid (.*)")]
+        public void ThenTheResultShouldEqualTheGuid(Guid expectedValue)
+        {
+            Assert.AreEqual(expectedValue, this.scenarioContext.Get<Guid>(CastResultKey));
+        }
+
         /* ipV4 */
 
         /// <summary>
