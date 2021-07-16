@@ -119,6 +119,103 @@ namespace Steps
             Assert.AreEqual(JsonAny.ParseUriValue(expected), this.scenarioContext.Get<JsonAny>(SerializationResult));
         }
 
+        /* notAny */
+
+        /// <summary>
+        /// Store a <see cref="JsonElement"/>-backed value in the context variable <c>Value</c>.
+        /// </summary>
+        /// <param name="value">The json value.</param>
+        [Given(@"the JsonElement backed JsonNotAny (.*)")]
+        public void GivenTheJsonElementBackedJsonNotAny(string value)
+        {
+            this.scenarioContext.Set((JsonNotAny)JsonAny.ParseUriValue(value), SubjectUnderTest);
+        }
+
+        /// <summary>
+        /// Store a dotnet-type-backed value in the context variable <c>Value</c>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        [Given(@"the object backed JsonNotAny (.*)")]
+        public void GivenTheObjectBackedJsonNotAny(string value)
+        {
+            if (value == "null")
+            {
+                this.scenarioContext.Set((JsonNotAny)JsonNull.Instance.AsAny, SubjectUnderTest);
+            }
+            else
+            {
+                this.scenarioContext.Set(new JsonNotAny(JsonAny.ParseUriValue(value).AsObject.AsPropertyDictionary), SubjectUnderTest);
+            }
+        }
+
+        /// <summary>
+        /// Store a dotnet-type-backed value in the context variable <c>Value</c>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        [Given(@"the number backed JsonNotAny (.*)")]
+        public void GivenTheNumberBackedJsonNotAny(string value)
+        {
+            if (value == "null")
+            {
+                this.scenarioContext.Set((JsonNotAny)JsonNull.Instance.AsAny, SubjectUnderTest);
+            }
+            else
+            {
+                this.scenarioContext.Set(new JsonNotAny((double)JsonAny.ParseUriValue(value).AsNumber), SubjectUnderTest);
+            }
+        }
+
+        /// <summary>
+        /// Store a dotnet-type-backed value in the context variable <c>Value</c>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        [Given(@"the array backed JsonNotAny (.*)")]
+        public void GivenTheArrayBackedJsonNotAny(string value)
+        {
+            if (value == "null")
+            {
+                this.scenarioContext.Set((JsonNotAny)JsonNull.Instance.AsAny, SubjectUnderTest);
+            }
+            else
+            {
+                this.scenarioContext.Set(new JsonNotAny(JsonAny.ParseUriValue(value).AsArray.AsItemsList), SubjectUnderTest);
+            }
+        }
+
+        /// <summary>
+        /// Store a dotnet-type-backed value in the context variable <c>Value</c>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        [Given(@"the string backed JsonNotAny (.*)")]
+        public void GivenTheStringBackedJsonNotAny(string value)
+        {
+            if (value == "null")
+            {
+                this.scenarioContext.Set((JsonNotAny)JsonNull.Instance.AsAny, SubjectUnderTest);
+            }
+            else
+            {
+                this.scenarioContext.Set(new JsonNotAny((string)JsonAny.ParseUriValue(value).AsString), SubjectUnderTest);
+            }
+        }
+
+        /// <summary>
+        /// Store a dotnet-type-backed value in the context variable <c>Value</c>.
+        /// </summary>
+        /// <param name="value">The value.</param>
+        [Given(@"the boolean backed JsonNotAny (.*)")]
+        public void GivenTheBooleanBackedJsonNotAny(string value)
+        {
+            if (value == "null")
+            {
+                this.scenarioContext.Set((JsonNotAny)JsonNull.Instance.AsAny, SubjectUnderTest);
+            }
+            else
+            {
+                this.scenarioContext.Set(new JsonNotAny((bool)JsonAny.ParseUriValue(value).AsBoolean), SubjectUnderTest);
+            }
+        }
+
         /* any */
 
         /// <summary>

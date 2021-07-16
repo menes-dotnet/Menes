@@ -486,6 +486,96 @@ namespace Menes.Json
         }
 
         /// <summary>
+        /// Conversion from JsonNumber.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator JsonNotAny(JsonNumber value)
+        {
+            return new JsonNotAny(value);
+        }
+
+        /// <summary>
+        /// Conversion to JsonNumber.
+        /// </summary>
+        /// <param name="value">The number from which to convert.</param>
+        public static implicit operator JsonNumber(JsonNotAny value)
+        {
+            return value.AsNumber;
+        }
+
+        /// <summary>
+        /// Conversion from JsonBoolean.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator JsonNotAny(JsonBoolean value)
+        {
+            return new JsonNotAny(value);
+        }
+
+        /// <summary>
+        /// Conversion to JsonBoolean.
+        /// </summary>
+        /// <param name="value">The number from which to convert.</param>
+        public static implicit operator JsonBoolean(JsonNotAny value)
+        {
+            return value.AsBoolean;
+        }
+
+        /// <summary>
+        /// Conversion from JsonBoolean.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator JsonNotAny(bool value)
+        {
+            return new JsonNotAny(value);
+        }
+
+        /// <summary>
+        /// Conversion to JsonBoolean.
+        /// </summary>
+        /// <param name="value">The number from which to convert.</param>
+        public static implicit operator bool(JsonNotAny value)
+        {
+            return (bool)value.AsBoolean;
+        }
+
+        /// <summary>
+        /// Conversion from JsonObject.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator JsonNotAny(JsonObject value)
+        {
+            return new JsonNotAny(value);
+        }
+
+        /// <summary>
+        /// Conversion to JsonObject.
+        /// </summary>
+        /// <param name="value">The number from which to convert.</param>
+        public static implicit operator JsonObject(JsonNotAny value)
+        {
+            return value.AsObject;
+        }
+
+        /// <summary>
+        /// Conversion from JsonString.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator JsonNotAny(JsonString value)
+        {
+            return new JsonNotAny(value);
+        }
+
+        /// <summary>
+        /// Conversion to JsonString.
+        /// </summary>
+        /// <param name="value">The number from which to convert.</param>
+        public static implicit operator JsonString(JsonNotAny value)
+        {
+            return value.AsString;
+        }
+
+        /// <summary>
         /// Conversion from string.
         /// </summary>
         /// <param name="value">The value from which to convert.</param>
@@ -635,6 +725,42 @@ namespace Menes.Json
         }
 
         /// <summary>
+        /// Implicit conversion to an <see cref="ImmutableList{T}"/> of <see cref="JsonNotAny"/>.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator ImmutableList<JsonAny>(JsonNotAny value)
+        {
+            return value.AsArray.AsItemsList;
+        }
+
+        /// <summary>
+        /// Implicit conversion from an <see cref="ImmutableList{T}"/> of <see cref="JsonNotAny"/>.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator JsonNotAny(ImmutableList<JsonAny> value)
+        {
+            return new JsonAny(value);
+        }
+
+        /// <summary>
+        /// Implicit conversion to a property dictionary.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator ImmutableDictionary<string, JsonAny>(JsonNotAny value)
+        {
+            return value.AsObject.AsPropertyDictionary;
+        }
+
+        /// <summary>
+        /// Implicit conversion from a property dictionary.
+        /// </summary>
+        /// <param name="value">The value from which to convert.</param>
+        public static implicit operator JsonNotAny(ImmutableDictionary<string, JsonAny> value)
+        {
+            return new JsonNotAny(value);
+        }
+
+        /// <summary>
         /// Standard equality operator.
         /// </summary>
         /// <param name="lhs">The left hand side of the comparison.</param>
@@ -665,6 +791,23 @@ namespace Menes.Json
             }
 
             return false;
+        }
+
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            JsonValueKind valueKind = this.ValueKind;
+
+            return valueKind switch
+            {
+                JsonValueKind.Object => this.AsObject.ToString(),
+                JsonValueKind.Array => this.AsArray.ToString(),
+                JsonValueKind.Number => this.AsNumber.ToString(),
+                JsonValueKind.String => this.AsString.ToString(),
+                JsonValueKind.True or JsonValueKind.False => this.AsBoolean.ToString(),
+                JsonValueKind.Null => "null",
+                _ => "undefined",
+            };
         }
 
         /// <inheritdoc/>
