@@ -229,6 +229,23 @@ namespace Steps
         }
 
         /// <summary>
+        /// Store a <see cref="JsonElement"/>-backed value in the context variable <c>Value</c>.
+        /// </summary>
+        /// <param name="value">The json value.</param>
+        [Given(@"the dotnet backed JsonAny (.*)")]
+        public void GivenTheDotnetBackedJsonAny(string value)
+        {
+            if (value == "<undefined>")
+            {
+                this.scenarioContext.Set<JsonAny>(default, SubjectUnderTest);
+            }
+            else
+            {
+                this.scenarioContext.Set(JsonAny.ParseUriValue(value).AsDotnetBackedValue, SubjectUnderTest);
+            }
+        }
+
+        /// <summary>
         /// Store a dotnet-type-backed value in the context variable <c>Value</c>.
         /// </summary>
         /// <param name="value">The value.</param>

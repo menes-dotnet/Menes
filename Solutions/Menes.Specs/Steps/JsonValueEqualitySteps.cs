@@ -4,6 +4,7 @@
 
 namespace Steps
 {
+    using System.Text.Json;
     using Menes.Json;
     using NUnit.Framework;
     using TechTalk.SpecFlow;
@@ -118,6 +119,78 @@ namespace Steps
             if (obj is not null)
             {
                 this.scenarioContext.Set(this.scenarioContext.Get<JsonBoolean>(JsonValueSteps.SubjectUnderTest).GetHashCode() == obj.GetHashCode(), HashCodeResultKey);
+            }
+        }
+
+        /* any */
+
+        /// <summary>
+        /// Compares the value in JsonAny in the context variable <c>Value</c> with the expected array, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare it to the any (.*)")]
+        public void WhenICompareItToTheAny(string expected)
+        {
+            if (expected != "null")
+            {
+                this.scenarioContext.Set(this.scenarioContext.Get<JsonAny>(JsonValueSteps.SubjectUnderTest).Equals(JsonAny.ParseUriValue(expected).AsDotnetBackedValue), EqualsObjectBackedResultKey);
+            }
+
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonAny>(JsonValueSteps.SubjectUnderTest).Equals((JsonAny)JsonAny.ParseUriValue(expected)), EqualsResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonAny>(JsonValueSteps.SubjectUnderTest) == (JsonAny)JsonAny.ParseUriValue(expected), EqualityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonAny>(JsonValueSteps.SubjectUnderTest) != (JsonAny)JsonAny.ParseUriValue(expected), InequalityResultKey);
+            this.scenarioContext.Set(this.scenarioContext.Get<JsonAny>(JsonValueSteps.SubjectUnderTest).GetHashCode() == ((JsonAny)JsonAny.ParseUriValue(expected)).GetHashCode(), HashCodeResultKey);
+        }
+
+        /// <summary>
+        /// Compares the value in JsonAny in the context variable <c>Value</c> with the expected array, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare the any to the IJsonValue (.*)")]
+        public void WhenICompareTheAnyToTheIJsonValue(string expected)
+        {
+            var value = JsonAny.ParseUriValue(expected);
+            JsonValueKind valueKind = value.ValueKind;
+
+            switch (valueKind)
+            {
+                case JsonValueKind.Object:
+                    this.scenarioContext.Set(this.scenarioContext.Get<JsonAny>(JsonValueSteps.SubjectUnderTest).Equals(value.AsObject), EqualsResultKey);
+                    break;
+                case JsonValueKind.True:
+                case JsonValueKind.False:
+                    this.scenarioContext.Set(this.scenarioContext.Get<JsonAny>(JsonValueSteps.SubjectUnderTest).Equals(value.AsBoolean), EqualsResultKey);
+                    break;
+                case JsonValueKind.Number:
+                    this.scenarioContext.Set(this.scenarioContext.Get<JsonAny>(JsonValueSteps.SubjectUnderTest).Equals(value.AsNumber), EqualsResultKey);
+                    break;
+                case JsonValueKind.Null:
+                    this.scenarioContext.Set(this.scenarioContext.Get<JsonAny>(JsonValueSteps.SubjectUnderTest).Equals(value.AsNull), EqualsResultKey);
+                    break;
+                case JsonValueKind.Undefined:
+                    this.scenarioContext.Set(this.scenarioContext.Get<JsonAny>(JsonValueSteps.SubjectUnderTest).Equals(value), EqualsResultKey);
+                    break;
+                case JsonValueKind.String:
+                    this.scenarioContext.Set(this.scenarioContext.Get<JsonAny>(JsonValueSteps.SubjectUnderTest).Equals(value.AsString), EqualsResultKey);
+                    break;
+                case JsonValueKind.Array:
+                    this.scenarioContext.Set(this.scenarioContext.Get<JsonAny>(JsonValueSteps.SubjectUnderTest).Equals(value.AsArray), EqualsResultKey);
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// Compares the value in JsonAny in the context variable <c>Value</c> with the expected array, and set it into the context variable <c>Result</c>.
+        /// </summary>
+        /// <param name="expected">The expected value.</param>
+        [When(@"I compare the any to the object (.*)")]
+        public void WhenICompareTheAnyToTheObject(string expected)
+        {
+            object? obj = expected == "<undefined>" ? default(JsonAny) : expected == "<null>" ? null : expected == "<new object()>" ? new object() : JsonAny.ParseUriValue(expected);
+            this.scenarioContext.Set(((object)this.scenarioContext.Get<JsonAny>(JsonValueSteps.SubjectUnderTest)).Equals(obj), EqualsResultKey);
+            if (obj is not null)
+            {
+                this.scenarioContext.Set(this.scenarioContext.Get<JsonAny>(JsonValueSteps.SubjectUnderTest).GetHashCode() == obj.GetHashCode(), HashCodeResultKey);
             }
         }
 

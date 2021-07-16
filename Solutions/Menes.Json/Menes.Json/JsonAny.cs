@@ -453,6 +453,33 @@ namespace Menes.Json
         }
 
         /// <summary>
+        /// Gets the instance as a dotnet backed value.
+        /// </summary>
+        public JsonAny AsDotnetBackedValue
+        {
+            get
+            {
+                if (this.HasJsonElement)
+                {
+                    JsonValueKind valueKind = this.ValueKind;
+
+                    return valueKind switch
+                    {
+                        JsonValueKind.Object => new JsonAny(this.AsObject.AsPropertyDictionary),
+                        JsonValueKind.Array => new JsonAny(this.AsArray.AsItemsList),
+                        JsonValueKind.Number => new JsonAny(this.AsNumber.GetDouble()),
+                        JsonValueKind.String => new JsonAny(this.AsString.GetString()),
+                        JsonValueKind.True or JsonValueKind.False => new JsonAny(this.AsBoolean.GetBoolean()),
+                        JsonValueKind.Null => JsonNull.Instance.AsAny,
+                        _ => this,
+                    };
+                }
+
+                return this;
+            }
+        }
+
+        /// <summary>
         /// Gets the value as a <see cref="JsonBoolean"/>.
         /// </summary>
         public JsonBoolean AsBoolean
@@ -982,7 +1009,7 @@ namespace Menes.Json
                 JsonValueKind.String => this.AsString.Equals(other.AsString),
                 JsonValueKind.True or JsonValueKind.False => this.AsBoolean.Equals(other.AsBoolean),
                 JsonValueKind.Null => true,
-                _ => false,
+                _ => true,
             };
         }
 
