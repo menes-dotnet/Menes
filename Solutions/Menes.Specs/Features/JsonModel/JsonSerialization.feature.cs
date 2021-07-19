@@ -74,12 +74,20 @@ namespace Features.JsonModel
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonObject to a string")]
-        public virtual void WriteAJsonelement_BackedJsonObjectToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonAny to a string")]
+        [NUnit.Framework.TestCaseAttribute("{\"foo\": 3, \"bar\": \"hello\", \"baz\": null}", "an Object", null)]
+        [NUnit.Framework.TestCaseAttribute("[1,2,\"3\",4.0]", "an Array", null)]
+        [NUnit.Framework.TestCaseAttribute("true", "a Boolean", null)]
+        [NUnit.Framework.TestCaseAttribute("\"Hello world\"", "a String", null)]
+        [NUnit.Framework.TestCaseAttribute("3.2", "a Number", null)]
+        [NUnit.Framework.TestCaseAttribute("null", "Null", null)]
+        public virtual void WriteAJsonelement_BackedJsonAnyToAString(string jsonValue, string type, string[] exampleTags)
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonObject to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            argumentsOfScenario.Add("jsonValue", jsonValue);
+            argumentsOfScenario.Add("type", type);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonAny to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 4
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -101,202 +109,87 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 5
- testRunner.Given("the JsonElement backed JsonObject {\"foo\": 3, \"bar\": \"hello\", \"baz\": null}", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given(string.Format("the JsonElement backed JsonAny {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 6
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 7
- testRunner.Then("the round-tripped result should be an Object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("the round-tripped result should be {0}", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 8
- testRunner.And("the round-tripped result should be equal to the JsonAny {\"foo\": 3, \"bar\": \"hello\"" +
-                        ", \"baz\": null}", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And(string.Format("the round-tripped result should be equal to the JsonAny {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonObject to a string")]
-        public virtual void WriteADotnet_BackedJsonObjectToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonAny to a string")]
+        [NUnit.Framework.TestCaseAttribute("{\"foo\": 3, \"bar\": \"hello\", \"baz\": null}", "an Object", null)]
+        [NUnit.Framework.TestCaseAttribute("[1,2,\"3\",4.0]", "an Array", null)]
+        [NUnit.Framework.TestCaseAttribute("true", "a Boolean", null)]
+        [NUnit.Framework.TestCaseAttribute("\"Hello world\"", "a String", null)]
+        [NUnit.Framework.TestCaseAttribute("3.2", "a Number", null)]
+        [NUnit.Framework.TestCaseAttribute("null", "Null", null)]
+        public virtual void WriteADotnet_BackedJsonAnyToAString(string jsonValue, string type, string[] exampleTags)
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonObject to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 10
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 11
- testRunner.Given("the dotnet backed JsonObject {\"foo\": 3, \"bar\": \"hello\", \"baz\": null}", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 12
- testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 13
- testRunner.Then("the round-tripped result should be an Object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-#line 14
- testRunner.And("the round-tripped result should be equal to the JsonAny {\"foo\": 3, \"bar\": \"hello\"" +
-                        ", \"baz\": null}", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonArray to a string")]
-        public virtual void WriteAJsonelement_BackedJsonArrayToAString()
-        {
-            string[] tagsOfScenario = ((string[])(null));
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonArray to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 16
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 17
- testRunner.Given("the JsonElement backed JsonArray [1,2,\"3\",4.0]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 18
- testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
+            argumentsOfScenario.Add("jsonValue", jsonValue);
+            argumentsOfScenario.Add("type", type);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonAny to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 19
- testRunner.Then("the round-tripped result should be an Array", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+this.ScenarioInitialize(scenarioInfo);
 #line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
 #line 20
- testRunner.And("the round-tripped result should be equal to the JsonAny [1,2,\"3\",4.0]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given(string.Format("the dotnet backed JsonAny {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonArray to a string")]
-        public virtual void WriteADotnet_BackedJsonArrayToAString()
-        {
-            string[] tagsOfScenario = ((string[])(null));
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonArray to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 21
+ testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
 #line 22
-this.ScenarioInitialize(scenarioInfo);
+ testRunner.Then(string.Format("the round-tripped result should be {0}", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
 #line 23
- testRunner.Given("the dotnet backed JsonArray [1,2,\"3\",4.0]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 24
- testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 25
- testRunner.Then("the round-tripped result should be an Array", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-#line 26
- testRunner.And("the round-tripped result should be equal to the JsonAny [1,2,\"3\",4.0]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And(string.Format("the round-tripped result should be equal to the JsonAny {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonBoolean to a string")]
-        public virtual void WriteAJsonelement_BackedJsonBooleanToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonNotAny to a string")]
+        [NUnit.Framework.TestCaseAttribute("{\"foo\": 3, \"bar\": \"hello\", \"baz\": null}", "an Object", null)]
+        [NUnit.Framework.TestCaseAttribute("[1,2,\"3\",4.0]", "an Array", null)]
+        [NUnit.Framework.TestCaseAttribute("true", "a Boolean", null)]
+        [NUnit.Framework.TestCaseAttribute("\"Hello world\"", "a String", null)]
+        [NUnit.Framework.TestCaseAttribute("3.2", "a Number", null)]
+        [NUnit.Framework.TestCaseAttribute("null", "Null", null)]
+        public virtual void WriteAJsonelement_BackedJsonNotAnyToAString(string jsonValue, string type, string[] exampleTags)
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonBoolean to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 28
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 29
- testRunner.Given("the JsonElement backed JsonBoolean true", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 30
- testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 31
- testRunner.Then("the round-tripped result should be a Boolean", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-#line 32
- testRunner.And("the round-tripped result should be equal to the JsonAny true", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonBoolean to a string")]
-        public virtual void WriteADotnet_BackedJsonBooleanToAString()
-        {
-            string[] tagsOfScenario = ((string[])(null));
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonBoolean to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            argumentsOfScenario.Add("jsonValue", jsonValue);
+            argumentsOfScenario.Add("type", type);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonNotAny to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 34
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -318,202 +211,79 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 35
- testRunner.Given("the dotnet backed JsonBoolean true", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given(string.Format("the JsonElement backed JsonNotAny {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 36
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 37
- testRunner.Then("the round-tripped result should be a Boolean", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("the round-tripped result should be {0}", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 38
- testRunner.And("the round-tripped result should be equal to the JsonAny true", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And(string.Format("the round-tripped result should be equal to the JsonAny {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonString to a string")]
-        public virtual void WriteAJsonelement_BackedJsonStringToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonNotAny to a string")]
+        [NUnit.Framework.TestCaseAttribute("{\"foo\": 3, \"bar\": \"hello\", \"baz\": null}", "an Object", null)]
+        [NUnit.Framework.TestCaseAttribute("[1,2,\"3\",4.0]", "an Array", null)]
+        [NUnit.Framework.TestCaseAttribute("true", "a Boolean", null)]
+        [NUnit.Framework.TestCaseAttribute("\"Hello world\"", "a String", null)]
+        [NUnit.Framework.TestCaseAttribute("3.2", "a Number", null)]
+        [NUnit.Framework.TestCaseAttribute("null", "Null", null)]
+        public virtual void WriteADotnet_BackedJsonNotAnyToAString(string jsonValue, string type, string[] exampleTags)
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonString to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 40
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 41
- testRunner.Given("the JsonElement backed JsonString \"Hello, World\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 42
- testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 43
- testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-#line 44
- testRunner.And("the round-tripped result should be equal to the JsonAny \"Hello, World\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonString to a string")]
-        public virtual void WriteADotnet_BackedJsonStringToAString()
-        {
-            string[] tagsOfScenario = ((string[])(null));
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonString to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 46
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 47
- testRunner.Given("the dotnet backed JsonString \"Hello, World\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 48
- testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
+            argumentsOfScenario.Add("jsonValue", jsonValue);
+            argumentsOfScenario.Add("type", type);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonNotAny to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 49
- testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+this.ScenarioInitialize(scenarioInfo);
 #line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
 #line 50
- testRunner.And("the round-tripped result should be equal to the JsonAny \"Hello, World\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.Given(string.Format("the dotnet backed JsonNotAny {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonBase64Content to a string")]
-        public virtual void WriteAJsonelement_BackedJsonBase64ContentToAString()
-        {
-            string[] tagsOfScenario = ((string[])(null));
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonBase64Content to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 51
+ testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
 #line 52
-this.ScenarioInitialize(scenarioInfo);
+ testRunner.Then(string.Format("the round-tripped result should be {0}", type), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
 #line 53
- testRunner.Given("the JsonElement backed JsonBase64Content \"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 54
- testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 55
- testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-#line 56
- testRunner.And("the round-tripped result should be equal to the JsonAny \"eyAiaGVsbG8iOiAid29ybGQi" +
-                        "IH0=\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And(string.Format("the round-tripped result should be equal to the JsonAny {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonBase64Content to a string")]
-        public virtual void WriteADotnet_BackedJsonBase64ContentToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonObject to a string")]
+        public virtual void WriteAJsonelement_BackedJsonObjectToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonBase64Content to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 58
-this.ScenarioInitialize(scenarioInfo);
-#line hidden
-            bool isScenarioIgnored = default(bool);
-            bool isFeatureIgnored = default(bool);
-            if ((tagsOfScenario != null))
-            {
-                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((this._featureTags != null))
-            {
-                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
-            }
-            if ((isScenarioIgnored || isFeatureIgnored))
-            {
-                testRunner.SkipScenario();
-            }
-            else
-            {
-                this.ScenarioStart();
-#line 59
- testRunner.Given("the dotnet backed JsonBase64Content \"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-#line 60
- testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 61
- testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-#line 62
- testRunner.And("the round-tripped result should be equal to the JsonAny \"eyAiaGVsbG8iOiAid29ybGQi" +
-                        "IH0=\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-            }
-            this.ScenarioCleanup();
-        }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonBase64String to a string")]
-        public virtual void WriteAJsonelement_BackedJsonBase64StringToAString()
-        {
-            string[] tagsOfScenario = ((string[])(null));
-            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonBase64String to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonObject to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 64
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -535,29 +305,29 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 65
- testRunner.Given("the JsonElement backed JsonBase64String \"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonObject {\"foo\": 3, \"bar\": \"hello\", \"baz\": null}", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 66
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 67
- testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the round-tripped result should be an Object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 68
- testRunner.And("the round-tripped result should be equal to the JsonAny \"eyAiaGVsbG8iOiAid29ybGQi" +
-                        "IH0=\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny {\"foo\": 3, \"bar\": \"hello\"" +
+                        ", \"baz\": null}", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonBase64String to a string")]
-        public virtual void WriteADotnet_BackedJsonBase64StringToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonObject to a string")]
+        public virtual void WriteADotnet_BackedJsonObjectToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonBase64String to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonObject to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 70
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -579,29 +349,29 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 71
- testRunner.Given("the dotnet backed JsonBase64String \"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the dotnet backed JsonObject {\"foo\": 3, \"bar\": \"hello\", \"baz\": null}", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 72
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 73
- testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the round-tripped result should be an Object", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 74
- testRunner.And("the round-tripped result should be equal to the JsonAny \"eyAiaGVsbG8iOiAid29ybGQi" +
-                        "IH0=\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny {\"foo\": 3, \"bar\": \"hello\"" +
+                        ", \"baz\": null}", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonContent to a string")]
-        public virtual void WriteAJsonelement_BackedJsonContentToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonArray to a string")]
+        public virtual void WriteAJsonelement_BackedJsonArrayToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonContent to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonArray to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 76
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -623,28 +393,28 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 77
- testRunner.Given("the JsonElement backed JsonContent \"{\\\"foo\\\": \\\"bar\\\"}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonArray [1,2,\"3\",4.0]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 78
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 79
- testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the round-tripped result should be an Array", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 80
- testRunner.And("the round-tripped result should be equal to the JsonAny \"{\\\"foo\\\": \\\"bar\\\"}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny [1,2,\"3\",4.0]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonContent to a string")]
-        public virtual void WriteADotnet_BackedJsonContentToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonArray to a string")]
+        public virtual void WriteADotnet_BackedJsonArrayToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonContent to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonArray to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 82
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -666,28 +436,28 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 83
- testRunner.Given("the dotnet backed JsonContent \"{\\\"foo\\\": \\\"bar\\\"}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the dotnet backed JsonArray [1,2,\"3\",4.0]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 84
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 85
- testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the round-tripped result should be an Array", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 86
- testRunner.And("the round-tripped result should be equal to the JsonAny \"{\\\"foo\\\": \\\"bar\\\"}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny [1,2,\"3\",4.0]", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonDate to a string")]
-        public virtual void WriteAJsonelement_BackedJsonDateToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonBoolean to a string")]
+        public virtual void WriteAJsonelement_BackedJsonBooleanToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonDate to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonBoolean to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 88
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -709,28 +479,28 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 89
- testRunner.Given("the JsonElement backed JsonDate \"2018-11-13\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonBoolean true", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 90
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 91
- testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the round-tripped result should be a Boolean", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 92
- testRunner.And("the round-tripped result should be equal to the JsonAny \"2018-11-13\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny true", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonDate to a string")]
-        public virtual void WriteADotnet_BackedJsonDateToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonBoolean to a string")]
+        public virtual void WriteADotnet_BackedJsonBooleanToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonDate to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonBoolean to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 94
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -752,28 +522,28 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 95
- testRunner.Given("the dotnet backed JsonDate \"2018-11-13\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the dotnet backed JsonBoolean true", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 96
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 97
- testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the round-tripped result should be a Boolean", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 98
- testRunner.And("the round-tripped result should be equal to the JsonAny \"2018-11-13\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny true", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonDateTime to a string")]
-        public virtual void WriteAJsonelement_BackedJsonDateTimeToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonString to a string")]
+        public virtual void WriteAJsonelement_BackedJsonStringToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonDateTime to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonString to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 100
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -795,7 +565,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 101
- testRunner.Given("the JsonElement backed JsonDateTime \"2018-11-13T20:20:39+00:00\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonString \"Hello, World\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 102
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -804,20 +574,19 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 104
- testRunner.And("the round-tripped result should be equal to the JsonAny \"2018-11-13T20:20:39+00:0" +
-                        "0\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"Hello, World\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonDateTime to a string")]
-        public virtual void WriteADotnet_BackedJsonDateTimeToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonString to a string")]
+        public virtual void WriteADotnet_BackedJsonStringToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonDateTime to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonString to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 106
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -839,7 +608,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 107
- testRunner.Given("the dotnet backed JsonDateTime \"2018-11-13T20:20:39+00:00\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the dotnet backed JsonString \"Hello, World\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 108
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -848,20 +617,19 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 110
- testRunner.And("the round-tripped result should be equal to the JsonAny \"2018-11-13T20:20:39+00:0" +
-                        "0\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"Hello, World\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonDuration to a string")]
-        public virtual void WriteAJsonelement_BackedJsonDurationToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonBase64Content to a string")]
+        public virtual void WriteAJsonelement_BackedJsonBase64ContentToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonDuration to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonBase64Content to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 112
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -883,7 +651,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 113
- testRunner.Given("the JsonElement backed JsonDuration \"P3Y6M4DT12H30M5S\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonBase64Content \"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 114
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -892,19 +660,20 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 116
- testRunner.And("the round-tripped result should be equal to the JsonAny \"P3Y6M4DT12H30M5S\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"eyAiaGVsbG8iOiAid29ybGQi" +
+                        "IH0=\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonDuration to a string")]
-        public virtual void WriteADotnet_BackedJsonDurationToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonBase64Content to a string")]
+        public virtual void WriteADotnet_BackedJsonBase64ContentToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonDuration to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonBase64Content to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 118
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -926,7 +695,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 119
- testRunner.Given("the dotnet backed JsonDuration \"P3Y6M4DT12H30M5S\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the dotnet backed JsonBase64Content \"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 120
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -935,19 +704,20 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 122
- testRunner.And("the round-tripped result should be equal to the JsonAny \"P3Y6M4DT12H30M5S\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"eyAiaGVsbG8iOiAid29ybGQi" +
+                        "IH0=\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonEmail to a string")]
-        public virtual void WriteAJsonelement_BackedJsonEmailToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonBase64String to a string")]
+        public virtual void WriteAJsonelement_BackedJsonBase64StringToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonEmail to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonBase64String to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 124
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -969,7 +739,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 125
- testRunner.Given("the JsonElement backed JsonEmail \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonBase64String \"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 126
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -978,19 +748,20 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 128
- testRunner.And("the round-tripped result should be equal to the JsonAny \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"eyAiaGVsbG8iOiAid29ybGQi" +
+                        "IH0=\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonEmail to a string")]
-        public virtual void WriteADotnet_BackedJsonEmailToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonBase64String to a string")]
+        public virtual void WriteADotnet_BackedJsonBase64StringToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonEmail to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonBase64String to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 130
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1012,7 +783,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 131
- testRunner.Given("the dotnet backed JsonEmail \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the dotnet backed JsonBase64String \"eyAiaGVsbG8iOiAid29ybGQiIH0=\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 132
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -1021,19 +792,20 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 134
- testRunner.And("the round-tripped result should be equal to the JsonAny \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"eyAiaGVsbG8iOiAid29ybGQi" +
+                        "IH0=\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonHostname to a string")]
-        public virtual void WriteAJsonelement_BackedJsonHostnameToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonContent to a string")]
+        public virtual void WriteAJsonelement_BackedJsonContentToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonHostname to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonContent to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 136
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1055,7 +827,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 137
- testRunner.Given("the JsonElement backed JsonHostname \"www.example.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonContent \"{\\\"foo\\\": \\\"bar\\\"}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 138
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -1064,19 +836,19 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 140
- testRunner.And("the round-tripped result should be equal to the JsonAny \"www.example.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"{\\\"foo\\\": \\\"bar\\\"}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonHostname to a string")]
-        public virtual void WriteADotnet_BackedJsonHostnameToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonContent to a string")]
+        public virtual void WriteADotnet_BackedJsonContentToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonHostname to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonContent to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 142
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1098,7 +870,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 143
- testRunner.Given("the dotnet backed JsonHostname \"www.example.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the dotnet backed JsonContent \"{\\\"foo\\\": \\\"bar\\\"}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 144
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -1107,19 +879,19 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 146
- testRunner.And("the round-tripped result should be equal to the JsonAny \"www.example.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"{\\\"foo\\\": \\\"bar\\\"}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonIdnEmail to a string")]
-        public virtual void WriteAJsonelement_BackedJsonIdnEmailToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonDate to a string")]
+        public virtual void WriteAJsonelement_BackedJsonDateToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonIdnEmail to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonDate to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 148
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1141,7 +913,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 149
- testRunner.Given("the JsonElement backed JsonIdnEmail \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonDate \"2018-11-13\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 150
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -1150,19 +922,19 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 152
- testRunner.And("the round-tripped result should be equal to the JsonAny \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"2018-11-13\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonIdnEmail to a string")]
-        public virtual void WriteADotnet_BackedJsonIdnEmailToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonDate to a string")]
+        public virtual void WriteADotnet_BackedJsonDateToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonIdnEmail to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonDate to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 154
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1184,7 +956,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 155
- testRunner.Given("the dotnet backed JsonIdnEmail \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the dotnet backed JsonDate \"2018-11-13\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 156
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -1193,19 +965,19 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 158
- testRunner.And("the round-tripped result should be equal to the JsonAny \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"2018-11-13\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonIdnHostname to a string")]
-        public virtual void WriteAJsonelement_BackedJsonIdnHostnameToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonDateTime to a string")]
+        public virtual void WriteAJsonelement_BackedJsonDateTimeToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonIdnHostname to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonDateTime to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 160
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1227,7 +999,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 161
- testRunner.Given("the JsonElement backed JsonIdnHostname \"www.example.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonDateTime \"2018-11-13T20:20:39+00:00\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 162
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -1236,19 +1008,20 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 164
- testRunner.And("the round-tripped result should be equal to the JsonAny \"www.example.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"2018-11-13T20:20:39+00:0" +
+                        "0\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonIdnHostname to a string")]
-        public virtual void WriteADotnet_BackedJsonIdnHostnameToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonDateTime to a string")]
+        public virtual void WriteADotnet_BackedJsonDateTimeToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonIdnHostname to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonDateTime to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 166
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1270,7 +1043,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 167
- testRunner.Given("the dotnet backed JsonIdnHostname \"www.example.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the dotnet backed JsonDateTime \"2018-11-13T20:20:39+00:00\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 168
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -1279,19 +1052,20 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 170
- testRunner.And("the round-tripped result should be equal to the JsonAny \"www.example.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"2018-11-13T20:20:39+00:0" +
+                        "0\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonInteger to a string")]
-        public virtual void WriteAJsonelement_BackedJsonIntegerToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonDuration to a string")]
+        public virtual void WriteAJsonelement_BackedJsonDurationToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonInteger to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonDuration to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 172
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1313,28 +1087,28 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 173
- testRunner.Given("the JsonElement backed JsonInteger 3", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonDuration \"P3Y6M4DT12H30M5S\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 174
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 175
- testRunner.Then("the round-tripped result should be a Number", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 176
- testRunner.And("the round-tripped result should be equal to the JsonAny 3", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"P3Y6M4DT12H30M5S\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonInteger to a string")]
-        public virtual void WriteADotnet_BackedJsonIntegerToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonDuration to a string")]
+        public virtual void WriteADotnet_BackedJsonDurationToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonInteger to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonDuration to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 178
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1356,28 +1130,28 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 179
- testRunner.Given("the dotnet backed JsonInteger 3", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the dotnet backed JsonDuration \"P3Y6M4DT12H30M5S\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 180
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 181
- testRunner.Then("the round-tripped result should be a Number", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 182
- testRunner.And("the round-tripped result should be equal to the JsonAny 3", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"P3Y6M4DT12H30M5S\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonIpV4 to a string")]
-        public virtual void WriteAJsonelement_BackedJsonIpV4ToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonEmail to a string")]
+        public virtual void WriteAJsonelement_BackedJsonEmailToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonIpV4 to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonEmail to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 184
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1399,7 +1173,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 185
- testRunner.Given("the JsonElement backed JsonIpV4 \"192.168.0.1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonEmail \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 186
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -1408,19 +1182,19 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 188
- testRunner.And("the round-tripped result should be equal to the JsonAny \"192.168.0.1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonIpV4 to a string")]
-        public virtual void WriteADotnet_BackedJsonIpV4ToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonEmail to a string")]
+        public virtual void WriteADotnet_BackedJsonEmailToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonIpV4 to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonEmail to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 190
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1442,7 +1216,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 191
- testRunner.Given("the dotnet backed JsonIpV4 \"192.168.0.1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the dotnet backed JsonEmail \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 192
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -1451,19 +1225,19 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 194
- testRunner.And("the round-tripped result should be equal to the JsonAny \"192.168.0.1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonIpV6 to a string")]
-        public virtual void WriteAJsonelement_BackedJsonIpV6ToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonHostname to a string")]
+        public virtual void WriteAJsonelement_BackedJsonHostnameToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonIpV6 to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonHostname to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 196
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1485,7 +1259,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 197
- testRunner.Given("the JsonElement backed JsonIpV6 \"::ffff:192.168.0.1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonHostname \"www.example.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 198
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -1494,19 +1268,19 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 200
- testRunner.And("the round-tripped result should be equal to the JsonAny \"::ffff:192.168.0.1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"www.example.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonIpV6 to a string")]
-        public virtual void WriteADotnet_BackedJsonIpV6ToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonHostname to a string")]
+        public virtual void WriteADotnet_BackedJsonHostnameToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonIpV6 to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonHostname to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 202
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1528,7 +1302,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 203
- testRunner.Given("the dotnet backed JsonIpV6 \"::ffff:c0a8:0001\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the dotnet backed JsonHostname \"www.example.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 204
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -1537,19 +1311,19 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 206
- testRunner.And("the round-tripped result should be equal to the JsonAny \"::ffff:c0a8:0001\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"www.example.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonIri to a string")]
-        public virtual void WriteAJsonelement_BackedJsonIriToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonIdnEmail to a string")]
+        public virtual void WriteAJsonelement_BackedJsonIdnEmailToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonIri to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonIdnEmail to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 208
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1571,7 +1345,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 209
- testRunner.Given("the JsonElement backed JsonIri \"http://foo.bar/?baz=qux#quux\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonIdnEmail \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 210
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -1580,20 +1354,19 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 212
- testRunner.And("the round-tripped result should be equal to the JsonAny \"http://foo.bar/?baz=qux#" +
-                        "quux\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonIri to a string")]
-        public virtual void WriteADotnet_BackedJsonIriToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonIdnEmail to a string")]
+        public virtual void WriteADotnet_BackedJsonIdnEmailToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonIri to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonIdnEmail to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 214
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1615,7 +1388,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 215
- testRunner.Given("the dotnet backed JsonIri \"http://foo.bar/?baz=qux#quux\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the dotnet backed JsonIdnEmail \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 216
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -1624,20 +1397,19 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 218
- testRunner.And("the round-tripped result should be equal to the JsonAny \"http://foo.bar/?baz=qux#" +
-                        "quux\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"hello@endjin.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonIriReference to a string")]
-        public virtual void WriteAJsonelement_BackedJsonIriReferenceToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonIdnHostname to a string")]
+        public virtual void WriteAJsonelement_BackedJsonIdnHostnameToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonIriReference to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonIdnHostname to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 220
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1659,7 +1431,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 221
- testRunner.Given("the JsonElement backed JsonIriReference \"http://foo.bar/?baz=qux#quux\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonIdnHostname \"www.example.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 222
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -1668,20 +1440,19 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 224
- testRunner.And("the round-tripped result should be equal to the JsonAny \"http://foo.bar/?baz=qux#" +
-                        "quux\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"www.example.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonIriReference to a string")]
-        public virtual void WriteADotnet_BackedJsonIriReferenceToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonIdnHostname to a string")]
+        public virtual void WriteADotnet_BackedJsonIdnHostnameToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonIriReference to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonIdnHostname to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 226
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1703,7 +1474,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 227
- testRunner.Given("the dotnet backed JsonIriReference \"http://foo.bar/?baz=qux#quux\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the dotnet backed JsonIdnHostname \"www.example.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 228
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -1712,20 +1483,19 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 230
- testRunner.And("the round-tripped result should be equal to the JsonAny \"http://foo.bar/?baz=qux#" +
-                        "quux\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"www.example.com\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonNumber to a string")]
-        public virtual void WriteAJsonelement_BackedJsonNumberToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonInteger to a string")]
+        public virtual void WriteAJsonelement_BackedJsonIntegerToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonNumber to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonInteger to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 232
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1747,7 +1517,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 233
- testRunner.Given("the JsonElement backed JsonNumber 3.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonInteger 3", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 234
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -1756,19 +1526,19 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a Number", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 236
- testRunner.And("the round-tripped result should be equal to the JsonAny 3.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny 3", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonNumber to a string")]
-        public virtual void WriteADotnet_BackedJsonNumberToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonInteger to a string")]
+        public virtual void WriteADotnet_BackedJsonIntegerToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonNumber to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonInteger to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 238
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1790,7 +1560,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 239
- testRunner.Given("the dotnet backed JsonNumber 3.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the dotnet backed JsonInteger 3", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 240
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -1799,19 +1569,19 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a Number", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 242
- testRunner.And("the round-tripped result should be equal to the JsonAny 3.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny 3", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonPointer to a string")]
-        public virtual void WriteAJsonelement_BackedJsonPointerToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonIpV4 to a string")]
+        public virtual void WriteAJsonelement_BackedJsonIpV4ToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonPointer to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonIpV4 to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 244
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1833,7 +1603,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 245
- testRunner.Given("the JsonElement backed JsonPointer \"0/foo/bar\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonIpV4 \"192.168.0.1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 246
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -1842,19 +1612,19 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 248
- testRunner.And("the round-tripped result should be equal to the JsonAny \"0/foo/bar\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"192.168.0.1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonPointer to a string")]
-        public virtual void WriteADotnet_BackedJsonPointerToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonIpV4 to a string")]
+        public virtual void WriteADotnet_BackedJsonIpV4ToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonPointer to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonIpV4 to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 250
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1876,7 +1646,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 251
- testRunner.Given("the dotnet backed JsonPointer \"0/foo/bar\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the dotnet backed JsonIpV4 \"192.168.0.1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 252
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -1885,19 +1655,19 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 254
- testRunner.And("the round-tripped result should be equal to the JsonAny \"0/foo/bar\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"192.168.0.1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonRegex to a string")]
-        public virtual void WriteAJsonelement_BackedJsonRegexToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonIpV6 to a string")]
+        public virtual void WriteAJsonelement_BackedJsonIpV6ToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonRegex to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonIpV6 to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 256
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1919,7 +1689,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 257
- testRunner.Given("the JsonElement backed JsonRegex \"([abc])+\\\\s+$\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonIpV6 \"::ffff:192.168.0.1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 258
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -1928,19 +1698,19 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 260
- testRunner.And("the round-tripped result should be equal to the JsonAny \"([abc])+\\\\s+$\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"::ffff:192.168.0.1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonRegex to a string")]
-        public virtual void WriteADotnet_BackedJsonRegexToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonIpV6 to a string")]
+        public virtual void WriteADotnet_BackedJsonIpV6ToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonRegex to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonIpV6 to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 262
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -1962,7 +1732,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 263
- testRunner.Given("the dotnet backed JsonRegex \"([abc])+\\\\s+$\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the dotnet backed JsonIpV6 \"::ffff:c0a8:0001\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 264
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -1971,19 +1741,19 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 266
- testRunner.And("the round-tripped result should be equal to the JsonAny \"([abc])+\\\\s+$\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"::ffff:c0a8:0001\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonRelativePointer to a string")]
-        public virtual void WriteAJsonelement_BackedJsonRelativePointerToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonIri to a string")]
+        public virtual void WriteAJsonelement_BackedJsonIriToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonRelativePointer to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonIri to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 268
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -2005,7 +1775,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 269
- testRunner.Given("the JsonElement backed JsonRelativePointer \"/a~1b\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonIri \"http://foo.bar/?baz=qux#quux\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 270
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -2014,19 +1784,20 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 272
- testRunner.And("the round-tripped result should be equal to the JsonAny \"/a~1b\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"http://foo.bar/?baz=qux#" +
+                        "quux\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonRelativePointer to a string")]
-        public virtual void WriteADotnet_BackedJsonRelativePointerToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonIri to a string")]
+        public virtual void WriteADotnet_BackedJsonIriToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonRelativePointer to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonIri to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 274
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -2048,7 +1819,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 275
- testRunner.Given("the dotnet backed JsonRelativePointer \"/a~1b\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the dotnet backed JsonIri \"http://foo.bar/?baz=qux#quux\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 276
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -2057,19 +1828,20 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 278
- testRunner.And("the round-tripped result should be equal to the JsonAny \"/a~1b\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"http://foo.bar/?baz=qux#" +
+                        "quux\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonTime to a string")]
-        public virtual void WriteAJsonelement_BackedJsonTimeToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonIriReference to a string")]
+        public virtual void WriteAJsonelement_BackedJsonIriReferenceToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonTime to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonIriReference to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 280
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -2091,7 +1863,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 281
- testRunner.Given("the JsonElement backed JsonTime \"08:30:06+00:20\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonIriReference \"http://foo.bar/?baz=qux#quux\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 282
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -2100,19 +1872,20 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 284
- testRunner.And("the round-tripped result should be equal to the JsonAny \"08:30:06+00:20\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"http://foo.bar/?baz=qux#" +
+                        "quux\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonTime to a string")]
-        public virtual void WriteADotnet_BackedJsonTimeToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonIriReference to a string")]
+        public virtual void WriteADotnet_BackedJsonIriReferenceToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonTime to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonIriReference to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 286
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -2134,7 +1907,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 287
- testRunner.Given("the dotnet backed JsonTime \"08:30:06+00:20\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the dotnet backed JsonIriReference \"http://foo.bar/?baz=qux#quux\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 288
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -2143,19 +1916,20 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 290
- testRunner.And("the round-tripped result should be equal to the JsonAny \"08:30:06+00:20\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"http://foo.bar/?baz=qux#" +
+                        "quux\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonUri to a string")]
-        public virtual void WriteAJsonelement_BackedJsonUriToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonNumber to a string")]
+        public virtual void WriteAJsonelement_BackedJsonNumberToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonUri to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonNumber to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 292
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -2177,29 +1951,28 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 293
- testRunner.Given("the JsonElement backed JsonUri \"http://foo.bar/?baz=qux#quux\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonNumber 3.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 294
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 295
- testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the round-tripped result should be a Number", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 296
- testRunner.And("the round-tripped result should be equal to the JsonAny \"http://foo.bar/?baz=qux#" +
-                        "quux\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny 3.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonUri to a string")]
-        public virtual void WriteADotnet_BackedJsonUriToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonNumber to a string")]
+        public virtual void WriteADotnet_BackedJsonNumberToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonUri to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonNumber to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 298
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -2221,29 +1994,28 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 299
- testRunner.Given("the dotnet backed JsonUri \"http://foo.bar/?baz=qux#quux\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the dotnet backed JsonNumber 3.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 300
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 301
- testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the round-tripped result should be a Number", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 302
- testRunner.And("the round-tripped result should be equal to the JsonAny \"http://foo.bar/?baz=qux#" +
-                        "quux\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny 3.2", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonUriReference to a string")]
-        public virtual void WriteAJsonelement_BackedJsonUriReferenceToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonPointer to a string")]
+        public virtual void WriteAJsonelement_BackedJsonPointerToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonUriReference to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonPointer to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 304
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -2265,7 +2037,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 305
- testRunner.Given("the JsonElement backed JsonUriReference \"http://foo.bar/?baz=qux#quux\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonPointer \"0/foo/bar\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 306
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -2274,20 +2046,19 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 308
- testRunner.And("the round-tripped result should be equal to the JsonAny \"http://foo.bar/?baz=qux#" +
-                        "quux\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"0/foo/bar\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonUriReference to a string")]
-        public virtual void WriteADotnet_BackedJsonUriReferenceToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonPointer to a string")]
+        public virtual void WriteADotnet_BackedJsonPointerToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonUriReference to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonPointer to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 310
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -2309,7 +2080,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 311
- testRunner.Given("the dotnet backed JsonUriReference \"http://foo.bar/?baz=qux#quux\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the dotnet backed JsonPointer \"0/foo/bar\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 312
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -2318,20 +2089,19 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 314
- testRunner.And("the round-tripped result should be equal to the JsonAny \"http://foo.bar/?baz=qux#" +
-                        "quux\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"0/foo/bar\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonUriTemplate to a string")]
-        public virtual void WriteAJsonelement_BackedJsonUriTemplateToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonRegex to a string")]
+        public virtual void WriteAJsonelement_BackedJsonRegexToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonUriTemplate to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonRegex to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 316
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -2353,8 +2123,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 317
- testRunner.Given("the JsonElement backed JsonUriTemplate \"http://example.com/dictionary/{term:1}/{t" +
-                        "erm}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonRegex \"([abc])+\\\\s+$\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 318
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -2363,20 +2132,19 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 320
- testRunner.And("the round-tripped result should be equal to the JsonAny \"http://example.com/dicti" +
-                        "onary/{term:1}/{term}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"([abc])+\\\\s+$\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonUriTemplate to a string")]
-        public virtual void WriteADotnet_BackedJsonUriTemplateToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonRegex to a string")]
+        public virtual void WriteADotnet_BackedJsonRegexToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonUriTemplate to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonRegex to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 322
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -2398,8 +2166,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 323
- testRunner.Given("the dotnet backed JsonUriTemplate \"http://example.com/dictionary/{term:1}/{term}\"" +
-                        "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the dotnet backed JsonRegex \"([abc])+\\\\s+$\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 324
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -2408,20 +2175,19 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 326
- testRunner.And("the round-tripped result should be equal to the JsonAny \"http://example.com/dicti" +
-                        "onary/{term:1}/{term}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"([abc])+\\\\s+$\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonUuid to a string")]
-        public virtual void WriteAJsonelement_BackedJsonUuidToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonRelativePointer to a string")]
+        public virtual void WriteAJsonelement_BackedJsonRelativePointerToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonUuid to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonRelativePointer to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 328
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -2443,7 +2209,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 329
- testRunner.Given("the JsonElement backed JsonUuid \"c3f2a2a3-72c1-4abc-a741-b0e7095f20d1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the JsonElement backed JsonRelativePointer \"/a~1b\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 330
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -2452,20 +2218,19 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 332
- testRunner.And("the round-tripped result should be equal to the JsonAny \"c3f2a2a3-72c1-4abc-a741-" +
-                        "b0e7095f20d1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"/a~1b\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonUuid to a string")]
-        public virtual void WriteADotnet_BackedJsonUuidToAString()
+        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonRelativePointer to a string")]
+        public virtual void WriteADotnet_BackedJsonRelativePointerToAString()
         {
             string[] tagsOfScenario = ((string[])(null));
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonUuid to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonRelativePointer to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 334
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -2487,7 +2252,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 335
- testRunner.Given("the dotnet backed JsonUuid \"c3f2a2a3-72c1-4abc-a741-b0e7095f20d1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("the dotnet backed JsonRelativePointer \"/a~1b\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 336
  testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -2496,6 +2261,445 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 338
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"/a~1b\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonTime to a string")]
+        public virtual void WriteAJsonelement_BackedJsonTimeToAString()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonTime to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 340
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 341
+ testRunner.Given("the JsonElement backed JsonTime \"08:30:06+00:20\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 342
+ testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 343
+ testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 344
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"08:30:06+00:20\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonTime to a string")]
+        public virtual void WriteADotnet_BackedJsonTimeToAString()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonTime to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 346
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 347
+ testRunner.Given("the dotnet backed JsonTime \"08:30:06+00:20\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 348
+ testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 349
+ testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 350
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"08:30:06+00:20\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonUri to a string")]
+        public virtual void WriteAJsonelement_BackedJsonUriToAString()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonUri to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 352
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 353
+ testRunner.Given("the JsonElement backed JsonUri \"http://foo.bar/?baz=qux#quux\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 354
+ testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 355
+ testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 356
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"http://foo.bar/?baz=qux#" +
+                        "quux\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonUri to a string")]
+        public virtual void WriteADotnet_BackedJsonUriToAString()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonUri to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 358
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 359
+ testRunner.Given("the dotnet backed JsonUri \"http://foo.bar/?baz=qux#quux\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 360
+ testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 361
+ testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 362
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"http://foo.bar/?baz=qux#" +
+                        "quux\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonUriReference to a string")]
+        public virtual void WriteAJsonelement_BackedJsonUriReferenceToAString()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonUriReference to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 364
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 365
+ testRunner.Given("the JsonElement backed JsonUriReference \"http://foo.bar/?baz=qux#quux\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 366
+ testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 367
+ testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 368
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"http://foo.bar/?baz=qux#" +
+                        "quux\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonUriReference to a string")]
+        public virtual void WriteADotnet_BackedJsonUriReferenceToAString()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonUriReference to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 370
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 371
+ testRunner.Given("the dotnet backed JsonUriReference \"http://foo.bar/?baz=qux#quux\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 372
+ testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 373
+ testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 374
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"http://foo.bar/?baz=qux#" +
+                        "quux\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonUriTemplate to a string")]
+        public virtual void WriteAJsonelement_BackedJsonUriTemplateToAString()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonUriTemplate to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 376
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 377
+ testRunner.Given("the JsonElement backed JsonUriTemplate \"http://example.com/dictionary/{term:1}/{t" +
+                        "erm}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 378
+ testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 379
+ testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 380
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"http://example.com/dicti" +
+                        "onary/{term:1}/{term}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonUriTemplate to a string")]
+        public virtual void WriteADotnet_BackedJsonUriTemplateToAString()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonUriTemplate to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 382
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 383
+ testRunner.Given("the dotnet backed JsonUriTemplate \"http://example.com/dictionary/{term:1}/{term}\"" +
+                        "", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 384
+ testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 385
+ testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 386
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"http://example.com/dicti" +
+                        "onary/{term:1}/{term}\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Write a jsonelement-backed JsonUuid to a string")]
+        public virtual void WriteAJsonelement_BackedJsonUuidToAString()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a jsonelement-backed JsonUuid to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 388
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 389
+ testRunner.Given("the JsonElement backed JsonUuid \"c3f2a2a3-72c1-4abc-a741-b0e7095f20d1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 390
+ testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 391
+ testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 392
+ testRunner.And("the round-tripped result should be equal to the JsonAny \"c3f2a2a3-72c1-4abc-a741-" +
+                        "b0e7095f20d1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Write a dotnet-backed JsonUuid to a string")]
+        public virtual void WriteADotnet_BackedJsonUuidToAString()
+        {
+            string[] tagsOfScenario = ((string[])(null));
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Write a dotnet-backed JsonUuid to a string", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 394
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 395
+ testRunner.Given("the dotnet backed JsonUuid \"c3f2a2a3-72c1-4abc-a741-b0e7095f20d1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 396
+ testRunner.When("the json value is round-tripped via a string", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 397
+ testRunner.Then("the round-tripped result should be a String", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 398
  testRunner.And("the round-tripped result should be equal to the JsonAny \"c3f2a2a3-72c1-4abc-a741-" +
                         "b0e7095f20d1\"", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden

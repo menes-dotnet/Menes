@@ -92,6 +92,15 @@ namespace Steps
             Assert.IsTrue(actual == JsonValueKind.True || actual == JsonValueKind.False);
         }
 
+        /// <summary>
+        /// Validates that the object in the context variable <see cref="SerializationResult"/> is a <see cref="JsonValueKind.True"/> or <see cref="JsonValueKind.False"/>.
+        /// </summary>
+        [Then(@"the round-tripped result should be Null")]
+        public void ThenTheRound_TrippedResultShouldBeNull()
+        {
+            Assert.AreEqual(JsonValueKind.Null, this.scenarioContext.Get<JsonAny>(SerializationResult).ValueKind);
+        }
+
         /* serialization */
 
         /// <summary>

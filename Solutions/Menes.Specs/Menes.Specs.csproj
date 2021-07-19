@@ -81,4 +81,8 @@
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
     </SpecFlowFeatureFiles>
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\JsonModel\Properties\" />
+  </ItemGroup>
 </Project>
