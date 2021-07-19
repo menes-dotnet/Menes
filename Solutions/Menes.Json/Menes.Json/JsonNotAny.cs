@@ -971,7 +971,7 @@ namespace Menes.Json
         public JsonNotAny SetProperty<TValue>(string name, TValue value)
             where TValue : struct, IJsonValue
         {
-            if (this.ValueKind == JsonValueKind.Object)
+            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
                 return new JsonNotAny(this.AsObject.SetProperty(name, value));
             }
@@ -983,7 +983,7 @@ namespace Menes.Json
         public JsonNotAny SetProperty<TValue>(ReadOnlySpan<char> name, TValue value)
             where TValue : struct, IJsonValue
         {
-            if (this.ValueKind == JsonValueKind.Object)
+            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
                 return new JsonNotAny(this.AsObject.SetProperty(name, value));
             }
@@ -995,7 +995,7 @@ namespace Menes.Json
         public JsonNotAny SetProperty<TValue>(ReadOnlySpan<byte> utf8Name, TValue value)
             where TValue : struct, IJsonValue
         {
-            if (this.ValueKind == JsonValueKind.Object)
+            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
             {
                 return new JsonNotAny(this.AsObject.SetProperty(utf8Name, value));
             }

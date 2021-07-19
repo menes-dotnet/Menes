@@ -137,7 +137,14 @@ namespace Steps
         [Given(@"the JsonElement backed JsonNotAny (.*)")]
         public void GivenTheJsonElementBackedJsonNotAny(string value)
         {
-            this.scenarioContext.Set((JsonNotAny)JsonAny.ParseUriValue(value), SubjectUnderTest);
+            if (value == "<undefined>")
+            {
+                this.scenarioContext.Set<JsonNotAny>(default, SubjectUnderTest);
+            }
+            else
+            {
+                this.scenarioContext.Set((JsonNotAny)JsonAny.ParseUriValue(value), SubjectUnderTest);
+            }
         }
 
         /// <summary>
@@ -251,7 +258,14 @@ namespace Steps
         [Given(@"the JsonElement backed JsonAny (.*)")]
         public void GivenTheJsonElementBackedJsonAny(string value)
         {
-            this.scenarioContext.Set(JsonAny.ParseUriValue(value), SubjectUnderTest);
+            if (value == "<undefined>")
+            {
+                this.scenarioContext.Set<JsonAny>(default, SubjectUnderTest);
+            }
+            else
+            {
+                this.scenarioContext.Set(JsonAny.ParseUriValue(value), SubjectUnderTest);
+            }
         }
 
         /// <summary>
@@ -974,7 +988,14 @@ namespace Steps
         [Given(@"the JsonElement backed JsonObject (.*)")]
         public void GivenTheJsonElementBackedJsonObject(string value)
         {
-            this.scenarioContext.Set<JsonObject>(JsonAny.ParseUriValue(value), SubjectUnderTest);
+            if (value == "<undefined>")
+            {
+                this.scenarioContext.Set<JsonObject>(default, SubjectUnderTest);
+            }
+            else
+            {
+                this.scenarioContext.Set<JsonObject>(JsonAny.ParseUriValue(value), SubjectUnderTest);
+            }
         }
 
         /// <summary>

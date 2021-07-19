@@ -17,6 +17,24 @@ Scenario Outline: Remove properties from a JsonElement backed JsonProperty
 		| JsonObject    | foo          | {"foo": "bar"} | ReadOnlySpan<byte> |
 		| JsonAny       | foo          | {"foo": "bar"} | ReadOnlySpan<byte> |
 		| JsonNotAny    | foo          | {"foo": "bar"} | ReadOnlySpan<byte> |
+		| JsonObject    | foo          | <undefined>    | string             |
+		| JsonAny       | foo          | <undefined>    | string             |
+		| JsonNotAny    | foo          | <undefined>    | string             |
+		| JsonObject    | foo          | <undefined>    | ReadOnlySpan<char> |
+		| JsonAny       | foo          | <undefined>    | ReadOnlySpan<char> |
+		| JsonNotAny    | foo          | <undefined>    | ReadOnlySpan<char> |
+		| JsonObject    | foo          | <undefined>    | ReadOnlySpan<byte> |
+		| JsonAny       | foo          | <undefined>    | ReadOnlySpan<byte> |
+		| JsonNotAny    | foo          | <undefined>    | ReadOnlySpan<byte> |
+		| JsonObject    | foo          | 1.2            | string             |
+		| JsonAny       | foo          | 1.2            | string             |
+		| JsonNotAny    | foo          | 1.2            | string             |
+		| JsonObject    | foo          | 1.2            | ReadOnlySpan<char> |
+		| JsonAny       | foo          | 1.2            | ReadOnlySpan<char> |
+		| JsonNotAny    | foo          | 1.2            | ReadOnlySpan<char> |
+		| JsonObject    | foo          | 1.2            | ReadOnlySpan<byte> |
+		| JsonAny       | foo          | 1.2            | ReadOnlySpan<byte> |
+		| JsonNotAny    | foo          | 1.2            | ReadOnlySpan<byte> |
 
 Scenario Outline: Set properties to JsonElement backed JsonProperty
 	Given the JsonElement backed <jsonValueType> <value>
@@ -31,18 +49,27 @@ Scenario Outline: Set properties to JsonElement backed JsonProperty
 		| JsonObject    | foo          | "bar"         | {}             | string             |
 		| JsonAny       | foo          | "bar"         | {}             | string             |
 		| JsonNotAny    | foo          | "bar"         | {}             | string             |
+		| JsonObject    | foo          | "bar"         | <undefined>    | string             |
+		| JsonAny       | foo          | "bar"         | <undefined>    | string             |
+		| JsonNotAny    | foo          | "bar"         | <undefined>    | string             |
 		| JsonObject    | foo          | "bar"         | {"foo": "baz"} | ReadOnlySpan<char> |
 		| JsonAny       | foo          | "bar"         | {"foo": "baz"} | ReadOnlySpan<char> |
 		| JsonNotAny    | foo          | "bar"         | {"foo": "baz"} | ReadOnlySpan<char> |
 		| JsonObject    | foo          | "bar"         | {}             | ReadOnlySpan<char> |
 		| JsonAny       | foo          | "bar"         | {}             | ReadOnlySpan<char> |
 		| JsonNotAny    | foo          | "bar"         | {}             | ReadOnlySpan<char> |
+		| JsonObject    | foo          | "bar"         | <undefined>    | ReadOnlySpan<char> |
+		| JsonAny       | foo          | "bar"         | <undefined>    | ReadOnlySpan<char> |
+		| JsonNotAny    | foo          | "bar"         | <undefined>    | ReadOnlySpan<char> |
 		| JsonObject    | foo          | "bar"         | {"foo": "baz"} | ReadOnlySpan<byte> |
 		| JsonAny       | foo          | "bar"         | {"foo": "baz"} | ReadOnlySpan<byte> |
 		| JsonNotAny    | foo          | "bar"         | {"foo": "baz"} | ReadOnlySpan<byte> |
 		| JsonObject    | foo          | "bar"         | {}             | ReadOnlySpan<byte> |
 		| JsonAny       | foo          | "bar"         | {}             | ReadOnlySpan<byte> |
 		| JsonNotAny    | foo          | "bar"         | {}             | ReadOnlySpan<byte> |
+		| JsonObject    | foo          | "bar"         | <undefined>    | ReadOnlySpan<byte> |
+		| JsonAny       | foo          | "bar"         | <undefined>    | ReadOnlySpan<byte> |
+		| JsonNotAny    | foo          | "bar"         | <undefined>    | ReadOnlySpan<byte> |
 
 Scenario Outline: Remove properties from a dotnet backed JsonProperty
 	Given the dotnet backed <jsonValueType>  <value>
@@ -60,6 +87,24 @@ Scenario Outline: Remove properties from a dotnet backed JsonProperty
 		| JsonObject    | foo          | {"foo": "bar"} | ReadOnlySpan<byte> |
 		| JsonAny       | foo          | {"foo": "bar"} | ReadOnlySpan<byte> |
 		| JsonNotAny    | foo          | {"foo": "bar"} | ReadOnlySpan<byte> |
+		| JsonObject    | foo          | <undefined>    | string             |
+		| JsonAny       | foo          | <undefined>    | string             |
+		| JsonNotAny    | foo          | <undefined>    | string             |
+		| JsonObject    | foo          | <undefined>    | ReadOnlySpan<char> |
+		| JsonAny       | foo          | <undefined>    | ReadOnlySpan<char> |
+		| JsonNotAny    | foo          | <undefined>    | ReadOnlySpan<char> |
+		| JsonObject    | foo          | <undefined>    | ReadOnlySpan<byte> |
+		| JsonAny       | foo          | <undefined>    | ReadOnlySpan<byte> |
+		| JsonNotAny    | foo          | <undefined>    | ReadOnlySpan<byte> |
+		| JsonObject    | foo          | 1.2            | string             |
+		| JsonAny       | foo          | 1.2            | string             |
+		| JsonNotAny    | foo          | 1.2            | string             |
+		| JsonObject    | foo          | 1.2            | ReadOnlySpan<char> |
+		| JsonAny       | foo          | 1.2            | ReadOnlySpan<char> |
+		| JsonNotAny    | foo          | 1.2            | ReadOnlySpan<char> |
+		| JsonObject    | foo          | 1.2            | ReadOnlySpan<byte> |
+		| JsonAny       | foo          | 1.2            | ReadOnlySpan<byte> |
+		| JsonNotAny    | foo          | 1.2            | ReadOnlySpan<byte> |
 
 Scenario Outline: Set properties to dotnet backed JsonProperty
 	Given the dotnet backed <jsonValueType> <value>
@@ -74,18 +119,27 @@ Scenario Outline: Set properties to dotnet backed JsonProperty
 		| JsonObject    | foo          | "bar"         | {}             | string             |
 		| JsonAny       | foo          | "bar"         | {}             | string             |
 		| JsonNotAny    | foo          | "bar"         | {}             | string             |
+		| JsonObject    | foo          | "bar"         | <undefined>    | string             |
+		| JsonAny       | foo          | "bar"         | <undefined>    | string             |
+		| JsonNotAny    | foo          | "bar"         | <undefined>    | string             |
 		| JsonObject    | foo          | "bar"         | {"foo": "baz"} | ReadOnlySpan<char> |
 		| JsonAny       | foo          | "bar"         | {"foo": "baz"} | ReadOnlySpan<char> |
 		| JsonNotAny    | foo          | "bar"         | {"foo": "baz"} | ReadOnlySpan<char> |
 		| JsonObject    | foo          | "bar"         | {}             | ReadOnlySpan<char> |
 		| JsonAny       | foo          | "bar"         | {}             | ReadOnlySpan<char> |
 		| JsonNotAny    | foo          | "bar"         | {}             | ReadOnlySpan<char> |
+		| JsonObject    | foo          | "bar"         | <undefined>    | ReadOnlySpan<char> |
+		| JsonAny       | foo          | "bar"         | <undefined>    | ReadOnlySpan<char> |
+		| JsonNotAny    | foo          | "bar"         | <undefined>    | ReadOnlySpan<char> |
 		| JsonObject    | foo          | "bar"         | {"foo": "baz"} | ReadOnlySpan<byte> |
 		| JsonAny       | foo          | "bar"         | {"foo": "baz"} | ReadOnlySpan<byte> |
 		| JsonNotAny    | foo          | "bar"         | {"foo": "baz"} | ReadOnlySpan<byte> |
 		| JsonObject    | foo          | "bar"         | {}             | ReadOnlySpan<byte> |
 		| JsonAny       | foo          | "bar"         | {}             | ReadOnlySpan<byte> |
 		| JsonNotAny    | foo          | "bar"         | {}             | ReadOnlySpan<byte> |
+		| JsonObject    | foo          | "bar"         | <undefined>    | ReadOnlySpan<byte> |
+		| JsonAny       | foo          | "bar"         | <undefined>    | ReadOnlySpan<byte> |
+		| JsonNotAny    | foo          | "bar"         | <undefined>    | ReadOnlySpan<byte> |
 
 Scenario Outline: Get existing properties for a JsonElement backed JsonProperty
 	Given the JsonElement backed <jsonValueType> <value>

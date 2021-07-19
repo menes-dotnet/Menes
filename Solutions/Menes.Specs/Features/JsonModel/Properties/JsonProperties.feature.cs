@@ -84,6 +84,24 @@ namespace Features.JsonModel.Properties
         [NUnit.Framework.TestCaseAttribute("JsonObject", "foo", "{\"foo\": \"bar\"}", "ReadOnlySpan<byte>", null)]
         [NUnit.Framework.TestCaseAttribute("JsonAny", "foo", "{\"foo\": \"bar\"}", "ReadOnlySpan<byte>", null)]
         [NUnit.Framework.TestCaseAttribute("JsonNotAny", "foo", "{\"foo\": \"bar\"}", "ReadOnlySpan<byte>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonObject", "foo", "<undefined>", "string", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "foo", "<undefined>", "string", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "foo", "<undefined>", "string", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonObject", "foo", "<undefined>", "ReadOnlySpan<char>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "foo", "<undefined>", "ReadOnlySpan<char>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "foo", "<undefined>", "ReadOnlySpan<char>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonObject", "foo", "<undefined>", "ReadOnlySpan<byte>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "foo", "<undefined>", "ReadOnlySpan<byte>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "foo", "<undefined>", "ReadOnlySpan<byte>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonObject", "foo", "1.2", "string", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "foo", "1.2", "string", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "foo", "1.2", "string", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonObject", "foo", "1.2", "ReadOnlySpan<char>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "foo", "1.2", "ReadOnlySpan<char>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "foo", "1.2", "ReadOnlySpan<char>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonObject", "foo", "1.2", "ReadOnlySpan<byte>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "foo", "1.2", "ReadOnlySpan<byte>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "foo", "1.2", "ReadOnlySpan<byte>", null)]
         public virtual void RemovePropertiesFromAJsonElementBackedJsonProperty(string jsonValueType, string propertyName, string value, string propertyNameType, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -134,18 +152,27 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("JsonObject", "foo", "\"bar\"", "{}", "string", null)]
         [NUnit.Framework.TestCaseAttribute("JsonAny", "foo", "\"bar\"", "{}", "string", null)]
         [NUnit.Framework.TestCaseAttribute("JsonNotAny", "foo", "\"bar\"", "{}", "string", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonObject", "foo", "\"bar\"", "<undefined>", "string", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "foo", "\"bar\"", "<undefined>", "string", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "foo", "\"bar\"", "<undefined>", "string", null)]
         [NUnit.Framework.TestCaseAttribute("JsonObject", "foo", "\"bar\"", "{\"foo\": \"baz\"}", "ReadOnlySpan<char>", null)]
         [NUnit.Framework.TestCaseAttribute("JsonAny", "foo", "\"bar\"", "{\"foo\": \"baz\"}", "ReadOnlySpan<char>", null)]
         [NUnit.Framework.TestCaseAttribute("JsonNotAny", "foo", "\"bar\"", "{\"foo\": \"baz\"}", "ReadOnlySpan<char>", null)]
         [NUnit.Framework.TestCaseAttribute("JsonObject", "foo", "\"bar\"", "{}", "ReadOnlySpan<char>", null)]
         [NUnit.Framework.TestCaseAttribute("JsonAny", "foo", "\"bar\"", "{}", "ReadOnlySpan<char>", null)]
         [NUnit.Framework.TestCaseAttribute("JsonNotAny", "foo", "\"bar\"", "{}", "ReadOnlySpan<char>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonObject", "foo", "\"bar\"", "<undefined>", "ReadOnlySpan<char>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "foo", "\"bar\"", "<undefined>", "ReadOnlySpan<char>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "foo", "\"bar\"", "<undefined>", "ReadOnlySpan<char>", null)]
         [NUnit.Framework.TestCaseAttribute("JsonObject", "foo", "\"bar\"", "{\"foo\": \"baz\"}", "ReadOnlySpan<byte>", null)]
         [NUnit.Framework.TestCaseAttribute("JsonAny", "foo", "\"bar\"", "{\"foo\": \"baz\"}", "ReadOnlySpan<byte>", null)]
         [NUnit.Framework.TestCaseAttribute("JsonNotAny", "foo", "\"bar\"", "{\"foo\": \"baz\"}", "ReadOnlySpan<byte>", null)]
         [NUnit.Framework.TestCaseAttribute("JsonObject", "foo", "\"bar\"", "{}", "ReadOnlySpan<byte>", null)]
         [NUnit.Framework.TestCaseAttribute("JsonAny", "foo", "\"bar\"", "{}", "ReadOnlySpan<byte>", null)]
         [NUnit.Framework.TestCaseAttribute("JsonNotAny", "foo", "\"bar\"", "{}", "ReadOnlySpan<byte>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonObject", "foo", "\"bar\"", "<undefined>", "ReadOnlySpan<byte>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "foo", "\"bar\"", "<undefined>", "ReadOnlySpan<byte>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "foo", "\"bar\"", "<undefined>", "ReadOnlySpan<byte>", null)]
         public virtual void SetPropertiesToJsonElementBackedJsonProperty(string jsonValueType, string propertyName, string propertyValue, string value, string propertyNameType, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -156,7 +183,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("propertyNameType", propertyNameType);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Set properties to JsonElement backed JsonProperty", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 21
+#line 39
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -176,13 +203,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 22
+#line 40
  testRunner.Given(string.Format("the JsonElement backed {0} {1}", jsonValueType, value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 23
+#line 41
  testRunner.When(string.Format("I set the property {0} to the value {1} on the {2} using a {3}", propertyName, propertyValue, jsonValueType, propertyNameType), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 24
+#line 42
  testRunner.Then(string.Format("the property {0} should be {1} using {2}", propertyName, propertyValue, propertyNameType), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -200,6 +227,24 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("JsonObject", "foo", "{\"foo\": \"bar\"}", "ReadOnlySpan<byte>", null)]
         [NUnit.Framework.TestCaseAttribute("JsonAny", "foo", "{\"foo\": \"bar\"}", "ReadOnlySpan<byte>", null)]
         [NUnit.Framework.TestCaseAttribute("JsonNotAny", "foo", "{\"foo\": \"bar\"}", "ReadOnlySpan<byte>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonObject", "foo", "<undefined>", "string", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "foo", "<undefined>", "string", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "foo", "<undefined>", "string", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonObject", "foo", "<undefined>", "ReadOnlySpan<char>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "foo", "<undefined>", "ReadOnlySpan<char>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "foo", "<undefined>", "ReadOnlySpan<char>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonObject", "foo", "<undefined>", "ReadOnlySpan<byte>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "foo", "<undefined>", "ReadOnlySpan<byte>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "foo", "<undefined>", "ReadOnlySpan<byte>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonObject", "foo", "1.2", "string", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "foo", "1.2", "string", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "foo", "1.2", "string", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonObject", "foo", "1.2", "ReadOnlySpan<char>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "foo", "1.2", "ReadOnlySpan<char>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "foo", "1.2", "ReadOnlySpan<char>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonObject", "foo", "1.2", "ReadOnlySpan<byte>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "foo", "1.2", "ReadOnlySpan<byte>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "foo", "1.2", "ReadOnlySpan<byte>", null)]
         public virtual void RemovePropertiesFromADotnetBackedJsonProperty(string jsonValueType, string propertyName, string value, string propertyNameType, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -209,7 +254,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("propertyNameType", propertyNameType);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Remove properties from a dotnet backed JsonProperty", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 47
+#line 74
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -229,13 +274,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 48
+#line 75
  testRunner.Given(string.Format("the dotnet backed {0}  {1}", jsonValueType, value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 49
+#line 76
  testRunner.When(string.Format("I remove the property {0} from the {1} using a {2}", propertyName, jsonValueType, propertyNameType), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 50
+#line 77
  testRunner.Then(string.Format("the property {0} should not be defined using {1}", propertyName, propertyNameType), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -250,18 +295,27 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("JsonObject", "foo", "\"bar\"", "{}", "string", null)]
         [NUnit.Framework.TestCaseAttribute("JsonAny", "foo", "\"bar\"", "{}", "string", null)]
         [NUnit.Framework.TestCaseAttribute("JsonNotAny", "foo", "\"bar\"", "{}", "string", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonObject", "foo", "\"bar\"", "<undefined>", "string", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "foo", "\"bar\"", "<undefined>", "string", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "foo", "\"bar\"", "<undefined>", "string", null)]
         [NUnit.Framework.TestCaseAttribute("JsonObject", "foo", "\"bar\"", "{\"foo\": \"baz\"}", "ReadOnlySpan<char>", null)]
         [NUnit.Framework.TestCaseAttribute("JsonAny", "foo", "\"bar\"", "{\"foo\": \"baz\"}", "ReadOnlySpan<char>", null)]
         [NUnit.Framework.TestCaseAttribute("JsonNotAny", "foo", "\"bar\"", "{\"foo\": \"baz\"}", "ReadOnlySpan<char>", null)]
         [NUnit.Framework.TestCaseAttribute("JsonObject", "foo", "\"bar\"", "{}", "ReadOnlySpan<char>", null)]
         [NUnit.Framework.TestCaseAttribute("JsonAny", "foo", "\"bar\"", "{}", "ReadOnlySpan<char>", null)]
         [NUnit.Framework.TestCaseAttribute("JsonNotAny", "foo", "\"bar\"", "{}", "ReadOnlySpan<char>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonObject", "foo", "\"bar\"", "<undefined>", "ReadOnlySpan<char>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "foo", "\"bar\"", "<undefined>", "ReadOnlySpan<char>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "foo", "\"bar\"", "<undefined>", "ReadOnlySpan<char>", null)]
         [NUnit.Framework.TestCaseAttribute("JsonObject", "foo", "\"bar\"", "{\"foo\": \"baz\"}", "ReadOnlySpan<byte>", null)]
         [NUnit.Framework.TestCaseAttribute("JsonAny", "foo", "\"bar\"", "{\"foo\": \"baz\"}", "ReadOnlySpan<byte>", null)]
         [NUnit.Framework.TestCaseAttribute("JsonNotAny", "foo", "\"bar\"", "{\"foo\": \"baz\"}", "ReadOnlySpan<byte>", null)]
         [NUnit.Framework.TestCaseAttribute("JsonObject", "foo", "\"bar\"", "{}", "ReadOnlySpan<byte>", null)]
         [NUnit.Framework.TestCaseAttribute("JsonAny", "foo", "\"bar\"", "{}", "ReadOnlySpan<byte>", null)]
         [NUnit.Framework.TestCaseAttribute("JsonNotAny", "foo", "\"bar\"", "{}", "ReadOnlySpan<byte>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonObject", "foo", "\"bar\"", "<undefined>", "ReadOnlySpan<byte>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "foo", "\"bar\"", "<undefined>", "ReadOnlySpan<byte>", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "foo", "\"bar\"", "<undefined>", "ReadOnlySpan<byte>", null)]
         public virtual void SetPropertiesToDotnetBackedJsonProperty(string jsonValueType, string propertyName, string propertyValue, string value, string propertyNameType, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
@@ -272,7 +326,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("propertyNameType", propertyNameType);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Set properties to dotnet backed JsonProperty", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 64
+#line 109
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -292,13 +346,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 65
+#line 110
  testRunner.Given(string.Format("the dotnet backed {0} {1}", jsonValueType, value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 66
+#line 111
  testRunner.When(string.Format("I set the property {0} to the value {1} on the {2} using a {3}", propertyName, propertyValue, jsonValueType, propertyNameType), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 67
+#line 112
  testRunner.Then(string.Format("the property {0} should be {1} using {2}", propertyName, propertyValue, propertyNameType), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -336,7 +390,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("propertyNameType", propertyNameType);
             argumentsOfScenario.Add("propertyFound", propertyFound);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get existing properties for a JsonElement backed JsonProperty", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 90
+#line 144
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -356,16 +410,16 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 91
+#line 145
  testRunner.Given(string.Format("the JsonElement backed {0} {1}", jsonValueType, value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 92
+#line 146
  testRunner.When(string.Format("I try to get the property {0} using {1}", propertyName, propertyNameType), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 93
+#line 147
  testRunner.Then(string.Format("the property should {0}", propertyFound), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 94
+#line 148
  testRunner.And(string.Format("the property value should be {0}", propertyValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
@@ -403,7 +457,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("propertyNameType", propertyNameType);
             argumentsOfScenario.Add("propertyFound", propertyFound);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get existing properties for a dotnet backed JsonProperty", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 117
+#line 171
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -423,16 +477,16 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 118
+#line 172
  testRunner.Given(string.Format("the dotnet backed {0} {1}", jsonValueType, value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 119
+#line 173
  testRunner.When(string.Format("I try to get the property {0} using {1}", propertyName, propertyNameType), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 120
+#line 174
  testRunner.Then(string.Format("the property should {0}", propertyFound), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 121
+#line 175
  testRunner.And(string.Format("the property value should be {0}", propertyValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
