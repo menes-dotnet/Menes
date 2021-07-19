@@ -552,7 +552,12 @@ namespace Menes.Json
         public JsonObject SetProperty<TValue>(string name, TValue value)
             where TValue : struct, IJsonValue
         {
-            return new JsonObject(this.AsPropertyDictionary.SetItem(name, value.AsAny));
+            if (this.ValueKind == JsonValueKind.Object || this.ValueKind == JsonValueKind.Undefined)
+            {
+                return new JsonObject(this.AsPropertyDictionary.SetItem(name, value.AsAny));
+            }
+
+            return this;
         }
 
         /// <inheritdoc/>
