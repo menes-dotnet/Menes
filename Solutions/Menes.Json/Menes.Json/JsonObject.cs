@@ -559,14 +559,14 @@ namespace Menes.Json
         public JsonObject SetProperty<TValue>(ReadOnlySpan<char> name, TValue value)
             where TValue : struct, IJsonValue
         {
-            return this.SetProperty(name, value);
+            return this.SetProperty(name.ToString(), value);
         }
 
         /// <inheritdoc/>
         public JsonObject SetProperty<TValue>(ReadOnlySpan<byte> utf8Name, TValue value)
             where TValue : struct, IJsonValue
         {
-            return this.SetProperty(utf8Name, value);
+            return this.SetProperty(Encoding.UTF8.GetString(utf8Name), value);
         }
 
         /// <inheritdoc/>
@@ -578,7 +578,7 @@ namespace Menes.Json
         /// <inheritdoc/>
         public JsonObject RemoveProperty(ReadOnlySpan<char> name)
         {
-            return this.RemoveProperty(name);
+            return new JsonObject(this.AsPropertyDictionary.Remove(name.ToString()));
         }
 
         /// <inheritdoc/>

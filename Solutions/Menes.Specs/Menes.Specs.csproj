@@ -17,6 +17,7 @@
   <ItemGroup>
     <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Equals\JsonAnyEquals - Copy.feature.cs" />
     <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Equals\JsonArrayEquals - Copy.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonModel\Properties\JsonSerialization.feature.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -54,6 +55,9 @@
     <Compile Update="Features\JsonModel\Equals\JsonAnyEquals.feature.cs">
       <DependentUpon>JsonAnyEquals.feature</DependentUpon>
     </Compile>
+    <Compile Update="Features\JsonModel\Properties\JsonProperties.feature.cs">
+      <DependentUpon>JsonProperties.feature</DependentUpon>
+    </Compile>
   </ItemGroup>
 
   <ItemGroup>
@@ -80,9 +84,9 @@
       <Visible>$(UsingMicrosoftNETSdk)</Visible>
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
     </SpecFlowFeatureFiles>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Features\JsonModel\Properties\" />
+    <SpecFlowFeatureFiles Update="Features\JsonModel\Properties\JsonProperties.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
   </ItemGroup>
 </Project>
