@@ -17,6 +17,8 @@ namespace Steps
     public class JsonPropertiesSteps
     {
         private const string ObjectResult = "ObjectResult";
+        private const string PropertyValueResult = "PropertyValueResult";
+        private const string PropertyExistsResult = "PropertyExistsResult";
 
         private readonly ScenarioContext scenarioContext;
 
@@ -133,10 +135,34 @@ namespace Steps
         /// </summary>
         /// <param name="propertyName">The name of the property.</param>
         /// <param name="value">The serialized value of the property.</param>
-        [Then(@"the property (.*) should be (.*)")]
+        [Then(@"the property (.*) should be (.*) using string")]
         public void ThenThePropertyNamedShouldBe(string propertyName, string value)
         {
             Assert.IsTrue(this.scenarioContext.Get<IJsonObject>(ObjectResult).TryGetProperty(propertyName, out JsonAny actualValue));
+            Assert.AreEqual(JsonAny.ParseUriValue(value), actualValue);
+        }
+
+        /// <summary>
+        /// Validate the given property on a <see cref="IJsonObject"/> found in the scenario context with key <see cref="ObjectResult"/>.
+        /// </summary>
+        /// <param name="propertyName">The name of the property.</param>
+        /// <param name="value">The serialized value of the property.</param>
+        [Then(@"the property (.*) should be (.*) using ReadOnlySpan<char>")]
+        public void ThenThePropertyNamedShouldBeUsingReadOnlySpanOfChar(string propertyName, string value)
+        {
+            Assert.IsTrue(this.scenarioContext.Get<IJsonObject>(ObjectResult).TryGetProperty(propertyName.AsSpan(), out JsonAny actualValue));
+            Assert.AreEqual(JsonAny.ParseUriValue(value), actualValue);
+        }
+
+        /// <summary>
+        /// Validate the given property on a <see cref="IJsonObject"/> found in the scenario context with key <see cref="ObjectResult"/>.
+        /// </summary>
+        /// <param name="propertyName">The name of the property.</param>
+        /// <param name="value">The serialized value of the property.</param>
+        [Then(@"the property (.*) should be (.*) using ReadOnlySpan<byte>")]
+        public void ThenThePropertyNamedShouldBeUsingReadOnlySpanOfByte(string propertyName, string value)
+        {
+            Assert.IsTrue(this.scenarioContext.Get<IJsonObject>(ObjectResult).TryGetProperty(Encoding.UTF8.GetBytes(propertyName), out JsonAny actualValue));
             Assert.AreEqual(JsonAny.ParseUriValue(value), actualValue);
         }
 
@@ -234,10 +260,111 @@ namespace Steps
         /// Validate that the given property on a <see cref="IJsonObject"/> found in the scenario context with key <see cref="ObjectResult"/> has not been defined.
         /// </summary>
         /// <param name="propertyName">The name of the property.</param>
-        [Then(@"the property (.*) should not be defined")]
+        [Then(@"the property (.*) should not be defined using string")]
         public void ThenThePropertyNamedShouldNotBeDefined(string propertyName)
         {
             Assert.IsFalse(this.scenarioContext.Get<IJsonObject>(ObjectResult).HasProperty(propertyName));
+        }
+
+        /// <summary>
+        /// Validate that the given property on a <see cref="IJsonObject"/> found in the scenario context with key <see cref="ObjectResult"/> has not been defined.
+        /// </summary>
+        /// <param name="propertyName">The name of the property.</param>
+        [Then(@"the property (.*) should not be defined using ReadOnlySpan<char>")]
+        public void ThenThePropertyNamedShouldNotBeDefinedUsingReadOnlySpanOfChar(string propertyName)
+        {
+            Assert.IsFalse(this.scenarioContext.Get<IJsonObject>(ObjectResult).HasProperty(propertyName.AsSpan()));
+        }
+
+        /// <summary>
+        /// Validate that the given property on a <see cref="IJsonObject"/> found in the scenario context with key <see cref="ObjectResult"/> has not been defined.
+        /// </summary>
+        /// <param name="propertyName">The name of the property.</param>
+        [Then(@"the property (.*) should not be defined using ReadOnlySpan<byte>")]
+        public void ThenThePropertyNamedShouldNotBeDefinedUsingReadOnlySpanOfByte(string propertyName)
+        {
+            Assert.IsFalse(this.scenarioContext.Get<IJsonObject>(ObjectResult).HasProperty(Encoding.UTF8.GetBytes(propertyName)));
+        }
+
+        /// <summary>
+        /// Tries to get the value on the <see cref="IJsonObject"/> stored in the context with the key <see cref="JsonValueSteps.SubjectUnderTest"/> and stores the result in the context keys <see cref="PropertyValueResult"/> ahd <see cref="PropertyExistsResult"/>.
+        /// </summary>
+        /// <param name="propertyName">The name of the property to check.</param>
+        [When(@"I try to get the property (.*) using string")]
+        public void WhenITryToGetThePropertyFooUsingString(string propertyName)
+        {
+            bool canGet = this.scenarioContext.Get<IJsonObject>(JsonValueSteps.SubjectUnderTest).TryGetProperty(propertyName, out JsonAny actualValue);
+            this.scenarioContext.Set(canGet, PropertyExistsResult);
+            if (canGet)
+            {
+                this.scenarioContext.Set(actualValue, PropertyValueResult);
+            }
+        }
+
+        /// <summary>
+        /// Tries to get the value on the <see cref="IJsonObject"/> stored in the context with the key <see cref="JsonValueSteps.SubjectUnderTest"/> and stores the result in the context keys <see cref="PropertyValueResult"/> ahd <see cref="PropertyExistsResult"/>.
+        /// </summary>
+        /// <param name="propertyName">The name of the property to check.</param>
+        [When(@"I try to get the property (.*) using ReadOnlySpan<char>")]
+        public void WhenITryToGetThePropertyFooUsingReadOnlySpanOfChar(string propertyName)
+        {
+            bool canGet = this.scenarioContext.Get<IJsonObject>(JsonValueSteps.SubjectUnderTest).TryGetProperty(propertyName.AsSpan(), out JsonAny actualValue);
+            this.scenarioContext.Set(canGet, PropertyExistsResult);
+            if (canGet)
+            {
+                this.scenarioContext.Set(actualValue, PropertyValueResult);
+            }
+        }
+
+        /// <summary>
+        /// Tries to get the value on the <see cref="IJsonObject"/> stored in the context with the key <see cref="JsonValueSteps.SubjectUnderTest"/> and stores the result in the context keys <see cref="PropertyValueResult"/> ahd <see cref="PropertyExistsResult"/>.
+        /// </summary>
+        /// <param name="propertyName">The name of the property to check.</param>
+        [When(@"I try to get the property (.*) using ReadOnlySpan<byte>")]
+        public void WhenITryToGetThePropertyFooUsingReadOnlySpanOfByte(string propertyName)
+        {
+            bool canGet = this.scenarioContext.Get<IJsonObject>(JsonValueSteps.SubjectUnderTest).TryGetProperty(Encoding.UTF8.GetBytes(propertyName), out JsonAny actualValue);
+            this.scenarioContext.Set(canGet, PropertyExistsResult);
+            if (canGet)
+            {
+                this.scenarioContext.Set(actualValue, PropertyValueResult);
+            }
+        }
+
+        /// <summary>
+        /// Validates that the value stored in the context with key <see cref="PropertyExistsResult"/> is true.
+        /// </summary>
+        [Then(@"the property should be found")]
+        public void ThenThePropertyShouldBeFound()
+        {
+            Assert.IsTrue(this.scenarioContext.Get<bool>(PropertyExistsResult));
+        }
+
+        /// <summary>
+        /// Validates that the value stored in the context with key <see cref="PropertyExistsResult"/> is false.
+        /// </summary>
+        [Then(@"the property should not be found")]
+        public void ThenThePropertyShouldNotBeFound()
+        {
+            Assert.IsFalse(this.scenarioContext.Get<bool>(PropertyExistsResult));
+        }
+
+        /// <summary>
+        /// Validates that the value stored in the context with key <see cref="PropertyValueResult"/> matches the given value.
+        /// </summary>
+        /// <param name="value">The serialized JSON value to match.</param>
+        [Then(@"the property value should be (.*)")]
+        public void ThenThePropertyValueShouldBe(string value)
+        {
+            if (value != "undefined")
+            {
+                Assert.IsTrue(this.scenarioContext.ContainsKey(PropertyValueResult));
+                Assert.AreEqual(JsonAny.ParseUriValue(value), this.scenarioContext.Get<JsonAny>(PropertyValueResult));
+            }
+            else
+            {
+                Assert.IsFalse(this.scenarioContext.ContainsKey(PropertyValueResult));
+            }
         }
     }
 }
