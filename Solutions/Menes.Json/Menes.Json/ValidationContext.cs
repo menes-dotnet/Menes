@@ -62,12 +62,27 @@ namespace Menes.Json
         public bool IsValid { get; }
 
         /// <summary>
+        /// Gets the validation results.
+        /// </summary>
+        public ImmutableArray<ValidationResult> Results => this.results.HasValue ? this.results.Value : ImmutableArray<ValidationResult>.Empty;
+
+        /// <summary>
+        /// Use the results set.
+        /// </summary>
+        /// <returns>The validation context enabled with the keyword stack.</returns>
+        public ValidationContext UsingResults()
+        {
+            return new ValidationContext(this.IsValid, this.localEvaluatedItemIndex, this.localEvaluatedProperties, this.appliedEvaluatedItemIndex, this.appliedEvaluatedProperties, this.locationStack, this.absoluteKeywordLocationStack, this.results ?? ImmutableArray<ValidationResult>.Empty);
+        }
+
+        /// <summary>
         /// Use the keyword stack.
         /// </summary>
         /// <returns>The validation context enabled with the keyword stack.</returns>
+        /// <remarks>If you enable the keyword stack, this automatically enables results.</remarks>
         public ValidationContext UsingStack()
         {
-            return new ValidationContext(this.IsValid, this.localEvaluatedItemIndex, this.localEvaluatedProperties, this.appliedEvaluatedItemIndex, this.appliedEvaluatedProperties, this.locationStack ?? RootLocationStack, this.absoluteKeywordLocationStack ?? RootAbsoluteLocationStack, this.results);
+            return new ValidationContext(this.IsValid, this.localEvaluatedItemIndex, this.localEvaluatedProperties, this.appliedEvaluatedItemIndex, this.appliedEvaluatedProperties, this.locationStack ?? RootLocationStack, this.absoluteKeywordLocationStack ?? RootAbsoluteLocationStack, this.results ?? ImmutableArray<ValidationResult>.Empty);
         }
 
         /// <summary>
