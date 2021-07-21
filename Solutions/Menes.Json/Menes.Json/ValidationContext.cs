@@ -917,7 +917,7 @@ namespace Menes.Json
                     lep = lep.AddRange(Enumerable.Repeat(0UL, offset - lep.Length + 1));
                 }
 
-                lep = lep.SetItem(offset, lep[offset] | bit);
+                lep = lep.SetItem(offset, lep.ItemRef(offset) | bit);
                 return lep;
             }
 
@@ -936,7 +936,7 @@ namespace Menes.Json
                     lep = lep.AddRange(Enumerable.Repeat(0UL, offset - lep.Length + 1));
                 }
 
-                lep = lep.SetItem(offset, lep[offset] | bit);
+                lep = lep.SetItem(offset, lep.ItemRef(offset) | bit);
                 return lep;
             }
 
@@ -960,13 +960,13 @@ namespace Menes.Json
         /// <summary>
         ///  Merges the bitfields representing the items we have seen in the array.
         /// </summary>
-        private void ApplyBits(ImmutableArray<ulong>.Builder result, ImmutableArray<ulong> items)
+        private void ApplyBits(ImmutableArray<ulong>.Builder result, in ImmutableArray<ulong> items)
         {
             for (int i = 0; i < items.Length; ++i)
             {
                 if (i < result.Count)
                 {
-                    result[i] = result[i] | items[i];
+                    result[i] = result[i] | items.ItemRef(i);
                 }
                 else
                 {
