@@ -202,7 +202,410 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then(string.Format("the properties at [{0}] should not be evaluated", notEvaluatedIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 48
- testRunner.Then(string.Format("the properties at [{0}] should be evaluated", evaluatedIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.And(string.Format("the properties at [{0}] should be evaluated", evaluatedIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("With evaluated items")]
+        [NUnit.Framework.TestCaseAttribute("valid", "without results", "without a stack", "without evaluated properties", "without evaluated items", "1,2,3", "<none>", "0,1,2,3,4", null)]
+        [NUnit.Framework.TestCaseAttribute("valid", "without results", "without a stack", "without evaluated properties", "with evaluated items", "1,2,3", "1,2,3", "0,4", null)]
+        [NUnit.Framework.TestCaseAttribute("valid", "without results", "without a stack", "without evaluated properties", "with evaluated items", "66,129", "66,129", "0,1,2,3,4,63,64,65,67,68,126,127,128,130", null)]
+        [NUnit.Framework.TestCaseAttribute("valid", "without results", "without a stack", "without evaluated properties", "with evaluated items", "65536", "65536", "0,1,2,3,4,63,64,65,67,68,126,127,128,130,65535,262144", null)]
+        public virtual void WithEvaluatedItems(string validOrInvalid, string withOrWithoutResults, string withOrWithoutStack, string withOrWithoutEvaluatedProperties, string withOrWithoutEvaluatedItems, string evaluateIndices, string evaluatedIndices, string notEvaluatedIndices, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("validOrInvalid", validOrInvalid);
+            argumentsOfScenario.Add("withOrWithoutResults", withOrWithoutResults);
+            argumentsOfScenario.Add("withOrWithoutStack", withOrWithoutStack);
+            argumentsOfScenario.Add("withOrWithoutEvaluatedProperties", withOrWithoutEvaluatedProperties);
+            argumentsOfScenario.Add("withOrWithoutEvaluatedItems", withOrWithoutEvaluatedItems);
+            argumentsOfScenario.Add("evaluateIndices", evaluateIndices);
+            argumentsOfScenario.Add("evaluatedIndices", evaluatedIndices);
+            argumentsOfScenario.Add("notEvaluatedIndices", notEvaluatedIndices);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("With evaluated items", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 57
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 58
+ testRunner.Given(string.Format("a {0} validation context {1}, {2}, {3}, and {4}", validOrInvalid, withOrWithoutResults, withOrWithoutStack, withOrWithoutEvaluatedProperties, withOrWithoutEvaluatedItems), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 59
+ testRunner.When(string.Format("I evaluate the items at [{0}]", evaluateIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 60
+ testRunner.Then(string.Format("the items at [{0}] should not be evaluated", notEvaluatedIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 61
+ testRunner.And(string.Format("the items at [{0}] should be evaluated", evaluatedIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("With merged child context properties")]
+        [NUnit.Framework.TestCaseAttribute("valid", "without results", "without a stack", "without evaluated properties", "without evaluated items", "1,2,3", "<none>", "0,1,2,3,4", null)]
+        [NUnit.Framework.TestCaseAttribute("valid", "without results", "without a stack", "with evaluated properties", "without evaluated items", "1,2,3", "1,2,3", "0,4", null)]
+        [NUnit.Framework.TestCaseAttribute("valid", "without results", "without a stack", "with evaluated properties", "without evaluated items", "66,129", "66,129", "0,1,2,3,4,63,64,65,67,68,126,127,128,130", null)]
+        [NUnit.Framework.TestCaseAttribute("valid", "without results", "without a stack", "with evaluated properties", "without evaluated items", "65536", "65536", "0,1,2,3,4,63,64,65,67,68,126,127,128,130,65535,262144", null)]
+        public virtual void WithMergedChildContextProperties(string validOrInvalid, string withOrWithoutResults, string withOrWithoutStack, string withOrWithoutEvaluatedProperties, string withOrWithoutEvaluatedItems, string evaluateIndices, string evaluatedIndices, string notEvaluatedIndices, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("validOrInvalid", validOrInvalid);
+            argumentsOfScenario.Add("withOrWithoutResults", withOrWithoutResults);
+            argumentsOfScenario.Add("withOrWithoutStack", withOrWithoutStack);
+            argumentsOfScenario.Add("withOrWithoutEvaluatedProperties", withOrWithoutEvaluatedProperties);
+            argumentsOfScenario.Add("withOrWithoutEvaluatedItems", withOrWithoutEvaluatedItems);
+            argumentsOfScenario.Add("evaluateIndices", evaluateIndices);
+            argumentsOfScenario.Add("evaluatedIndices", evaluatedIndices);
+            argumentsOfScenario.Add("notEvaluatedIndices", notEvaluatedIndices);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("With merged child context properties", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 70
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 71
+ testRunner.Given(string.Format("a {0} validation context {1}, {2}, {3}, and {4}", validOrInvalid, withOrWithoutResults, withOrWithoutStack, withOrWithoutEvaluatedProperties, withOrWithoutEvaluatedItems), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 72
+ testRunner.When("I create a child context", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 73
+ testRunner.And(string.Format("I evaluate the properties at [{0}]", evaluateIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 74
+ testRunner.And("I merge the child context", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 75
+ testRunner.Then(string.Format("the properties at [{0}] should not be evaluated locally", notEvaluatedIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 76
+ testRunner.And(string.Format("the properties at [{0}] should not be evaluated locally", evaluatedIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 77
+ testRunner.And(string.Format("the properties at [{0}] should not be evaluated locally or applied", notEvaluatedIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 78
+ testRunner.And(string.Format("the properties at [{0}] should be evaluated locally or applied", evaluatedIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("With merged child context items")]
+        [NUnit.Framework.TestCaseAttribute("valid", "without results", "without a stack", "without evaluated properties", "without evaluated items", "1,2,3", "<none>", "0,1,2,3,4", null)]
+        [NUnit.Framework.TestCaseAttribute("valid", "without results", "without a stack", "without evaluated properties", "with evaluated items", "1,2,3", "1,2,3", "0,4", null)]
+        [NUnit.Framework.TestCaseAttribute("valid", "without results", "without a stack", "without evaluated properties", "with evaluated items", "66,129", "66,129", "0,1,2,3,4,63,64,65,67,68,126,127,128,130", null)]
+        [NUnit.Framework.TestCaseAttribute("valid", "without results", "without a stack", "without evaluated properties", "with evaluated items", "65536", "65536", "0,1,2,3,4,63,64,65,67,68,126,127,128,130,65535,262144", null)]
+        public virtual void WithMergedChildContextItems(string validOrInvalid, string withOrWithoutResults, string withOrWithoutStack, string withOrWithoutEvaluatedProperties, string withOrWithoutEvaluatedItems, string evaluateIndices, string evaluatedIndices, string notEvaluatedIndices, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("validOrInvalid", validOrInvalid);
+            argumentsOfScenario.Add("withOrWithoutResults", withOrWithoutResults);
+            argumentsOfScenario.Add("withOrWithoutStack", withOrWithoutStack);
+            argumentsOfScenario.Add("withOrWithoutEvaluatedProperties", withOrWithoutEvaluatedProperties);
+            argumentsOfScenario.Add("withOrWithoutEvaluatedItems", withOrWithoutEvaluatedItems);
+            argumentsOfScenario.Add("evaluateIndices", evaluateIndices);
+            argumentsOfScenario.Add("evaluatedIndices", evaluatedIndices);
+            argumentsOfScenario.Add("notEvaluatedIndices", notEvaluatedIndices);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("With merged child context items", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 87
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 88
+ testRunner.Given(string.Format("a {0} validation context {1}, {2}, {3}, and {4}", validOrInvalid, withOrWithoutResults, withOrWithoutStack, withOrWithoutEvaluatedProperties, withOrWithoutEvaluatedItems), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 89
+ testRunner.When("I create a child context", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 90
+ testRunner.And(string.Format("I evaluate the items at [{0}]", evaluateIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 91
+ testRunner.And("I merge the child context", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 92
+ testRunner.Then(string.Format("the items at [{0}] should not be evaluated locally", notEvaluatedIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 93
+ testRunner.And(string.Format("the items at [{0}] should not be evaluated locally", evaluatedIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 94
+ testRunner.And(string.Format("the items at [{0}] should not be evaluated locally or applied", notEvaluatedIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 95
+ testRunner.And(string.Format("the items at [{0}] should be evaluated locally or applied", evaluatedIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("With merged child context whose properties have been evaluated before merging")]
+        [NUnit.Framework.TestCaseAttribute("valid", "without results", "without a stack", "without evaluated properties", "without evaluated items", "1,2,3", "<none>", "0,1,2,3,4", null)]
+        [NUnit.Framework.TestCaseAttribute("valid", "without results", "without a stack", "with evaluated properties", "without evaluated items", "1,2,3", "1,2,3", "0,4", null)]
+        [NUnit.Framework.TestCaseAttribute("valid", "without results", "without a stack", "with evaluated properties", "without evaluated items", "66,129", "66,129", "0,1,2,3,4,63,64,65,67,68,126,127,128,130", null)]
+        [NUnit.Framework.TestCaseAttribute("valid", "without results", "without a stack", "with evaluated properties", "without evaluated items", "65536", "65536", "0,1,2,3,4,63,64,65,67,68,126,127,128,130,65535,262144", null)]
+        public virtual void WithMergedChildContextWhosePropertiesHaveBeenEvaluatedBeforeMerging(string validOrInvalid, string withOrWithoutResults, string withOrWithoutStack, string withOrWithoutEvaluatedProperties, string withOrWithoutEvaluatedItems, string evaluateIndices, string evaluatedIndices, string notEvaluatedIndices, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("validOrInvalid", validOrInvalid);
+            argumentsOfScenario.Add("withOrWithoutResults", withOrWithoutResults);
+            argumentsOfScenario.Add("withOrWithoutStack", withOrWithoutStack);
+            argumentsOfScenario.Add("withOrWithoutEvaluatedProperties", withOrWithoutEvaluatedProperties);
+            argumentsOfScenario.Add("withOrWithoutEvaluatedItems", withOrWithoutEvaluatedItems);
+            argumentsOfScenario.Add("evaluateIndices", evaluateIndices);
+            argumentsOfScenario.Add("evaluatedIndices", evaluatedIndices);
+            argumentsOfScenario.Add("notEvaluatedIndices", notEvaluatedIndices);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("With merged child context whose properties have been evaluated before merging", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 104
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 105
+ testRunner.Given(string.Format("a {0} validation context {1}, {2}, {3}, and {4}", validOrInvalid, withOrWithoutResults, withOrWithoutStack, withOrWithoutEvaluatedProperties, withOrWithoutEvaluatedItems), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 106
+ testRunner.And(string.Format("I evaluate the properties at [{0}]", evaluateIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 107
+ testRunner.When("I create a child context", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 108
+ testRunner.And("I merge the child context", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 109
+ testRunner.Then(string.Format("the properties at [{0}] should not be evaluated locally", notEvaluatedIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 110
+ testRunner.And(string.Format("the properties at [{0}] should be evaluated locally", evaluatedIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 111
+ testRunner.And(string.Format("the properties at [{0}] should not be evaluated locally or applied", notEvaluatedIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 112
+ testRunner.And(string.Format("the properties at [{0}] should be evaluated locally or applied", evaluatedIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("With merged child context whose items have been evaluated before merging")]
+        [NUnit.Framework.TestCaseAttribute("valid", "without results", "without a stack", "without evaluated properties", "without evaluated items", "1,2,3", "<none>", "0,1,2,3,4", null)]
+        [NUnit.Framework.TestCaseAttribute("valid", "without results", "without a stack", "without evaluated properties", "with evaluated items", "1,2,3", "1,2,3", "0,4", null)]
+        [NUnit.Framework.TestCaseAttribute("valid", "without results", "without a stack", "without evaluated properties", "with evaluated items", "66,129", "66,129", "0,1,2,3,4,63,64,65,67,68,126,127,128,130", null)]
+        [NUnit.Framework.TestCaseAttribute("valid", "without results", "without a stack", "without evaluated properties", "with evaluated items", "65536", "65536", "0,1,2,3,4,63,64,65,67,68,126,127,128,130,65535,262144", null)]
+        public virtual void WithMergedChildContextWhoseItemsHaveBeenEvaluatedBeforeMerging(string validOrInvalid, string withOrWithoutResults, string withOrWithoutStack, string withOrWithoutEvaluatedProperties, string withOrWithoutEvaluatedItems, string evaluateIndices, string evaluatedIndices, string notEvaluatedIndices, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("validOrInvalid", validOrInvalid);
+            argumentsOfScenario.Add("withOrWithoutResults", withOrWithoutResults);
+            argumentsOfScenario.Add("withOrWithoutStack", withOrWithoutStack);
+            argumentsOfScenario.Add("withOrWithoutEvaluatedProperties", withOrWithoutEvaluatedProperties);
+            argumentsOfScenario.Add("withOrWithoutEvaluatedItems", withOrWithoutEvaluatedItems);
+            argumentsOfScenario.Add("evaluateIndices", evaluateIndices);
+            argumentsOfScenario.Add("evaluatedIndices", evaluatedIndices);
+            argumentsOfScenario.Add("notEvaluatedIndices", notEvaluatedIndices);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("With merged child context whose items have been evaluated before merging", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 121
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 122
+ testRunner.Given(string.Format("a {0} validation context {1}, {2}, {3}, and {4}", validOrInvalid, withOrWithoutResults, withOrWithoutStack, withOrWithoutEvaluatedProperties, withOrWithoutEvaluatedItems), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 123
+ testRunner.And(string.Format("I evaluate the items at [{0}]", evaluateIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 124
+ testRunner.When("I create a child context", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 125
+ testRunner.And("I merge the child context", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 126
+ testRunner.Then(string.Format("the items at [{0}] should not be evaluated locally", notEvaluatedIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 127
+ testRunner.And(string.Format("the items at [{0}] should be evaluated locally", evaluatedIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 128
+ testRunner.And(string.Format("the items at [{0}] should not be evaluated locally or applied", notEvaluatedIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 129
+ testRunner.And(string.Format("the items at [{0}] should be evaluated locally or applied", evaluatedIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("With merged child context whose properties have been evaluated both before and af" +
+            "ter merging")]
+        [NUnit.Framework.TestCaseAttribute("valid", "without results", "without a stack", "without evaluated properties", "without evaluated items", "1,2,3", "4", "<none>", "0,1,2,3,4", "<none>", null)]
+        [NUnit.Framework.TestCaseAttribute("valid", "without results", "without a stack", "with evaluated properties", "without evaluated items", "1,2,3", "4", "1,2,3", "0", "4", null)]
+        [NUnit.Framework.TestCaseAttribute("valid", "without results", "without a stack", "with evaluated properties", "without evaluated items", "66,129", "4", "66,129", "0,1,2,3,63,64,65,67,68,126,127,128,130", "4", null)]
+        [NUnit.Framework.TestCaseAttribute("valid", "without results", "without a stack", "with evaluated properties", "without evaluated items", "65536", "4", "65536", "0,1,2,3,63,64,65,67,68,126,127,128,130,65535,262144", "4", null)]
+        public virtual void WithMergedChildContextWhosePropertiesHaveBeenEvaluatedBothBeforeAndAfterMerging(string validOrInvalid, string withOrWithoutResults, string withOrWithoutStack, string withOrWithoutEvaluatedProperties, string withOrWithoutEvaluatedItems, string evaluateIndices, string evaluateAfterIndices, string evaluatedIndices, string notEvaluatedIndices, string evaluatedAfterIndices, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("validOrInvalid", validOrInvalid);
+            argumentsOfScenario.Add("withOrWithoutResults", withOrWithoutResults);
+            argumentsOfScenario.Add("withOrWithoutStack", withOrWithoutStack);
+            argumentsOfScenario.Add("withOrWithoutEvaluatedProperties", withOrWithoutEvaluatedProperties);
+            argumentsOfScenario.Add("withOrWithoutEvaluatedItems", withOrWithoutEvaluatedItems);
+            argumentsOfScenario.Add("evaluateIndices", evaluateIndices);
+            argumentsOfScenario.Add("evaluateAfterIndices", evaluateAfterIndices);
+            argumentsOfScenario.Add("evaluatedIndices", evaluatedIndices);
+            argumentsOfScenario.Add("notEvaluatedIndices", notEvaluatedIndices);
+            argumentsOfScenario.Add("evaluatedAfterIndices", evaluatedAfterIndices);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("With merged child context whose properties have been evaluated both before and af" +
+                    "ter merging", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 138
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 139
+ testRunner.Given(string.Format("a {0} validation context {1}, {2}, {3}, and {4}", validOrInvalid, withOrWithoutResults, withOrWithoutStack, withOrWithoutEvaluatedProperties, withOrWithoutEvaluatedItems), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 140
+ testRunner.And(string.Format("I evaluate the properties at [{0}]", evaluateIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 141
+ testRunner.When("I create a child context", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 142
+ testRunner.And(string.Format("I evaluate the properties at [{0}]", evaluateAfterIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 143
+ testRunner.And("I merge the child context", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 144
+ testRunner.Then(string.Format("the properties at [{0}] should not be evaluated locally", notEvaluatedIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 145
+ testRunner.And(string.Format("the properties at [{0}] should be evaluated locally", evaluatedIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 146
+ testRunner.And(string.Format("the properties at [{0}] should not be evaluated locally", evaluatedAfterIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 147
+ testRunner.And(string.Format("the properties at [{0}] should not be evaluated locally or applied", notEvaluatedIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 148
+ testRunner.And(string.Format("the properties at [{0}] should be evaluated locally or applied", evaluatedIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 149
+ testRunner.And(string.Format("the properties at [{0}] should be evaluated locally or applied", evaluatedAfterIndices), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();

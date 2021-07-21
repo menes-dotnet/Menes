@@ -16,6 +16,7 @@ namespace Steps
     public class ValidationContextSteps
     {
         private const string ValidationContextKey = "ValidationContext";
+        private const string ParentValidationContextKey = "ParentValidationContext";
 
         private readonly ScenarioContext scenarioContext;
 
@@ -100,6 +101,7 @@ namespace Steps
         /// the propertiess in the given index array.
         /// </summary>
         /// <param name="propertyIndexArray">A string containing the comma separated list of property indices.</param>
+        [Given(@"I evaluate the properties at \[(.*)]")]
         [When(@"I evaluate the properties at \[(.*)]")]
         public void WhenIEvaluateThePropertiesAt(string propertyIndexArray)
         {
@@ -118,6 +120,7 @@ namespace Steps
         /// </summary>
         /// <param name="propertyIndexArray">A string containing the comma separated list of property indices.</param>
         [Then(@"the properties at \[(.*)] should not be evaluated")]
+        [Then(@"the properties at \[(.*)] should not be evaluated locally")]
         public void ThenThePropertiesAtShouldNotBeEvaluated(string propertyIndexArray)
         {
             if (propertyIndexArray == "<none>")
@@ -138,6 +141,7 @@ namespace Steps
         /// </summary>
         /// <param name="propertyIndexArray">A string containing the comma separated list of property indices.</param>
         [Then(@"the properties at \[(.*)] should be evaluated")]
+        [Then(@"the properties at \[(.*)] should be evaluated locally")]
         public void ThenThePropertiesAtShouldBeEvaluated(string propertyIndexArray)
         {
             if (propertyIndexArray == "<none>")
@@ -151,6 +155,181 @@ namespace Steps
             {
                 Assert.IsTrue(context.HasEvaluatedLocalProperty(int.Parse(propertyIndex)));
             }
+        }
+
+        /// <summary>
+        /// Validates that for the  <see cref="ValidationContext"/> stored in the context key <see cref="ValidationContextKey"/>, <see cref="ValidationContext.HasEvaluatedLocalProperty(int)"/> evaluates to false for the given indices in the array.
+        /// </summary>
+        /// <param name="propertyIndexArray">A string containing the comma separated list of property indices.</param>
+        [Then(@"the properties at \[(.*)] should not be evaluated locally or applied")]
+        public void ThenThePropertiesAtShouldNotBeEvaluatedLocallyOrApplied(string propertyIndexArray)
+        {
+            if (propertyIndexArray == "<none>")
+            {
+                return;
+            }
+
+            ValidationContext context = this.scenarioContext.Get<ValidationContext>(ValidationContextKey);
+
+            foreach (string propertyIndex in propertyIndexArray.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries))
+            {
+                Assert.IsFalse(context.HasEvaluatedLocalOrAppliedProperty(int.Parse(propertyIndex)));
+            }
+        }
+
+        /// <summary>
+        /// Validates that for the  <see cref="ValidationContext"/> stored in the context key <see cref="ValidationContextKey"/>, <see cref="ValidationContext.HasEvaluatedLocalProperty(int)"/> evaluates to false for the given indices in the array.
+        /// </summary>
+        /// <param name="propertyIndexArray">A string containing the comma separated list of property indices.</param>
+        [Then(@"the properties at \[(.*)] should be evaluated locally or applied")]
+        public void ThenThePropertiesAtShouldBeEvaluatedLocallyOrApplied(string propertyIndexArray)
+        {
+            if (propertyIndexArray == "<none>")
+            {
+                return;
+            }
+
+            ValidationContext context = this.scenarioContext.Get<ValidationContext>(ValidationContextKey);
+
+            foreach (string propertyIndex in propertyIndexArray.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries))
+            {
+                Assert.IsTrue(context.HasEvaluatedLocalOrAppliedProperty(int.Parse(propertyIndex)));
+            }
+        }
+
+        /// <summary>
+        /// Gets the <see cref="ValidationContext"/> stored in the context key <see cref="ValidationContextKey"/>, and uses <see cref="ValidationContext.WithLocalItemIndex(int)"/> to apply
+        /// the itemss in the given index array.
+        /// </summary>
+        /// <param name="itemIndexArray">A string containing the comma separated list of item indices.</param>
+        [Given(@"I evaluate the items at \[(.*)]")]
+        [When(@"I evaluate the items at \[(.*)]")]
+        public void WhenIEvaluateTheItemsAt(string itemIndexArray)
+        {
+            ValidationContext context = this.scenarioContext.Get<ValidationContext>(ValidationContextKey);
+
+            foreach (string itemIndex in itemIndexArray.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries))
+            {
+                context = context.WithLocalItemIndex(int.Parse(itemIndex));
+            }
+
+            this.scenarioContext.Set(context, ValidationContextKey);
+        }
+
+        /// <summary>
+        /// Validates that for the  <see cref="ValidationContext"/> stored in the context key <see cref="ValidationContextKey"/>, <see cref="ValidationContext.HasEvaluatedLocalItemIndex(int)"/> evaluates to false for the given indices in the array.
+        /// </summary>
+        /// <param name="itemIndexArray">A string containing the comma separated list of item indices.</param>
+        [Then(@"the items at \[(.*)] should not be evaluated")]
+        [Then(@"the items at \[(.*)] should not be evaluated locally")]
+        public void ThenTheItemsAtShouldNotBeEvaluated(string itemIndexArray)
+        {
+            if (itemIndexArray == "<none>")
+            {
+                return;
+            }
+
+            ValidationContext context = this.scenarioContext.Get<ValidationContext>(ValidationContextKey);
+
+            foreach (string itemIndex in itemIndexArray.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries))
+            {
+                Assert.IsFalse(context.HasEvaluatedLocalItemIndex(int.Parse(itemIndex)));
+            }
+        }
+
+        /// <summary>
+        /// Validates that for the  <see cref="ValidationContext"/> stored in the context key <see cref="ValidationContextKey"/>, <see cref="ValidationContext.HasEvaluatedLocalItemIndex(int)"/> evaluates to false for the given indices in the array.
+        /// </summary>
+        /// <param name="itemIndexArray">A string containing the comma separated list of item indices.</param>
+        [Then(@"the items at \[(.*)] should be evaluated")]
+        [Then(@"the items at \[(.*)] should be evaluated locally")]
+        public void ThenTheItemsAtShouldBeEvaluated(string itemIndexArray)
+        {
+            if (itemIndexArray == "<none>")
+            {
+                return;
+            }
+
+            ValidationContext context = this.scenarioContext.Get<ValidationContext>(ValidationContextKey);
+
+            foreach (string itemIndex in itemIndexArray.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries))
+            {
+                Assert.IsTrue(context.HasEvaluatedLocalItemIndex(int.Parse(itemIndex)));
+            }
+        }
+
+        /// <summary>
+        /// Validates that for the  <see cref="ValidationContext"/> stored in the context key <see cref="ValidationContextKey"/>, <see cref="ValidationContext.HasEvaluatedLocalItemIndex(int)"/> evaluates to false for the given indices in the array.
+        /// </summary>
+        /// <param name="itemIndexArray">A string containing the comma separated list of item indices.</param>
+        [Then(@"the items at \[(.*)] should not be evaluated locally or applied")]
+        public void ThenTheItemsAtShouldNotBeEvaluatedLocallyOrApplied(string itemIndexArray)
+        {
+            if (itemIndexArray == "<none>")
+            {
+                return;
+            }
+
+            ValidationContext context = this.scenarioContext.Get<ValidationContext>(ValidationContextKey);
+
+            foreach (string itemIndex in itemIndexArray.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries))
+            {
+                Assert.IsFalse(context.HasEvaluatedLocalOrAppliedItemIndex(int.Parse(itemIndex)));
+            }
+        }
+
+        /// <summary>
+        /// Validates that for the  <see cref="ValidationContext"/> stored in the context key <see cref="ValidationContextKey"/>, <see cref="ValidationContext.HasEvaluatedLocalItemIndex(int)"/> evaluates to false for the given indices in the array.
+        /// </summary>
+        /// <param name="itemIndexArray">A string containing the comma separated list of item indices.</param>
+        [Then(@"the items at \[(.*)] should be evaluated locally or applied")]
+        public void ThenTheItemsAtShouldBeEvaluatedLocallyOrApplied(string itemIndexArray)
+        {
+            if (itemIndexArray == "<none>")
+            {
+                return;
+            }
+
+            ValidationContext context = this.scenarioContext.Get<ValidationContext>(ValidationContextKey);
+
+            foreach (string itemIndex in itemIndexArray.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries))
+            {
+                Assert.IsTrue(context.HasEvaluatedLocalOrAppliedItemIndex(int.Parse(itemIndex)));
+            }
+        }
+
+        /// <summary>
+        /// Creates a child <see cref="ValidationContext"/> from that stored in the key <see cref="ValidationContextKey"/>, store the result in the <see cref="ValidationContextKey"/> and stores the original context in <see cref="ParentValidationContextKey"/>.
+        /// </summary>
+        [When(@"I create a child context")]
+        public void WhenICreateAChildContext()
+        {
+            ValidationContext parentContext = this.scenarioContext.Get<ValidationContext>(ValidationContextKey);
+            ValidationContext childContext = parentContext.CreateChildContext();
+            this.scenarioContext.Set(parentContext, ParentValidationContextKey);
+            this.scenarioContext.Set(childContext, ValidationContextKey);
+        }
+
+        /// <summary>
+        /// Get the child <see cref="ValidationContext"/> from the key <see cref="ValidationContextKey"/>, merges it into the context from the <see cref="ParentValidationContextKey"/> and stores the result in the <see cref="ValidationContextKey"/>.
+        /// </summary>
+        [When(@"I merge the child context including results")]
+        public void WhenIMergeTheChildContextIncludingResults()
+        {
+            ValidationContext parentContext = this.scenarioContext.Get<ValidationContext>(ParentValidationContextKey);
+            ValidationContext childContext = this.scenarioContext.Get<ValidationContext>(ValidationContextKey);
+            this.scenarioContext.Set(parentContext.MergeChildContext(childContext, true), ValidationContextKey);
+        }
+
+        /// <summary>
+        /// Get the child <see cref="ValidationContext"/> from the key <see cref="ValidationContextKey"/>, merges it into the context from the <see cref="ParentValidationContextKey"/> and stores the result in the <see cref="ValidationContextKey"/>.
+        /// </summary>
+        [When(@"I merge the child context")]
+        public void WhenIMergeTheChildContext()
+        {
+            ValidationContext parentContext = this.scenarioContext.Get<ValidationContext>(ParentValidationContextKey);
+            ValidationContext childContext = this.scenarioContext.Get<ValidationContext>(ValidationContextKey);
+            this.scenarioContext.Set(parentContext.MergeChildContext(childContext, false), ValidationContextKey);
         }
     }
 }

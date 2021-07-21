@@ -285,17 +285,6 @@ namespace Menes.Json
         }
 
         /// <summary>
-        /// Creates a child context from the current location.
-        /// </summary>
-        /// <param name="location">The location for the child context.</param>
-        /// <param name="absoluteKeywordLocation">The absolute keyword location for the child context.</param>
-        /// <returns>A new (valid) validation context with no evaluated items or properties, at the current location.</returns>
-        public ValidationContext CreateChildContext(string location, string absoluteKeywordLocation)
-        {
-            return new ValidationContext(this.IsValid, this.localEvaluatedItemIndex is null ? null : ImmutableArray.Create<ulong>(0), this.localEvaluatedProperties is null ? null : ImmutableArray.Create<ulong>(0), null, null, this.locationStack?.Push(location), this.absoluteKeywordLocationStack?.Push(absoluteKeywordLocation), null);
-        }
-
-        /// <summary>
         /// Merge the messages for a given set of results into this result,
         /// applying the given validity at the end, regardless of the individual
         /// validity of the results in the set.
@@ -961,24 +950,11 @@ namespace Menes.Json
                 return null;
             }
 
-            if (childContext.appliedEvaluatedItemIndex is not null || childContext.localEvaluatedItemIndex is not null)
-            {
-                ImmutableArray<ulong>.Builder result = ImmutableArray.CreateBuilder<ulong>();
-                result.AddRange(aeii);
-                if (childContext.appliedEvaluatedItemIndex is ImmutableArray<ulong> childaeii)
-                {
-                    this.ApplyBits(result, childaeii);
-                }
-
-                if (childContext.localEvaluatedItemIndex is  ImmutableArray<ulong> childleii)
-                {
-                    this.ApplyBits(result, childleii);
-                }
-
-                return result.ToImmutable();
-            }
-
-            return null;
+            ImmutableArray<ulong>.Builder result = ImmutableArray.CreateBuilder<ulong>();
+            result.AddRange(aeii);
+            this.ApplyBits(result, childContext.appliedEvaluatedItemIndex!.Value);
+            this.ApplyBits(result, childContext.localEvaluatedItemIndex!.Value);
+            return result.ToImmutable();
         }
 
         /// <summary>
@@ -1006,24 +982,11 @@ namespace Menes.Json
                 return null;
             }
 
-            if (childContext.appliedEvaluatedProperties is not null || childContext.localEvaluatedProperties is not null)
-            {
-                ImmutableArray<ulong>.Builder result = ImmutableArray.CreateBuilder<ulong>();
-                result.AddRange(aep);
-                if (childContext.appliedEvaluatedProperties is ImmutableArray<ulong> childaep)
-                {
-                    this.ApplyBits(result, childaep);
-                }
-
-                if (childContext.localEvaluatedProperties is ImmutableArray<ulong> childlep)
-                {
-                    this.ApplyBits(result, childlep);
-                }
-
-                return result.ToImmutable();
-            }
-
-            return null;
+            ImmutableArray<ulong>.Builder result = ImmutableArray.CreateBuilder<ulong>();
+            result.AddRange(aep);
+            this.ApplyBits(result, childContext.appliedEvaluatedProperties!.Value);
+            this.ApplyBits(result, childContext.localEvaluatedProperties!.Value);
+            return result.ToImmutable();
         }
     }
 }
