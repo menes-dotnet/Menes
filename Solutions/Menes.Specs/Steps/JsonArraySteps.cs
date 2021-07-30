@@ -5,7 +5,6 @@
 namespace Steps
 {
     using System;
-    using System.Text;
     using Menes.Json;
     using NUnit.Framework;
     using TechTalk.SpecFlow;
@@ -94,7 +93,7 @@ namespace Steps
         public void ThenTheItemAtShouldBeTheObject(int index, string expected)
         {
             JsonArray value = this.scenarioContext.Get<JsonArray>(ArrayValueResultkey);
-            Assert.AreEqual(JsonAny.ParseUriValue(expected), value.GetItem<JsonArray, JsonObject>(index));
+            Assert.AreEqual(JsonAny.ParseUriValue(expected), value.GetItem<JsonObject>(index));
         }
 
         /// <summary>
@@ -107,7 +106,7 @@ namespace Steps
         public void ThenTheItemAtShouldBeTheArray(int index, string expected)
         {
             JsonArray value = this.scenarioContext.Get<JsonArray>(ArrayValueResultkey);
-            Assert.AreEqual(JsonAny.ParseUriValue(expected), value.GetItem<JsonArray, JsonArray>(index));
+            Assert.AreEqual(JsonAny.ParseUriValue(expected), value.GetItem<JsonArray>(index));
         }
 
         /// <summary>
@@ -120,7 +119,7 @@ namespace Steps
         public void ThenTheItemAtShouldBeTheNumber(int index, string expected)
         {
             JsonArray value = this.scenarioContext.Get<JsonArray>(ArrayValueResultkey);
-            Assert.AreEqual(JsonAny.ParseUriValue(expected), value.GetItem<JsonArray, JsonNumber>(index));
+            Assert.AreEqual(JsonAny.ParseUriValue(expected), value.GetItem<JsonNumber>(index));
         }
 
         /// <summary>
@@ -133,7 +132,7 @@ namespace Steps
         public void ThenTheItemAtShouldBeTheBoolean(int index, string expected)
         {
             JsonArray value = this.scenarioContext.Get<JsonArray>(ArrayValueResultkey);
-            Assert.AreEqual(JsonAny.ParseUriValue(expected), value.GetItem<JsonArray, JsonBoolean>(index));
+            Assert.AreEqual(JsonAny.ParseUriValue(expected), value.GetItem<JsonBoolean>(index));
         }
 
         /// <summary>
@@ -146,7 +145,7 @@ namespace Steps
         public void ThenTheItemAtShouldBeTheString(int index, string expected)
         {
             JsonArray value = this.scenarioContext.Get<JsonArray>(ArrayValueResultkey);
-            Assert.AreEqual(JsonAny.ParseUriValue(expected), value.GetItem<JsonArray, JsonString>(index));
+            Assert.AreEqual(JsonAny.ParseUriValue(expected), value.GetItem<JsonString>(index));
         }
 
         /// <summary>
@@ -179,7 +178,7 @@ namespace Steps
         public void ThenTheItemInTheJsonAnyAtShouldBeTheObject(int index, string expected)
         {
             JsonAny value = this.scenarioContext.Get<JsonAny>(ArrayValueResultkey);
-            Assert.AreEqual(JsonAny.ParseUriValue(expected), value.GetItem<JsonAny, JsonObject>(index));
+            Assert.AreEqual(JsonAny.ParseUriValue(expected), value.GetItem<JsonObject>(index));
         }
 
         /// <summary>
@@ -192,7 +191,7 @@ namespace Steps
         public void ThenTheItemInTheJsonAnyAtShouldBeTheArray(int index, string expected)
         {
             JsonAny value = this.scenarioContext.Get<JsonArray>(ArrayValueResultkey);
-            Assert.AreEqual(JsonAny.ParseUriValue(expected), value.GetItem<JsonAny, JsonArray>(index));
+            Assert.AreEqual(JsonAny.ParseUriValue(expected), value.GetItem<JsonArray>(index));
         }
 
         /// <summary>
@@ -205,7 +204,7 @@ namespace Steps
         public void ThenTheItemInTheJsonAnyAtShouldBeTheNumber(int index, string expected)
         {
             JsonAny value = this.scenarioContext.Get<JsonAny>(ArrayValueResultkey);
-            Assert.AreEqual(JsonAny.ParseUriValue(expected), value.GetItem<JsonAny, JsonNumber>(index));
+            Assert.AreEqual(JsonAny.ParseUriValue(expected), value.GetItem<JsonNumber>(index));
         }
 
         /// <summary>
@@ -218,7 +217,7 @@ namespace Steps
         public void ThenTheItemInTheJsonAnyAtShouldBeTheBoolean(int index, string expected)
         {
             JsonAny value = this.scenarioContext.Get<JsonAny>(ArrayValueResultkey);
-            Assert.AreEqual(JsonAny.ParseUriValue(expected), value.GetItem<JsonAny, JsonBoolean>(index));
+            Assert.AreEqual(JsonAny.ParseUriValue(expected), value.GetItem<JsonBoolean>(index));
         }
 
         /// <summary>
@@ -231,7 +230,7 @@ namespace Steps
         public void ThenTheItemInTheJsonAnyAtShouldBeTheString(int index, string expected)
         {
             JsonAny value = this.scenarioContext.Get<JsonAny>(ArrayValueResultkey);
-            Assert.AreEqual(JsonAny.ParseUriValue(expected), value.GetItem<JsonAny, JsonString>(index));
+            Assert.AreEqual(JsonAny.ParseUriValue(expected), value.GetItem<JsonString>(index));
         }
 
         /// <summary>
@@ -264,7 +263,7 @@ namespace Steps
         public void ThenTheItemInTheJsonNotAnyAtShouldBeTheObject(int index, string expected)
         {
             JsonNotAny value = this.scenarioContext.Get<JsonNotAny>(ArrayValueResultkey);
-            Assert.AreEqual(JsonAny.ParseUriValue(expected), value.GetItem<JsonNotAny, JsonObject>(index));
+            Assert.AreEqual(JsonAny.ParseUriValue(expected), value.GetItem<JsonObject>(index));
         }
 
         /// <summary>
@@ -277,7 +276,7 @@ namespace Steps
         public void ThenTheItemInTheJsonNotAnyAtShouldBeTheArray(int index, string expected)
         {
             JsonNotAny value = this.scenarioContext.Get<JsonNotAny>(ArrayValueResultkey);
-            Assert.AreEqual(JsonAny.ParseUriValue(expected), value.GetItem<JsonNotAny, JsonNotAny>(index));
+            Assert.AreEqual(JsonAny.ParseUriValue(expected), value.GetItem<JsonNotAny>(index));
         }
 
         /// <summary>
@@ -290,7 +289,7 @@ namespace Steps
         public void ThenTheItemInTheJsonNotAnyAtShouldBeTheNumber(int index, string expected)
         {
             JsonNotAny value = this.scenarioContext.Get<JsonNotAny>(ArrayValueResultkey);
-            Assert.AreEqual(JsonAny.ParseUriValue(expected), value.GetItem<JsonNotAny, JsonNumber>(index));
+            Assert.AreEqual(JsonAny.ParseUriValue(expected), value.GetItem<JsonNumber>(index));
         }
 
         /// <summary>
@@ -303,7 +302,7 @@ namespace Steps
         public void ThenTheItemInTheJsonNotAnyAtShouldBeTheBoolean(int index, string expected)
         {
             JsonNotAny value = this.scenarioContext.Get<JsonNotAny>(ArrayValueResultkey);
-            Assert.AreEqual(JsonAny.ParseUriValue(expected), value.GetItem<JsonNotAny, JsonBoolean>(index));
+            Assert.AreEqual(JsonAny.ParseUriValue(expected), value.GetItem<JsonBoolean>(index));
         }
 
         /// <summary>
@@ -316,7 +315,7 @@ namespace Steps
         public void ThenTheItemInTheJsonNotAnyAtShouldBeTheString(int index, string expected)
         {
             JsonNotAny value = this.scenarioContext.Get<JsonNotAny>(ArrayValueResultkey);
-            Assert.AreEqual(JsonAny.ParseUriValue(expected), value.GetItem<JsonNotAny, JsonString>(index));
+            Assert.AreEqual(JsonAny.ParseUriValue(expected), value.GetItem<JsonString>(index));
         }
 
         /// <summary>
@@ -342,7 +341,81 @@ namespace Steps
         public void WhenISetTheItemInTheJsonNotAnyToTheValue(int index, string value)
         {
             JsonNotAny sut = this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest);
-            this.scenarioContext.Set(sut.SetItem(index, JsonAny.ParseUriValue(value)), ArrayValueResultkey);
+            try
+            {
+                this.scenarioContext.Set(sut.SetItem(index, JsonAny.ParseUriValue(value)), ArrayValueResultkey);
+            }
+            catch (Exception ex)
+            {
+                this.scenarioContext.Set(ex, ArrayExceptionKey);
+            }
+        }
+
+        /// <summary>
+        /// Checks the the entity in the context with key <see cref="ArrayExceptionKey"/> is an ArgumentOutOfRangeException.
+        /// </summary>
+        [Then(@"the array operation should produce an ArgumentOutOfRangeException")]
+        public void ThenTheArrayOperationShouldProduceAndArgumentOutOfRangeException()
+        {
+            Assert.IsTrue(this.scenarioContext.ContainsKey(ArrayExceptionKey));
+            Assert.IsAssignableFrom<ArgumentOutOfRangeException>(this.scenarioContext.Get<object>(ArrayExceptionKey));
+        }
+
+        /// <summary>
+        /// Gets the <see cref="JsonArray"/> from the context with key <see cref="JsonValueSteps.SubjectUnderTest"/>
+        /// and gets the item at the given index storing the result in <see cref="ArrayValueResultkey"/>.
+        /// </summary>
+        /// <param name="index">The index at which to get the item.</param>
+        [When(@"I get the JsonString in the JsonArray at index (.*)")]
+        public void WhenIGetTheItemInTheJsonArrayAtIndex(int index)
+        {
+            JsonArray sut = this.scenarioContext.Get<JsonArray>(JsonValueSteps.SubjectUnderTest);
+            try
+            {
+                this.scenarioContext.Set(sut.GetItem<JsonString>(index), ArrayValueResultkey);
+            }
+            catch (Exception ex)
+            {
+                this.scenarioContext.Set(ex, ArrayExceptionKey);
+            }
+        }
+
+        /// <summary>
+        /// Gets the <see cref="JsonAny"/> from the context with key <see cref="JsonValueSteps.SubjectUnderTest"/>
+        /// and gets the item at the given index storing the result in <see cref="ArrayValueResultkey"/>.
+        /// </summary>
+        /// <param name="index">The index at which to get the item.</param>
+        [When(@"I get the JsonString in the JsonAny at index (.*)")]
+        public void WhenIGetTheItemInTheJsonAnyAtIndex(int index)
+        {
+            JsonAny sut = this.scenarioContext.Get<JsonAny>(JsonValueSteps.SubjectUnderTest);
+            try
+            {
+                this.scenarioContext.Set(sut.GetItem<JsonString>(index), ArrayValueResultkey);
+            }
+            catch (Exception ex)
+            {
+                this.scenarioContext.Set(ex, ArrayExceptionKey);
+            }
+        }
+
+        /// <summary>
+        /// Gets the <see cref="JsonNotAny"/> from the context with key <see cref="JsonValueSteps.SubjectUnderTest"/>
+        /// and gets the item at the given index storing the result in <see cref="ArrayValueResultkey"/>.
+        /// </summary>
+        /// <param name="index">The index at which to get the item.</param>
+        [When(@"I get the JsonString in the JsonNotAny at index (.*)")]
+        public void WhenIGetTheItemInTheJsonNotAnyAtIndex(int index)
+        {
+            JsonNotAny sut = this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest);
+            try
+            {
+                this.scenarioContext.Set(sut.GetItem<JsonString>(index), ArrayValueResultkey);
+            }
+            catch (Exception ex)
+            {
+                this.scenarioContext.Set(ex, ArrayExceptionKey);
+            }
         }
     }
 }
