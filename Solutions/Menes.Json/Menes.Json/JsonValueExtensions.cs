@@ -48,6 +48,34 @@ namespace Menes.Json
         }
 
         /// <summary>
+        /// Gets the item at the given index in the array.
+        /// </summary>
+        /// <typeparam name="TArray">The type of the array.</typeparam>
+        /// <typeparam name="TItem">The type of the item to get.</typeparam>
+        /// <param name="value">The value to get.</param>
+        /// <param name="index">The index at which to get the item.</param>
+        /// <returns>The item at the index.</returns>
+        /// <exception cref="ArgumentOutOfRangeException">The <paramref name="index"/> was outside the bounds of the array.</exception>
+        public static TItem GetItem<TArray, TItem>(this TArray value, int index)
+            where TArray : struct, IJsonArray<TArray>
+            where TItem : struct, IJsonValue
+        {
+            int currentIndex = 0;
+            JsonArrayEnumerator enumerator = value.EnumerateArray();
+            while (enumerator.MoveNext())
+            {
+                if (currentIndex == index)
+                {
+                    return enumerator.CurrentAs<TItem>();
+                }
+
+                currentIndex++;
+            }
+
+            throw new ArgumentOutOfRangeException(nameof(index));
+        }
+
+        /// <summary>
         /// Convert from the source to the target type.
         /// </summary>
         /// <typeparam name="TSource">The source type.</typeparam>
