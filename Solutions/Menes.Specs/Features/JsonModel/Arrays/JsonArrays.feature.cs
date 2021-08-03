@@ -75,21 +75,23 @@ namespace Features.JsonModel.Arrays
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Remove items from a JsonElement backed JsonArray")]
-        [NUnit.Framework.TestCaseAttribute("JsonArray", "0", "[\"foo\", \"bar\", 3]", "\"bar\"", "JsonString", null)]
-        [NUnit.Framework.TestCaseAttribute("JsonAny", "0", "[\"foo\", \"bar\", 3]", "\"bar\"", "JsonString", null)]
-        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "0", "[\"foo\", \"bar\", 3]", "\"bar\"", "JsonString", null)]
-        [NUnit.Framework.TestCaseAttribute("JsonArray", "1", "[\"foo\", \"bar\", 3]", "3", "JsonNumber", null)]
-        [NUnit.Framework.TestCaseAttribute("JsonAny", "1", "[\"foo\", \"bar\", 3]", "3", "JsonNumber", null)]
-        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "1", "[\"foo\", \"bar\", 3]", "3", "JsonNumber", null)]
-        public virtual void RemoveItemsFromAJsonElementBackedJsonArray(string jsonValueType, string itemIndex, string value, string expectedValue, string expectedType, string[] exampleTags)
+        [NUnit.Framework.TestCaseAttribute("JsonArray", "0", "[\"foo\", \"bar\", 3]", "[\"bar\", 3]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "0", "[\"foo\", \"bar\", 3]", "[\"bar\", 3]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "0", "[\"foo\", \"bar\", 3]", "[\"bar\", 3]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonArray", "1", "[\"foo\", \"bar\", 3]", "[\"foo\", 3]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "1", "[\"foo\", \"bar\", 3]", "[\"foo\", 3]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "1", "[\"foo\", \"bar\", 3]", "[\"foo\", 3]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonArray", "2", "[\"foo\", \"bar\", 3]", "[\"foo\", \"bar\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "2", "[\"foo\", \"bar\", 3]", "[\"foo\", \"bar\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "2", "[\"foo\", \"bar\", 3]", "[\"foo\", \"bar\"]", null)]
+        public virtual void RemoveItemsFromAJsonElementBackedJsonArray(string jsonValueType, string itemIndex, string value, string result, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("jsonValueType", jsonValueType);
             argumentsOfScenario.Add("itemIndex", itemIndex);
             argumentsOfScenario.Add("value", value);
-            argumentsOfScenario.Add("expectedValue", expectedValue);
-            argumentsOfScenario.Add("expectedType", expectedType);
+            argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Remove items from a JsonElement backed JsonArray", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 4
 this.ScenarioInitialize(scenarioInfo);
@@ -112,41 +114,33 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 5
- testRunner.Given(string.Format("the JsonElement backed {0}  {1}", jsonValueType, value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given(string.Format("the JsonElement backed {0} {1}", jsonValueType, value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 6
  testRunner.When(string.Format("I remove the item at index {0} from the {1}", itemIndex, jsonValueType), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 7
- testRunner.Then(string.Format("the item in the {0} at index {1} should be {2} of type {3}", jsonValueType, itemIndex, expectedValue, expectedType), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then(string.Format("the {0} should equal {1}", jsonValueType, result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Set items to JsonElement backed JsonArray")]
-        [NUnit.Framework.TestCaseAttribute("JsonArray", "0", "[\"foo\", \"bar\", 3]", "\"baz\"", "\"baz\"", "JsonString", null)]
-        [NUnit.Framework.TestCaseAttribute("JsonAny", "0", "[\"foo\", \"bar\", 3]", "\"baz\"", "\"baz\"", "JsonString", null)]
-        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "0", "[\"foo\", \"bar\", 3]", "\"baz\"", "\"baz\"", "JsonString", null)]
-        [NUnit.Framework.TestCaseAttribute("JsonArray", "1", "[\"foo\", \"bar\", 3]", "\"baz\"", "\"baz\"", "JsonString", null)]
-        [NUnit.Framework.TestCaseAttribute("JsonAny", "1", "[\"foo\", \"bar\", 3]", "\"baz\"", "\"baz\"", "JsonString", null)]
-        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "1", "[\"foo\", \"bar\", 3]", "\"baz\"", "\"baz\"", "JsonString", null)]
-        [NUnit.Framework.TestCaseAttribute("JsonArray", "2", "[\"foo\", \"bar\", 3]", "\"baz\"", "\"baz\"", "JsonString", null)]
-        [NUnit.Framework.TestCaseAttribute("JsonAny", "2", "[\"foo\", \"bar\", 3]", "\"baz\"", "\"baz\"", "JsonString", null)]
-        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "2", "[\"foo\", \"bar\", 3]", "\"baz\"", "\"baz\"", "JsonString", null)]
-        public virtual void SetItemsToJsonElementBackedJsonArray(string jsonValueType, string itemIndex, string value, string itemValue, string expectedValue, string expectedType, string[] exampleTags)
+        [NUnit.Framework.DescriptionAttribute("Add items to a JsonElement backed JsonArray")]
+        [NUnit.Framework.TestCaseAttribute("JsonArray", "\"baz\"", "[\"foo\", \"bar\", 3]", "[\"foo\", \"bar\", 3, \"baz\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "\"baz\"", "[\"foo\", \"bar\", 3]", "[\"foo\", \"bar\", 3, \"baz\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "\"baz\"", "[\"foo\", \"bar\", 3]", "[\"foo\", \"bar\", 3, \"baz\"]", null)]
+        public virtual void AddItemsToAJsonElementBackedJsonArray(string jsonValueType, string newValue, string value, string result, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             argumentsOfScenario.Add("jsonValueType", jsonValueType);
-            argumentsOfScenario.Add("itemIndex", itemIndex);
+            argumentsOfScenario.Add("newValue", newValue);
             argumentsOfScenario.Add("value", value);
-            argumentsOfScenario.Add("itemValue", itemValue);
-            argumentsOfScenario.Add("expectedValue", expectedValue);
-            argumentsOfScenario.Add("expectedType", expectedType);
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Set items to JsonElement backed JsonArray", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 18
+            argumentsOfScenario.Add("result", result);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add items to a JsonElement backed JsonArray", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 21
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -166,14 +160,68 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 19
+#line 22
  testRunner.Given(string.Format("the JsonElement backed {0} {1}", jsonValueType, value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 20
+#line 23
+ testRunner.When(string.Format("I add the item {0} to the {1}", newValue, jsonValueType), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 24
+ testRunner.Then(string.Format("the {0} should equal {1}", jsonValueType, result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Set items to JsonElement backed JsonArray")]
+        [NUnit.Framework.TestCaseAttribute("JsonArray", "0", "[\"foo\", \"bar\", 3]", "\"baz\"", "[\"baz\", \"bar\", 3]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "0", "[\"foo\", \"bar\", 3]", "\"baz\"", "[\"baz\", \"bar\", 3]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "0", "[\"foo\", \"bar\", 3]", "\"baz\"", "[\"baz\", \"bar\", 3]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonArray", "1", "[\"foo\", \"bar\", 3]", "\"baz\"", "[\"foo\", \"baz\", 3]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "1", "[\"foo\", \"bar\", 3]", "\"baz\"", "[\"foo\", \"baz\", 3]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "1", "[\"foo\", \"bar\", 3]", "\"baz\"", "[\"foo\", \"baz\", 3]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonArray", "2", "[\"foo\", \"bar\", 3]", "\"baz\"", "[\"foo\", \"bar\", \"baz\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "2", "[\"foo\", \"bar\", 3]", "\"baz\"", "[\"foo\", \"bar\", \"baz\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "2", "[\"foo\", \"bar\", 3]", "\"baz\"", "[\"foo\", \"bar\", \"baz\"]", null)]
+        public virtual void SetItemsToJsonElementBackedJsonArray(string jsonValueType, string itemIndex, string value, string itemValue, string result, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("jsonValueType", jsonValueType);
+            argumentsOfScenario.Add("itemIndex", itemIndex);
+            argumentsOfScenario.Add("value", value);
+            argumentsOfScenario.Add("itemValue", itemValue);
+            argumentsOfScenario.Add("result", result);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Set items to JsonElement backed JsonArray", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 32
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 33
+ testRunner.Given(string.Format("the JsonElement backed {0} {1}", jsonValueType, value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 34
  testRunner.When(string.Format("I set the item in the {0} at index {1} to the value {2}", jsonValueType, itemIndex, itemValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 21
- testRunner.Then(string.Format("the item in the {0} at index {1} should be {2} of type {3}", jsonValueType, itemIndex, expectedValue, expectedType), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 35
+ testRunner.Then(string.Format("the {0} should equal {1}", jsonValueType, result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -192,7 +240,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("itemIndex", itemIndex);
             argumentsOfScenario.Add("value", value);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Remove items from a JsonElement backed JsonArray where the index is out of range", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 36
+#line 49
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -212,13 +260,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 37
+#line 50
  testRunner.Given(string.Format("the JsonElement backed {0}  {1}", jsonValueType, value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 38
+#line 51
  testRunner.When(string.Format("I remove the item at index {0} from the {1}", itemIndex, jsonValueType), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 39
+#line 52
  testRunner.Then("the array operation should produce an ArgumentOutOfRangeException", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -239,7 +287,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("itemValue", itemValue);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Set items to JsonElement backed JsonArray where the index is out of range", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 47
+#line 60
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -259,14 +307,68 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 48
+#line 61
  testRunner.Given(string.Format("the JsonElement backed {0} {1}", jsonValueType, value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 49
+#line 62
  testRunner.When(string.Format("I set the item in the {0} at index {1} to the value {2}", jsonValueType, itemIndex, itemValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 50
+#line 63
  testRunner.Then("the array operation should produce an ArgumentOutOfRangeException", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Get items from a JsonElement backed JsonArray")]
+        [NUnit.Framework.TestCaseAttribute("JsonArray", "0", "[\"foo\", \"bar\", 3]", "JsonString", "\"foo\"", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "0", "[\"foo\", \"bar\", 3]", "JsonString", "\"foo\"", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "0", "[\"foo\", \"bar\", 3]", "JsonString", "\"foo\"", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonArray", "1", "[\"foo\", \"bar\", 3]", "JsonString", "\"bar\"", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "1", "[\"foo\", \"bar\", 3]", "JsonString", "\"bar\"", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "1", "[\"foo\", \"bar\", 3]", "JsonString", "\"bar\"", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonArray", "2", "[\"foo\", \"bar\", 3]", "JsonNumber", "3", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "2", "[\"foo\", \"bar\", 3]", "JsonNumber", "3", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "2", "[\"foo\", \"bar\", 3]", "JsonNumber", "3", null)]
+        public virtual void GetItemsFromAJsonElementBackedJsonArray(string jsonValueType, string itemIndex, string value, string itemType, string expectedValue, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("jsonValueType", jsonValueType);
+            argumentsOfScenario.Add("itemIndex", itemIndex);
+            argumentsOfScenario.Add("value", value);
+            argumentsOfScenario.Add("itemType", itemType);
+            argumentsOfScenario.Add("expectedValue", expectedValue);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get items from a JsonElement backed JsonArray", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 71
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 72
+ testRunner.Given(string.Format("the JsonElement backed {0} {1}", jsonValueType, value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 73
+ testRunner.When(string.Format("I get the {0} in the {1} at index {2}", itemType, jsonValueType, itemIndex), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 74
+ testRunner.Then(string.Format("the {0} should equal {1}", itemType, expectedValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -286,7 +388,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("itemType", itemType);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get items from a JsonElement backed JsonArray where the index is out of range", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 58
+#line 88
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -306,14 +408,125 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 59
+#line 89
  testRunner.Given(string.Format("the JsonElement backed {0} {1}", jsonValueType, value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 60
+#line 90
  testRunner.When(string.Format("I get the {0} in the {1} at index {2}", itemType, jsonValueType, itemIndex), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 61
+#line 91
  testRunner.Then("the array operation should produce an ArgumentOutOfRangeException", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Insert items into JsonElement backed JsonArray")]
+        [NUnit.Framework.TestCaseAttribute("JsonArray", "0", "[\"foo\", \"bar\", 3]", "\"baz\"", "[\"baz\", \"foo\", \"bar\", 3]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "0", "[\"foo\", \"bar\", 3]", "\"baz\"", "[\"baz\", \"foo\", \"bar\", 3]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "0", "[\"foo\", \"bar\", 3]", "\"baz\"", "[\"baz\", \"foo\", \"bar\", 3]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonArray", "1", "[\"foo\", \"bar\", 3]", "\"baz\"", "[\"foo\", \"baz\", \"bar\", 3]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "1", "[\"foo\", \"bar\", 3]", "\"baz\"", "[\"foo\", \"baz\", \"bar\", 3]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "1", "[\"foo\", \"bar\", 3]", "\"baz\"", "[\"foo\", \"baz\", \"bar\", 3]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonArray", "2", "[\"foo\", \"bar\", 3]", "\"baz\"", "[\"foo\", \"bar\", \"baz\", 3]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "2", "[\"foo\", \"bar\", 3]", "\"baz\"", "[\"foo\", \"bar\", \"baz\", 3]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "2", "[\"foo\", \"bar\", 3]", "\"baz\"", "[\"foo\", \"bar\", \"baz\", 3]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonArray", "3", "[\"foo\", \"bar\", 3]", "\"baz\"", "[\"foo\", \"bar\", 3, \"baz\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "3", "[\"foo\", \"bar\", 3]", "\"baz\"", "[\"foo\", \"bar\", 3, \"baz\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "3", "[\"foo\", \"bar\", 3]", "\"baz\"", "[\"foo\", \"bar\", 3, \"baz\"]", null)]
+        public virtual void InsertItemsIntoJsonElementBackedJsonArray(string jsonValueType, string itemIndex, string value, string itemValue, string result, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("jsonValueType", jsonValueType);
+            argumentsOfScenario.Add("itemIndex", itemIndex);
+            argumentsOfScenario.Add("value", value);
+            argumentsOfScenario.Add("itemValue", itemValue);
+            argumentsOfScenario.Add("result", result);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Insert items into JsonElement backed JsonArray", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 99
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 100
+ testRunner.Given(string.Format("the JsonElement backed {0} {1}", jsonValueType, value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 101
+ testRunner.When(string.Format("I insert the item {0} in the {1} at index {2}", itemValue, jsonValueType, itemIndex), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 102
+ testRunner.Then(string.Format("the {0} should equal {1}", jsonValueType, result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Replace items in a JsonElement backed JsonArray")]
+        [NUnit.Framework.TestCaseAttribute("JsonArray", "[\"foo\", \"bar\", 3]", "\"foo\"", "\"baz\"", "[\"baz\", \"bar\", 3]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "[\"foo\", \"bar\", 3]", "\"foo\"", "\"baz\"", "[\"baz\", \"bar\", 3]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "[\"foo\", \"bar\", 3]", "\"foo\"", "\"baz\"", "[\"baz\", \"bar\", 3]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonArray", "[\"foo\", \"bar\", 3]", "\"bar\"", "\"baz\"", "[\"foo\", \"baz\", 3]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "[\"foo\", \"bar\", 3]", "\"bar\"", "\"baz\"", "[\"foo\", \"baz\", 3]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "[\"foo\", \"bar\", 3]", "\"bar\"", "\"baz\"", "[\"foo\", \"baz\", 3]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonArray", "[\"foo\", \"bar\", 3]", "3", "\"baz\"", "[\"foo\", \"bar\", \"baz\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonAny", "[\"foo\", \"bar\", 3]", "3", "\"baz\"", "[\"foo\", \"bar\", \"baz\"]", null)]
+        [NUnit.Framework.TestCaseAttribute("JsonNotAny", "[\"foo\", \"bar\", 3]", "3", "\"baz\"", "[\"foo\", \"bar\", \"baz\"]", null)]
+        public virtual void ReplaceItemsInAJsonElementBackedJsonArray(string jsonValueType, string value, string oldValue, string newValue, string result, string[] exampleTags)
+        {
+            string[] tagsOfScenario = exampleTags;
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("jsonValueType", jsonValueType);
+            argumentsOfScenario.Add("value", value);
+            argumentsOfScenario.Add("oldValue", oldValue);
+            argumentsOfScenario.Add("newValue", newValue);
+            argumentsOfScenario.Add("result", result);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Replace items in a JsonElement backed JsonArray", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 119
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 120
+ testRunner.Given(string.Format("the JsonElement backed {0} {1}", jsonValueType, value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 121
+ testRunner.When(string.Format("I replace the item {0} in the {1} with the value {2}", oldValue, jsonValueType, newValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 122
+ testRunner.Then(string.Format("the {0} should equal {1}", jsonValueType, result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

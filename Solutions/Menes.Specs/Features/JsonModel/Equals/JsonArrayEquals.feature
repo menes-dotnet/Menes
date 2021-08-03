@@ -10,6 +10,8 @@ Scenario Outline: Equals for json element backed value as an array
 	Examples:
 		| jsonValue | value     | result |
 		| [1,"2",3] | [1,"2",3] | true   |
+		| [1,"2"]   | [1,"2",3] | false  |
+		| [1,"2",3] | [1,"2"]   | false  |
 		| [1,"2",3] | [3,"2",1] | false  |
 		| [1,"2",3] | [1,2,3]   | false  |
 		| []        | []        | true   |
@@ -25,6 +27,8 @@ Scenario Outline: Equals for dotnet backed value as an array
 	Examples:
 		| jsonValue | value     | result |
 		| [1,"2",3] | [1,"2",3] | true   |
+		| [1,"2"]   | [1,"2",3] | false  |
+		| [1,"2",3] | [1,"2"]   | false  |
 		| [1,"2",3] | [3,"2",1] | false  |
 		| [1,"2",3] | [1,2,3]   | false  |
 		| []        | []        | true   |

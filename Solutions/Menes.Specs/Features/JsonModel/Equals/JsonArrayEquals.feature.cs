@@ -76,6 +76,8 @@ namespace Features.JsonModel.Equals
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Equals for json element backed value as an array")]
         [NUnit.Framework.TestCaseAttribute("[1,\"2\",3]", "[1,\"2\",3]", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("[1,\"2\"]", "[1,\"2\",3]", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("[1,\"2\",3]", "[1,\"2\"]", "false", null)]
         [NUnit.Framework.TestCaseAttribute("[1,\"2\",3]", "[3,\"2\",1]", "false", null)]
         [NUnit.Framework.TestCaseAttribute("[1,\"2\",3]", "[1,2,3]", "false", null)]
         [NUnit.Framework.TestCaseAttribute("[]", "[]", "true", null)]
@@ -126,6 +128,8 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Equals for dotnet backed value as an array")]
         [NUnit.Framework.TestCaseAttribute("[1,\"2\",3]", "[1,\"2\",3]", "true", null)]
+        [NUnit.Framework.TestCaseAttribute("[1,\"2\"]", "[1,\"2\",3]", "false", null)]
+        [NUnit.Framework.TestCaseAttribute("[1,\"2\",3]", "[1,\"2\"]", "false", null)]
         [NUnit.Framework.TestCaseAttribute("[1,\"2\",3]", "[3,\"2\",1]", "false", null)]
         [NUnit.Framework.TestCaseAttribute("[1,\"2\",3]", "[1,2,3]", "false", null)]
         [NUnit.Framework.TestCaseAttribute("[]", "[]", "true", null)]
@@ -138,7 +142,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for dotnet backed value as an array", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 20
+#line 22
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -158,13 +162,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 21
+#line 23
  testRunner.Given(string.Format("the dotnet backed JsonArray {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 22
+#line 24
  testRunner.When(string.Format("I compare it to the array {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 23
+#line 25
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -198,7 +202,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for array json element backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 33
+#line 37
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -218,13 +222,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 34
+#line 38
  testRunner.Given(string.Format("the JsonElement backed JsonArray {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 35
+#line 39
  testRunner.When(string.Format("I compare the array to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 36
+#line 40
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -258,7 +262,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for array dotnet backed value as an IJsonValue", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 58
+#line 62
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -278,13 +282,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 59
+#line 63
  testRunner.Given(string.Format("the dotnet backed JsonArray {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 60
+#line 64
  testRunner.When(string.Format("I compare the array to the IJsonValue {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 61
+#line 65
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -318,7 +322,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for array json element backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 83
+#line 87
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -338,13 +342,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 84
+#line 88
  testRunner.Given(string.Format("the JsonElement backed JsonArray {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 85
+#line 89
  testRunner.When(string.Format("I compare the array to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 86
+#line 90
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -385,7 +389,7 @@ this.ScenarioInitialize(scenarioInfo);
             argumentsOfScenario.Add("value", value);
             argumentsOfScenario.Add("result", result);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Equals for array dotnet backed value as an object", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 108
+#line 112
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -405,13 +409,13 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 109
+#line 113
  testRunner.Given(string.Format("the dotnet backed JsonArray {0}", jsonValue), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 110
+#line 114
  testRunner.When(string.Format("I compare the array to the object {0}", value), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 111
+#line 115
  testRunner.Then(string.Format("the result should be {0}", result), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

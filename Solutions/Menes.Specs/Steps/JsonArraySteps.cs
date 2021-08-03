@@ -417,5 +417,242 @@ namespace Steps
                 this.scenarioContext.Set(ex, ArrayExceptionKey);
             }
         }
+
+        /// <summary>
+        /// Gets the <see cref="JsonArray"/> from the context with key <see cref="JsonValueSteps.SubjectUnderTest"/>,
+        /// inserts the item at the given index storing the result in <see cref="ArrayValueResultkey"/>.
+        /// </summary>
+        /// <param name="value">The serialized value to insert.</param>
+        /// <param name="index">The index at which to get the item.</param>
+        [When(@"I insert the item (.*) in the JsonArray at index (.*)")]
+        public void WhenIInsertTheItemInTheJsonArrayAtIndex(string value, int index)
+        {
+            JsonArray sut = this.scenarioContext.Get<JsonArray>(JsonValueSteps.SubjectUnderTest);
+            try
+            {
+                this.scenarioContext.Set(sut.Insert(index, JsonAny.ParseUriValue(value)), ArrayValueResultkey);
+            }
+            catch (Exception ex)
+            {
+                this.scenarioContext.Set(ex, ArrayExceptionKey);
+            }
+        }
+
+        /// <summary>
+        /// Gets the <see cref="JsonArray"/> from the context with key <see cref="JsonValueSteps.SubjectUnderTest"/>,
+        /// replaces the item with the given value, storing the result in <see cref="ArrayValueResultkey"/>.
+        /// </summary>
+        /// <param name="oldValue">The serialized value to replace.</param>
+        /// <param name="newValue">The serialized replacement value.</param>
+        [When(@"I replace the item (.*) in the JsonArray with the value (.*)")]
+        public void WhenIReplaceTheItemInTheJsonArrayAtIndex(string oldValue, string newValue)
+        {
+            JsonArray sut = this.scenarioContext.Get<JsonArray>(JsonValueSteps.SubjectUnderTest);
+            try
+            {
+                this.scenarioContext.Set(sut.Replace(JsonAny.ParseUriValue(oldValue), JsonAny.ParseUriValue(newValue)), ArrayValueResultkey);
+            }
+            catch (Exception ex)
+            {
+                this.scenarioContext.Set(ex, ArrayExceptionKey);
+            }
+        }
+
+        /// <summary>
+        /// Gets the <see cref="JsonArray"/> from the context with key <see cref="ArrayValueResultkey"/>
+        /// and compares it to the expected value.
+        /// </summary>
+        /// <param name="expected">The serialized value.</param>
+        [Then(@"the JsonArray should equal (.*)")]
+        public void ThenTheJsonArrayShouldEqual(string expected)
+        {
+            JsonArray actual = this.scenarioContext.Get<JsonArray>(ArrayValueResultkey);
+            Assert.AreEqual(JsonAny.ParseUriValue(expected), actual);
+        }
+
+        /// <summary>
+        /// Gets the <see cref="JsonAny"/> from the context with key <see cref="JsonValueSteps.SubjectUnderTest"/>,
+        /// inserts the item at the given index storing the result in <see cref="ArrayValueResultkey"/>.
+        /// </summary>
+        /// <param name="value">The serialized value to insert.</param>
+        /// <param name="index">The index at which to get the item.</param>
+        [When(@"I insert the item (.*) in the JsonAny at index (.*)")]
+        public void WhenIInsertTheItemInTheJsonAnyAtIndex(string value, int index)
+        {
+            JsonAny sut = this.scenarioContext.Get<JsonAny>(JsonValueSteps.SubjectUnderTest);
+            try
+            {
+                this.scenarioContext.Set(sut.Insert(index, JsonAny.ParseUriValue(value)), ArrayValueResultkey);
+            }
+            catch (Exception ex)
+            {
+                this.scenarioContext.Set(ex, ArrayExceptionKey);
+            }
+        }
+
+        /// <summary>
+        /// Gets the <see cref="JsonAny"/> from the context with key <see cref="JsonValueSteps.SubjectUnderTest"/>,
+        /// replaces the item with the given value, storing the result in <see cref="ArrayValueResultkey"/>.
+        /// </summary>
+        /// <param name="oldValue">The serialized value to replace.</param>
+        /// <param name="newValue">The serialized replacement value.</param>
+        [When(@"I replace the item (.*) in the JsonAny with the value (.*)")]
+        public void WhenIReplaceTheItemInTheJsonAnyAtIndex(string oldValue, string newValue)
+        {
+            JsonAny sut = this.scenarioContext.Get<JsonAny>(JsonValueSteps.SubjectUnderTest);
+            try
+            {
+                this.scenarioContext.Set(sut.Replace(JsonAny.ParseUriValue(oldValue), JsonAny.ParseUriValue(newValue)), ArrayValueResultkey);
+            }
+            catch (Exception ex)
+            {
+                this.scenarioContext.Set(ex, ArrayExceptionKey);
+            }
+        }
+
+        /// <summary>
+        /// Gets the <see cref="JsonAny"/> from the context with key <see cref="ArrayValueResultkey"/>
+        /// and compares it to the expected value.
+        /// </summary>
+        /// <param name="expected">The serialized value.</param>
+        [Then(@"the JsonAny should equal (.*)")]
+        public void ThenTheJsonAnyShouldEqual(string expected)
+        {
+            JsonAny actual = this.scenarioContext.Get<JsonAny>(ArrayValueResultkey);
+            Assert.AreEqual(JsonAny.ParseUriValue(expected), actual);
+        }
+
+        /// <summary>
+        /// Gets the <see cref="JsonString"/> from the context with key <see cref="ArrayValueResultkey"/>
+        /// and compares it to the expected value.
+        /// </summary>
+        /// <param name="expected">The serialized value.</param>
+        [Then(@"the JsonString should equal (.*)")]
+        public void ThenTheJsonStringShouldEqual(string expected)
+        {
+            JsonAny actual = this.scenarioContext.Get<JsonString>(ArrayValueResultkey);
+            Assert.AreEqual(JsonAny.ParseUriValue(expected), actual);
+        }
+
+        /// <summary>
+        /// Gets the <see cref="JsonNumber"/> from the context with key <see cref="ArrayValueResultkey"/>
+        /// and compares it to the expected value.
+        /// </summary>
+        /// <param name="expected">The serialized value.</param>
+        [Then(@"the JsonNumber should equal (.*)")]
+        public void ThenTheJsonNumberShouldEqual(string expected)
+        {
+            JsonAny actual = this.scenarioContext.Get<JsonNumber>(ArrayValueResultkey);
+            Assert.AreEqual(JsonAny.ParseUriValue(expected), actual);
+        }
+
+        /// <summary>
+        /// Gets the <see cref="JsonNotAny"/> from the context with key <see cref="JsonValueSteps.SubjectUnderTest"/>,
+        /// inserts the item at the given index storing the result in <see cref="ArrayValueResultkey"/>.
+        /// </summary>
+        /// <param name="value">The serialized value to insert.</param>
+        /// <param name="index">The index at which to get the item.</param>
+        [When(@"I insert the item (.*) in the JsonNotAny at index (.*)")]
+        public void WhenIInsertTheItemInTheJsonNotAnyAtIndex(string value, int index)
+        {
+            JsonNotAny sut = this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest);
+            try
+            {
+                this.scenarioContext.Set(sut.Insert(index, JsonAny.ParseUriValue(value)), ArrayValueResultkey);
+            }
+            catch (Exception ex)
+            {
+                this.scenarioContext.Set(ex, ArrayExceptionKey);
+            }
+        }
+
+        /// <summary>
+        /// Gets the <see cref="JsonNotAny"/> from the context with key <see cref="JsonValueSteps.SubjectUnderTest"/>,
+        /// replaces the item with the given value, storing the result in <see cref="ArrayValueResultkey"/>.
+        /// </summary>
+        /// <param name="oldValue">The serialized value to replace.</param>
+        /// <param name="newValue">The serialized replacement value.</param>
+        [When(@"I replace the item (.*) in the JsonNotAny with the value (.*)")]
+        public void WhenIReplaceTheItemInTheJsonNotAnyAtIndex(string oldValue, string newValue)
+        {
+            JsonNotAny sut = this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest);
+            try
+            {
+                this.scenarioContext.Set(sut.Replace(JsonAny.ParseUriValue(oldValue), JsonAny.ParseUriValue(newValue)), ArrayValueResultkey);
+            }
+            catch (Exception ex)
+            {
+                this.scenarioContext.Set(ex, ArrayExceptionKey);
+            }
+        }
+
+        /// <summary>
+        /// Gets the <see cref="JsonNotAny"/> from the context with key <see cref="ArrayValueResultkey"/>
+        /// and compares it to the expected value.
+        /// </summary>
+        /// <param name="expected">The serialized value.</param>
+        [Then(@"the JsonNotAny should equal (.*)")]
+        public void ThenTheJsonNotAnyShouldEqual(string expected)
+        {
+            JsonNotAny actual = this.scenarioContext.Get<JsonNotAny>(ArrayValueResultkey);
+            Assert.AreEqual(JsonAny.ParseUriValue(expected), actual);
+        }
+
+        /// <summary>
+        /// Gets the <see cref="JsonAny"/> from the context with key <see cref="JsonValueSteps.SubjectUnderTest"/>
+        /// adds the given value to it, and stores it in the <see cref="ArrayValueResultkey"/>.
+        /// </summary>
+        /// <param name="value">The serialized value to add.</param>
+        [When(@"I add the item (.*) to the JsonAny")]
+        public void WhenIAddTheItemToTheJsonAny(string value)
+        {
+            JsonAny sut = this.scenarioContext.Get<JsonAny>(JsonValueSteps.SubjectUnderTest);
+            try
+            {
+                this.scenarioContext.Set(sut.Add(JsonAny.ParseUriValue(value)), ArrayValueResultkey);
+            }
+            catch (Exception ex)
+            {
+                this.scenarioContext.Set(ex, ArrayExceptionKey);
+            }
+        }
+
+        /// <summary>
+        /// Gets the <see cref="JsonArray"/> from the context with key <see cref="JsonValueSteps.SubjectUnderTest"/>
+        /// adds the given value to it, and stores it in the <see cref="ArrayValueResultkey"/>.
+        /// </summary>
+        /// <param name="value">The serialized value to add.</param>
+        [When(@"I add the item (.*) to the JsonArray")]
+        public void WhenIAddTheItemToTheJsonArray(string value)
+        {
+            JsonArray sut = this.scenarioContext.Get<JsonArray>(JsonValueSteps.SubjectUnderTest);
+            try
+            {
+                this.scenarioContext.Set(sut.Add(JsonAny.ParseUriValue(value)), ArrayValueResultkey);
+            }
+            catch (Exception ex)
+            {
+                this.scenarioContext.Set(ex, ArrayExceptionKey);
+            }
+        }
+
+        /// <summary>
+        /// Gets the <see cref="JsonArray"/> from the context with key <see cref="JsonValueSteps.SubjectUnderTest"/>
+        /// adds the given value to it, and stores it in the <see cref="ArrayValueResultkey"/>.
+        /// </summary>
+        /// <param name="value">The serialized value to add.</param>
+        [When(@"I add the item (.*) to the JsonNotAny")]
+        public void WhenIAddTheItemToTheJsonNotAny(string value)
+        {
+            JsonNotAny sut = this.scenarioContext.Get<JsonNotAny>(JsonValueSteps.SubjectUnderTest);
+            try
+            {
+                this.scenarioContext.Set(sut.Add(JsonAny.ParseUriValue(value)), ArrayValueResultkey);
+            }
+            catch (Exception ex)
+            {
+                this.scenarioContext.Set(ex, ArrayExceptionKey);
+            }
+        }
     }
 }
