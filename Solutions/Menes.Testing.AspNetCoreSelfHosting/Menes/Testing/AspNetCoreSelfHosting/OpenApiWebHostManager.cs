@@ -58,13 +58,30 @@ namespace Menes.Testing.AspNetCoreSelfHosting
             string baseUrl,
             Action<IServiceCollection>? additionalServiceConfigurationCallback = null)
             where TFunctionStartup : IWebJobsStartup, new()
+            => this.StartHostAsync(new TFunctionStartup(), baseUrl, additionalServiceConfigurationCallback);
+
+        /// <summary>
+        /// Starts a new function host using the given Uri and startup class instance.
+        /// </summary>
+        /// <typeparam name="TFunctionStartup">The type of the startup class. This should be the type of the class from the
+        /// function host project that is used to initialise the OpenApi services and dependencies.</typeparam>
+        /// <param name="startup">The instance of the startup class to use.</param>
+        /// <param name="baseUrl">The url that the function will be exposed on.</param>
+        /// <param name="additionalServiceConfigurationCallback">
+        /// A callback that will allow you to make changes to the <see cref="IServiceCollection"/> after the code in
+        /// your startup class has executed. You can use this to swap out services for stubs or fakes.
+        /// </param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public Task StartHostAsync<TFunctionStartup>(
+            TFunctionStartup startup,
+            string baseUrl,
+            Action<IServiceCollection>? additionalServiceConfigurationCallback = null)
+            where TFunctionStartup : IWebJobsStartup
         {
             return this.StartHostAsync(baseUrl, s =>
             {
                 // Shim to allow us to invoke the configuration method of the services startup class.
-                var webJobBuilder = new WebJobBuilder(s);
-                var targetStartup = new TFunctionStartup();
-                targetStartup.Configure(webJobBuilder);
+                startup.Configure(new WebJobBuilder(s));
 
                 // Invoke any extra container configuration.
                 additionalServiceConfigurationCallback?.Invoke(s);
