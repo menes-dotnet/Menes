@@ -1,18 +1,24 @@
-﻿// <copyright file="HttpRequestExtensions.cs" company="Endjin Limited">
+﻿// <copyright file="OpenApiHostActionResultExtensions.cs" company="Endjin Limited">
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
 namespace Menes.Hosting.AspNetCore
 {
     using System.Threading.Tasks;
+
     using Menes;
+
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
     /// Extension methods for HttpRequest.
     /// </summary>
-    public static class HttpRequestExtensions
+    /// <remarks>
+    /// This is used in scenarios where we want to return an <see cref="IActionResult"/> to the
+    /// hosting framework (e.g. in Azure Functions v3).
+    /// </remarks>
+    public static class OpenApiHostActionResultExtensions
     {
         /// <summary>
         /// Uses the <see cref="IOpenApiHost{HttpRequest, IActionResult}"/> to handle the request.

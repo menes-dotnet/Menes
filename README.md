@@ -5,7 +5,7 @@
 
 This provides abstractions for the Menes framework.
 
-It is built for netstandard2.0.
+It is built for netstandard2.1. (netstandard2.0 support is available in v2.x releases.)
 
 ## Features
 

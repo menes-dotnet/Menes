@@ -25,6 +25,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Menes.Abstractions\Menes.Abstractions.csproj" />
+    <ProjectReference Include="..\Menes.Hosting\Menes.Hosting.csproj" />
   </ItemGroup>
 
 </Project>

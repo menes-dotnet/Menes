@@ -2,7 +2,7 @@
   <Import Project="$(EndjinProjectPropsPath)" Condition="$(EndjinProjectPropsPath) != ''" />
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <TargetFramework>netstandard2.1</TargetFramework>
     <Nullable>enable</Nullable>
     
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
@@ -11,7 +11,7 @@
     <!--
       RCS1194 - we don't want the standard ctor patterns, as they clash with nullable references
     -->
-    <NoWarn>RCS1194</NoWarn>
+    <NoWarn>$(NoWarn);RCS1194</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>

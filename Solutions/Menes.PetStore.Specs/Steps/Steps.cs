@@ -54,17 +54,17 @@ namespace Menes.PetStore.Specs.Steps
 
             // We want to be able to send invalid values for Id to test that the validation is working correctly.
             // But if the value is a valid integer, we need to make sure it's passed correctly, so...
-            string? idFieldValue = this.ParseStringValue(petRow["Id"]);
+            string? idFieldValue = ParseStringValue(petRow["Id"]);
             object? id = long.TryParse(idFieldValue, out long idAsLong)
-                ? (object?)idAsLong
+                ? idAsLong
                 : idFieldValue;
 
             var pet = new
             {
-                id = id,
-                name = this.ParseStringValue(petRow["Name"]),
-                tag = this.ParseStringValue(petRow["Tag"]),
-                size = this.ParseStringValue(petRow["Size"]),
+                id,
+                name = ParseStringValue(petRow["Name"]),
+                tag = ParseStringValue(petRow["Tag"]),
+                size = ParseStringValue(petRow["Size"]),
             };
 
             return this.SendPostRequest("/pets", pet);
@@ -97,8 +97,8 @@ namespace Menes.PetStore.Specs.Steps
         {
             HttpResponseMessage response = this.scenarioContext.Get<HttpResponseMessage>();
 
-            Assert.IsTrue(response.Headers.TryGetValues(headerName, out IEnumerable<string> values));
-            Assert.IsNotEmpty(values);
+            Assert.IsTrue(response.Headers.TryGetValues(headerName, out IEnumerable<string>? values));
+            Assert.IsNotEmpty(values!);
         }
 
         [Then("the response should not contain the '(.*)' header")]
@@ -141,7 +141,7 @@ namespace Menes.PetStore.Specs.Steps
             Assert.IsNull(token);
         }
 
-        [Then(@"the response object should have an array property called '(.*)' containing (.*) entries")]
+        [Then("the response object should have an array property called '(.*)' containing (.*) entries")]
         public void ThenTheResponseObjectShouldHaveAnArrayPropertyCalledContainingEntries(string propertyPath, int expectedEntryCount)
         {
             JToken actualToken = this.GetRequiredTokenFromResponseObject(propertyPath);
@@ -192,7 +192,7 @@ namespace Menes.PetStore.Specs.Steps
             return token;
         }
 
-        private string? ParseStringValue(string input, string? valueIfEmpty = null)
+        private static string? ParseStringValue(string input, string? valueIfEmpty = null)
         {
             if (string.IsNullOrEmpty(input))
             {

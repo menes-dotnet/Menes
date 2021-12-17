@@ -2,9 +2,6 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-#pragma warning disable SA1600 // Elements should be documented
-#pragma warning disable CS1591 // Elements should be documented
-
 namespace Menes.Specs.Steps
 {
     using System;
@@ -152,12 +149,12 @@ namespace Menes.Specs.Steps
         {
             Assert.IsNotNull(this.exception);
 
-            Assert.AreEqual(exceptionType, this.exception!.GetType().Name.ToString());
+            Assert.AreEqual(exceptionType, this.exception!.GetType().Name);
         }
 
         private void InitializeDocumentProviderAndPathMatcher(string openApiSpec)
         {
-            OpenApiDocument document = new OpenApiStringReader().Read(openApiSpec, out OpenApiDiagnostic diagnostic);
+            OpenApiDocument document = new OpenApiStringReader().Read(openApiSpec, out OpenApiDiagnostic _);
 
             var documentProvider = new OpenApiDocumentProvider(new LoggerFactory().CreateLogger<OpenApiDocumentProvider>());
             documentProvider.Add(document);

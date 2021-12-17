@@ -2,26 +2,29 @@
   <Import Project="$(EndjinProjectPropsPath)" Condition="$(EndjinProjectPropsPath) != ''" />
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;netstandard2.1</TargetFrameworks>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <Nullable>enable</Nullable>
 
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <PackageDescription>Menes is a framework for hosting Web APIs with OpenAPI-based service definitions. This library defines the ASP.NET-Core-specific aspects of hosting in Menes.</PackageDescription>
 
     <WarningsAsErrors />
+
+    <!-- Don't want ConfigureAwait warnings because ASP.NET Core doesn't use synchronization context, so such calls are overhead with no purpose. -->
+    <NoWarn>$(NoWarn);RCS1090</NoWarn>
   </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="Menes.Specs" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Endjin.RecommendedPractices" Version="1.2.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
-    <PackageReference Include="Nullable" Version="1.3.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
+
+    <FrameworkReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
 
   <ItemGroup>

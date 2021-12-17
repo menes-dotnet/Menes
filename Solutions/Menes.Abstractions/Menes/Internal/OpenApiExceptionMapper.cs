@@ -117,7 +117,7 @@ namespace Menes.Internal
             {
                 throw new ArgumentException(
                     nameof(statusCode),
-                    $"Do not explicitly map exceptions to the 500 status code.");
+                    "Do not explicitly map exceptions to the 500 status code.");
             }
         }
     }

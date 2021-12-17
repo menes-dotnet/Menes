@@ -78,3 +78,10 @@ dotnet_style_qualification_for_event = true:suggestion
 
 # Style - using
 csharp_using_directive_placement = inside_namespace:warning
+
+# IDE0090: Use 'new(...)'
+# This is a bit aggressive. It suggests simplified new(...) even for:
+#   public static Thing MakeThing(string arg) => new(arg);
+# That seems a step to far for me because you have to go searching for where
+# the type name is.
+dotnet_diagnostic.IDE0090.severity = silent

@@ -22,7 +22,7 @@ namespace Menes.Internal
     /// <summary>
     /// An implementation of an <see cref="IOpenApiParameterBuilder{TRequest}"/>.
     /// </summary>
-    public class HttpRequestParameterBuilder : IOpenApiParameterBuilder<HttpRequest>
+    internal class HttpRequestParameterBuilder : IOpenApiParameterBuilder<HttpRequest>
     {
         private readonly IEnumerable<IOpenApiConverter> converters;
         private readonly ILogger<HttpRequestParameterBuilder> logger;
@@ -276,7 +276,7 @@ namespace Menes.Internal
 
             string? requestBaseContentType = this.GetBaseContentType(request.ContentType);
 
-            if (string.IsNullOrEmpty(requestBaseContentType) || !operationPathTemplate.Operation.RequestBody.Content.TryGetValue(requestBaseContentType, out OpenApiMediaType openApiMediaType))
+            if (string.IsNullOrEmpty(requestBaseContentType) || !operationPathTemplate.Operation.RequestBody.Content.TryGetValue(requestBaseContentType, out OpenApiMediaType? openApiMediaType))
             {
                 if (operationPathTemplate.Operation.RequestBody.Required)
                 {
@@ -299,7 +299,7 @@ namespace Menes.Internal
                             request.Path,
                             request.Method,
                             request.ContentType,
-                            string.Join(", ", operationPathTemplate?.Operation?.RequestBody?.Content?.Keys));
+                            string.Join(", ", operationPathTemplate?.Operation?.RequestBody?.Content?.Keys ?? Array.Empty<string>()));
                     }
 
                     return;
@@ -514,7 +514,7 @@ namespace Menes.Internal
                 return false;
             }
 
-            if (templateParameters.TryGetValue(parameter.Name, out object value))
+            if (templateParameters.TryGetValue(parameter.Name, out object? value))
             {
                 if (this.logger.IsEnabled(LogLevel.Debug))
                 {
@@ -523,7 +523,7 @@ namespace Menes.Internal
                         parameter.Name);
                 }
 
-                result = this.ConvertValue(parameter.Schema, value.ToString());
+                result = this.ConvertValue(parameter.Schema, value.ToString() !);
                 return true;
             }
 

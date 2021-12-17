@@ -2,9 +2,6 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-#pragma warning disable SA1600 // Elements should be documented
-#pragma warning disable CS1591 // Elements should be documented
-
 namespace Menes.Specs.Steps
 {
     using System;
@@ -41,7 +38,7 @@ namespace Menes.Specs.Steps
                 new OpenApiResponse { Content = new Dictionary<string, OpenApiMediaType> { { "application/hal+json", new OpenApiMediaType() } } });
         }
 
-        [Given(@"I have an OpenApiResult with a (.*) response")]
+        [Given("I have an OpenApiResult with a (.*) response")]
         public void GivenIHaveAnOpenApiResultWithAResponse(int response)
         {
             this.result = new OpenApiResult { StatusCode = response };
@@ -61,14 +58,14 @@ namespace Menes.Specs.Steps
             try
             {
                 var resultBuilder =
-                    new HttpRequestResultBuilder(
+                    new OpenApiActionResultBuilder(
                         new[]
                         {
                             new OpenApiResultActionResultOutputBuilder(
                             Enumerable.Empty<IOpenApiConverter>(),
                             ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<ILogger<OpenApiResultActionResultOutputBuilder>>()),
                         },
-                        ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<ILogger<HttpRequestResultBuilder>>());
+                        ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<ILogger<OpenApiActionResultBuilder>>());
                 resultBuilder.BuildResult(this.result!, this.operation!);
             }
             catch (Exception x)
@@ -83,7 +80,7 @@ namespace Menes.Specs.Steps
             Assert.IsInstanceOf<OutputBuilderNotFoundException>(this.exception);
         }
 
-        [Then(@"it should not throw an OutputBuilderNotFoundException")]
+        [Then("it should not throw an OutputBuilderNotFoundException")]
         public void ThenItShouldNotThrowAnOutputBuilderNotFoundException()
         {
             Assert.IsNotInstanceOf<OutputBuilderNotFoundException>(this.exception);

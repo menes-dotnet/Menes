@@ -4,14 +4,11 @@
 
 namespace Menes.Internal
 {
-    using System;
     using System.Collections.Generic;
-    using System.IO;
-    using System.Linq;
     using System.Threading.Tasks;
+
     using Menes.Converters;
-    using Menes.Exceptions;
-    using Microsoft.AspNetCore.Http;
+
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
     using Microsoft.OpenApi.Models;
@@ -31,10 +28,12 @@ namespace Menes.Internal
     /// </remarks>
     internal sealed class OpenApiActionResult : ActionResult
     {
-        private readonly OpenApiResult openApiResult;
-        private readonly OpenApiOperation operation;
-        private readonly IEnumerable<IOpenApiConverter> converters;
-        private readonly ILogger logger;
+        /// <summary>
+        /// We need to do everything to the underlying <c>HttpResponse</c> that the lower-level
+        /// <see cref="OpenApiHttpResponseResult"/> does, so we just delegate to that for the
+        /// bulk of the work.
+        /// </summary>
+        private readonly OpenApiHttpResponseResult httpResponseResult;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="OpenApiActionResult"/> class.
@@ -49,10 +48,14 @@ namespace Menes.Internal
             IEnumerable<IOpenApiConverter> converters,
             ILogger logger)
         {
-            this.openApiResult = openApiResult;
-            this.operation = operation;
-            this.converters = converters;
-            this.logger = logger;
+            this.httpResponseResult = new OpenApiHttpResponseResult(
+                openApiResult, operation, converters, logger);
+        }
+
+        /// <inheritdoc/>
+        public override Task ExecuteResultAsync(ActionContext context)
+        {
+            return this.httpResponseResult.ExecuteResultAsync(context.HttpContext.Response);
         }
 
         /// <summary>
@@ -63,7 +66,7 @@ namespace Menes.Internal
         /// <param name="converters">The OpenAPI converters to use.</param>
         /// <param name="logger">A logger for the operation.</param>
         /// <returns>A new <see cref="OpenApiActionResult"/>.</returns>
-        public static OpenApiActionResult FromOpenApiResult(
+        internal static OpenApiActionResult FromOpenApiResult(
             OpenApiResult openApiResult,
             OpenApiOperation operation,
             IEnumerable<IOpenApiConverter> converters,
@@ -78,7 +81,7 @@ namespace Menes.Internal
         /// <param name="converters">The OpenAPI converters to use.</param>
         /// <param name="logger">A logger for the operation.</param>
         /// <returns>A new <see cref="OpenApiActionResult"/>.</returns>
-        public static OpenApiActionResult FromPoco(
+        internal static OpenApiActionResult FromPoco(
             object result,
             OpenApiOperation operation,
             IEnumerable<IOpenApiConverter> converters,
@@ -92,7 +95,7 @@ namespace Menes.Internal
         /// <param name="operation">The OpenAPI operation definition.</param>
         /// <param name="logger">The <see cref="ILogger"/>.</param>
         /// <returns>True if an action result can be constructed from this operation result.</returns>
-        public static bool CanConstructFrom(object poco, OpenApiOperation operation, ILogger logger)
+        internal static bool CanConstructFrom(object poco, OpenApiOperation operation, ILogger logger)
         {
             return CanConstructFrom(GetOpenApiResultForPoco(poco, operation, logger), operation);
         }
@@ -103,205 +106,25 @@ namespace Menes.Internal
         /// <param name="openApiResult">The <see cref="OpenApiResult"/>.</param>
         /// <param name="operation">The OpenAPI operation definition.</param>
         /// <returns>True if an action result can be constructed from this operation result.</returns>
-        public static bool CanConstructFrom(OpenApiResult openApiResult, OpenApiOperation operation)
+        internal static bool CanConstructFrom(OpenApiResult openApiResult, OpenApiOperation operation)
         {
-            if (!operation.Responses.TryGetResponseForStatusCode(openApiResult.StatusCode, out OpenApiResponse response))
-            {
-                return false;
-            }
-
-            // Validate the required headers
-            if (!response.Headers.Where(h => h.Value.Required).All(h => openApiResult.Results.ContainsKey(h.Key)))
-            {
-                return false;
-            }
-
-            // Validate the response body
-            return response.Content == null || response.Content.Count == 0 || response.Content.Any(c => openApiResult.Results.ContainsKey(c.Key));
+            return OpenApiHttpResponseResult.CanConstructFrom(openApiResult, operation);
         }
 
-        /// <inheritdoc/>
-        public override Task ExecuteResultAsync(ActionContext context)
+        /// <summary>
+        /// Builds an <see cref="OpenApiResult"/> for a POCO.
+        /// </summary>
+        /// <param name="result">
+        /// The POCO result returned by the underlying operation implementation.
+        /// </param>
+        /// <param name="operation">
+        /// The OpenAPI operation that was invoked.
+        /// </param>
+        /// <param name="logger">A logger.</param>
+        /// <returns>An <see cref="OpenApiResult"/>.</returns>
+        internal static OpenApiResult GetOpenApiResultForPoco(object result, OpenApiOperation operation, ILogger logger)
         {
-            if (this.logger.IsEnabled(LogLevel.Debug))
-            {
-                this.logger.LogDebug("Executing [{actionResult}]", this.openApiResult.GetLoggingInformation());
-            }
-
-            try
-            {
-                this.operation.Responses.TryGetResponseForStatusCode(this.openApiResult.StatusCode, out OpenApiResponse response);
-
-                HttpResponse httpResponse = context.HttpContext.Response;
-
-                httpResponse.StatusCode = this.openApiResult.StatusCode;
-
-                this.BuildHeaders(httpResponse, response);
-
-                Task task = this.WriteBodyAsync(httpResponse, response);
-                if (this.logger.IsEnabled(LogLevel.Debug))
-                {
-                    this.logger.LogDebug("Executed [{actionResult}]", this.openApiResult.GetLoggingInformation());
-                }
-
-                return task;
-            }
-            catch (Exception ex)
-            {
-                this.logger.LogError("Failed to execute OpenApiActionResult [{actionResult}], [{exMessage}]", this.openApiResult.GetLoggingInformation(), ex.Message);
-                throw;
-            }
-        }
-
-        private static OpenApiResult GetOpenApiResultForPoco(object result, OpenApiOperation operation, ILogger logger)
-        {
-            logger.LogDebug(
-                "Attempting to get OpenAPI result for with POCO with [{operation}]",
-                operation.GetOperationId());
-#pragma warning disable IDE0007 // Use implicit type - see https://github.com/dotnet/roslyn/issues/30450
-            List<KeyValuePair<string, OpenApiResponse>> successResponses = operation
-#pragma warning restore IDE0007 // Use implicit type
-                .Responses
-                .Where(r => r.Key == "default" || (r.Key.Length == 3 && r.Key[0] == '2'))
-                .ToList();
-            if (successResponses.Count != 1)
-            {
-                throw new OpenApiServiceMismatchException($"An OpenApi service can only return a plain old CLR object (POCO) for operations that define exactly one success response (including the default response, if present), but '{operation.OperationId}' defines '{successResponses.Count}'. Return an {nameof(OpenApiResult)} instead, or modify the service definition to define a single successful response.");
-            }
-
-            KeyValuePair<string, OpenApiResponse> response = successResponses.Single();
-            var openApiResult = new OpenApiResult
-            {
-                // Use the status code for the first response
-                StatusCode = int.Parse(response.Key),
-            };
-
-            foreach (KeyValuePair<string, OpenApiMediaType> mediaType in response.Value.Content)
-            {
-                // Add all our candidate media types in
-                openApiResult.Results.Add(mediaType.Key, result);
-            }
-
-            logger.LogDebug(
-                "Got openAPIResult [{apiResult}] for poco with [{operation}]",
-                openApiResult.Results.Keys,
-                operation.GetOperationId());
-            return openApiResult;
-        }
-
-        private Task WriteBodyAsync(HttpResponse httpResponse, OpenApiResponse response)
-        {
-            if (response.Content?.Count > 0)
-            {
-                // TODO: We should probably find the first one where we can also convert the value, rather than just the first one!
-                KeyValuePair<string, OpenApiMediaType> responseContent = response.Content.First(c => this.openApiResult.Results.ContainsKey(c.Key));
-                object responseValue = this.openApiResult.Results[responseContent.Key];
-
-                httpResponse.ContentType = responseContent.Key;
-
-                if (responseValue is Stream responseAsStream)
-                {
-                    return responseAsStream.CopyToAsync(httpResponse.Body);
-                }
-                else
-                {
-                    string outputValue = this.ConvertValue(responseContent.Value.Schema, responseValue);
-                    return httpResponse.WriteAsync(outputValue);
-                }
-            }
-
-            return Task.CompletedTask;
-        }
-
-        private string ConvertValue(OpenApiSchema schema, object value)
-        {
-            if (this.logger.IsEnabled(LogLevel.Debug))
-            {
-                this.logger.LogDebug("Converting value to match [{schema}]", schema.GetLoggingInformation());
-            }
-
-            foreach (IOpenApiConverter converter in this.converters)
-            {
-                if (converter.CanConvert(schema))
-                {
-                    if (this.logger.IsEnabled(LogLevel.Debug))
-                    {
-                        this.logger.LogDebug(
-                                            "Matched converter [{converter}] to the [{schema}]",
-                                            converter.GetType(),
-                                            schema.GetLoggingInformation());
-                    }
-
-                    return converter.ConvertTo(value, schema);
-                }
-            }
-
-            if (this.logger.IsEnabled(LogLevel.Debug))
-            {
-                this.logger.LogDebug(
-                                "Failed to convert value with [{schema}], falling back to just type",
-                                schema.GetLoggingInformation());
-            }
-
-            // We didn't hit anything directly, so let's fall back to just the type alone
-            foreach (IOpenApiConverter converter in this.converters)
-            {
-                if (converter.CanConvert(schema, true))
-                {
-                    if (this.logger.IsEnabled(LogLevel.Debug))
-                    {
-                        this.logger.LogDebug(
-                                                "Matched converter [{converter}] to the [{schema}], ignoring format",
-                                                converter.GetType(),
-                                                schema.GetLoggingInformation());
-                    }
-
-                    return converter.ConvertTo(value, schema);
-                }
-            }
-
-            this.logger.LogError(
-                "Failed to convert value with [{schema}]",
-                schema.GetLoggingInformation());
-
-            throw new OpenApiServiceMismatchException($"Failed to convert value to match [{schema.GetLoggingInformation()}]");
-        }
-
-        private void BuildHeaders(HttpResponse httpResponse, OpenApiResponse response)
-        {
-            if (this.logger.IsEnabled(LogLevel.Debug))
-            {
-                this.logger.LogDebug("Building headers for response [{response}]", response.Description);
-            }
-
-            foreach (KeyValuePair<string, OpenApiHeader> header in response.Headers)
-            {
-                if (this.logger.IsEnabled(LogLevel.Debug))
-                {
-                    this.logger.LogDebug("Attempting to add header for response [{response}]", response.Description);
-                }
-
-                if (this.openApiResult.Results.TryGetValue(header.Key, out object value))
-                {
-                    string? convertedValue = null;
-
-                    if (value is Func<string> valueAsFuncOfString)
-                    {
-                        convertedValue = this.ConvertValue(header.Value.Schema, valueAsFuncOfString());
-                    }
-                    else
-                    {
-                        convertedValue = this.ConvertValue(header.Value.Schema, value);
-                    }
-
-                    httpResponse.Headers.Add(header.Key, new Microsoft.Extensions.Primitives.StringValues(convertedValue));
-
-                    if (this.logger.IsEnabled(LogLevel.Debug))
-                    {
-                        this.logger.LogDebug("Added header for response [{response}]", response.Description);
-                    }
-                }
-            }
+            return OpenApiHttpResponseResult.GetOpenApiResultForPoco(result, operation, logger);
         }
     }
 }
