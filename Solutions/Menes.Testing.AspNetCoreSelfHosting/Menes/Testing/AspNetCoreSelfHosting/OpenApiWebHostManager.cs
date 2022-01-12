@@ -12,7 +12,9 @@ namespace Menes.Testing.AspNetCoreSelfHosting
 
     using Microsoft.AspNetCore;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Azure.WebJobs;
     using Microsoft.Azure.WebJobs.Hosting;
+    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 
     /// <summary>
@@ -47,7 +49,7 @@ namespace Menes.Testing.AspNetCoreSelfHosting
 
         /// <summary>
         /// Starts a new in-process host using the given Uri and startup class, with basic emulation of the Azure Functions
-        /// host's request routing..
+        /// host's request routing.
         /// </summary>
         /// <typeparam name="TFunctionStartup">The type of the startup class. This should be the type of the class from the
         /// function host project that is used to initialise the OpenApi services and dependencies.</typeparam>
@@ -65,7 +67,27 @@ namespace Menes.Testing.AspNetCoreSelfHosting
 
         /// <summary>
         /// Starts a new in-process host using the given Uri and startup class, with basic emulation of the Azure Functions
-        /// host's request routing..
+        /// host's request routing.
+        /// </summary>
+        /// <typeparam name="TFunctionStartup">The type of the startup class. This should be the type of the class from the
+        /// function host project that is used to initialise the OpenApi services and dependencies.</typeparam>
+        /// <param name="baseUrl">The url that the function will be exposed on.</param>
+        /// <param name="configuration">Configuration to supply to the startup class.</param>
+        /// <param name="additionalServiceConfigurationCallback">
+        /// A callback that will allow you to make changes to the <see cref="IServiceCollection"/> after the code in
+        /// your startup class has executed. You can use this to swap out services for stubs or fakes.
+        /// </param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public Task StartInProcessFunctionsHostAsync<TFunctionStartup>(
+            string baseUrl,
+            IConfiguration configuration,
+            Action<IServiceCollection>? additionalServiceConfigurationCallback = null)
+            where TFunctionStartup : class, IWebJobsStartup2, new()
+            => this.StartInProcessFunctionsHostAsync(new TFunctionStartup(), baseUrl, configuration, additionalServiceConfigurationCallback);
+
+        /// <summary>
+        /// Starts a new in-process host using the given Uri and startup class, with basic emulation of the Azure Functions
+        /// host's request routing.
         /// </summary>
         /// <typeparam name="TFunctionStartup">The type of the startup class. This should be the type of the class from the
         /// function host project that is used to initialise the OpenApi services and dependencies.</typeparam>
@@ -94,6 +116,53 @@ namespace Menes.Testing.AspNetCoreSelfHosting
                     // callback is used by some tests to replace certain services set up by Startup.)
                     var webJobBuilder = new WebJobBuilder(services);
                     startupInstance.Configure(webJobBuilder);
+
+                    // Invoke any extra container configuration.
+                    additionalServiceConfigurationCallback?.Invoke(services);
+                },
+                webHostBuilder => webHostBuilder.UseStartup<OpenApiWebHostStartup>());
+
+        /// <summary>
+        /// Starts a new in-process host using the given Uri and startup class, with basic emulation of the Azure Functions
+        /// host's request routing.
+        /// </summary>
+        /// <typeparam name="TFunctionStartup">The type of the startup class. This should be the type of the class from the
+        /// function host project that is used to initialise the OpenApi services and dependencies.</typeparam>
+        /// <param name="startupInstance">The startup instance to use.</param>
+        /// <param name="baseUrl">The url that the function will be exposed on.</param>
+        /// <param name="configuration">Configuration to supply to the startup class.</param>
+        /// <param name="additionalServiceConfigurationCallback">
+        /// A callback that will allow you to make changes to the <see cref="IServiceCollection"/> after the code in
+        /// your startup class has executed. You can use this to swap out services for stubs or fakes.
+        /// </param>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
+        public Task StartInProcessFunctionsHostAsync<TFunctionStartup>(
+            TFunctionStartup startupInstance,
+            string baseUrl,
+            IConfiguration configuration,
+            Action<IServiceCollection>? additionalServiceConfigurationCallback = null)
+            where TFunctionStartup : class, IWebJobsStartup2
+            => this.StartAspNetHostAsync(
+                baseUrl,
+                services =>
+                {
+                    // This needs to be a separate implementation from the version that doesn't
+                    // take a config, because we want that to be able to work with older
+                    // startup classes that don't implement IWebJobsStartup2.
+
+                    // Shim to allow us to invoke the configuration method of the services startup class.
+                    // (We pass a completely different class in for ASP.NET Core to use as the startup
+                    // class, in order to fake the bits of the Functions host that we need to fake,
+                    // which is why we need to invoke the real startup directly. This also has the
+                    // benefit of enabling us to control the order: it's important that the additional
+                    // configuration callback is invoked after Startup configuration, because that
+                    // callback is used by some tests to replace certain services set up by Startup.)
+                    var webJobBuilder = new WebJobBuilder(services);
+                    var context = new WebJobsBuilderContext
+                    {
+                        Configuration = configuration,
+                    };
+                    startupInstance.Configure(context, webJobBuilder);
 
                     // Invoke any extra container configuration.
                     additionalServiceConfigurationCallback?.Invoke(services);

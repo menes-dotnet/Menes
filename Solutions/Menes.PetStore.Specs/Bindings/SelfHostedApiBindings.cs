@@ -4,6 +4,7 @@
 
 namespace Menes.PetStore.Specs.Bindings
 {
+    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -13,6 +14,7 @@ namespace Menes.PetStore.Specs.Bindings
     using Menes.PetStore.Specs.Stubs;
     using Menes.Testing.AspNetCoreSelfHosting;
 
+    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
 
@@ -37,8 +39,15 @@ namespace Menes.PetStore.Specs.Bindings
 
             if (emulateFunctionsHost)
             {
+                IConfiguration config = new ConfigurationBuilder()
+                    .AddInMemoryCollection(new Dictionary<string, string>
+                    {
+                        { "TestKey", "TestValue" },
+                    })
+                    .Build();
                 return hostManager.StartInProcessFunctionsHostAsync<Menes.PetStore.Hosting.Startup>(
                     "http://localhost:7071",
+                    config,
                     ConfigureServices);
             }
             else
