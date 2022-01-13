@@ -7,6 +7,7 @@
 namespace Menes.PetStore.Hosting
 {
     using Microsoft.Azure.Functions.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 
     /// <summary>
@@ -18,6 +19,7 @@ namespace Menes.PetStore.Hosting
         public override void Configure(IFunctionsHostBuilder builder)
         {
             IServiceCollection services = builder.Services;
+            IConfiguration configuration = builder.GetContext().Configuration;
 
             services.AddPetStore();
             services.AddOpenApiActionResultHosting<SimpleOpenApiContext>(PetStoreOpenApiHostConfiguration.LoadDocuments);
