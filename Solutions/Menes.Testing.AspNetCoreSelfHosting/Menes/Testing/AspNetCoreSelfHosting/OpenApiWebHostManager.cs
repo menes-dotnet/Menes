@@ -162,6 +162,7 @@ namespace Menes.Testing.AspNetCoreSelfHosting
                     {
                         Configuration = configuration,
                     };
+                    services.AddSingleton(configuration);
                     startupInstance.Configure(context, webJobBuilder);
 
                     // Invoke any extra container configuration.
