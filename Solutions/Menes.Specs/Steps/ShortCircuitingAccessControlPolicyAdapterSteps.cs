@@ -22,7 +22,7 @@ namespace Menes.Specs.Steps
     {
         private Mock<IOpenApiAccessControlPolicy>? firstPolicy;
         private CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>>? firstPolicyCompletion;
-        private List<(Mock<IOpenApiAccessControlPolicy> policy, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion)>? otherPolicies;
+        private List<(Mock<IOpenApiAccessControlPolicy> Policy, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> Completion)>? otherPolicies;
         private ClaimsPrincipal? claimsPrincipal;
         private string? tenantId;
         private Task<IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>>? checkResultTask;
@@ -60,7 +60,7 @@ namespace Menes.Specs.Steps
         {
             var adapter = new ShortCircuitingAccessControlPolicyAdapter(
                 this.firstPolicy!.Object,
-                this.otherPolicies.Select(op => op.policy.Object));
+                this.otherPolicies.Select(op => op.Policy.Object));
 
             this.claimsPrincipal = new ClaimsPrincipal();
             this.tenantId = Guid.NewGuid().ToString();
@@ -91,7 +91,7 @@ namespace Menes.Specs.Steps
         public void WhenTheOtherPolicyAllowsAccess(int policyIndex)
         {
             var result = new Dictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>();
-            CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion = this.otherPolicies![policyIndex].completion;
+            CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion = this.otherPolicies![policyIndex].Completion;
             result.Add(completion.Arguments[0].Requests[0], new AccessControlPolicyResult(AccessControlPolicyResultType.Allowed));
             completion.SupplyResult(result);
         }
@@ -100,7 +100,7 @@ namespace Menes.Specs.Steps
         public void WhenTheOtherPolicyDeniesAccess(int policyIndex)
         {
             var result = new Dictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>();
-            CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion = this.otherPolicies![policyIndex].completion;
+            CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion = this.otherPolicies![policyIndex].Completion;
             result.Add(completion.Arguments[0].Requests[0], new AccessControlPolicyResult(AccessControlPolicyResultType.NotAllowed));
             completion.SupplyResult(result);
         }
@@ -109,7 +109,7 @@ namespace Menes.Specs.Steps
         public void WhenTheOtherPolicyDeniesAccessWithExplanation(int policyIndex, string explanation)
         {
             var result = new Dictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>();
-            CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion = this.otherPolicies![policyIndex].completion;
+            CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion = this.otherPolicies![policyIndex].Completion;
             result.Add(completion.Arguments[0].Requests[0], new AccessControlPolicyResult(AccessControlPolicyResultType.NotAllowed, explanation));
             completion.SupplyResult(result);
         }
@@ -250,7 +250,7 @@ namespace Menes.Specs.Steps
             AccessControlPolicyResultType resultType = Enum.Parse<AccessControlPolicyResultType>(resultTypeString);
 
             var result = new Dictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>();
-            CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion = this.otherPolicies![policyIndex].completion;
+            CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion = this.otherPolicies![policyIndex].Completion;
             result.Add(completion.Arguments[0].Requests[0], new AccessControlPolicyResult(resultType, explanation));
             completion.SupplyResult(result);
         }

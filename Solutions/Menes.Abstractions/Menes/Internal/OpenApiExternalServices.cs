@@ -19,7 +19,7 @@ namespace Menes.Internal
         private readonly ILogger<OpenApiDocumentProvider> uriTemplateProviderLogger;
 
         private readonly Dictionary<Type, (OpenApiDocumentProvider Provider, string ConfigKey)> uriTemplateProviders
-            = new Dictionary<Type, (OpenApiDocumentProvider Provider, string ConfigKey)>();
+            = new();
 
         /// <summary>
         /// Create a <see cref="OpenApiExternalServices"/>.

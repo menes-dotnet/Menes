@@ -21,7 +21,7 @@ namespace Menes.PetStore.Specs.Steps
     {
         private static readonly HttpClient HttpClient = HttpClientFactory.Create();
 
-        private static readonly Uri BaseUri = new Uri("http://localhost:7071");
+        private static readonly Uri BaseUri = new("http://localhost:7071");
 
         private readonly ScenarioContext scenarioContext;
 

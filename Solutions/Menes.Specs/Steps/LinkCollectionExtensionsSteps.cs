@@ -14,8 +14,8 @@ namespace Menes.Specs.Steps
     public class LinkCollectionExtensionsSteps
     {
         private readonly ScenarioContext scenarioContext;
-        private readonly Mock<IOpenApiWebLinkResolver> resolver = new Mock<IOpenApiWebLinkResolver>();
-        private readonly Mock<ILinkCollection> linkCollection = new Mock<ILinkCollection>();
+        private readonly Mock<IOpenApiWebLinkResolver> resolver = new();
+        private readonly Mock<ILinkCollection> linkCollection = new();
 
         public LinkCollectionExtensionsSteps(ScenarioContext scenarioContext)
         {

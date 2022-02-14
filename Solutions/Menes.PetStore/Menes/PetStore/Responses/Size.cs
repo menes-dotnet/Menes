@@ -10,17 +10,17 @@ namespace Menes.PetStore.Responses
     public enum Size
     {
         /// <summary>
-        /// A pet smaller than a great dane
+        /// A pet smaller than a great dane.
         /// </summary>
         Small,
 
         /// <summary>
-        /// A pet as large as a great dane, but smaller than a horse
+        /// A pet as large as a great dane, but smaller than a horse.
         /// </summary>
         Medium,
 
         /// <summary>
-        /// A pet as large as, or larger than, a horse
+        /// A pet as large as, or larger than, a horse.
         /// </summary>
         Large,
     }

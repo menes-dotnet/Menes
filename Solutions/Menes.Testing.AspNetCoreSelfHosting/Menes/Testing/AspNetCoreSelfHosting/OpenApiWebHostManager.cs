@@ -45,7 +45,7 @@ namespace Menes.Testing.AspNetCoreSelfHosting
     /// </remarks>
     public class OpenApiWebHostManager
     {
-        private readonly List<IWebHost> webHosts = new List<IWebHost>();
+        private readonly List<IWebHost> webHosts = new();
 
         /// <summary>
         /// Starts a new in-process host using the given Uri and startup class, with basic emulation of the Azure Functions

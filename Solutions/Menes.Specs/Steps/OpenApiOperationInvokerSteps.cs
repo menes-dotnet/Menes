@@ -24,11 +24,11 @@ namespace Menes.Specs.Steps
     {
         private const string OperationInvokedScenarioContextKey = "OperationInvoked";
 
-        private readonly Mock<IOpenApiConfiguration> openApiConfiguration = new Mock<IOpenApiConfiguration>();
-        private readonly Mock<IOpenApiContext> openApiContext = new Mock<IOpenApiContext>();
-        private readonly OpenApiResult exceptionMapperResult = new OpenApiResult();
-        private readonly object resultBuilderResult = new object();
-        private readonly object resultBuilderErrorResult = new object();
+        private readonly Mock<IOpenApiConfiguration> openApiConfiguration = new();
+        private readonly Mock<IOpenApiContext> openApiContext = new();
+        private readonly OpenApiResult exceptionMapperResult = new();
+        private readonly object resultBuilderResult = new();
+        private readonly object resultBuilderErrorResult = new();
         private readonly ScenarioContext scenarioContext;
         private ResponseWhenUnauthenticated? responseWhenUnauthenticated;
         private OpenApiOperation? openApiOperation;

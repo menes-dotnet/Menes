@@ -33,7 +33,7 @@ namespace Menes.Exceptions
         /// visible only within the server, and may be useful for diagnostic purposes.)
         /// </param>
         /// <returns>A new <see cref="OpenApiForbiddenException"/>.</returns>
-        public static OpenApiForbiddenException WithoutProblemDetails(string message) => new OpenApiForbiddenException(message);
+        public static OpenApiForbiddenException WithoutProblemDetails(string message) => new(message);
 
         /// <summary>
         /// Create an <see cref="OpenApiForbiddenException"/> without any problem details attached.

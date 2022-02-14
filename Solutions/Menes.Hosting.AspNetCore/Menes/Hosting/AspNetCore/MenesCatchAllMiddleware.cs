@@ -15,7 +15,7 @@ namespace Menes.Hosting.AspNetCore
     /// </summary>
     internal class MenesCatchAllMiddleware : IMiddleware
     {
-        private static readonly object EmptyParameters = new ();
+        private static readonly object EmptyParameters = new();
         private readonly IOpenApiHost<HttpRequest, IHttpResponseResult> host;
 
         /// <summary>

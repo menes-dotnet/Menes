@@ -137,7 +137,7 @@ namespace Menes.Specs.Steps
                 "System.DateTimeOffset" => DateTimeOffset.Parse(expectedResultAsString),
                 "System.Guid" => Guid.Parse(expectedResultAsString),
                 "System.Uri" => new Uri(expectedResultAsString),
-                _ => Convert.ChangeType(expectedResultAsString, Type.GetType(expectedType) !)
+                _ => Convert.ChangeType(expectedResultAsString, Type.GetType(expectedType)!),
             };
 
             Assert.AreEqual(expectedResult, this.parameters![parameterName]);

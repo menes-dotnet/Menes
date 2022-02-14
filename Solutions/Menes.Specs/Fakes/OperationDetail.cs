@@ -19,7 +19,7 @@ namespace Menes.Specs.Fakes
     /// </remarks>
     public class OperationDetail : IOperationInstance
     {
-        private readonly List<AdditionalInstrumentationDetail> furtherDetails = new List<AdditionalInstrumentationDetail>();
+        private readonly List<AdditionalInstrumentationDetail> furtherDetails = new();
         private readonly Action<OperationDetail> onDisposed;
 
         public OperationDetail(

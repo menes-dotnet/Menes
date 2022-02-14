@@ -23,7 +23,7 @@ namespace Menes.Specs.Steps
     [Binding]
     public class AccessControlPolicySteps
     {
-        private List<(Mock<IOpenApiAccessControlPolicy> policy, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion)>? policies;
+        private List<(Mock<IOpenApiAccessControlPolicy> Policy, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> Completion)>? policies;
         private ClaimsPrincipal? claimsPrincipal;
         private string? tenantId;
         private Task<IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>>? checkResultTask;
@@ -54,7 +54,7 @@ namespace Menes.Specs.Steps
             string operationId)
         {
             var checker = new OpenApiAccessChecker(
-                this.policies.Select(m => m.policy.Object));
+                this.policies.Select(m => m.Policy.Object));
 
             this.claimsPrincipal = new ClaimsPrincipal();
             this.tenantId = Guid.NewGuid().ToString();
@@ -71,7 +71,7 @@ namespace Menes.Specs.Steps
         public void WhenPolicyBlocksAccessWithoutExplanation(int policyIndex)
         {
             var result = new Dictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>();
-            CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion = this.policies![policyIndex].completion;
+            CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion = this.policies![policyIndex].Completion;
             result.Add(completion.Arguments[0].Requests[0], new AccessControlPolicyResult(AccessControlPolicyResultType.NotAllowed));
             completion.SupplyResult(result);
         }
@@ -80,7 +80,7 @@ namespace Menes.Specs.Steps
         public void WhenPolicyBlocksAccessWithExplanation(int policyIndex, string explanation)
         {
             var result = new Dictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>();
-            CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion = this.policies![policyIndex].completion;
+            CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion = this.policies![policyIndex].Completion;
             result.Add(completion.Arguments[0].Requests[0], new AccessControlPolicyResult(AccessControlPolicyResultType.NotAllowed, explanation));
             completion.SupplyResult(result);
         }
@@ -89,7 +89,7 @@ namespace Menes.Specs.Steps
         public void WhenPolicyAllowsAccess(int policyIndex)
         {
             var result = new Dictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>();
-            CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion = this.policies![policyIndex].completion;
+            CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> completion = this.policies![policyIndex].Completion;
             result.Add(completion.Arguments[0].Requests[0], new AccessControlPolicyResult(AccessControlPolicyResultType.Allowed));
             completion.SupplyResult(result);
         }

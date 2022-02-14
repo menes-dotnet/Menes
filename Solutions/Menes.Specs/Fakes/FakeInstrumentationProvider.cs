@@ -14,9 +14,9 @@ namespace Menes.Specs.Fakes
     /// </summary>
     internal class FakeInstrumentationProvider : IOperationsInstrumentation, IExceptionsInstrumentation
     {
-        private readonly List<OperationDetail> operations = new List<OperationDetail>();
-        private readonly List<ExceptionDetail> exceptions = new List<ExceptionDetail>();
-        private readonly Stack<OperationDetail> operationsInProgress = new Stack<OperationDetail>();
+        private readonly List<OperationDetail> operations = new();
+        private readonly List<ExceptionDetail> exceptions = new();
+        private readonly Stack<OperationDetail> operationsInProgress = new();
 
         /// <summary>
         /// Gets a list of the operations supplied to the fake <see cref="IOperationsInstrumentation"/> implementation.
