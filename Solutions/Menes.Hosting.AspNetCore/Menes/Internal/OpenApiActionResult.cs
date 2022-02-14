@@ -71,7 +71,7 @@ namespace Menes.Internal
             OpenApiOperation operation,
             IEnumerable<IOpenApiConverter> converters,
             ILogger logger)
-            => new OpenApiActionResult(openApiResult, operation, converters, logger);
+            => new(openApiResult, operation, converters, logger);
 
         /// <summary>
         /// Creates a new <see cref="OpenApiActionResult"/> from a plain object.
@@ -86,7 +86,7 @@ namespace Menes.Internal
             OpenApiOperation operation,
             IEnumerable<IOpenApiConverter> converters,
             ILogger logger)
-            => new OpenApiActionResult(GetOpenApiResultForPoco(result, operation, logger), operation, converters, logger);
+            => new(GetOpenApiResultForPoco(result, operation, logger), operation, converters, logger);
 
         /// <summary>
         /// Determines if the action result can be constructed from the provided result and operation definition.

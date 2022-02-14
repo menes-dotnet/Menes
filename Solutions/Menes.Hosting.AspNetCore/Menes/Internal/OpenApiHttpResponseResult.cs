@@ -107,7 +107,7 @@ namespace Menes.Internal
             OpenApiOperation operation,
             IEnumerable<IOpenApiConverter> converters,
             ILogger logger)
-            => new OpenApiHttpResponseResult(openApiResult, operation, converters, logger);
+            => new(openApiResult, operation, converters, logger);
 
         /// <summary>
         /// Creates a new <see cref="OpenApiHttpResponseResult"/> from a plain object.
@@ -122,7 +122,7 @@ namespace Menes.Internal
             OpenApiOperation operation,
             IEnumerable<IOpenApiConverter> converters,
             ILogger logger)
-            => new OpenApiHttpResponseResult(OpenApiActionResult.GetOpenApiResultForPoco(result, operation, logger), operation, converters, logger);
+            => new(OpenApiActionResult.GetOpenApiResultForPoco(result, operation, logger), operation, converters, logger);
 
         /// <summary>
         /// Builds an <see cref="OpenApiResult"/> for a POCO.

@@ -161,6 +161,6 @@ namespace Menes.Internal
         }
 
         private static string CanonicalizeParameterNameForMatching(string name)
-            => new string(name.Where(c => c != '-').Select(c => char.ToLowerInvariant(c)).ToArray());
+            => new(name.Where(c => c != '-').Select(c => char.ToLowerInvariant(c)).ToArray());
     }
 }

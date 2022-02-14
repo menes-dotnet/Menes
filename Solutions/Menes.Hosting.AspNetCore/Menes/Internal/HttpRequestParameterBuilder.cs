@@ -193,7 +193,7 @@ namespace Menes.Internal
                 OpenApiDouble db    when schema.Type == "number"        => db.Value,
                 OpenApiArray a      when schema.Type == "array"         => HandleArray(schema.Items, a),
                 OpenApiObject o     when schema.Type == "object"        => HandleObject(schema.Properties, o),
-                _ => throw new OpenApiSpecificationException("Default value for parameter not valid.")
+                _ => throw new OpenApiSpecificationException("Default value for parameter not valid."),
             };
 
             object HandleArray(OpenApiSchema schema, OpenApiArray array)
@@ -523,7 +523,7 @@ namespace Menes.Internal
                         parameter.Name);
                 }
 
-                result = this.ConvertValue(parameter.Schema, value.ToString() !);
+                result = this.ConvertValue(parameter.Schema, value.ToString()!);
                 return true;
             }
 

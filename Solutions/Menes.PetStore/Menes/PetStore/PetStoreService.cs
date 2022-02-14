@@ -23,7 +23,7 @@ namespace Menes.PetStore
     /// <inheritdoc/>
     public class PetStoreService : IOpenApiService
     {
-        private static readonly Regex MatchContinuationToken = new Regex("skip=([0-9]*)");
+        private static readonly Regex MatchContinuationToken = new("skip=([0-9]*)");
         private readonly List<PetResource> pets;
         private readonly PetListResourceMapper petListMapper;
         private readonly PetResourceMapper petMapper;

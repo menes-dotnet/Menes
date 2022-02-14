@@ -21,8 +21,8 @@ namespace Menes.Hal
     /// </remarks>
     public class HalDocument : ILinkCollection
     {
-        private Dictionary<string, List<WebLink>> links = new Dictionary<string, List<WebLink>>();
-        private Dictionary<string, List<HalDocument>> embeddedResources = new Dictionary<string, List<HalDocument>>();
+        private Dictionary<string, List<WebLink>> links = new();
+        private Dictionary<string, List<HalDocument>> embeddedResources = new();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="HalDocument"/> class.

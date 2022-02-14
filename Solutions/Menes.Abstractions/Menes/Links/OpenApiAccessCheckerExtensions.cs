@@ -73,7 +73,7 @@ namespace Menes.Links
             }
         }
 
-        private static void AddHalDocumentLinksToMap(HalDocument target, Dictionary<(string, OpenApiWebLink), List<HalDocument>> linkMap, bool recursive, bool unsafeChecking)
+        private static void AddHalDocumentLinksToMap(HalDocument target, Dictionary<(string Relation, OpenApiWebLink Link), List<HalDocument>> linkMap, bool recursive, bool unsafeChecking)
         {
             foreach (string rel in target.GetLinkRelations())
             {

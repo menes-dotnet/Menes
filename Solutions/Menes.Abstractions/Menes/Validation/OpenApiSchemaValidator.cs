@@ -545,7 +545,7 @@ namespace Menes.Validation
                     return;
                 }
 
-                if (!(token is JObject))
+                if (token is not JObject)
                 {
                     errors.Add(new ValidationError(ValidationErrorKind.ObjectExpected, propertyName, propertyPath, token, schema));
                 }

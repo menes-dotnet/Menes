@@ -22,7 +22,7 @@ namespace Menes.Specs.Steps
     public class OpenApiAccessCheckerExtensionsSteps
     {
         private readonly ScenarioContext scenarioContext;
-        private List<(string Uri, string Method)> checksToDeny = new List<(string Uri, string Method)>();
+        private List<(string Uri, string Method)> checksToDeny = new();
 
         public OpenApiAccessCheckerExtensionsSteps(ScenarioContext scenarioContext)
         {

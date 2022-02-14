@@ -79,7 +79,7 @@ namespace Menes.Specs.Steps.TestClasses
 
         private class AccessChecker : IOpenApiAccessChecker
         {
-            private static readonly AccessControlPolicyResult Allowed = new AccessControlPolicyResult(AccessControlPolicyResultType.Allowed);
+            private static readonly AccessControlPolicyResult Allowed = new(AccessControlPolicyResultType.Allowed);
             private readonly OperationInvokerTestContext context;
 
             public AccessChecker(OperationInvokerTestContext context)

@@ -31,7 +31,7 @@ namespace Menes.PetStore.Specs.Bindings
             bool emulateFunctionsHost = TestExecutionContext.CurrentContext.TestObject switch
             {
                 IMultiModeTest<TestHostTypes> multiModeTest => multiModeTest.TestType == TestHostTypes.EmulateFunctionWithActionResult,
-                _ => true
+                _ => true,
             };
 
             var hostManager = new OpenApiWebHostManager();
