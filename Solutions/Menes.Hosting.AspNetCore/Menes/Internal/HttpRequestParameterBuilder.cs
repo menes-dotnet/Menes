@@ -325,7 +325,7 @@ namespace Menes.Internal
 
             int separator = contentType.IndexOf(';');
 
-            return separator != -1 ? contentType.Substring(0, separator) : contentType;
+            return separator != -1 ? contentType[..separator] : contentType;
         }
 
         private bool TryGetParameterFromCookie(

@@ -289,10 +289,7 @@ namespace Menes.Hal
 
         private void EnsureLinks()
         {
-            if (this.links == null)
-            {
-                this.links = new Dictionary<string, List<WebLink>>();
-            }
+            this.links ??= new Dictionary<string, List<WebLink>>();
         }
 
         private List<HalDocument> EnsureListForEmbeddedResource(string rel)
@@ -310,10 +307,7 @@ namespace Menes.Hal
 
         private void EnsureEmbeddedResources()
         {
-            if (this.embeddedResources == null)
-            {
-                this.embeddedResources = new Dictionary<string, List<HalDocument>>();
-            }
+            this.embeddedResources ??= new Dictionary<string, List<HalDocument>>();
         }
     }
 }

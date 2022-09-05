@@ -67,7 +67,7 @@ namespace Menes.Internal
         /// <inheritdoc/>
         public bool CanBuildOutput(object result, OpenApiOperation operation)
         {
-            return !(result is OpenApiResult) && OpenApiHttpResponseResult.CanConstructFrom(result, operation, this.logger);
+            return result is not OpenApiResult && OpenApiHttpResponseResult.CanConstructFrom(result, operation, this.logger);
         }
 
         /// <summary>

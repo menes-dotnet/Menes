@@ -77,7 +77,7 @@ namespace Menes.Links
         {
             foreach (string rel in target.GetLinkRelations())
             {
-                foreach (OpenApiWebLink current in target.GetLinksForRelation(rel))
+                foreach (OpenApiWebLink current in target.GetLinksForRelation(rel).Cast<OpenApiWebLink>())
                 {
                     if (unsafeChecking && ShouldSkipInUnsafeMode(rel, current, target))
                     {

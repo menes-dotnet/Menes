@@ -1,4 +1,8 @@
-﻿namespace Menes.Specs.Bindings
+﻿// <copyright file="TestOperationBindings.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
+// </copyright>
+
+namespace Menes.Specs.Bindings
 {
     using System;
     using System.Collections.Generic;

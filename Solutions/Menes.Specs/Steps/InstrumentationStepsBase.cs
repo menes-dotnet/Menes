@@ -1,4 +1,8 @@
-﻿namespace Menes.Specs.Steps
+﻿// <copyright file="InstrumentationStepsBase.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
+// </copyright>
+
+namespace Menes.Specs.Steps
 {
     using Corvus.Testing.SpecFlow;
     using Menes.Internal;
