@@ -4,7 +4,7 @@
 
 ### v3.2.0
 
-Update `Microsoft.OpenApi.Readers from 1.2.3 to 1.3.2
+Update `Microsoft.OpenApi.Readers from 1.2.3 to 1.4.0
 
 
 ## v3.1
