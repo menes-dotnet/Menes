@@ -1,5 +1,12 @@
 # Release notes for Menes v3.
 
+## v3.2
+
+### v3.2.0
+
+Update `Microsoft.OpenApi.Readers from 1.2.3 to 1.4.0
+
+
 ## v3.1
 
 ### `OpenApiWebHostManager` now supports passing `IConfiguration` to functions

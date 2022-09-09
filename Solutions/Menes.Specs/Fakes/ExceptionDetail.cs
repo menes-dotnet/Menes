@@ -1,4 +1,8 @@
-﻿namespace Menes.Specs.Fakes
+﻿// <copyright file="ExceptionDetail.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
+// </copyright>
+
+namespace Menes.Specs.Fakes
 {
     using System;
     using Corvus.Monitoring.Instrumentation;

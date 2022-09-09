@@ -1,4 +1,8 @@
-﻿namespace Menes.Specs.Steps
+﻿// <copyright file="ExceptionInstrumentationSteps.cs" company="Endjin Limited">
+// Copyright (c) Endjin Limited. All rights reserved.
+// </copyright>
+
+namespace Menes.Specs.Steps
 {
     using System;
     using Idg.AsyncTest.TaskExtensions;

@@ -334,3 +334,6 @@ coverage.cobertura.xml
 
 # VS Code config files
 /.vscode
+
+# SpecFlow generated files
+*.feature.cs
