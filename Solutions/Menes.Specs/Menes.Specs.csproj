@@ -55,10 +55,6 @@
     <None Remove="Steps\TestClasses\OpenApiWebLinkResolverTest.yaml" />
   </ItemGroup>
   <ItemGroup>
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\OpenApiMisconfigurationDetection - Copy.feature.cs" />
-    <SpecFlowObsoleteCodeBehindFiles Remove="Features\OpenApiWebLinkResolver - Copy.feature.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="Steps\TestClasses\OpenApiWebLinkResolverTest.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
