@@ -85,9 +85,9 @@ dotnet_style_qualification_for_property = true:suggestion
 dotnet_style_qualification_for_event = true:suggestion
 
 # Style - using directives and namespace declarations
-csharp_using_directive_placement = inside_namespace:warning
+csharp_using_directive_placement = outside_namespace:warning
 dotnet_sort_system_directives_first = true
-#csharp_style_namespace_declarations = file_scoped:warning
+csharp_style_namespace_declarations = file_scoped:warning
 
 # Code analyzer rules (formerly in StyleCop.ruleset)
 # SA1025 makes it impossible to write decent-looking switch expressions because it
