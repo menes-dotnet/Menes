@@ -1,0 +1,48 @@
+<#@ template language="C#" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="Corvus.Json" #>
+<#
+    // This is only emitted if true is true
+    if(!ShouldGenerate)
+    {
+        throw new InvalidOperationException("Service should not be emitted if true is false.");
+    } #>
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Schema for the responses for <#= OperationId #>",
+   "oneOf": [ <#  int index = 0;
+    foreach(var response OperationResponses)
+    {
+        if (index != 0) { #>,<# } #>
+      { "$ref": "#/$defs/<#= response.DotnetTypeName #>" }<#  ++index;
+    } #>
+   ],
+  "$defs": {
+<#  foreach(var response OperationResponses)
+    { #>
+    "<#= response.DotnetTypeName #>": {
+      "type": "object",
+      "required": [
+          "statusCode"<# if (response.HasBody && response.IsBodyRequired) { #>,
+          "body"<# } if (response.HasRequiredHeaders) { foreach (var header in response.Headers) { if (header.IsRequired) { #>,
+          "<#= header.Name #>" <# } } }#>
+      ],
+      "properties": {
+        "statusCode": { "type": "number", format: "integer", "const": <#= response.StatusCode #> }<#  if (response.HasBody) { #>,
+        "body": { "$ref": "<#= response.BodySchemaReference #>" }<# } if (response.HasHeaders) { foreach (var header in response.Headers) {#>,
+        "<#= header.Name #>": { "$ref": "<#= header.SchemaReference #>" }<#  } } #>
+      },
+      "unevaluatedProperties": false
+    }
+<#  } #>
+  }
+}
+<#+
+    public bool ShouldGenerate
+    {
+        get
+        {
+            return true;
+        }
+    }
+#>

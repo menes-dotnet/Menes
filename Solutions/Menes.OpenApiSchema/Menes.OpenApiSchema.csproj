@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<Import Project="$(EndjinProjectPropsPath)" Condition="$(EndjinProjectPropsPath) != ''" />
+
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Corvus.Json.ExtendedTypes" Version="1.0.0-v1-pre1.201" />
+		<PackageReference Include="Endjin.RecommendedPractices.GitHub" Version="2.1.2">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
+
+	<Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+	  <Exec Command="$(ProjectDir)build_steps/generate-schema.cmd $(ProjectDir)" />
+	</Target>
+
+	<ItemGroup>
+	  <PackageReference Update="StyleCop.Analyzers" Version="1.2.0-beta.435" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Menes.OpenApiSchema\V31\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Update="Roslynator.Analyzers" Version="4.1.1" />
+	</ItemGroup>
+
+</Project>

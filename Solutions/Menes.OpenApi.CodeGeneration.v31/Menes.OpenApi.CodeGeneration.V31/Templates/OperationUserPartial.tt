@@ -1,0 +1,72 @@
+<#@ template language="C#" #>
+<#@ import namespace="System.Collections.Generic" #>
+<#@ import namespace="Corvus.Json" #>
+<#
+    // This is only emitted if this user partial does not already exist.
+    // You are expected to implement your service in this type.
+#>
+
+using System.Text.Json;
+using Corvus.Json;
+using Menes.HttpHelpers;
+using Microsoft.AspNetCore.Http;
+
+namespace <#= Namespace #>;
+
+<# BeginNesting(); #>
+/// <summary>
+/// Implements the operation with ID <#= OperationId #>.
+/// </summary>
+<#  if (OperationSummary.IsNotNullOrEmpty())
+    { #>
+/// <remarks>
+/// <#= OperationSummary #>
+/// </remarks>
+<#  } #>
+public readonly partial struct <#= OperationDotnetTypeName #>
+{
+<#  int index = 0;
+    foreach(var requestType in RequestTypes)
+    { #>
+    <# if (index > 0) { WriteLine("\r\n\r\n"); } #>
+        /// <summary>
+        /// Handle the request context and produce a result.
+        /// </summary>
+        /// <param name="requestContext">The request context.</param>
+        /// <result>A task which, when complete, provides the operation result.</result>
+        Task<<#= OperationResultDotnetTypeName #>> HandleOperation(in <# requestType.RequestContextDotnetTypeName #> requestContext)
+        {
+            // TODO: Write your operation handler here.
+            throw new NotImplementedException();
+        }
+<#  }
+    if (response.BodyIsMultipart)
+    { #>
+
+        /// <summary>
+        /// Write multipart form encoded content to the response body.
+        /// </summary>
+        /// <param name="responseBodyWriter">The writer for the response body.</param>
+        /// <param name="result">The operation result for which to write the multipart form content for the body.</param>
+        public void WriteMultipartFormContent(IBufferWriter<byte> responseBodyWriter, <#= OperationResultDotnetTypeName #> result)
+        {
+            // TODO: Write multipart form encoded content.
+            throw new NotImplementedException();
+        }
+<#  }
+    if (response.BodyIsFormUrlEncoded)
+    { #>
+
+        /// <summary>
+        /// Write form URL encoded content to the response body.
+        /// </summary>
+        /// <param name="responseBodyWriter">The writer for the response body.</param>
+        /// <param name="result">The operation result for which to write the form URL-encoded content for the body.</param>
+        public void WriteFormUrlEncodedContent(IBufferWriter<byte> responseBodyWriter, <#= OperationResultDotnetTypeName #> result)
+        {
+            // TODO: Write form URL encoded content.
+            throw new NotImplementedException();
+        }
+<#  } #>
+}
+<# EndNesting(); #>
