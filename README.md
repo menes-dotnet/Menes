@@ -3,11 +3,37 @@
 [![GitHub license](https://img.shields.io/badge/License-Apache%202-blue.svg)](https://raw.githubusercontent.com/menes-dotnet/Menes/main/LICENSE)
 [![IMM](https://endimmfuncdev.azurewebsites.net/api/imm/github/menes-dotnet/Menes/total?cache=false)](https://endimmfuncdev.azurewebsites.net/api/imm/github/menes-dotnet/Menes/total?cache=false)
 
-This provides abstractions for the Menes framework.
+This provides code generation for OpenApi V3.1 services.
 
-It is built for netstandard2.1. (netstandard2.0 support is available in v2.x releases.)
+It is built for dotnet7.0.
 
 ## Features
+
+Code generation for strongly-typed service requests and responses.
+Code generation for JSON Schema draft6, draft7, draft2019-09 and draft2020-12 based on [Corvus.Json.JsonSchema.TypeGeneratorTool](https://www.nuget.org/packages/Corvus.Json.JsonSchema.TypeGeneratorTool/1.0.0-v1-pre1.201).
+
+## Prerequisites
+
+### You'll need
+
+- the [.NET 7 SDK Preview](https://dotnet.microsoft.com/en-us/download/dotnet/7.0) (maybe you've already installed [Visual Studio 2022 17.4 Preview 1](https://visualstudio.microsoft.com/vs/preview/) and acquired it that way; but you don't have to install Visual Studio to get started; you can download these SDK bits and use the completely free/OSS toolchain to follow along.)
+- a shell, with the SDK developer tools in the path. I'm using [PowerShell](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.2) in the [Windows Terminal](https://docs.microsoft.com/en-us/windows/terminal/install), [configured with the Visual Studio "Developer" config for PowerShell](https://blog.yannickreekmans.be/developer-powershell-command-prompt-visual-studio-windows-terminal/).
+- A text editor or IDE. I'm using [VS Code](https://code.visualstudio.com/).
+- [Corvus.Json.JsonSchema.TypeGeneratorTool](https://www.nuget.org/packages/Corvus.Json.JsonSchema.TypeGeneratorTool/).
+
+### Install the typegenerator tool
+
+This is a dotnet command line tool, available for all platforms. Install it globally using:
+```
+dotnet tool install -g --prerelease Corvus.Json.JsonSchema.TypeGeneratorTool
+```
+
+### Things that would help
+
+- Some familiarity with building C# code with dotnet7.0
+- Some familiarity with [json-schema](https://json-schema.org/understanding-json-schema/)
+- Some familiarity with [OpenAPI 3.1](https://oai.github.io/Documentation/)
+- Some familiarity with ASP NET Core
 
 ## Licenses
 
@@ -21,7 +47,7 @@ For any licensing questions, please email [&#108;&#105;&#99;&#101;&#110;&#115;&#
 
 This project is sponsored by [endjin](https://endjin.com), a UK based Microsoft Gold Partner for Cloud Platform, Data Platform, Data Analytics, DevOps, and a Power BI Partner.
 
-For more information about our products and services, or for commercial support of this project, please [contact us](https://endjin.com/contact-us). 
+For more information about our products and services, or for commercial support of this project, please [contact us](https://endjin.com/contact-us).
 
 We produce two free weekly newsletters; [Azure Weekly](https://azureweekly.info) for all things about the Microsoft Azure Platform, and [Power BI Weekly](https://powerbiweekly.info).
 
