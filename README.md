@@ -5,12 +5,15 @@
 
 This provides code generation for OpenApi V3.1 services.
 
-It is built for dotnet7.0.
+It is built for dotnet 7.0.
 
 ## Features
 
-Code generation for strongly-typed service requests and responses.
-Code generation for JSON Schema draft6, draft7, draft2019-09 and draft2020-12 based on [Corvus.Json.JsonSchema.TypeGeneratorTool](https://www.nuget.org/packages/Corvus.Json.JsonSchema.TypeGeneratorTool/1.0.0-v1-pre1.201).
+- Code generation for strongly-typed service requests and responses.
+- Code generation for JSON Schema draft6, draft7, draft2019-09 and draft2020-12 based on [Corvus.Json.JsonSchema.TypeGeneratorTool](https://www.nuget.org/packages/Corvus.Json.JsonSchema.TypeGeneratorTool/1.0.0-v1-pre1.201).
+- Support for HAL Resources
+- Support for resource/tag-based permission verification based on high-performance, low-allocation globbing.
+- Low allocation / high performance code
 
 ## Prerequisites
 
