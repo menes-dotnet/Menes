@@ -40,7 +40,7 @@ namespace Menes.Internal
             }
 
             ContentFactory.TryGetContentType(owner, out string contentType);
-            string fullTypeName = owner.GetType().FullName;
+            string fullTypeName = owner.GetType().FullName!;
 
             throw new OpenApiLinkResolutionException(relationType, fullTypeName, contentType);
         }
@@ -59,7 +59,7 @@ namespace Menes.Internal
             }
 
             ContentFactory.TryGetContentType(owner, out string contentType);
-            string fullTypeName = owner.GetType().FullName;
+            string fullTypeName = owner.GetType().FullName!;
 
             throw new OpenApiLinkResolutionException(relationType, fullTypeName, contentType);
         }

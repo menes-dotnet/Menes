@@ -35,16 +35,16 @@ namespace Menes.Internal
         public override object ReadJson(
             JsonReader reader,
             Type objectType,
-            object existingValue,
+            object? existingValue,
             JsonSerializer serializer)
         {
             throw new NotSupportedException();
         }
 
         /// <inheritdoc />
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
         {
-            var document = (OpenApiDocument)value;
+            var document = (OpenApiDocument)value!;
 
             using var stream = new MemoryStream();
             document.SerializeAsJson(stream, OpenApiSpecVersion.OpenApi3_0);

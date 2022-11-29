@@ -2,6 +2,8 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
+#pragma warning disable CA1822 // This wants to make things static because it doesn't understand the reflection-based usage model
+
 namespace Menes.Testing.AspNetCoreSelfHosting.Internal
 {
     using System;
@@ -51,7 +53,7 @@ namespace Menes.Testing.AspNetCoreSelfHosting.Internal
                     {
                         context.Response.StatusCode = 500;
 
-                        ILogger<OpenApiWebHostStartup> logger = context.RequestServices.GetService<ILogger<OpenApiWebHostStartup>>();
+                        ILogger<OpenApiWebHostStartup> logger = context.RequestServices.GetRequiredService<ILogger<OpenApiWebHostStartup>>();
                         logger?.LogError(ex, "An unexpected exception occurred when attempting to handle the request.");
                     }
                 });

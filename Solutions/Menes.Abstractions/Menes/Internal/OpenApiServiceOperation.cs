@@ -46,11 +46,11 @@ namespace Menes.Internal
                 if (parameter.HasDefaultValue)
                 {
                     this.hasDefaultValues[i] = true;
-                    this.defaultValues[i] = parameter.DefaultValue;
+                    this.defaultValues[i] = parameter.DefaultValue!;
                 }
 
-                OpenApiParameterAttribute parameterAttribute = parameter.GetCustomAttribute<OpenApiParameterAttribute>();
-                this.parameterNames[i] = parameterAttribute?.ParameterName ?? parameter.Name;
+                OpenApiParameterAttribute? parameterAttribute = parameter.GetCustomAttribute<OpenApiParameterAttribute>();
+                this.parameterNames[i] = parameterAttribute?.ParameterName ?? parameter.Name!;
             }
         }
 
@@ -101,7 +101,7 @@ namespace Menes.Internal
                         }
                         else
                         {
-                            paramArray[index] = JsonConvert.DeserializeObject(stringValue, targetType, this.configuration.SerializerSettings);
+                            paramArray[index] = JsonConvert.DeserializeObject(stringValue, targetType, this.configuration.SerializerSettings)!;
                         }
                     }
                     else if (targetType.IsEnum)
@@ -129,7 +129,7 @@ namespace Menes.Internal
                 }
             }
 
-            return this.operation.Invoke(this.service, paramArray);
+            return this.operation.Invoke(this.service, paramArray)!;
         }
 
         /// <summary>

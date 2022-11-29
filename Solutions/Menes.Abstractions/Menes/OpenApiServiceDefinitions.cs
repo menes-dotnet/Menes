@@ -24,7 +24,7 @@ namespace Menes
         public static OpenApiDocument GetOpenApiServiceFromEmbeddedDefinition<T>()
             where T : IOpenApiService
         {
-            EmbeddedOpenApiDefinitionAttribute attribute = typeof(T).GetCustomAttribute<EmbeddedOpenApiDefinitionAttribute>();
+            EmbeddedOpenApiDefinitionAttribute? attribute = typeof(T).GetCustomAttribute<EmbeddedOpenApiDefinitionAttribute>();
             if (attribute == null)
             {
                 throw new ArgumentException(
@@ -77,7 +77,7 @@ namespace Menes
             string resourceName,
             out OpenApiDiagnostic diagnostics)
         {
-            using Stream stream = assembly.GetManifestResourceStream(resourceName);
+            using Stream stream = assembly.GetManifestResourceStream(resourceName)!;
             return new OpenApiStreamReader().Read(stream, out diagnostics);
         }
     }

@@ -47,11 +47,11 @@ namespace Menes.Converters
             // Use the discriminator to look up the type, if it is available
             string? discriminator = schema.Discriminator?.PropertyName;
 
-            string type;
+            string? type;
             if (!string.IsNullOrEmpty(discriminator))
             {
                 var jobj = JObject.Parse(content);
-                type = (string)jobj[discriminator];
+                type = (string?)jobj[discriminator];
 
                 if (type == null)
                 {
@@ -72,16 +72,16 @@ namespace Menes.Converters
                 return content;
             }
 
-            if (!this.configuration.DiscriminatedTypes.TryGetValue(type, out Type targetType))
+            if (!this.configuration.DiscriminatedTypes.TryGetValue(type, out Type? targetType))
             {
                 if (!this.serviceProvider.TryGetTypeFor(type, out targetType))
                 {
                     // We have no immediately obvious way to discriminate the type, so fall back on the serializers.
-                    return JsonConvert.DeserializeObject(content, this.configuration.SerializerSettings);
+                    return JsonConvert.DeserializeObject(content, this.configuration.SerializerSettings!)!;
                 }
             }
 
-            return JsonConvert.DeserializeObject(content, targetType, this.configuration.SerializerSettings);
+            return JsonConvert.DeserializeObject(content, targetType, this.configuration.SerializerSettings)!;
         }
 
         /// <inheritdoc/>

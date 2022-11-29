@@ -48,7 +48,7 @@ namespace Menes.Converters
             }
             else
             {
-                result = instance.ToString();
+                result = instance.ToString()!;
             }
 
             this.validator.ValidateAndThrow(result, schema);

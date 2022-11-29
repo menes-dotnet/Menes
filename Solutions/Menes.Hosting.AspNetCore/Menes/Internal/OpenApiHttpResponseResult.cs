@@ -75,13 +75,13 @@ namespace Menes.Internal
 
             try
             {
-                this.operation.Responses.TryGetResponseForStatusCode(this.openApiResult.StatusCode, out OpenApiResponse response);
+                this.operation.Responses.TryGetResponseForStatusCode(this.openApiResult.StatusCode, out OpenApiResponse? response);
 
                 httpResponse.StatusCode = this.openApiResult.StatusCode;
 
-                this.BuildHeaders(httpResponse, response);
+                this.BuildHeaders(httpResponse, response!);
 
-                await this.WriteBodyAsync(httpResponse, response);
+                await this.WriteBodyAsync(httpResponse, response!);
                 if (this.logger.IsEnabled(LogLevel.Debug))
                 {
                     this.logger.LogDebug("Executed [{actionResult}]", this.openApiResult.GetLoggingInformation());
@@ -183,7 +183,7 @@ namespace Menes.Internal
         /// <returns>True if an action result can be constructed from this operation result.</returns>
         internal static bool CanConstructFrom(OpenApiResult openApiResult, OpenApiOperation operation)
         {
-            if (!operation.Responses.TryGetResponseForStatusCode(openApiResult.StatusCode, out OpenApiResponse response))
+            if (!operation.Responses.TryGetResponseForStatusCode(openApiResult.StatusCode, out OpenApiResponse? response))
             {
                 return false;
             }

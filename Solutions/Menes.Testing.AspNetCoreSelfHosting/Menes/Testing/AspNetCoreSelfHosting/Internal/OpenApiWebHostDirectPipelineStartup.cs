@@ -2,10 +2,11 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
+#pragma warning disable CA1822 // This wants to make things static because it doesn't understand the reflection-based usage model
+
 namespace Menes.Testing.AspNetCoreSelfHosting.Internal
 {
     using Menes.Hosting.AspNetCore;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
 

@@ -11,6 +11,7 @@ namespace Microsoft.Extensions.DependencyInjection
 
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
+    using Newtonsoft.Json.Serialization;
 
     /// <summary>
     /// Common DI initialization for PetStore.
@@ -46,7 +47,7 @@ namespace Microsoft.Extensions.DependencyInjection
             // the case in v2.0 onwards. However, we have specified that our pets will have their Size value, which is
             // represented by the Size enumeration, returned as a string. This conversion could be done manually in the
             // PetResourceMapper, but we can achieve the same goal using the StringEnumConverter.
-            services.AddSingleton<JsonConverter>(new StringEnumConverter(true));
+            services.AddSingleton<JsonConverter>(new StringEnumConverter(new CamelCaseNamingStrategy()));
 
             return services;
         }

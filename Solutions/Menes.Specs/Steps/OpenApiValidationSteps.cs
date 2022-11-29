@@ -53,7 +53,7 @@ namespace Menes.Specs.Steps
             OpenApiSchema schema = this.scenarioContext.Get<OpenApiSchema>();
             JToken payload = this.scenarioContext.Get<JToken>();
 
-            OpenApiSchemaValidator validator = ContainerBindings.GetServiceProvider(this.scenarioContext).GetService<OpenApiSchemaValidator>();
+            OpenApiSchemaValidator validator = ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<OpenApiSchemaValidator>();
             try
             {
                 validator.ValidateAndThrow(payload, schema);

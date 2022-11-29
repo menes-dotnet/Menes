@@ -26,13 +26,14 @@ namespace Menes.Hal.Internal
         /// <inheritdoc/>
         public HalDocument CreateHalDocument()
         {
-            return this.serviceProvider.GetService<HalDocument>();
+            return this.serviceProvider.GetRequiredService<HalDocument>();
         }
 
         /// <inheritdoc/>
         public HalDocument CreateHalDocumentFrom<T>(T entity)
+            where T : notnull
         {
-            HalDocument halDocument = this.serviceProvider.GetService<HalDocument>();
+            HalDocument halDocument = this.serviceProvider.GetRequiredService<HalDocument>();
             halDocument.SetProperties(entity);
             return halDocument;
         }

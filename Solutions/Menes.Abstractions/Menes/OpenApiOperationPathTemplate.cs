@@ -56,7 +56,7 @@ namespace Menes
         /// </summary>
         /// <param name="requestUri">The uri for the request.</param>
         /// <returns>A dictionary of parameter names to values.</returns>
-        public IDictionary<string, object> BuildTemplateParameterValues(Uri requestUri)
+        public IDictionary<string, object>? BuildTemplateParameterValues(Uri requestUri)
         {
             return this.OpenApiPathTemplate.UriTemplate.GetParameters(requestUri);
         }

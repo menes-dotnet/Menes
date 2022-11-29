@@ -60,7 +60,7 @@ namespace Menes.Specs.Steps
         {
             var adapter = new ShortCircuitingAccessControlPolicyAdapter(
                 this.firstPolicy!.Object,
-                this.otherPolicies.Select(op => op.Policy.Object));
+                this.otherPolicies!.Select(op => op.Policy.Object));
 
             this.claimsPrincipal = new ClaimsPrincipal();
             this.tenantId = Guid.NewGuid().ToString();

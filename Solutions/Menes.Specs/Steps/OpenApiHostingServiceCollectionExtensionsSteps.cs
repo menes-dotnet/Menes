@@ -190,8 +190,9 @@ namespace Menes.Specs.Steps
         }
 
         private void AssertServiceIsAvailableFromServiceProvider<TService>()
+            where TService : class
         {
-            TService service = this.scenarioContext.Get<ServiceProvider>().GetService<TService>();
+            TService service = this.scenarioContext.Get<ServiceProvider>().GetRequiredService<TService>();
 
             Assert.IsNotNull(service);
         }
@@ -206,6 +207,7 @@ namespace Menes.Specs.Steps
         }
 
         private void AssertServiceIsASingleton<TService>()
+            where TService : class
         {
             ServiceProvider provider = this.scenarioContext.Get<ServiceProvider>();
 

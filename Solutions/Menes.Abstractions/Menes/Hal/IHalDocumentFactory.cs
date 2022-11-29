@@ -15,7 +15,8 @@ namespace Menes.Hal
         /// <typeparam name="T">The type of the entity.</typeparam>
         /// <param name="entity">The entity with which to set the properties of the HAL document.</param>
         /// <returns>A <see cref="HalDocument"/>, configured with the properties from the entity.</returns>
-        HalDocument CreateHalDocumentFrom<T>(T entity);
+        HalDocument CreateHalDocumentFrom<T>(T entity)
+            where T : notnull;
 
         /// <summary>
         /// Creates an empty <see cref="HalDocument"/>.

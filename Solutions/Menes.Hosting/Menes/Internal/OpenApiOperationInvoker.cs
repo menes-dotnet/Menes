@@ -74,7 +74,7 @@ namespace Menes.Internal
         public async Task<TResponse> InvokeAsync(string path, string method, TRequest request, OpenApiOperationPathTemplate operationPathTemplate, IOpenApiContext context)
         {
             string operationId = operationPathTemplate.Operation.OperationId;
-            if (!this.operationLocator.TryGetOperation(operationId, out OpenApiServiceOperation openApiServiceOperation))
+            if (!this.operationLocator.TryGetOperation(operationId, out OpenApiServiceOperation? openApiServiceOperation))
             {
                 throw new OpenApiServiceMismatchException(
                     $"The service's formal definition includes an operation '{operationPathTemplate.Operation.GetOperationId()}', but the service class does not provide an implementation");
@@ -96,7 +96,7 @@ namespace Menes.Internal
                 IDictionary<string, object> namedParameters = await this.BuildRequestParametersAsync(request, operationPathTemplate).ConfigureAwait(false);
 
                 // Try to find the tenantID in the parameters, but before we check the access policies.
-                if (namedParameters.TryGetValue("tenantId", out object tenantIdObject) && tenantIdObject is string tenantId)
+                if (namedParameters.TryGetValue("tenantId", out object? tenantIdObject) && tenantIdObject is string tenantId)
                 {
                     context.CurrentTenantId = tenantId;
                 }
@@ -119,7 +119,7 @@ namespace Menes.Internal
                     if (this.logger.IsEnabled(LogLevel.Debug))
                     {
                         this.logger.LogDebug(
-                                                "Awaiting task {task} from invoking operation [{openApiServiceOperation}] for [{request}]",
+                                                "Awaiting task {task} from invoking operation [{openApiServiceOperation}] for request [{path}] [{method}]",
                                                 task.Id,
                                                 openApiServiceOperation.GetName(),
                                                 path,
@@ -225,9 +225,9 @@ namespace Menes.Internal
             // containing our actual exception - if so, unwrap it.
             Exception targetException = ex;
 
-            if (ex is TargetInvocationException tie)
+            if (ex is TargetInvocationException { InnerException: Exception exFromTarget })
             {
-                targetException = tie.InnerException;
+                targetException = exFromTarget;
             }
 
             this.logger.LogError(

@@ -51,7 +51,7 @@ namespace Menes.Internal
         /// <inheritdoc/>
         public void MapByContentTypeAndRelationTypeAndContextAndOperationId<T>(string relationType, string context, string operationId)
         {
-            string contentType = this.GetContentType<T>();
+            string contentType = GetContentType<T>();
             this.MapByContentTypeAndRelationTypeAndContextAndOperationId(contentType, relationType, context, operationId);
         }
 
@@ -69,7 +69,7 @@ namespace Menes.Internal
                 return true;
             }
 
-            string fullTypeName = owner.GetType().FullName;
+            string fullTypeName = owner.GetType().FullName!;
 
             return this.TryGetOperationId(fullTypeName, relationType, context, out operationId);
         }
@@ -79,10 +79,10 @@ namespace Menes.Internal
             return $"{context}::{mediaType}";
         }
 
-        private string GetContentType<T>()
+        private static string GetContentType<T>()
         {
             ContentFactory.TryGetContentType<T>(out string contentType);
-            return contentType ?? typeof(T).FullName;
+            return contentType ?? typeof(T).FullName!;
         }
 
         private bool TryGetOperationId(string contentType, string relationType, string context, out string operationName)

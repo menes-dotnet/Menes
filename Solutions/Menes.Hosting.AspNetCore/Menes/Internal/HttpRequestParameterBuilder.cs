@@ -49,7 +49,7 @@ namespace Menes.Internal
             var parameters = new Dictionary<string, object>();
 
             IList<OpenApiParameter> openApiParameters = operationPathTemplate.BuildOpenApiParameters();
-            IDictionary<string, object> templateParameterValues = operationPathTemplate.BuildTemplateParameterValues(new Uri(request.Path.Value, UriKind.Relative));
+            IDictionary<string, object>? templateParameterValues = operationPathTemplate.BuildTemplateParameterValues(new Uri(request.Path.Value!, UriKind.Relative));
 
             foreach (OpenApiParameter parameter in openApiParameters)
             {
@@ -175,6 +175,18 @@ namespace Menes.Internal
             return parameters;
         }
 
+        private static string? GetBaseContentType(string contentType)
+        {
+            if (string.IsNullOrEmpty(contentType))
+            {
+                return null;
+            }
+
+            int separator = contentType.IndexOf(';');
+
+            return separator != -1 ? contentType[..separator] : contentType;
+        }
+
         private object? TryGetDefaultValueFromSchema(OpenApiSchema schema, IOpenApiAny? defaultValue)
         {
             return defaultValue switch
@@ -218,7 +230,7 @@ namespace Menes.Internal
                 {
                     object? obj = this.TryGetDefaultValueFromSchema(properties[key], inputObj[key]);
 
-                    values.Add(key, JToken.FromObject(obj));
+                    values.Add(key, obj is null ? JValue.CreateNull() : JToken.FromObject(obj));
                 }
 
                 return values;
@@ -274,7 +286,9 @@ namespace Menes.Internal
                 }
             }
 
-            string? requestBaseContentType = this.GetBaseContentType(request.ContentType);
+            string? requestBaseContentType = request.ContentType is null
+                ? null
+                : GetBaseContentType(request.ContentType);
 
             if (string.IsNullOrEmpty(requestBaseContentType) || !operationPathTemplate.Operation.RequestBody.Content.TryGetValue(requestBaseContentType, out OpenApiMediaType? openApiMediaType))
             {
@@ -316,18 +330,6 @@ namespace Menes.Internal
             }
         }
 
-        private string? GetBaseContentType(string contentType)
-        {
-            if (string.IsNullOrEmpty(contentType))
-            {
-                return null;
-            }
-
-            int separator = contentType.IndexOf(';');
-
-            return separator != -1 ? contentType[..separator] : contentType;
-        }
-
         private bool TryGetParameterFromCookie(
             IRequestCookieCollection cookies,
             OpenApiParameter parameter,
@@ -353,7 +355,7 @@ namespace Menes.Internal
                 return false;
             }
 
-            if (cookies.TryGetValue(parameter.Name, out string value))
+            if (cookies.TryGetValue(parameter.Name, out string? value))
             {
                 if (this.logger.IsEnabled(LogLevel.Debug))
                 {
@@ -362,7 +364,7 @@ namespace Menes.Internal
                         parameter.Name);
                 }
 
-                result = this.ConvertValue(parameter.Schema, value);
+                result = this.ConvertValue(parameter.Schema, value!);
                 return true;
             }
 
@@ -490,7 +492,7 @@ namespace Menes.Internal
         }
 
         private bool TryGetParameterFromPath(
-            IDictionary<string, object> templateParameters,
+            IDictionary<string, object>? templateParameters,
             OpenApiParameter parameter,
             [NotNullWhen(true)] out object? result)
         {
@@ -574,7 +576,7 @@ namespace Menes.Internal
                         parameter.Name);
                 }
 
-                result = this.ConvertValue(parameter.Schema, value.FirstOrDefault());
+                result = this.ConvertValue(parameter.Schema, value[0]);
                 return true;
             }
 

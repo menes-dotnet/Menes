@@ -34,7 +34,9 @@ namespace Menes.Auditing
         /// <summary>
         /// Gets the content type used when this object is serialized/deserialized.
         /// </summary>
+#pragma warning disable CA1822 // Mark members as static - accessed via reflection, so this need to be an instance member
         public string ContentType => RegisteredContentType;
+#pragma warning restore CA1822
 
         /// <summary>
         /// Gets or sets the Id of the tenant for the operation.
