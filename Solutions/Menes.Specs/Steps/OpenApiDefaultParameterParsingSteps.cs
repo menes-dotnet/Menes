@@ -141,7 +141,7 @@ namespace Menes.Specs.Steps
             };
 
             Assert.AreEqual(expectedResult, this.parameters![parameterName]);
-            Assert.AreEqual(expectedResult.GetType(), this.parameters![parameterName].GetType());
+            Assert.AreEqual(expectedResult.GetType(), this.parameters![parameterName]!.GetType());
         }
 
         [Then("an '(.*)' should be thrown")]

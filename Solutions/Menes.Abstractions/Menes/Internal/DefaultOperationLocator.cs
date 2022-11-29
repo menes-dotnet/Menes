@@ -6,6 +6,7 @@ namespace Menes.Internal
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Reflection;
     using Microsoft.Extensions.Logging;
@@ -35,7 +36,7 @@ namespace Menes.Internal
         }
 
         /// <inheritdoc/>
-        public bool TryGetOperation(string operationId, out OpenApiServiceOperation operation)
+        public bool TryGetOperation(string operationId, [NotNullWhen(true)] out OpenApiServiceOperation? operation)
         {
             if (!this.operations.Value.TryGetValue(operationId, out operation))
             {
@@ -71,7 +72,7 @@ namespace Menes.Internal
 
                 foreach (MethodInfo method in methods)
                 {
-                    OperationIdAttribute attr = method.GetCustomAttributes(typeof(OperationIdAttribute), false).Cast<OperationIdAttribute>().SingleOrDefault();
+                    OperationIdAttribute? attr = method.GetCustomAttributes(typeof(OperationIdAttribute), false).Cast<OperationIdAttribute>().SingleOrDefault();
 
                     if (attr == null)
                     {

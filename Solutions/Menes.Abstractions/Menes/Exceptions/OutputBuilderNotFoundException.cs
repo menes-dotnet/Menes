@@ -63,14 +63,14 @@ namespace Menes.Internal
                 appendComma = true;
             }
 
-            sb.Append(".");
+            sb.Append('.');
 
             if (result is OpenApiResult oaiResult)
             {
                 sb.AppendLine();
                 sb.Append("Received a response with a status code of: ");
                 sb.Append(oaiResult.StatusCode);
-                sb.Append(".");
+                sb.Append('.');
 
                 sb.AppendLine();
 

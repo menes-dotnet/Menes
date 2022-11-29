@@ -52,7 +52,7 @@ namespace Menes.ExceptionMappers
         /// <inheritdoc/>
         public bool CanMapException(OpenApiResponses responses, Exception ex, int? statusCode)
         {
-            if (responses.TryGetResponseForStatusCode(statusCode, out OpenApiResponse response))
+            if (responses.TryGetResponseForStatusCode(statusCode, out OpenApiResponse? response))
             {
                 return response.Content.ContainsKey(ProblemDetailContentType)
                     || response.Content.ContainsKey(ProblemDetailAlternateContentType);
@@ -64,11 +64,11 @@ namespace Menes.ExceptionMappers
         /// <inheritdoc/>
         public OpenApiResult MapException(OpenApiResponses responses, Exception ex, int? statusCode)
         {
-            responses.TryGetResponseForStatusCode(statusCode, out OpenApiResponse openApiResponse);
+            responses.TryGetResponseForStatusCode(statusCode, out OpenApiResponse? openApiResponse);
 
             var response = new JObject();
             bool useAlternateType = false;
-            if (!openApiResponse.Content.TryGetValue(ProblemDetailContentType, out OpenApiMediaType responseMediaType))
+            if (!openApiResponse!.Content.TryGetValue(ProblemDetailContentType, out OpenApiMediaType? responseMediaType))
             {
                 responseMediaType = openApiResponse.Content[ProblemDetailAlternateContentType];
                 useAlternateType = true;
@@ -105,7 +105,7 @@ namespace Menes.ExceptionMappers
                         }
                         else
                         {
-                            response[property.Key] = JToken.FromObject(ex.Data[property.Key]);
+                            response[property.Key] = JToken.FromObject(ex.Data[property.Key]!);
                         }
 
                         break;

@@ -109,11 +109,11 @@ namespace Menes
                 {
                     if (queryString.Length == 0)
                     {
-                        queryString.Append("?").Append(encoder.Encode(name)).Append("=").Append(encoder.Encode(value.ToString()));
+                        queryString.Append('?').Append(encoder.Encode(name)).Append('=').Append(encoder.Encode(value.ToString()!));
                     }
                     else
                     {
-                        queryString.Append("&").Append(encoder.Encode(name)).Append("=").Append(encoder.Encode(value.ToString()));
+                        queryString.Append('&').Append(encoder.Encode(name)).Append('=').Append(encoder.Encode(value.ToString()!));
                     }
                 }
             }
@@ -152,7 +152,7 @@ namespace Menes
             {
                 if (template.Match.IsMatch(requestPath))
                 {
-                    if (template.PathItem.Operations.TryGetValue(method.ToOperationType(), out OpenApiOperation operation))
+                    if (template.PathItem.Operations.TryGetValue(method.ToOperationType(), out OpenApiOperation? operation))
                     {
                         this.logger.LogInformation(
                             "Matched request [{method}] [{requestPath}] with template [{template}] to [{operation}]",

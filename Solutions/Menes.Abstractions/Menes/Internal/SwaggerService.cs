@@ -76,12 +76,12 @@ namespace Menes.Internal
         [OperationId("getSwagger")]
         public OpenApiResult Swagger()
         {
-            OpenApiDocument mergedDocument = this.Merge(this.templateProvider.AddedOpenApiDocuments);
+            OpenApiDocument mergedDocument = Merge(this.templateProvider.AddedOpenApiDocuments);
 
             return this.OkResult(mergedDocument);
         }
 
-        private OpenApiDocument Merge(IEnumerable<OpenApiDocument> documents)
+        private static OpenApiDocument Merge(IEnumerable<OpenApiDocument> documents)
         {
             var merged = new OpenApiDocument
             {
@@ -92,7 +92,7 @@ namespace Menes.Internal
 
             foreach (OpenApiDocument document in documents)
             {
-                this.MergeLists(merged.Servers, document.Servers, (x, y) => x?.Url == y?.Url);
+                MergeLists(merged.Servers, document.Servers, (x, y) => x?.Url == y?.Url);
 
                 foreach (KeyValuePair<string, OpenApiPathItem> openApiPath in document.Paths)
                 {
@@ -102,30 +102,30 @@ namespace Menes.Internal
                     }
 
                     OpenApiPathItem mergedPath = merged.Paths[openApiPath.Key];
-                    this.MergeDictionaries(mergedPath.Operations, openApiPath.Value.Operations);
+                    MergeDictionaries(mergedPath.Operations, openApiPath.Value.Operations);
                 }
 
-                this.MergeLists(merged.Tags, document.Tags, (x, y) => x?.Name == y?.Name);
+                MergeLists(merged.Tags, document.Tags, (x, y) => x?.Name == y?.Name);
 
                 if (document.Components != null)
                 {
-                    this.MergeDictionaries(merged.Components.Schemas, document.Components.Schemas);
-                    this.MergeDictionaries(merged.Components.Callbacks, document.Components.Callbacks);
-                    this.MergeDictionaries(merged.Components.Examples, document.Components.Examples);
-                    this.MergeDictionaries(merged.Components.Extensions, document.Components.Extensions);
-                    this.MergeDictionaries(merged.Components.Headers, document.Components.Headers);
-                    this.MergeDictionaries(merged.Components.Links, document.Components.Links);
-                    this.MergeDictionaries(merged.Components.Parameters, document.Components.Parameters);
-                    this.MergeDictionaries(merged.Components.RequestBodies, document.Components.RequestBodies);
-                    this.MergeDictionaries(merged.Components.Responses, document.Components.Responses);
-                    this.MergeDictionaries(merged.Components.SecuritySchemes, document.Components.SecuritySchemes);
+                    MergeDictionaries(merged.Components.Schemas, document.Components.Schemas);
+                    MergeDictionaries(merged.Components.Callbacks, document.Components.Callbacks);
+                    MergeDictionaries(merged.Components.Examples, document.Components.Examples);
+                    MergeDictionaries(merged.Components.Extensions, document.Components.Extensions);
+                    MergeDictionaries(merged.Components.Headers, document.Components.Headers);
+                    MergeDictionaries(merged.Components.Links, document.Components.Links);
+                    MergeDictionaries(merged.Components.Parameters, document.Components.Parameters);
+                    MergeDictionaries(merged.Components.RequestBodies, document.Components.RequestBodies);
+                    MergeDictionaries(merged.Components.Responses, document.Components.Responses);
+                    MergeDictionaries(merged.Components.SecuritySchemes, document.Components.SecuritySchemes);
                 }
             }
 
             return merged;
         }
 
-        private void MergeDictionaries<TKey, TValue>(IDictionary<TKey, TValue> target, IDictionary<TKey, TValue> source)
+        private static void MergeDictionaries<TKey, TValue>(IDictionary<TKey, TValue> target, IDictionary<TKey, TValue> source)
         {
             foreach (KeyValuePair<TKey, TValue> current in source)
             {
@@ -136,7 +136,7 @@ namespace Menes.Internal
             }
         }
 
-        private void MergeLists<T>(IList<T> target, IList<T> source, Func<T, T, bool> equalityChecker)
+        private static void MergeLists<T>(IList<T> target, IList<T> source, Func<T, T, bool> equalityChecker)
         {
             foreach (T current in source)
             {

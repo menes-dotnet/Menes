@@ -32,7 +32,7 @@ namespace Menes.Specs.Steps
         [Given("I have a HalDocument called '(.*)'")]
         public void GivenIHaveAHalDocumentCalled(string halDocumentName)
         {
-            IHalDocumentFactory halDocumentFactory = ContainerBindings.GetServiceProvider(this.scenarioContext).GetService<IHalDocumentFactory>();
+            IHalDocumentFactory halDocumentFactory = ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<IHalDocumentFactory>();
 
             this.scenarioContext.Set(halDocumentFactory.CreateHalDocument(), halDocumentName);
         }
@@ -55,7 +55,7 @@ namespace Menes.Specs.Steps
         public void GivenTheHalDocumentCalledHasEmbeddedResources(string halDocumentName, Table embeddedResourceTable)
         {
             IHalDocumentFactory halDocumentFactory =
-                ContainerBindings.GetServiceProvider(this.scenarioContext).GetService<IHalDocumentFactory>();
+                ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<IHalDocumentFactory>();
 
             IEnumerable<(string Rel, object Object)> embeddedResources =
                 embeddedResourceTable.CreateSet<(string Rel, object Object)>();

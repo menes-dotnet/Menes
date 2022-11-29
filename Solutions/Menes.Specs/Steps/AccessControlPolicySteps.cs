@@ -54,7 +54,7 @@ namespace Menes.Specs.Steps
             string operationId)
         {
             var checker = new OpenApiAccessChecker(
-                this.policies.Select(m => m.Policy.Object));
+                this.policies!.Select(m => m.Policy.Object));
 
             this.claimsPrincipal = new ClaimsPrincipal();
             this.tenantId = Guid.NewGuid().ToString();

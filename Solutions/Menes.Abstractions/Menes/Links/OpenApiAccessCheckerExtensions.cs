@@ -84,7 +84,7 @@ namespace Menes.Links
                         continue;
                     }
 
-                    if (!linkMap.TryGetValue((rel, current), out List<HalDocument> documents))
+                    if (!linkMap.TryGetValue((rel, current), out List<HalDocument>? documents))
                     {
                         documents = new List<HalDocument>();
                         linkMap.Add((rel, current), documents);

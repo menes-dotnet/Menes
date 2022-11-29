@@ -39,7 +39,7 @@ namespace Menes.Converters
         public object ConvertFrom(string content, OpenApiSchema schema)
         {
             JToken token = content;
-            var result = new Uri(token.Value<string>(), UriKind.RelativeOrAbsolute);
+            var result = new Uri(token.Value<string>()!, UriKind.RelativeOrAbsolute);
 
             this.validator.ValidateAndThrow(result, schema);
 

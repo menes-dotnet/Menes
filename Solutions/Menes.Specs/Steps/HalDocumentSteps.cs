@@ -41,7 +41,7 @@ namespace Menes.Specs.Steps
         [Given("I have created an instance of HalDocument{T} from the domain class")]
         public void GivenIHaveCreatedAnInstanceOfHalDocumentFromTheDomainClass()
         {
-            IHalDocumentFactory halDocumentFactory = ContainerBindings.GetServiceProvider(this.scenarioContext).GetService<IHalDocumentFactory>();
+            IHalDocumentFactory halDocumentFactory = ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<IHalDocumentFactory>();
             HalDocument halDocument = halDocumentFactory.CreateHalDocumentFrom(this.scenarioContext.Get<TestDomainClass>());
             this.scenarioContext.Set(halDocument);
         }
@@ -67,7 +67,7 @@ namespace Menes.Specs.Steps
 
             IJsonSerializerSettingsProvider serializerSettingsProvider = ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<IJsonSerializerSettingsProvider>();
             var serializer = JsonSerializer.Create(serializerSettingsProvider.Instance);
-            HalDocument result = previouslySerializedHalDocument.ToObject<HalDocument>(serializer);
+            HalDocument result = previouslySerializedHalDocument.ToObject<HalDocument>(serializer)!;
 
             this.scenarioContext.Set(result);
         }
@@ -83,7 +83,7 @@ namespace Menes.Specs.Steps
         public void GivenIAddAnEmbeddedResourceToTheHalDocumentT()
         {
             HalDocument document = this.scenarioContext.Get<HalDocument>();
-            IHalDocumentFactory halDocumentFactory = ContainerBindings.GetServiceProvider(this.scenarioContext).GetService<IHalDocumentFactory>();
+            IHalDocumentFactory halDocumentFactory = ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<IHalDocumentFactory>();
             document.AddEmbeddedResource("somerel", halDocumentFactory.CreateHalDocument());
         }
 
@@ -97,9 +97,9 @@ namespace Menes.Specs.Steps
             Assert.NotNull(result["property2"]);
             Assert.NotNull(result["property3"]);
 
-            Assert.AreEqual(dto.Property1, result["property1"].Value<int>());
-            Assert.AreEqual(dto.Property2, result["property2"].Value<string>());
-            Assert.AreEqual(dto.Property3, result["property3"].Value<decimal>());
+            Assert.AreEqual(dto.Property1, result["property1"]!.Value<int>());
+            Assert.AreEqual(dto.Property2, result["property2"]!.Value<string>());
+            Assert.AreEqual(dto.Property3, result["property3"]!.Value<decimal>());
         }
 
         [Then("the properties of the original document should be present in the deserialized document")]

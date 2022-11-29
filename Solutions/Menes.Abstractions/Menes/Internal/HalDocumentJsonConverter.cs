@@ -43,7 +43,7 @@ namespace Menes.Internal
         }
 
         /// <inheritdoc/>
-        public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+        public override object? ReadJson(JsonReader reader, Type objectType, object? existingValue, JsonSerializer serializer)
         {
             var jobject = JObject.Load(reader);
             HalDocument halDocument = (existingValue as HalDocument) ?? this.Create(objectType);
@@ -60,9 +60,9 @@ namespace Menes.Internal
         }
 
         /// <inheritdoc/>
-        public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
         {
-            var halDocument = (HalDocument)value;
+            var halDocument = (HalDocument)value!;
             JObject result = (JObject?)halDocument.PropertiesInternalNullable?.DeepClone() ?? new JObject();
 
             SerializeLinks(halDocument, result, serializer);
@@ -154,22 +154,22 @@ namespace Menes.Internal
 
         private static void DeserializeLinks(JsonSerializer serializer, JObject jobject, HalDocument halDocument)
         {
-            var links = (JObject)jobject["_links"];
+            var links = (JObject?)jobject["_links"];
             if (links != null)
             {
-                foreach (KeyValuePair<string, JToken> link in links)
+                foreach (KeyValuePair<string, JToken?> link in links)
                 {
                     if (link.Value is JArray array)
                     {
                         foreach (JToken linkItem in array)
                         {
-                            WebLink weblink = linkItem.ToObject<WebLink>(serializer);
+                            WebLink weblink = linkItem.ToObject<WebLink>(serializer)!;
                             halDocument.AddLink(link.Key, weblink);
                         }
                     }
                     else
                     {
-                        WebLink weblink = link.Value.ToObject<WebLink>(serializer);
+                        WebLink weblink = link.Value!.ToObject<WebLink>(serializer)!;
                         halDocument.AddLink(link.Key, weblink);
                     }
                 }
@@ -178,21 +178,21 @@ namespace Menes.Internal
 
         private static void DeserializeEmbeddedResources(JsonSerializer serializer, JObject jobject, HalDocument halDocument)
         {
-            var resources = (JObject)jobject["_embedded"];
+            var resources = (JObject?)jobject["_embedded"];
             if (resources != null)
             {
-                foreach (KeyValuePair<string, JToken> resource in resources)
+                foreach (KeyValuePair<string, JToken?> resource in resources)
                 {
                     if (resource.Value is JArray array)
                     {
                         foreach (JToken resourceItem in array)
                         {
-                            halDocument.AddEmbeddedResource(resource.Key, serializer.Deserialize<HalDocument>(resourceItem.CreateReader()));
+                            halDocument.AddEmbeddedResource(resource.Key, serializer.Deserialize<HalDocument>(resourceItem.CreateReader())!);
                         }
                     }
                     else
                     {
-                        halDocument.AddEmbeddedResource(resource.Key, serializer.Deserialize<HalDocument>(resource.Value.CreateReader()));
+                        halDocument.AddEmbeddedResource(resource.Key, serializer.Deserialize<HalDocument>(resource.Value!.CreateReader())!);
                     }
                 }
             }

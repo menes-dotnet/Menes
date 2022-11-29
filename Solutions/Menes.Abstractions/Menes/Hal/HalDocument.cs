@@ -44,7 +44,7 @@ namespace Menes.Hal
         public JObject Properties
         {
             get => this.PropertiesInternalNullable ??= new JObject();
-            internal set => this.PropertiesInternalNullable = value ?? throw new ArgumentNullException();
+            internal set => this.PropertiesInternalNullable = value ?? throw new ArgumentNullException(nameof(this.Properties));
         }
 
         /// <inheritdoc/>
@@ -114,6 +114,7 @@ namespace Menes.Hal
         /// <typeparam name="T">The type of the properties object.</typeparam>
         /// <param name="properties">The object from which to derive the properties.</param>
         public void SetProperties<T>(T properties)
+            where T : notnull
         {
             this.Properties = JObject.FromObject(properties, JsonSerializer.Create(this.SerializerSettings));
         }
@@ -147,7 +148,7 @@ namespace Menes.Hal
             using JsonReader reader = this.Properties.CreateReader();
             try
             {
-                result = JsonSerializer.Create(this.SerializerSettings).Deserialize<T>(reader);
+                result = JsonSerializer.Create(this.SerializerSettings).Deserialize<T>(reader)!;
                 return true;
             }
             catch (JsonSerializationException)
@@ -191,7 +192,7 @@ namespace Menes.Hal
         {
             this.EnsureLinks();
 
-            if (this.links.TryGetValue(rel, out List<WebLink> linkList))
+            if (this.links.TryGetValue(rel, out List<WebLink>? linkList))
             {
                 foreach (WebLink link in linkList)
                 {
@@ -263,7 +264,7 @@ namespace Menes.Hal
         {
             this.EnsureEmbeddedResources();
 
-            if (this.embeddedResources.TryGetValue(rel, out List<HalDocument> embeddedResourceList))
+            if (this.embeddedResources.TryGetValue(rel, out List<HalDocument>? embeddedResourceList))
             {
                 foreach (HalDocument embeddedResource in embeddedResourceList)
                 {
@@ -278,7 +279,7 @@ namespace Menes.Hal
         {
             this.EnsureLinks();
 
-            if (!this.links.TryGetValue(rel, out List<WebLink> linkList))
+            if (!this.links.TryGetValue(rel, out List<WebLink>? linkList))
             {
                 linkList = new List<WebLink>();
                 this.links.Add(rel, linkList);
@@ -296,7 +297,7 @@ namespace Menes.Hal
         {
             this.EnsureLinks();
 
-            if (!this.embeddedResources.TryGetValue(rel, out List<HalDocument> halDocumentList))
+            if (!this.embeddedResources.TryGetValue(rel, out List<HalDocument>? halDocumentList))
             {
                 halDocumentList = new List<HalDocument>();
                 this.embeddedResources.Add(rel, halDocumentList);

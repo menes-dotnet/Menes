@@ -1,0 +1,7 @@
+﻿<ProjectConfiguration>
+  <Settings>
+    <HiddenComponentWarnings>
+      <Value>AzureFunctionsReferenceBuildsAreEnabled</Value>
+    </HiddenComponentWarnings>
+  </Settings>
+</ProjectConfiguration>

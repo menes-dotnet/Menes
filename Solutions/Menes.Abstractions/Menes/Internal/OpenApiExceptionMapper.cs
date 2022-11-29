@@ -43,7 +43,7 @@ namespace Menes.Internal
         {
             Type type = typeof(TException);
 
-            this.ValidateStatusCode(statusCode);
+            ValidateStatusCode(statusCode);
             this.ValidateMappingDoesNotExist(type, operationId);
             this.exceptionMappings.Add(new OpenApiMappedException(type, statusCode, operationId));
         }
@@ -55,7 +55,7 @@ namespace Menes.Internal
         {
             Type type = typeof(TException);
 
-            this.ValidateStatusCode(statusCode);
+            ValidateStatusCode(statusCode);
             this.ValidateMappingDoesNotExist(type, operationId);
             this.exceptionMappings.Add(new OpenApiMappedException(type, statusCode, operationId, typeof(TFormatter)));
         }
@@ -64,9 +64,11 @@ namespace Menes.Internal
         public OpenApiResult GetResponse(Exception exception, OpenApiOperation operation)
         {
             Type exceptionType = exception.GetType();
-            OpenApiMappedException mappedException = this.GetMappedException(operation, exceptionType);
+            OpenApiMappedException? mappedException = this.GetMappedException(operation, exceptionType);
 
-            IExceptionMapper mapper = this.GetExceptionMapperFor(mappedException, exception, operation);
+            IExceptionMapper? mapper = mappedException is null
+                ? null
+                : this.GetExceptionMapperFor(mappedException, exception, operation);
             if (mapper == null)
             {
                 string operationId = operation.GetOperationId();
@@ -80,7 +82,24 @@ namespace Menes.Internal
             return mapper.MapException(operation.Responses, exception, mappedException?.StatusCode);
         }
 
-        private OpenApiMappedException GetMappedException(OpenApiOperation operation, Type exceptionType)
+        private static void ValidateStatusCode(int statusCode)
+        {
+            if (statusCode < 100 || statusCode >= 600)
+            {
+                throw new ArgumentOutOfRangeException(
+                    nameof(statusCode),
+                    $"The specified status code {statusCode} is outside the range of potentially valid codes");
+            }
+
+            if (statusCode == 500)
+            {
+                throw new ArgumentException(
+                    "Do not explicitly map exceptions to the 500 status code.",
+                    nameof(statusCode));
+            }
+        }
+
+        private OpenApiMappedException? GetMappedException(OpenApiOperation operation, Type exceptionType)
         {
             return this.exceptionMappings.FirstOrDefault(x => x.ExceptionType == exceptionType && x.OperationId == operation.OperationId) ??
                    this.exceptionMappings.FirstOrDefault(x => x.ExceptionType == exceptionType && string.IsNullOrEmpty(x.OperationId));
@@ -94,7 +113,7 @@ namespace Menes.Internal
             }
         }
 
-        private IExceptionMapper GetExceptionMapperFor(OpenApiMappedException mappedException, Exception ex, OpenApiOperation operation)
+        private IExceptionMapper? GetExceptionMapperFor(OpenApiMappedException mappedException, Exception ex, OpenApiOperation operation)
         {
             if (mappedException?.FormatterType != null)
             {
@@ -102,23 +121,6 @@ namespace Menes.Internal
             }
 
             return this.exceptionMappers.Value.FirstOrDefault(x => x.CanMapException(operation.Responses, ex, mappedException?.StatusCode));
-        }
-
-        private void ValidateStatusCode(int statusCode)
-        {
-            if (statusCode < 100 || statusCode >= 600)
-            {
-                throw new ArgumentOutOfRangeException(
-                    nameof(statusCode),
-                    $"The specified status code {statusCode} is outside the range of potentially valid codes");
-            }
-
-            if (statusCode == 500)
-            {
-                throw new ArgumentException(
-                    nameof(statusCode),
-                    "Do not explicitly map exceptions to the 500 status code.");
-            }
         }
     }
 }

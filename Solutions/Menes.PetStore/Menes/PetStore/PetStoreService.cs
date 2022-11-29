@@ -93,7 +93,7 @@ namespace Menes.PetStore
 
             // We also add the next page link to the header, just to demonstrate that it's possible
             // to use WebLink items in this way.
-            WebLink nextLink = response.GetLinksForRelation("next").FirstOrDefault();
+            WebLink? nextLink = response.GetLinksForRelation("next").FirstOrDefault();
             if (nextLink != default)
             {
                 result.Results.Add("x-next", nextLink.Href);
@@ -114,12 +114,18 @@ namespace Menes.PetStore
         /// The <see cref="PetResource"/>.
         /// </returns>
         [OperationId("showPetById")]
-        public Task<OpenApiResult> ShowPet(string petId)
+        public async Task<OpenApiResult> ShowPet(string petId)
         {
-            long.TryParse(petId, out long idAsLong);
-            PetResource result = this.pets.SingleOrDefault(p => p.Id == idAsLong);
+            if (!long.TryParse(petId, out long idAsLong))
+            {
+                return new OpenApiResult { StatusCode = (int)HttpStatusCode.BadRequest };
+            }
 
-            return this.MapAndReturnPetAsync(result);
+            PetResource? result = this.pets.SingleOrDefault(p => p.Id == idAsLong);
+
+            return result is null
+                ? this.NotFoundResult()
+                : await this.MapAndReturnPetAsync(result);
         }
 
         /// <summary>
@@ -133,12 +139,14 @@ namespace Menes.PetStore
         /// The <see cref="PetResource"/>.
         /// </returns>
         [OperationId("showPetByLongId")]
-        public Task<OpenApiResult> ShowPet(
+        public async Task<OpenApiResult> ShowPet(
             [OpenApiParameter("petId")] long petIdWithParameterNameSetByAttribute)
         {
-            PetResource result = this.pets.SingleOrDefault(p => p.Id == petIdWithParameterNameSetByAttribute);
+            PetResource? result = this.pets.SingleOrDefault(p => p.Id == petIdWithParameterNameSetByAttribute);
 
-            return this.MapAndReturnPetAsync(result);
+            return result is null
+                ? this.NotFoundResult()
+                : await this.MapAndReturnPetAsync(result);
         }
 
         /// <summary>
@@ -152,12 +160,14 @@ namespace Menes.PetStore
         /// The <see cref="PetResource"/>.
         /// </returns>
         [OperationId("showPetByLongIdInHeader")]
-        public Task<OpenApiResult> ShowPetWithIdInHeader(
+        public async Task<OpenApiResult> ShowPetWithIdInHeader(
             long xPetId)
         {
-            PetResource result = this.pets.SingleOrDefault(p => p.Id == xPetId);
+            PetResource? result = this.pets.SingleOrDefault(p => p.Id == xPetId);
 
-            return this.MapAndReturnPetAsync(result);
+            return result is null
+                ? this.NotFoundResult()
+                : await this.MapAndReturnPetAsync(result);
         }
 
         /// <summary>
@@ -170,11 +180,13 @@ namespace Menes.PetStore
         /// The <see cref="PetResource"/>.
         /// </returns>
         [OperationId("showPetByGlobalId")]
-        public Task<OpenApiResult> ShowPet(Guid petId)
+        public async Task<OpenApiResult> ShowPet(Guid petId)
         {
-            PetResource result = this.pets.SingleOrDefault(p => p.GlobalIdentifier == petId);
+            PetResource? result = this.pets.SingleOrDefault(p => p.GlobalIdentifier == petId);
 
-            return this.MapAndReturnPetAsync(result);
+            return result is null
+                ? this.NotFoundResult()
+                : await this.MapAndReturnPetAsync(result);
         }
 
         /// <summary>
@@ -227,8 +239,16 @@ namespace Menes.PetStore
         [OperationId("petImage")]
         public async Task<OpenApiResult> ShowPetImage(string petId)
         {
-            long.TryParse(petId, out long idAsLong);
-            PetResource pet = this.pets.SingleOrDefault(p => p.Id == idAsLong);
+            if (!long.TryParse(petId, out long idAsLong))
+            {
+                return new OpenApiResult { StatusCode = (int)HttpStatusCode.BadRequest };
+            }
+
+            PetResource? pet = this.pets.SingleOrDefault(p => p.Id == idAsLong);
+            if (pet is null)
+            {
+                return this.NotFoundResult();
+            }
 
             Stream result = await this.GetImageForPetAsync(pet).ConfigureAwait(false);
 
@@ -247,8 +267,16 @@ namespace Menes.PetStore
         [OperationId("petImagePoco")]
         public Task<Stream> ShowPetImagePoco(string petId)
         {
-            long.TryParse(petId, out long idAsLong);
-            PetResource pet = this.pets.SingleOrDefault(p => p.Id == idAsLong);
+            if (!long.TryParse(petId, out long idAsLong))
+            {
+                throw new OpenApiBadRequestException();
+            }
+
+            PetResource? pet = this.pets.SingleOrDefault(p => p.Id == idAsLong);
+            if (pet is null)
+            {
+                throw new OpenApiNotFoundException();
+            }
 
             return this.GetImageForPetAsync(pet);
         }

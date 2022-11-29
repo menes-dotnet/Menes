@@ -4,6 +4,8 @@
 
 namespace Menes.Internal
 {
+    using System.Diagnostics.CodeAnalysis;
+
     using Microsoft.OpenApi.Models;
 
     /// <summary>
@@ -26,7 +28,7 @@ namespace Menes.Internal
         /// <returns>
         /// True if a match was found, false if not.
         /// </returns>
-        public static bool TryGetResponseForStatusCode(this OpenApiResponses responses, int? statusCode, out OpenApiResponse response)
+        public static bool TryGetResponseForStatusCode(this OpenApiResponses responses, int? statusCode, [NotNullWhen(true)] out OpenApiResponse? response)
         {
             if (statusCode.HasValue)
             {

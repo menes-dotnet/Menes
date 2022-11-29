@@ -17,7 +17,7 @@ namespace Menes.Specs.Fakes
     /// (It also acts as the return value from that call.)
     /// </para>
     /// </remarks>
-    public class OperationDetail : IOperationInstance
+    public sealed class OperationDetail : IOperationInstance
     {
         private readonly List<AdditionalInstrumentationDetail> furtherDetails = new();
         private readonly Action<OperationDetail> onDisposed;

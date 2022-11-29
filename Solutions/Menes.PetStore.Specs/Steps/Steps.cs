@@ -81,7 +81,7 @@ namespace Menes.PetStore.Specs.Steps
         public Task WhenIRequestAListOfPetsUsingTheValueOfFromThePreviousResponseObject(string propertyPath)
         {
             JToken token = this.GetRequiredTokenFromResponseObject(propertyPath);
-            string value = token.Value<string>();
+            string value = token.Value<string>()!;
             return this.SendGetRequest(value);
         }
 
@@ -129,7 +129,7 @@ namespace Menes.PetStore.Specs.Steps
         {
             JToken actualToken = this.GetRequiredTokenFromResponseObject(propertyPath);
 
-            string actualValue = actualToken.Value<string>();
+            string? actualValue = actualToken.Value<string>();
             Assert.AreEqual(expectedValue, actualValue);
         }
 
@@ -137,7 +137,7 @@ namespace Menes.PetStore.Specs.Steps
         public void ThenTheResponseObjectShouldNotHaveAPropertyCalled(string propertyPath)
         {
             JObject data = this.scenarioContext.Get<JObject>();
-            JToken token = data.SelectToken(propertyPath);
+            JToken? token = data.SelectToken(propertyPath);
             Assert.IsNull(token);
         }
 
@@ -187,9 +187,9 @@ namespace Menes.PetStore.Specs.Steps
         private JToken GetRequiredTokenFromResponseObject(string propertyPath)
         {
             JObject data = this.scenarioContext.Get<JObject>();
-            JToken token = data.SelectToken(propertyPath);
+            JToken? token = data.SelectToken(propertyPath);
             Assert.IsNotNull(token);
-            return token;
+            return token!;
         }
 
         private static string? ParseStringValue(string input, string? valueIfEmpty = null)

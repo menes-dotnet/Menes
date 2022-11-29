@@ -57,7 +57,7 @@ namespace Menes.Links
         public static bool operator !=(OpenApiWebLink lhs, OpenApiWebLink rhs) => !lhs.Equals(rhs);
 
         /// <inheritdoc/>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is OpenApiWebLink link)
             {

@@ -91,7 +91,7 @@ namespace Menes
         }
 
         /// <inheritdoc/>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             return this.Equals(obj as AccessCheckOperationDescriptor);
         }

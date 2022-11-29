@@ -12,7 +12,7 @@ namespace Menes
     /// an operation should be allowed, with an optional explanation if it is disallowed.
     /// </summary>
     [DebuggerDisplay("{ResultType}")]
-    public struct AccessControlPolicyResult
+    public readonly struct AccessControlPolicyResult
     {
         /// <summary>
         /// Create an <see cref="AccessControlPolicyResult"/> disallowing an operation, along with

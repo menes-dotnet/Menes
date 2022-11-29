@@ -342,3 +342,5 @@ coverage.cobertura.xml
 *.sbom.*
 _codeCoverage/
 _packages/
+*.ncrunchproject
+*.ncrunchsolution
