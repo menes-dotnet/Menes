@@ -28,7 +28,7 @@ public readonly partial struct EmbeddedProperty
         if (level > ValidationLevel.Basic)
         {
             result = result.UsingStack();
-            result = result.PushSchemaLocation("C:/Users/matth/source/repos/Menes2/Solutions/Menes.Hal//Menes.Hal/Internal/resources.json#/$defs/EmbeddedProperty");
+            result = result.PushSchemaLocation("C:/Users/matth/source/repos/Menes/Solutions/Menes.Hal//Menes.Hal/Internal/resources.json#/$defs/EmbeddedProperty");
         }
 
         result = result.UsingEvaluatedProperties();

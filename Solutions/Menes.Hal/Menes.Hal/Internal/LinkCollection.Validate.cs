@@ -28,7 +28,7 @@ public readonly partial struct LinkCollection
         if (level > ValidationLevel.Basic)
         {
             result = result.UsingStack();
-            result = result.PushSchemaLocation("C:/Users/matth/source/repos/Menes2/Solutions/Menes.Hal//Menes.Hal/Internal/resources.json#/$defs/LinkCollection");
+            result = result.PushSchemaLocation("C:/Users/matth/source/repos/Menes/Solutions/Menes.Hal//Menes.Hal/Internal/resources.json#/$defs/LinkCollection");
         }
 
         JsonValueKind valueKind = this.ValueKind;

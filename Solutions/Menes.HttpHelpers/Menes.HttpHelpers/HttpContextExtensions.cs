@@ -2,11 +2,11 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-using System.Collections.Immutable;
+using System.Diagnostics;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using Corvus.Json;
-using Corvus.Json.UriTemplates;
+using Corvus.UriTemplates;
 using Microsoft.AspNetCore.Http;
 
 namespace Menes.HttpHelpers;
@@ -20,7 +20,16 @@ public static class HttpContextExtensions
     /// The key for the request body parameter.
     /// </summary>
     private const string RequestBodyParameter = "Menes__RequestBodyParameter";
+
+    /// <summary>
+    /// The key for the strongly typed path parameters.
+    /// </summary>
     private const string PathParameters = "Menes__PathParameters";
+
+    /// <summary>
+    /// The key for the raw path parameters.
+    /// </summary>
+    private const string PathParametersStringCache = "Menes__PathParametersStringCache";
 
     /// <summary>
     /// Gets the JsonDocument for the request body.
@@ -52,31 +61,50 @@ public static class HttpContextExtensions
     /// <summary>
     /// Gets the path parameters from the request context.
     /// </summary>
+    /// <typeparam name="T">The type of the resulting value.</typeparam>
     /// <param name="context">The HTTP context from which to get the path parameters.</param>
-    /// <param name="template">The URI template to match.</param>
+    /// <param name="template">The URI template parser to match.</param>
+    /// <param name="parameterName">The name of the parameter to get.</param>
     /// <returns>The parameters extracted from the path.</returns>
-    public static ImmutableDictionary<string, JsonAny> GetPathParameters(this HttpContext context, UriTemplate template)
+    /// <remarks>
+    /// The path parameters are cached in request local storage. This method is used by Menes
+    /// code generation to prepare parameters for the request object.
+    /// </remarks>
+    public static T GetPathParameter<T>(this HttpContext context, IUriTemplateParser template, string parameterName)
+        where T : struct, IJsonValue<T>
     {
-        ImmutableDictionary<string, JsonAny> result;
+        Dictionary<string, JsonAny> existingParameters;
 
         if (context.Items.TryGetValue(PathParameters, out object? pathParameters))
         {
-            result = (ImmutableDictionary<string, JsonAny>)pathParameters!;
+            existingParameters = (Dictionary<string, JsonAny>)pathParameters!;
         }
         else
         {
-            if (template.TryGetParameters(new Uri(Microsoft.AspNetCore.Http.Extensions.UriHelper.GetEncodedUrl(context.Request), UriKind.Absolute), out ImmutableDictionary<string, JsonAny>? pp))
-            {
-                context.Items.Add(PathParameters, pp);
-                result = pp;
-            }
-            else
-            {
-                throw new InvalidOperationException("Unable to decode the path parameters for the matched URI template.");
-            }
+            existingParameters = new();
+            context.Items.Add(PathParameters, existingParameters);
         }
 
+        if (existingParameters.TryGetValue(parameterName, out JsonAny value))
+        {
+            return value.As<T>();
+        }
+
+        PathParameterCache pathParameterCache = EnsurePathParameterCache(context, template);
+        T result = T.Undefined;
+        if (!pathParameterCache.TryProcessParameter(parameterName, HandlePathParameter, ref result))
+        {
+            // Maybe log the missing parameter?
+        }
+
+        // Cache the parameter (including the Undefined case)
+        existingParameters.Add(parameterName, result.AsAny);
         return result;
+
+        static void HandlePathParameter(ReadOnlySpan<char> name, ReadOnlySpan<char> value, ref T state)
+        {
+            state = Parsing.ParseSimpleStyleValue<T>(value);
+        }
     }
 
     /// <summary>
@@ -89,5 +117,23 @@ public static class HttpContextExtensions
     {
         string? contentType = context.Request.ContentType;
         return (contentType is string ct) && mediaType.IsMatch(ct);
+    }
+
+    private static PathParameterCache EnsurePathParameterCache(HttpContext context, IUriTemplateParser templateParser)
+    {
+        if (context.Items.TryGetValue(PathParametersStringCache, out object? cache))
+        {
+            Debug.Assert(cache != null, "The value set for PathParametersStringCache cannot be null.");
+            return (PathParameterCache)cache;
+        }
+
+        // Build the parameter cache and stash in the context
+        var newCache = PathParameterCache.BuildCache(templateParser, context.Request.PathBase.HasValue ? context.Request.PathBase + context.Request.Path : context.Request.Path);
+        context.Items.Add(PathParametersStringCache, newCache);
+
+        // Then register our cached parameters for disposal once we're done with the response.
+        context.Response.RegisterForDispose(newCache);
+
+        return newCache;
     }
 }

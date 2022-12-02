@@ -57,6 +57,14 @@ public readonly partial struct Document
             /// </summary>
             public const string AllowReservedJsonPropertyName = "allowReserved";
             /// <summary>
+            /// JSON property name for <see cref = "Explode"/>.
+            /// </summary>
+            public static readonly ReadOnlyMemory<byte> ExplodeUtf8JsonPropertyName = new byte[]{101, 120, 112, 108, 111, 100, 101};
+            /// <summary>
+            /// JSON property name for <see cref = "Explode"/>.
+            /// </summary>
+            public const string ExplodeJsonPropertyName = "explode";
+            /// <summary>
             /// JSON property name for <see cref = "Example"/>.
             /// </summary>
             public static readonly ReadOnlyMemory<byte> ExampleUtf8JsonPropertyName = new byte[]{101, 120, 97, 109, 112, 108, 101};
@@ -72,14 +80,6 @@ public readonly partial struct Document
             /// JSON property name for <see cref = "Examples"/>.
             /// </summary>
             public const string ExamplesJsonPropertyName = "examples";
-            /// <summary>
-            /// JSON property name for <see cref = "Explode"/>.
-            /// </summary>
-            public static readonly ReadOnlyMemory<byte> ExplodeUtf8JsonPropertyName = new byte[]{101, 120, 112, 108, 111, 100, 101};
-            /// <summary>
-            /// JSON property name for <see cref = "Explode"/>.
-            /// </summary>
-            public const string ExplodeJsonPropertyName = "explode";
             /// <summary>
             /// Gets Style.
             /// </summary>
@@ -209,6 +209,38 @@ public readonly partial struct Document
             }
 
             /// <summary>
+            /// Gets Explode.
+            /// </summary>
+            public Corvus.Json.JsonBoolean Explode
+            {
+                get
+                {
+                    if ((this.backing & Backing.JsonElement) != 0)
+                    {
+                        if (this.jsonElementBacking.ValueKind != JsonValueKind.Object)
+                        {
+                            return default;
+                        }
+
+                        if (this.jsonElementBacking.TryGetProperty(ExplodeUtf8JsonPropertyName.Span, out JsonElement result))
+                        {
+                            return new Corvus.Json.JsonBoolean(result);
+                        }
+                    }
+
+                    if ((this.backing & Backing.Object) != 0)
+                    {
+                        if (this.objectBacking.TryGetValue(ExplodeJsonPropertyName, out JsonAny result))
+                        {
+                            return result.As<Corvus.Json.JsonBoolean>();
+                        }
+                    }
+
+                    return default;
+                }
+            }
+
+            /// <summary>
             /// Gets Example.
             /// </summary>
             public Corvus.Json.JsonAny Example
@@ -273,41 +305,9 @@ public readonly partial struct Document
             }
 
             /// <summary>
-            /// Gets Explode.
-            /// </summary>
-            public Corvus.Json.JsonBoolean Explode
-            {
-                get
-                {
-                    if ((this.backing & Backing.JsonElement) != 0)
-                    {
-                        if (this.jsonElementBacking.ValueKind != JsonValueKind.Object)
-                        {
-                            return default;
-                        }
-
-                        if (this.jsonElementBacking.TryGetProperty(ExplodeUtf8JsonPropertyName.Span, out JsonElement result))
-                        {
-                            return new Corvus.Json.JsonBoolean(result);
-                        }
-                    }
-
-                    if ((this.backing & Backing.Object) != 0)
-                    {
-                        if (this.objectBacking.TryGetValue(ExplodeJsonPropertyName, out JsonAny result))
-                        {
-                            return result.As<Corvus.Json.JsonBoolean>();
-                        }
-                    }
-
-                    return default;
-                }
-            }
-
-            /// <summary>
             /// Creates an instance of a <see cref = "SchemaEntity"/>.
             /// </summary>
-            public static SchemaEntity Create(Corvus.Json.JsonString? style = null, Menes.OpenApiSchema.V31.Document.Parameter.SchemaEntity.StylesForPathEntity.ThenEntity.RequiredEntity? required = null, Menes.OpenApiSchema.V31.Document.Parameter.SchemaEntity.StylesForPathEntity.ThenEntity.NameEntity? name = null, Menes.OpenApiSchema.V31.Document.Parameter.SchemaEntity.StylesForQueryEntity.ThenEntity.AllowReservedEntity? allowReserved = null, Corvus.Json.JsonAny? example = null, Menes.OpenApiSchema.V31.Document.Examples.ExamplesEntity? examples = null, Corvus.Json.JsonBoolean? explode = null)
+            public static SchemaEntity Create(Corvus.Json.JsonString? style = null, Menes.OpenApiSchema.V31.Document.Parameter.SchemaEntity.StylesForPathEntity.ThenEntity.RequiredEntity? required = null, Menes.OpenApiSchema.V31.Document.Parameter.SchemaEntity.StylesForPathEntity.ThenEntity.NameEntity? name = null, Menes.OpenApiSchema.V31.Document.Parameter.SchemaEntity.StylesForQueryEntity.ThenEntity.AllowReservedEntity? allowReserved = null, Corvus.Json.JsonBoolean? explode = null, Corvus.Json.JsonAny? example = null, Menes.OpenApiSchema.V31.Document.Examples.ExamplesEntity? examples = null)
             {
                 var builder = ImmutableDictionary.CreateBuilder<JsonPropertyName, JsonAny>();
                 if (style is Corvus.Json.JsonString style__)
@@ -330,6 +330,11 @@ public readonly partial struct Document
                     builder.Add(AllowReservedJsonPropertyName, allowReserved__.AsAny);
                 }
 
+                if (explode is Corvus.Json.JsonBoolean explode__)
+                {
+                    builder.Add(ExplodeJsonPropertyName, explode__.AsAny);
+                }
+
                 if (example is Corvus.Json.JsonAny example__)
                 {
                     builder.Add(ExampleJsonPropertyName, example__.AsAny);
@@ -338,11 +343,6 @@ public readonly partial struct Document
                 if (examples is Menes.OpenApiSchema.V31.Document.Examples.ExamplesEntity examples__)
                 {
                     builder.Add(ExamplesJsonPropertyName, examples__.AsAny);
-                }
-
-                if (explode is Corvus.Json.JsonBoolean explode__)
-                {
-                    builder.Add(ExplodeJsonPropertyName, explode__.AsAny);
                 }
 
                 return builder.ToImmutable();
@@ -379,6 +379,16 @@ public readonly partial struct Document
             }
 
             /// <summary>
+            /// Sets explode.
+            /// </summary>
+            /// <param name = "value">The value to set.</param>
+            /// <returns>The entity with the updated property.</returns>
+            public SchemaEntity WithExplode(in Corvus.Json.JsonBoolean value)
+            {
+                return this.SetProperty(ExplodeJsonPropertyName, value);
+            }
+
+            /// <summary>
             /// Sets example.
             /// </summary>
             /// <param name = "value">The value to set.</param>
@@ -396,16 +406,6 @@ public readonly partial struct Document
             public SchemaEntity WithExamples(in Menes.OpenApiSchema.V31.Document.Examples.ExamplesEntity value)
             {
                 return this.SetProperty(ExamplesJsonPropertyName, value);
-            }
-
-            /// <summary>
-            /// Sets explode.
-            /// </summary>
-            /// <param name = "value">The value to set.</param>
-            /// <returns>The entity with the updated property.</returns>
-            public SchemaEntity WithExplode(in Corvus.Json.JsonBoolean value)
-            {
-                return this.SetProperty(ExplodeJsonPropertyName, value);
             }
 
             private static ValidationContext __CorvusValidateStyle(in JsonObjectProperty property, in ValidationContext validationContext, ValidationLevel level)

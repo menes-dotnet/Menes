@@ -20,6 +20,7 @@
 
 using System.Text.Json;
 using Corvus.Json;
+using Corvus.UriTemplates;
 using Menes.HttpHelpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
@@ -84,25 +85,33 @@ public readonly partial struct <#= RequestContextDotnetTypeName #> : IHttpContex
     {
         get
         {
-<#      if (parameter.IsSpaceDelimitedObjectQueryParameter)
+<#      if (parameter.IsSpaceDelimitedObjectStyleQueryParameter)
         { #>
-            return GetSpaceDelimitedObjectQueryParameter<<#= parameter.DotnetTypeName #>>(<#= parameter.Name #>);
+            return GetSpaceDelimitedObjectStyleQueryParameter<<#= parameter.DotnetTypeName #>>("<#= parameter.Name #>");
 <#      }
-        else if (parameter.IsPipeDelimitedObjectQueryParameter)
+        else if (parameter.IsPipeDelimitedObjectStyleQueryParameter)
         { #>
-            return GetPipeDelimitedObjectQueryParameter<<#= parameter.DotnetTypeName #>>(<#= parameter.Name #>);
+            return GetPipeDelimitedObjectQueryParameter<<#= parameter.DotnetTypeName #>>("<#= parameter.Name #>");
 <#      }
-        else if (parameter.IsSpaceDelimitedArrayQueryParameter)
+        else if (parameter.IsSpaceDelimitedArrayStyleQueryParameter)
         { #>
-            return GetPipeDelimitedArrayQueryParameter<<#= parameter.DotnetTypeName #>>(<#= parameter.Name #>);
+            return GetPipeDelimitedArrayStyleQueryParameter<<#= parameter.DotnetTypeName #>>("<#= parameter.Name #>");
 <#      }
         else if (parameter.IsPipeDelimitedArrayQueryParameter)
         { #>
-            return GetPipeDelimitedArrayQueryParameter<<#= parameter.DotnetTypeName #>>(<#= parameter.Name #>);
+            return GetPipeDelimitedArrayStyleQueryParameter<<#= parameter.DotnetTypeName #>>("<#= parameter.Name #>");
+<#      }
+        else if (parameter.IsExplodedArrayStyleQueryParameter)
+        {#>
+            return GetExplodedArrayStyleQueryParameter<<#= parameter.DotnetTypeName #>>("<#= parameter.Name #>");
+<#      }
+        else if (parameter.IsExplodedObjectStyleQueryParameter)
+        {#>
+            return GetExplodedObjectStyleQueryParameter<<#= parameter.DotnetTypeName #>>("<#= parameter.Name #>");
 <#      }
         else
-        {#>
-            return GetPathParameter<<#= parameter.DotnetTypeName #>>(<#= parameter.Name #>);
+        { #>
+            return GetPathParameter(<#= parameter.Name #>);
 <#      } #>
         }
     }
@@ -302,19 +311,40 @@ public readonly partial struct <#= RequestContextDotnetTypeName #> : IHttpContex
         return T.Undefined;
     }
 <#  }
-    if (HasPathOrUriTemplateStandardQueryParameters)
+    if (HasUriTemplateParameters)
     { #>
 
     private T GetPathParameter<T>(string parameterName)
         where T : struct, IJsonValue<T>
     {
-        ImmutableDictionary<string, JsonAny> parameters = this.HttpContext.GetPathParameters(this.UriTemplate);
-        if (parameters.TryGet(parameterName, out JsonAny result))
-        {
-            return result.As<T>();
-        }
+        return this.HttpContext.GetPathParameter<T>(this.UriTemplateParser, parameterName);
+    }
+<#  }
+    if (HasBasicQueryParameters)
+    { #>
 
-        return T.Undefined;
+    private T GetQueryParameter<T>(string parameterName)
+        where T : struct, IJsonValue<T>
+    {
+        return this.HttpContext.GetQueryParameter<T>(parameterName);
+    }
+<#  }
+    if (HasExplodedObjectStyleQueryParameters)
+    { #>
+
+    private T GetExplodedObjectStyleQueryParameter<T>()
+        where T : struct, IJsonValue<T>
+    {
+        return this.HttpContext.GetExplodedObjectStyleQueryParameter<T>();
+    }
+<#  }
+    if (HasExplodedArrayStyleQueryParameters)
+    { #>
+
+    private T GetExplodedArrayStyleQueryParameter<T>(string parameterName)
+        where T : struct, IJsonValue<T>
+    {
+        return this.HttpContext.GetExplodedArrayStyleQueryParameter<T>(parameterName);
     }
 <#  }
     if (HasSpaceDelimitedQueryParameterForObject)
@@ -323,13 +353,7 @@ public readonly partial struct <#= RequestContextDotnetTypeName #> : IHttpContex
     private T GetSpaceDelimitedObjectQueryParameter<T>(string parameterName)
         where T : struct, IJsonValue<T>
     {
-        ImmutableDictionary<string, JsonAny> parameters = this.HttpContext.GetPathParameters(this.UriTemplate);
-        if (parameters.TryGet(parameterName, out JsonAny result))
-        {
-            return Parsing.ParseSpaceDelimitedObjectStyleValue((string)result).As<T>();
-        }
-
-        return T.Undefined;
+        return this.HttpContext.GetSpaceDelimitedObjectStyleQueryParameter<T>(parameterName);
     }
 <#  }
     if (HasPipeDelimitedQueryParameterForObject)
@@ -338,43 +362,25 @@ public readonly partial struct <#= RequestContextDotnetTypeName #> : IHttpContex
     private T GetPipeDelimitedObjectQueryParameter<T>(string parameterName)
         where T : struct, IJsonValue<T>
     {
-        ImmutableDictionary<string, JsonAny> parameters = this.HttpContext.GetPathParameters(this.UriTemplate);
-        if (parameters.TryGet(parameterName, out JsonAny result))
-        {
-            return Parsing.ParsePipeDelimitedObjectStyleValue((string)result).As<T>();
-        }
-
-        return T.Undefined;
+        return this.HttpContext.GetPipeDelimitedObjectStyleQueryParameter<T>(parameterName);
     }
 <#  }
     if (HasSpaceDelimitedQueryParameterForArray)
     { #>
 
-    private T GetSpaceDelimitedArrayQueryParameter<T>(string parameterName)
+    private T GetSpaceDelimitedArrayStyleQueryParameter<T>(string parameterName)
         where T : struct, IJsonValue<T>
     {
-        ImmutableDictionary<string, JsonAny> parameters = this.HttpContext.GetPathParameters(this.UriTemplate);
-        if (parameters.TryGet(parameterName, out JsonAny result))
-        {
-            return Parsing.ParseSpaceDelimitedArrayStyleValue(stringValues).As<T>();
-        }
-
-        return T.Undefined;
+        return this.HttpContext.GetSpaceDelimitedArrayStyleQueryParameter<T>(parameterName);
     }
 <#  }
     if (HasPipeDelimitedQueryParameterForArray)
     { #>
 
-    private T GetPipeDelimitedArrayQueryParameter<T>(string parameterName)
+    private T GetPipeDelimitedArrayStyleQueryParameter<T>(string parameterName)
         where T : struct, IJsonValue<T>
     {
-        ImmutableDictionary<string, JsonAny> parameters = this.HttpContext.GetPathParameters(this.UriTemplate);
-        if (parameters.TryGet(parameterName, out JsonAny result))
-        {
-            return Parsing.ParsePipeDelimitedArrayStyleValue((string)result).As<T>();
-        }
-
-        return T.Undefined;
+        return this.HttpContext.GetPipeDelimitedArrayStyleQueryParameter<T>(parameterName);
     }
 <#  } #>
 }

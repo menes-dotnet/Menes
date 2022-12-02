@@ -9,7 +9,7 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Corvus.Json.CodeGeneration.Abstractions" Version="1.0.0-v1-pre1.198" />
+		<PackageReference Include="Corvus.Json.CodeGeneration.Abstractions" Version="1.0.0-v1-pre1.201" />
 		<PackageReference Include="Endjin.RecommendedPractices.GitHub" Version="2.1.2">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

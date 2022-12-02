@@ -28,7 +28,7 @@ public readonly partial struct ResourceCollection
         if (level > ValidationLevel.Basic)
         {
             result = result.UsingStack();
-            result = result.PushSchemaLocation("C:/Users/matth/source/repos/Menes2/Solutions/Menes.Hal//Menes.Hal/Internal/resources.json#/$defs/ResourceCollection");
+            result = result.PushSchemaLocation("C:/Users/matth/source/repos/Menes/Solutions/Menes.Hal//Menes.Hal/Internal/resources.json#/$defs/ResourceCollection");
         }
 
         JsonValueKind valueKind = this.ValueKind;

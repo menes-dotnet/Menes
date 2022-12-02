@@ -39,6 +39,14 @@ public readonly partial struct Document
         /// </summary>
         public const string SchemeJsonPropertyName = "scheme";
         /// <summary>
+        /// JSON property name for <see cref = "Flows"/>.
+        /// </summary>
+        public static readonly ReadOnlyMemory<byte> FlowsUtf8JsonPropertyName = new byte[]{102, 108, 111, 119, 115};
+        /// <summary>
+        /// JSON property name for <see cref = "Flows"/>.
+        /// </summary>
+        public const string FlowsJsonPropertyName = "flows";
+        /// <summary>
         /// JSON property name for <see cref = "Name"/>.
         /// </summary>
         public static readonly ReadOnlyMemory<byte> NameUtf8JsonPropertyName = new byte[]{110, 97, 109, 101};
@@ -54,14 +62,6 @@ public readonly partial struct Document
         /// JSON property name for <see cref = "In"/>.
         /// </summary>
         public const string InJsonPropertyName = "in";
-        /// <summary>
-        /// JSON property name for <see cref = "Flows"/>.
-        /// </summary>
-        public static readonly ReadOnlyMemory<byte> FlowsUtf8JsonPropertyName = new byte[]{102, 108, 111, 119, 115};
-        /// <summary>
-        /// JSON property name for <see cref = "Flows"/>.
-        /// </summary>
-        public const string FlowsJsonPropertyName = "flows";
         /// <summary>
         /// JSON property name for <see cref = "BearerFormat"/>.
         /// </summary>
@@ -151,6 +151,38 @@ public readonly partial struct Document
         }
 
         /// <summary>
+        /// Gets Flows.
+        /// </summary>
+        public Menes.OpenApiSchema.V31.Document.OauthFlows Flows
+        {
+            get
+            {
+                if ((this.backing & Backing.JsonElement) != 0)
+                {
+                    if (this.jsonElementBacking.ValueKind != JsonValueKind.Object)
+                    {
+                        return default;
+                    }
+
+                    if (this.jsonElementBacking.TryGetProperty(FlowsUtf8JsonPropertyName.Span, out JsonElement result))
+                    {
+                        return new Menes.OpenApiSchema.V31.Document.OauthFlows(result);
+                    }
+                }
+
+                if ((this.backing & Backing.Object) != 0)
+                {
+                    if (this.objectBacking.TryGetValue(FlowsJsonPropertyName, out JsonAny result))
+                    {
+                        return result.As<Menes.OpenApiSchema.V31.Document.OauthFlows>();
+                    }
+                }
+
+                return default;
+            }
+        }
+
+        /// <summary>
         /// Gets Name.
         /// </summary>
         public Corvus.Json.JsonString Name
@@ -207,38 +239,6 @@ public readonly partial struct Document
                     if (this.objectBacking.TryGetValue(InJsonPropertyName, out JsonAny result))
                     {
                         return result.As<Menes.OpenApiSchema.V31.Document.SecurityScheme.TypeApikeyEntity.ThenEntity.InEntity>();
-                    }
-                }
-
-                return default;
-            }
-        }
-
-        /// <summary>
-        /// Gets Flows.
-        /// </summary>
-        public Menes.OpenApiSchema.V31.Document.OauthFlows Flows
-        {
-            get
-            {
-                if ((this.backing & Backing.JsonElement) != 0)
-                {
-                    if (this.jsonElementBacking.ValueKind != JsonValueKind.Object)
-                    {
-                        return default;
-                    }
-
-                    if (this.jsonElementBacking.TryGetProperty(FlowsUtf8JsonPropertyName.Span, out JsonElement result))
-                    {
-                        return new Menes.OpenApiSchema.V31.Document.OauthFlows(result);
-                    }
-                }
-
-                if ((this.backing & Backing.Object) != 0)
-                {
-                    if (this.objectBacking.TryGetValue(FlowsJsonPropertyName, out JsonAny result))
-                    {
-                        return result.As<Menes.OpenApiSchema.V31.Document.OauthFlows>();
                     }
                 }
 
@@ -345,13 +345,18 @@ public readonly partial struct Document
         /// <summary>
         /// Creates an instance of a <see cref = "SecurityScheme"/>.
         /// </summary>
-        public static SecurityScheme Create(Menes.OpenApiSchema.V31.Document.SecurityScheme.TypeEntity type, Corvus.Json.JsonString? scheme = null, Corvus.Json.JsonString? name = null, Menes.OpenApiSchema.V31.Document.SecurityScheme.TypeApikeyEntity.ThenEntity.InEntity? @in = null, Menes.OpenApiSchema.V31.Document.OauthFlows? flows = null, Corvus.Json.JsonString? bearerFormat = null, Corvus.Json.JsonUri? openIdConnectUrl = null, Corvus.Json.JsonString? description = null)
+        public static SecurityScheme Create(Menes.OpenApiSchema.V31.Document.SecurityScheme.TypeEntity type, Corvus.Json.JsonString? scheme = null, Menes.OpenApiSchema.V31.Document.OauthFlows? flows = null, Corvus.Json.JsonString? name = null, Menes.OpenApiSchema.V31.Document.SecurityScheme.TypeApikeyEntity.ThenEntity.InEntity? @in = null, Corvus.Json.JsonString? bearerFormat = null, Corvus.Json.JsonUri? openIdConnectUrl = null, Corvus.Json.JsonString? description = null)
         {
             var builder = ImmutableDictionary.CreateBuilder<JsonPropertyName, JsonAny>();
             builder.Add(TypeJsonPropertyName, type.AsAny);
             if (scheme is Corvus.Json.JsonString scheme__)
             {
                 builder.Add(SchemeJsonPropertyName, scheme__.AsAny);
+            }
+
+            if (flows is Menes.OpenApiSchema.V31.Document.OauthFlows flows__)
+            {
+                builder.Add(FlowsJsonPropertyName, flows__.AsAny);
             }
 
             if (name is Corvus.Json.JsonString name__)
@@ -362,11 +367,6 @@ public readonly partial struct Document
             if (@in is Menes.OpenApiSchema.V31.Document.SecurityScheme.TypeApikeyEntity.ThenEntity.InEntity @in__)
             {
                 builder.Add(InJsonPropertyName, @in__.AsAny);
-            }
-
-            if (flows is Menes.OpenApiSchema.V31.Document.OauthFlows flows__)
-            {
-                builder.Add(FlowsJsonPropertyName, flows__.AsAny);
             }
 
             if (bearerFormat is Corvus.Json.JsonString bearerFormat__)
@@ -408,6 +408,16 @@ public readonly partial struct Document
         }
 
         /// <summary>
+        /// Sets flows.
+        /// </summary>
+        /// <param name = "value">The value to set.</param>
+        /// <returns>The entity with the updated property.</returns>
+        public SecurityScheme WithFlows(in Menes.OpenApiSchema.V31.Document.OauthFlows value)
+        {
+            return this.SetProperty(FlowsJsonPropertyName, value);
+        }
+
+        /// <summary>
         /// Sets name.
         /// </summary>
         /// <param name = "value">The value to set.</param>
@@ -425,16 +435,6 @@ public readonly partial struct Document
         public SecurityScheme WithIn(in Menes.OpenApiSchema.V31.Document.SecurityScheme.TypeApikeyEntity.ThenEntity.InEntity value)
         {
             return this.SetProperty(InJsonPropertyName, value);
-        }
-
-        /// <summary>
-        /// Sets flows.
-        /// </summary>
-        /// <param name = "value">The value to set.</param>
-        /// <returns>The entity with the updated property.</returns>
-        public SecurityScheme WithFlows(in Menes.OpenApiSchema.V31.Document.OauthFlows value)
-        {
-            return this.SetProperty(FlowsJsonPropertyName, value);
         }
 
         /// <summary>

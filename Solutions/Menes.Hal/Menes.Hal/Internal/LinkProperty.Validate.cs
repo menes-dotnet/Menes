@@ -28,7 +28,7 @@ public readonly partial struct LinkProperty
         if (level > ValidationLevel.Basic)
         {
             result = result.UsingStack();
-            result = result.PushSchemaLocation("C:/Users/matth/source/repos/Menes2/Solutions/Menes.Hal//Menes.Hal/Internal/resources.json#/$defs/LinkProperty");
+            result = result.PushSchemaLocation("C:/Users/matth/source/repos/Menes/Solutions/Menes.Hal//Menes.Hal/Internal/resources.json#/$defs/LinkProperty");
         }
 
         JsonValueKind valueKind = this.ValueKind;
