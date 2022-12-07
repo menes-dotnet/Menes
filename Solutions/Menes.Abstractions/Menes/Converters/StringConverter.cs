@@ -34,8 +34,7 @@ namespace Menes.Converters
         /// <inheritdoc/>
         public object ConvertFrom(string content, OpenApiSchema schema)
         {
-            string result = JsonValue.Create(content)!.ToJsonString();
-            this.validator.ValidateAndThrow(result, schema);
+            this.validator.ValidateAndThrow(JsonValue.Create(content)!.ToJsonString(), schema);
 
             return content;
         }
