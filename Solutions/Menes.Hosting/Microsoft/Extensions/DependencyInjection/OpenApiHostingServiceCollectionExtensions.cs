@@ -16,7 +16,6 @@ namespace Microsoft.Extensions.DependencyInjection
     using Menes.Links;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Logging;
-    using Newtonsoft.Json;
 
     /// <summary>
     /// Extensions for a <see cref="IServiceCollection"/>.
@@ -95,15 +94,15 @@ namespace Microsoft.Extensions.DependencyInjection
                 return services;
             }
 
-            services.AddJsonNetSerializerSettingsProvider();
+            ////services.AddJsonNetSerializerSettingsProvider();
 
             services.AddInstrumentation();
 
             services.AddOpenApiAuditing();
             services.AddAuditLogSink<ConsoleAuditLogSink>();
 
-            services.AddSingleton<JsonConverter, OpenApiDocumentJsonConverter>();
-            services.AddSingleton<JsonConverter, HalDocumentJsonConverter>();
+            ////services.AddSingleton<JsonConverter, OpenApiDocumentJsonConverter>();
+            ////services.AddSingleton<JsonConverter, HalDocumentJsonConverter>();
             services.AddSingleton<IOpenApiDocumentProvider, OpenApiDocumentProvider>();
             services.AddSingleton<IHalDocumentFactory, HalDocumentFactory>();
             services.AddTransient<HalDocument>();

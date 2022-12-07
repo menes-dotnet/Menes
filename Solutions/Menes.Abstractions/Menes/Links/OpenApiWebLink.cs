@@ -4,8 +4,9 @@
 
 namespace Menes.Links
 {
+    using System.Text.Json.Serialization;
+
     using Microsoft.OpenApi.Models;
-    using Newtonsoft.Json;
 
     /// <summary>
     /// Represents a hypermedia link to a related resource that's obtained from another OpenApi

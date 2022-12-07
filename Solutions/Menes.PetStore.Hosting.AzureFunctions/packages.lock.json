@@ -83,21 +83,6 @@
           "System.Interactive": "3.2.0"
         }
       },
-      "Corvus.Extensions.Newtonsoft.Json": {
-        "type": "Transitive",
-        "resolved": "3.0.0",
-        "contentHash": "g2lnhVnIRBLYrClqHYBIxMoiW4Uof5azCtNxvDRIxuS+P0zsvnovim7q7vzhv8LndGFNv9kBtbXsIQwu8e+RNg==",
-        "dependencies": {
-          "Corvus.Json.Abstractions": "3.0.0",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "3.1.29",
-          "Newtonsoft.Json": "13.0.1"
-        }
-      },
-      "Corvus.Json.Abstractions": {
-        "type": "Transitive",
-        "resolved": "3.0.0",
-        "contentHash": "JGhhWLFiAMLas2baiXDDSXCstuq5r8Vau+YAc6sdQN28wB3flxnVmJ262o1QG9ILSTjQLSNX39peVHV9fj83NA=="
-      },
       "Corvus.Monitoring.Instrumentation.Abstractions": {
         "type": "Transitive",
         "resolved": "1.3.2",
@@ -1739,7 +1724,6 @@
         "dependencies": {
           "Corvus.ContentHandling": "[3.0.0, )",
           "Corvus.Extensions": "[1.1.10, )",
-          "Corvus.Extensions.Newtonsoft.Json": "[3.0.0, )",
           "Corvus.Monitoring.Instrumentation.Abstractions": "[1.3.2, )",
           "Microsoft.CSharp": "[4.7.0, )",
           "Microsoft.Extensions.Configuration.Abstractions": "[6.0.0, )",

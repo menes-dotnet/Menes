@@ -6,7 +6,7 @@ namespace Menes
 {
     using System;
     using System.Collections.Generic;
-    using Newtonsoft.Json;
+    using System.Text.Json;
 
     /// <summary>
     /// Configuration for an OpenAPI server.
@@ -34,9 +34,10 @@ namespace Menes
         ResponseWhenUnauthenticated AccessPolicyUnauthenticatedResponse { get; set; }
 
         /// <summary>
-        /// Gets or sets the <see cref="JsonSerializerSettings"/>.
+        /// Gets or sets the <see cref="JsonSerializerOptions"/>.
         /// </summary>
-        JsonSerializerSettings? SerializerSettings { get; set; }
+        JsonSerializerOptions SerializerOptions { get; set; }
+        ////JsonSerializerSettings? SerializerSettings { get; set; }
 
         /// <summary>
         /// Gets or sets the discriminator to type mappings. These allow you to define descriminator values
@@ -58,9 +59,9 @@ namespace Menes
         /// </remarks>
         bool EnableNonExactParameterMatching { get; set; }
 
-        /// <summary>
-        /// Gets or sets the JSON <see cref="Formatting"/>.
-        /// </summary>
-        Formatting Formatting { get; set; }
+        /////// <summary>
+        /////// Gets or sets the JSON <see cref="Formatting"/>.
+        /////// </summary>
+        ////Formatting Formatting { get; set; }
     }
 }

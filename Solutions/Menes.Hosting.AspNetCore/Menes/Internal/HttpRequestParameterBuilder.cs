@@ -5,19 +5,21 @@
 namespace Menes.Internal
 {
     using System;
+    using System.Buffers;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.IO;
-    using System.Linq;
+    using System.Text.Json;
+    using System.Text.Json.Nodes;
     using System.Threading.Tasks;
+
     using Menes.Converters;
     using Menes.Exceptions;
+
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Logging;
     using Microsoft.OpenApi.Any;
     using Microsoft.OpenApi.Models;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
 
     /// <summary>
     /// An implementation of an <see cref="IOpenApiParameterBuilder{TRequest}"/>.
@@ -210,7 +212,7 @@ namespace Menes.Internal
 
             object HandleArray(OpenApiSchema schema, OpenApiArray array)
             {
-                var values = new JArray();
+                var values = new JsonArray();
 
                 foreach (IOpenApiAny? item in array)
                 {
@@ -224,13 +226,29 @@ namespace Menes.Internal
 
             object HandleObject(IDictionary<string, OpenApiSchema> properties, OpenApiObject inputObj)
             {
-                var values = new JObject();
+                var values = new JsonObject();
 
                 foreach (string key in inputObj.Keys)
                 {
                     object? obj = this.TryGetDefaultValueFromSchema(properties[key], inputObj[key]);
 
-                    values.Add(key, obj is null ? JValue.CreateNull() : JToken.FromObject(obj));
+                    using var stream = new MemoryStream();
+                    using (Utf8JsonWriter w = new(stream))
+                    {
+                        if (obj is null)
+                        {
+                            w.WriteNullValue();
+                        }
+                        else
+                        {
+                            JsonSerializer.Serialize(w, obj, obj.GetType());
+                        }
+
+                        w.Flush();
+                    }
+
+                    stream.Position = 0;
+                    values.Add(key, JsonObject.Parse(stream));
                 }
 
                 return values;
@@ -588,7 +606,7 @@ namespace Menes.Internal
 
                     if (parameter.Schema.Type == "array" || parameter.Schema.Type == "object")
                     {
-                        result = JsonConvert.SerializeObject(result);
+                        result = JsonSerializer.Serialize(result);
                     }
 
                     if (result != null)

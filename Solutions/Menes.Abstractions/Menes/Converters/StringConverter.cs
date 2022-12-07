@@ -4,6 +4,8 @@
 
 namespace Menes.Converters
 {
+    using System.Text.Json.Nodes;
+
     using Menes.Validation;
     using Microsoft.OpenApi.Models;
 
@@ -32,7 +34,8 @@ namespace Menes.Converters
         /// <inheritdoc/>
         public object ConvertFrom(string content, OpenApiSchema schema)
         {
-            this.validator.ValidateAndThrow(content, schema);
+            string result = JsonValue.Create(content)!.ToJsonString();
+            this.validator.ValidateAndThrow(result, schema);
 
             return content;
         }

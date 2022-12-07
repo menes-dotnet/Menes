@@ -6,9 +6,7 @@ namespace Menes.Internal
 {
     using System;
     using System.Collections.Generic;
-    using Corvus.Extensions.Json;
-    using Microsoft.Extensions.DependencyInjection;
-    using Newtonsoft.Json;
+    using System.Text.Json;
 
     /// <summary>
     /// Standard implementation of <see cref="IOpenApiConfiguration"/>.
@@ -28,14 +26,16 @@ namespace Menes.Internal
                 throw new ArgumentNullException(nameof(serviceProvider));
             }
 
-            this.SerializerSettings = serviceProvider.GetService<IJsonSerializerSettingsProvider>()?.Instance ?? JsonConvert.DefaultSettings?.Invoke();
+            ////this.SerializerSettings = serviceProvider.GetService<IJsonSerializerSettingsProvider>()?.Instance ?? JsonConvert.DefaultSettings?.Invoke();
+            this.SerializerOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web);
         }
 
-        /// <inheritdoc/>
-        public Formatting Formatting { get; set; }
+        /////// <inheritdoc/>
+        ////public Formatting Formatting { get; set; }
 
         /// <inheritdoc/>
-        public JsonSerializerSettings? SerializerSettings { get; set; }
+        public JsonSerializerOptions SerializerOptions { get; set; }
+        ////public JsonSerializerSettings? SerializerSettings { get; set; }
 
         /// <inheritdoc/>
         public Dictionary<string, Type> DiscriminatedTypes

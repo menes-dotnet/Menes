@@ -9,8 +9,9 @@
 namespace Menes.Validation
 {
     using System.Collections.Generic;
+    using System.Text.Json;
+
     using Microsoft.OpenApi.Models;
-    using Newtonsoft.Json.Linq;
 
     /// <summary>A multi type validation error.</summary>
     public class MultiTypeValidationError : ValidationError
@@ -23,7 +24,7 @@ namespace Menes.Validation
         /// <param name="errors">The error list. </param>
         /// <param name="token">The token that failed to validate. </param>
         /// <param name="schema">The schema that contains the validation rule.</param>
-        public MultiTypeValidationError(ValidationErrorKind kind, string? propertyName, string path, IReadOnlyDictionary<JsonObjectType, ICollection<ValidationError>> errors, JToken token, OpenApiSchema schema)
+        public MultiTypeValidationError(ValidationErrorKind kind, string? propertyName, string path, IReadOnlyDictionary<JsonObjectType, ICollection<ValidationError>> errors, JsonElement token, OpenApiSchema schema)
             : base(kind, propertyName, path, token, schema)
         {
             this.Errors = errors;

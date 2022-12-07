@@ -8,7 +8,6 @@ namespace Menes.ExceptionMappers
     using System.Collections.Generic;
     using Menes.Internal;
     using Microsoft.OpenApi.Models;
-    using Newtonsoft.Json.Linq;
 
     /// <summary>
     /// An exception mapper for the standard ProblemDetails RFC7807.
@@ -66,7 +65,7 @@ namespace Menes.ExceptionMappers
         {
             responses.TryGetResponseForStatusCode(statusCode, out OpenApiResponse? openApiResponse);
 
-            var response = new JObject();
+            Dictionary<string, object> response = new();
             bool useAlternateType = false;
             if (!openApiResponse!.Content.TryGetValue(ProblemDetailContentType, out OpenApiMediaType? responseMediaType))
             {
@@ -95,7 +94,8 @@ namespace Menes.ExceptionMappers
                         break;
 
                     default:
-                        if (!ex.Data.Contains(property.Key))
+                        object? value = ex.Data[property.Key];
+                        if (value is null)
                         {
                             if (responseMediaType.Schema.Required.Contains(property.Key))
                             {
@@ -105,7 +105,7 @@ namespace Menes.ExceptionMappers
                         }
                         else
                         {
-                            response[property.Key] = JToken.FromObject(ex.Data[property.Key]!);
+                            response[property.Key] = value;
                         }
 
                         break;

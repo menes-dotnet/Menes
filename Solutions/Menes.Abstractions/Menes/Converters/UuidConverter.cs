@@ -5,10 +5,11 @@
 namespace Menes.Converters
 {
     using System;
+    using System.Text.Json;
+    using System.Text.Json.Nodes;
+
     using Menes.Validation;
     using Microsoft.OpenApi.Models;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
 
     /// <summary>
     /// An OpenAPI converter for dates.
@@ -38,10 +39,9 @@ namespace Menes.Converters
         /// <inheritdoc/>
         public object ConvertFrom(string content, OpenApiSchema schema)
         {
-            JToken token = content;
-            var result = (Guid)token;
+            var result = Guid.Parse(content);
 
-            this.validator.ValidateAndThrow(result, schema);
+            this.validator.ValidateAndThrow(JsonValue.Create(content)!.ToJsonString(), schema);
 
             return result;
         }
@@ -49,7 +49,7 @@ namespace Menes.Converters
         /// <inheritdoc/>
         public string ConvertTo(object instance, OpenApiSchema schema)
         {
-            string result = JsonConvert.SerializeObject(instance, this.configuration.Formatting, this.configuration.SerializerSettings);
+            string result = JsonSerializer.Serialize(instance, typeof(Guid), this.configuration.SerializerOptions);
 
             this.validator.ValidateAndThrow(result, schema);
 

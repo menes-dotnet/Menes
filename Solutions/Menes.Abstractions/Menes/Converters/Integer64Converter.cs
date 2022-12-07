@@ -4,10 +4,10 @@
 
 namespace Menes.Converters
 {
+    using System.Text.Json;
+
     using Menes.Validation;
     using Microsoft.OpenApi.Models;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
 
     /// <summary>
     /// An OpenAPI converter for int64 integers.
@@ -37,10 +37,8 @@ namespace Menes.Converters
         /// <inheritdoc/>
         public object ConvertFrom(string content, OpenApiSchema schema)
         {
-            JToken token = content;
-
-            long result = (long)token;
-            this.validator.ValidateAndThrow(result, schema);
+            long result = long.Parse(content);
+            this.validator.ValidateAndThrow(content, schema);
 
             return result;
         }
@@ -48,7 +46,7 @@ namespace Menes.Converters
         /// <inheritdoc/>
         public string ConvertTo(object instance, OpenApiSchema schema)
         {
-            string result = JsonConvert.SerializeObject(instance, this.configuration.Formatting, this.configuration.SerializerSettings);
+            string result = JsonSerializer.Serialize(instance, typeof(long), this.configuration.SerializerOptions);
 
             this.validator.ValidateAndThrow(result, schema);
 

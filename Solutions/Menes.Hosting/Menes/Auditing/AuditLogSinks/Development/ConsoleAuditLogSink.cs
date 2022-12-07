@@ -5,8 +5,8 @@
 namespace Menes.Auditing.AuditLogSinks.Development
 {
     using System;
+    using System.Text.Json;
     using System.Threading.Tasks;
-    using Newtonsoft.Json;
 
     /// <summary>
     /// Audit service that writes messages via <see cref="Console.WriteLine(string)"/>.
@@ -27,7 +27,7 @@ namespace Menes.Auditing.AuditLogSinks.Development
         /// <inheritdoc />
         public Task LogAsync(IOpenApiContext context, AuditLog log)
         {
-            string data = JsonConvert.SerializeObject(log, Formatting.Indented, this.openApiConfiguration.SerializerSettings);
+            string data = JsonSerializer.Serialize(log, this.openApiConfiguration.SerializerOptions);
             Console.WriteLine(data);
             return Task.CompletedTask;
         }

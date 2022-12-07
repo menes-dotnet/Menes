@@ -5,11 +5,11 @@
 namespace Menes.Converters
 {
     using System;
+    using System.Text.Json;
+
     using Menes.Validation;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.OpenApi.Models;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
 
     /// <summary>
     /// An OpenAPI converter for objects.
@@ -50,8 +50,8 @@ namespace Menes.Converters
             string? type;
             if (!string.IsNullOrEmpty(discriminator))
             {
-                var jobj = JObject.Parse(content);
-                type = (string?)jobj[discriminator];
+                using var jdoc = JsonDocument.Parse(content);
+                type = jdoc.RootElement.TryGetProperty(discriminator, out JsonElement discriminatorProperty) ? discriminatorProperty.GetString() : null;
 
                 if (type == null)
                 {
@@ -77,17 +77,17 @@ namespace Menes.Converters
                 if (!this.serviceProvider.TryGetTypeFor(type, out targetType))
                 {
                     // We have no immediately obvious way to discriminate the type, so fall back on the serializers.
-                    return JsonConvert.DeserializeObject(content, this.configuration.SerializerSettings!)!;
+                    return JsonSerializer.Deserialize<object>(content, this.configuration.SerializerOptions)!;
                 }
             }
 
-            return JsonConvert.DeserializeObject(content, targetType, this.configuration.SerializerSettings)!;
+            return JsonSerializer.Deserialize(content, targetType, this.configuration.SerializerOptions)!;
         }
 
         /// <inheritdoc/>
         public string ConvertTo(object instance, OpenApiSchema schema)
         {
-            string result = JsonConvert.SerializeObject(instance, this.configuration.Formatting, this.configuration.SerializerSettings);
+            string result = JsonSerializer.Serialize(instance, instance.GetType(), this.configuration.SerializerOptions);
 
             this.validator.ValidateAndThrow(result, schema);
 
