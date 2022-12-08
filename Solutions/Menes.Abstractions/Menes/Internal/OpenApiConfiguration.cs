@@ -18,24 +18,13 @@ namespace Menes.Internal
         /// <summary>
         /// Initializes a new instance of the <see cref="IOpenApiConfiguration"/> class.
         /// </summary>
-        /// <param name="serviceProvider">The <see cref="IServiceProvider"/> for the current context.</param>
-        public OpenApiConfiguration(IServiceProvider serviceProvider)
+        public OpenApiConfiguration()
         {
-            if (serviceProvider is null)
-            {
-                throw new ArgumentNullException(nameof(serviceProvider));
-            }
-
-            ////this.SerializerSettings = serviceProvider.GetService<IJsonSerializerSettingsProvider>()?.Instance ?? JsonConvert.DefaultSettings?.Invoke();
             this.SerializerOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web);
         }
 
-        /////// <inheritdoc/>
-        ////public Formatting Formatting { get; set; }
-
         /// <inheritdoc/>
         public JsonSerializerOptions SerializerOptions { get; set; }
-        ////public JsonSerializerSettings? SerializerSettings { get; set; }
 
         /// <inheritdoc/>
         public Dictionary<string, Type> DiscriminatedTypes

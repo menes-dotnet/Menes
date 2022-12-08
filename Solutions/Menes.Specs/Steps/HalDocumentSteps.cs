@@ -4,6 +4,7 @@
 
 namespace Menes.Specs.Steps
 {
+    using System;
     using System.ComponentModel;
     using System.Linq;
     using System.Reflection.Metadata;
@@ -20,32 +21,38 @@ namespace Menes.Specs.Steps
     [Binding]
     public class HalDocumentSteps
     {
-        private static readonly JsonSerializerOptions SerializerOptions = new(JsonSerializerDefaults.Web);
+        private readonly JsonSerializerOptions serializerOptions;
         private readonly ScenarioContext scenarioContext;
+
+        private readonly IHalDocumentFactory halDocumentFactory;
+
+        private TestDomainClass? domainData;
 
         public HalDocumentSteps(ScenarioContext scenarioContext)
         {
             this.scenarioContext = scenarioContext;
+
+            IServiceProvider serviceProvider = ContainerBindings.GetServiceProvider(this.scenarioContext);
+            this.serializerOptions = serviceProvider.GetRequiredService<IOpenApiConfiguration>().SerializerOptions;
+            this.halDocumentFactory = serviceProvider.GetRequiredService<IHalDocumentFactory>();
         }
 
         [Given("I have a domain class")]
         public void GivenIHaveADomainClass()
         {
-            var myDto = new TestDomainClass
+            this.domainData = new TestDomainClass
             {
                 Property1 = 500,
                 Property2 = "This is a string",
                 Property3 = 48.2M,
             };
-
-            this.scenarioContext.Set(myDto);
         }
 
         [Given("I have created an instance of HalDocument{T} from the domain class")]
         public void GivenIHaveCreatedAnInstanceOfHalDocumentFromTheDomainClass()
         {
-            IHalDocumentFactory halDocumentFactory = ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<IHalDocumentFactory>();
-            HalDocument halDocument = halDocumentFactory.CreateHalDocumentFrom(this.scenarioContext.Get<TestDomainClass>());
+            IHalDocumentFactory halDocumentFactory = this.halDocumentFactory;
+            HalDocument halDocument = halDocumentFactory.CreateHalDocumentFrom(this.domainData!);
             this.scenarioContext.Set(halDocument);
         }
 
@@ -56,10 +63,7 @@ namespace Menes.Specs.Steps
 
             // We're actually going to serialize to a JObject as this will make it easier to
             // check the results.
-            ////IJsonSerializerSettingsProvider serializerSettingsProvider = ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<IJsonSerializerSettingsProvider>();
-            ////var serializer = JsonSerializer.Create(serializerSettingsProvider.Instance);
-            ////var result = JObject.FromObject(document, serializer);
-            var result = (JsonObject)JsonNode.Parse(JsonSerializer.Serialize(document, SerializerOptions))!;
+            var result = (JsonObject)JsonNode.Parse(JsonSerializer.Serialize(document, this.serializerOptions))!;
 
             this.scenarioContext.Set(result);
         }
@@ -69,10 +73,7 @@ namespace Menes.Specs.Steps
         {
             JsonObject previouslySerializedHalDocument = this.scenarioContext.Get<JsonObject>();
 
-            ////IJsonSerializerSettingsProvider serializerSettingsProvider = ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<IJsonSerializerSettingsProvider>();
-            ////var serializer = JsonSerializer.Create(serializerSettingsProvider.Instance);
-            ////HalDocument result = previouslySerializedHalDocument.ToObject<HalDocument>(serializer)!;
-            HalDocument result = JsonSerializer.Deserialize<HalDocument>(previouslySerializedHalDocument, SerializerOptions)!;
+            HalDocument result = previouslySerializedHalDocument.Deserialize<HalDocument>(this.serializerOptions)!;
 
             this.scenarioContext.Set(result);
         }
@@ -88,7 +89,7 @@ namespace Menes.Specs.Steps
         public void GivenIAddAnEmbeddedResourceToTheHalDocumentT()
         {
             HalDocument document = this.scenarioContext.Get<HalDocument>();
-            IHalDocumentFactory halDocumentFactory = ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<IHalDocumentFactory>();
+            IHalDocumentFactory halDocumentFactory = this.halDocumentFactory;
             document.AddEmbeddedResource("somerel", halDocumentFactory.CreateHalDocument());
         }
 
@@ -96,7 +97,7 @@ namespace Menes.Specs.Steps
         public void ThenThePropertiesOfTheDomainClassShouldBeSerializedAsTopLevelPropertiesInTheJSON()
         {
             JsonObject result = this.scenarioContext.Get<JsonObject>();
-            TestDomainClass dto = this.scenarioContext.Get<TestDomainClass>();
+            TestDomainClass dto = this.domainData!;
 
             Assert.NotNull(result["property1"]);
             Assert.NotNull(result["property2"]);
@@ -111,7 +112,7 @@ namespace Menes.Specs.Steps
         public void ThenThePropertiesOfTheOriginalDocumentShouldBePresentInTheDeserializedDocument()
         {
             HalDocument result = this.scenarioContext.Get<HalDocument>();
-            TestDomainClass dtoIn = this.scenarioContext.Get<TestDomainClass>();
+            TestDomainClass dtoIn = this.domainData!;
             Assert.IsTrue(result.TryGetProperties(out TestDomainClass? dtoOut));
 
             Assert.AreEqual(dtoIn.Property1, dtoOut!.Property1);

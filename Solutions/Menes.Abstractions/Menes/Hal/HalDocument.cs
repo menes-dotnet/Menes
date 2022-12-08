@@ -7,7 +7,11 @@ namespace Menes.Hal
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
+    using System.IO;
     using System.Linq;
+    using System.Text.Json;
+    using System.Text.Json.Nodes;
+
     using Menes.Links;
 
     /// <summary>
@@ -21,28 +25,28 @@ namespace Menes.Hal
         private Dictionary<string, List<WebLink>> links = new();
         private Dictionary<string, List<HalDocument>> embeddedResources = new();
 
-        /////// <summary>
-        /////// Initializes a new instance of the <see cref="HalDocument"/> class.
-        /////// </summary>
-        /////// <param name="serializerSettingsProvider">The Json serializer settings provider.</param>
-        ////public HalDocument(IJsonSerializerSettingsProvider serializerSettingsProvider)
-        ////{
-        ////    this.SerializerSettings = serializerSettingsProvider.Instance;
-        ////}
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HalDocument"/> class.
+        /// </summary>
+        /// <param name="serializerOptions">The Json serializer settings provider.</param>
+        public HalDocument(JsonSerializerOptions serializerOptions)
+        {
+            this.JsonSerializerOptions = serializerOptions;
+        }
 
-        /////// <summary>
-        /////// Gets the serializer settings for the HAL document.
-        /////// </summary>
-        ////public JsonSerializerSettings SerializerSettings { get; }
+        /// <summary>
+        /// Gets the serializer settings for the HAL document.
+        /// </summary>
+        public JsonSerializerOptions JsonSerializerOptions { get; }
 
-        /////// <summary>
-        /////// Gets the properties for the HalDocument.
-        /////// </summary>
-        ////public JObject Properties
-        ////{
-        ////    get => this.PropertiesInternalNullable ??= new JObject();
-        ////    internal set => this.PropertiesInternalNullable = value ?? throw new ArgumentNullException(nameof(this.Properties));
-        ////}
+        /// <summary>
+        /// Gets the properties for the HalDocument.
+        /// </summary>
+        public JsonObject Properties
+        {
+            get => this.PropertiesInternalNullable ??= new JsonObject();
+            internal set => this.PropertiesInternalNullable = value ?? throw new ArgumentNullException(nameof(this.Properties));
+        }
 
         /// <inheritdoc/>
         public IEnumerable<WebLink> Links
@@ -80,17 +84,17 @@ namespace Menes.Hal
             }
         }
 
-        /////// <summary>
-        /////// Gets or sets the underlying store for <see cref="Properties"/>, making it possible to
-        /////// detect when it has not been set.
-        /////// </summary>
-        /////// <remarks>
-        /////// The public <see cref="Properties"/> property's get accessor will construct a new
-        /////// <see cref="JObject"/> if a value is not already present so as to avoid ever returning
-        /////// null. In most cases this is what we want, but our seralization support code can handle
-        /////// the case where this was never given a value more efficiently.
-        /////// </remarks>
-        ////internal JObject? PropertiesInternalNullable { get; set; }
+        /// <summary>
+        /// Gets or sets the underlying store for <see cref="Properties"/>, making it possible to
+        /// detect when it has not been set.
+        /// </summary>
+        /// <remarks>
+        /// The public <see cref="Properties"/> property's get accessor will construct a new
+        /// <see cref="JsonObject"/> if a value is not already present so as to avoid ever returning
+        /// null. In most cases this is what we want, but our seralization support code can handle
+        /// the case where this was never given a value more efficiently.
+        /// </remarks>
+        internal JsonObject? PropertiesInternalNullable { get; set; }
 
         /// <summary>
         /// Removes an embedded resource based on its href.
@@ -113,7 +117,10 @@ namespace Menes.Hal
         public void SetProperties<T>(T properties)
             where T : notnull
         {
-            ////this.Properties = JObject.FromObject(properties, JsonSerializer.Create(this.SerializerSettings));
+            using MemoryStream ms = new();
+            JsonSerializer.Serialize(ms, properties, this.JsonSerializerOptions);
+            ms.Position = 0;
+            this.Properties = (JsonObject)JsonNode.Parse(ms)!;
         }
 
         /// <summary>
@@ -136,19 +143,18 @@ namespace Menes.Hal
         /// <returns>True if it was possible to get the properties as the given type.</returns>
         public bool TryGetProperties<T>([MaybeNullWhen(false)] out T result)
         {
-            ////if (typeof(JObject).IsAssignableFrom(typeof(T)))
-            ////{
-            ////    result = (T)(object)this.Properties;
-            ////    return true;
-            ////}
+            if (typeof(T) == typeof(JsonObject))
+            {
+                result = (T)(object)this.Properties;
+                return true;
+            }
 
-            ////using JsonReader reader = this.Properties.CreateReader();
-            ////try
-            ////{
-            ////    result = JsonSerializer.Create(this.SerializerSettings).Deserialize<T>(reader)!;
-            ////    return true;
-            ////}
-            ////catch (JsonSerializationException)
+            try
+            {
+                result = this.Properties.Deserialize<T>(this.JsonSerializerOptions)!;
+                return true;
+            }
+            catch (JsonException)
             {
                 result = default!;
                 return false;
@@ -268,8 +274,6 @@ namespace Menes.Hal
                     yield return embeddedResource;
                 }
             }
-
-            yield break;
         }
 
         private List<WebLink> EnsureListForLink(string rel)

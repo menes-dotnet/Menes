@@ -43,7 +43,6 @@ namespace Menes.Specs.Steps.TestClasses
         {
             var context = new OperationInvokerTestContext();
             services.AddSingleton(context);
-            services.AddSingleton<IOpenApiConfiguration, OpenApiConfiguration>();
             services.AddSingleton(context.OperationLocator.Object);
             services.AddSingleton<IOpenApiAccessChecker>(new AccessChecker(context));
             services.AddSingleton(context.ExceptionMapper.Object);

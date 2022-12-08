@@ -94,18 +94,15 @@ namespace Microsoft.Extensions.DependencyInjection
                 return services;
             }
 
-            ////services.AddJsonNetSerializerSettingsProvider();
+            var openApiConfiguration = new OpenApiConfiguration();
 
             services.AddInstrumentation();
 
             services.AddOpenApiAuditing();
             services.AddAuditLogSink<ConsoleAuditLogSink>();
 
-            ////services.AddSingleton<JsonConverter, OpenApiDocumentJsonConverter>();
-            ////services.AddSingleton<JsonConverter, HalDocumentJsonConverter>();
             services.AddSingleton<IOpenApiDocumentProvider, OpenApiDocumentProvider>();
-            services.AddSingleton<IHalDocumentFactory, HalDocumentFactory>();
-            services.AddTransient<HalDocument>();
+            services.AddSingleton<IHalDocumentFactory>(new HalDocumentFactory(openApiConfiguration.SerializerOptions));
             services.AddSingleton<IOpenApiServiceOperationLocator, DefaultOperationLocator>();
             services.AddSingleton<IPathMatcher, PathMatcher>();
             services.AddSingleton<IOpenApiService, SwaggerService>();
@@ -141,10 +138,12 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddSingleton<IOpenApiConfiguration>(serviceProvider =>
             {
-                var config = new OpenApiConfiguration(serviceProvider);
-                configureEnvironment?.Invoke(config);
+                configureEnvironment?.Invoke(openApiConfiguration);
 
-                return config;
+                openApiConfiguration.SerializerOptions.Converters.Add(new OpenApiDocumentJsonConverter());
+                openApiConfiguration.SerializerOptions.Converters.Add(new HalDocumentJsonConverter(serviceProvider.GetRequiredService<IHalDocumentFactory>()));
+
+                return openApiConfiguration;
             });
 
             services.AddOpenApiJsonConverters();
