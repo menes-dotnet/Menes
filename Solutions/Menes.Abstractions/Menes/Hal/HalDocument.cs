@@ -7,7 +7,6 @@ namespace Menes.Hal
     using System;
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
-    using System.IO;
     using System.Linq;
     using System.Text.Json;
     using System.Text.Json.Nodes;
@@ -117,10 +116,12 @@ namespace Menes.Hal
         public void SetProperties<T>(T properties)
             where T : notnull
         {
-            using MemoryStream ms = new();
-            JsonSerializer.Serialize(ms, properties, this.JsonSerializerOptions);
-            ms.Position = 0;
-            this.Properties = (JsonObject)JsonNode.Parse(ms)!;
+            if (JsonSerializer.SerializeToNode(properties, this.JsonSerializerOptions) is not JsonObject jo)
+            {
+                throw new ArgumentException("Properties could not be serialized as a JSON object");
+            }
+
+            this.Properties = jo;
         }
 
         /// <summary>

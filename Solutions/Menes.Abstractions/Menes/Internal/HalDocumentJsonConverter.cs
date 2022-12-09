@@ -89,20 +89,14 @@ namespace Menes.Internal
 
                 if (links.Length == 1)
                 {
-                    using MemoryStream ms = new();
-                    JsonSerializer.Serialize(ms, links[0], serializerOptions);
-                    ms.Position = 0;
-                    linksObject.Add(relation, JsonNode.Parse(ms));
+                    linksObject.Add(relation, JsonSerializer.SerializeToNode(links[0], serializerOptions));
                 }
                 else
                 {
                     var linksArray = new JsonArray();
                     foreach (JsonNode? link in linksArray)
                     {
-                        using MemoryStream ms = new();
-                        JsonSerializer.Serialize(ms, links[0], serializerOptions);
-                        ms.Position = 0;
-                        linksArray.Add(JsonNode.Parse(ms));
+                        linksArray.Add(JsonSerializer.SerializeToNode(link, serializerOptions));
                     }
 
                     linksObject.Add(relation, linksArray);
@@ -129,21 +123,14 @@ namespace Menes.Internal
 
                 if (embeddedResources.Length == 1)
                 {
-                    using MemoryStream ms = new();
-                    JsonSerializer.Serialize(ms, embeddedResources[0], serializer);
-                    ms.Position = 0;
-
-                    embeddedResourcesObject.Add(relation, JsonNode.Parse(ms));
+                    embeddedResourcesObject.Add(relation, JsonSerializer.SerializeToNode(embeddedResources[0], serializer));
                 }
                 else
                 {
                     var embeddedResourcesArray = new JsonArray();
                     foreach (HalDocument embeddedResource in embeddedResources)
                     {
-                        using MemoryStream ms = new();
-                        JsonSerializer.Serialize(ms, embeddedResources[0], serializer);
-                        ms.Position = 0;
-                        embeddedResourcesArray.Add(JsonNode.Parse(ms));
+                        embeddedResourcesArray.Add(JsonSerializer.SerializeToNode(embeddedResource, serializer));
                     }
 
                     embeddedResourcesObject.Add(relation, embeddedResourcesArray);
