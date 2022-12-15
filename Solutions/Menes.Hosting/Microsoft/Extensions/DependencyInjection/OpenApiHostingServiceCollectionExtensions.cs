@@ -6,6 +6,8 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     using System;
     using System.Linq;
+    using System.Text.Json.Serialization;
+
     using Menes;
     using Menes.Auditing;
     using Menes.Auditing.AuditLogSinks.Development;
@@ -140,6 +142,8 @@ namespace Microsoft.Extensions.DependencyInjection
             {
                 configureEnvironment?.Invoke(openApiConfiguration);
 
+                openApiConfiguration.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+                openApiConfiguration.SerializerOptions.Converters.Add(new JsonStringEnumConverter(openApiConfiguration.SerializerOptions.PropertyNamingPolicy));
                 openApiConfiguration.SerializerOptions.Converters.Add(new OpenApiDocumentJsonConverter());
                 openApiConfiguration.SerializerOptions.Converters.Add(new HalDocumentJsonConverter(serviceProvider.GetRequiredService<IHalDocumentFactory>()));
 

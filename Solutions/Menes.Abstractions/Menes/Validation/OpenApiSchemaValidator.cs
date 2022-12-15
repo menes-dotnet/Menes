@@ -16,7 +16,10 @@ namespace Menes.Validation
     using System.Reflection;
     using System.Text;
     using System.Text.Json;
+    using System.Text.Json.Nodes;
     using System.Text.RegularExpressions;
+    using System.Xml.Linq;
+
     using Menes.Exceptions;
     using Microsoft.Extensions.Logging;
     using Microsoft.OpenApi.Any;
@@ -99,11 +102,24 @@ namespace Menes.Validation
         /// <returns>The list of validation errors.</returns>
         private static ICollection<ValidationError> Validate(string data, OpenApiSchema schema)
         {
-            using var doc = JsonDocument.Parse(data);
+            // There is a problem here. Sometimes we are passed data in its native form, and sometimes
+            // in JSON form. For example, a string will generally just be a plain .NET string (whereas the
+            // JSON version would need the string to start and end with a double quote character). An
+            // object on the other hand will start with a '{' character; an array with a '['.
+            // In theory we can work out what to expect based on the schema type. But this gets messy when
+            // features such as AnyOf get used.
+            // Really, we should just require that data always be passed in JSON form, meaning that if the
+            // JSON representation includes quotes, the string should have those quotes inside it.
             ////bool dataShouldBeJson = schema.Type == "object" || schema.Type == "array" || schema.Type == null;
-            ////JToken jsonObject = dataShouldBeJson ? JToken.Parse(data) : data;
-
-            return Validate(doc.RootElement, schema, null, string.Empty);
+            ////if (dataShouldBeJson)
+            ////{
+                using var doc = JsonDocument.Parse(data);
+                return Validate(doc.RootElement, schema, null, string.Empty);
+            ////}
+            ////else
+            ////{
+            ////    return Validate(JsonSerializer.Deserialize<JsonElement>(JsonValue.Create(data)?.ToJsonString() ?? "null"), schema, null, string.Empty);
+            ////}
         }
 
         /////// <summary>Validates the given JSON token.</summary>
@@ -568,7 +584,7 @@ namespace Menes.Validation
             {
                 string newPropertyPath = !string.IsNullOrEmpty(propertyPath) ? propertyPath + "." + propertyInfo.Key : propertyInfo.Key;
 
-                if (token.TryGetProperty(propertyInfo.Key, out JsonElement property))
+                if (token.ValueKind == JsonValueKind.Object && token.TryGetProperty(propertyInfo.Key, out JsonElement property))
                 {
                     ICollection<ValidationError> propertyErrors = Validate(property, propertyInfo.Value, propertyInfo.Key, newPropertyPath);
                     errors.AddRange(propertyErrors);

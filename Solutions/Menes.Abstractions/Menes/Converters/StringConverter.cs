@@ -53,7 +53,7 @@ namespace Menes.Converters
                 result = instance.ToString()!;
             }
 
-            this.validator.ValidateAndThrow(result, schema);
+            this.validator.ValidateAndThrow(JsonValue.Create(result)!.ToJsonString(), schema);
 
             return result;
         }
