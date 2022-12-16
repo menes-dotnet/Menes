@@ -94,7 +94,7 @@ namespace Menes.Internal
                 else
                 {
                     var linksArray = new JsonArray();
-                    foreach (JsonNode? link in linksArray)
+                    foreach (WebLink link in links)
                     {
                         linksArray.Add(JsonSerializer.SerializeToNode(link, serializerOptions));
                     }
