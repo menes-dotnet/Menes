@@ -1420,7 +1420,7 @@
           "Microsoft.Extensions.Configuration.Abstractions": "[6.0.0, )",
           "Microsoft.Extensions.Logging": "[6.0.0, )",
           "Microsoft.OpenApi.Readers": "[1.4.5, )",
-          "System.Interactive": "[4.1.*, )",
+          "System.Interactive": "[4.1.1, )",
           "System.Text.Encodings.Web": "[4.7.*, )",
           "Tavis.UriTemplates": "[1.1.1, )"
         }

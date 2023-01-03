@@ -26,7 +26,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
     <PackageReference Include="Microsoft.Extensions.Logging" Version="6.0.0" />
     <PackageReference Include="Microsoft.OpenApi.Readers" Version="1.4.5" />
-    <PackageReference Include="System.Interactive" Version="[4.1.*,)" />
+    <PackageReference Include="System.Interactive" Version="4.1.1" />
     <PackageReference Include="System.Text.Encodings.Web" Version="[4.7.*,)" />
     <PackageReference Include="Tavis.UriTemplates" Version="1.1.1" />
   </ItemGroup>
