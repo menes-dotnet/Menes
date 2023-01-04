@@ -4,6 +4,8 @@
 
 namespace Menes.Converters
 {
+    using System;
+
     using Menes.Validation;
     using Microsoft.OpenApi.Models;
     using Newtonsoft.Json;
@@ -39,7 +41,16 @@ namespace Menes.Converters
         {
             JToken token = content;
 
-            long result = (long)token;
+            long result;
+            try
+            {
+                result = (long)token;
+            }
+            catch (OverflowException)
+            {
+                throw new FormatException("Number was too large to parse as an Int64");
+            }
+
             this.validator.ValidateAndThrow(result, schema);
 
             return result;
@@ -50,7 +61,7 @@ namespace Menes.Converters
         {
             string result = JsonConvert.SerializeObject(instance, this.configuration.Formatting, this.configuration.SerializerSettings);
 
-            this.validator.ValidateAndThrow(result, schema);
+            this.validator.ValidateAndThrow(JToken.Parse(result), schema);
 
             return result;
         }

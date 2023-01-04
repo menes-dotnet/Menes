@@ -55,7 +55,7 @@ namespace Menes.Validation
 
             if (errors.Count > 0)
             {
-                Exception exception = new OpenApiBadRequestException("Schema Validation Error", "The content does not conform to the required schema.")
+                Exception exception = new OpenApiInvalidFormatException("Schema Validation Error", "The content does not conform to the required schema.")
                     .AddProblemDetailsExtension("validationErrors", errors);
 
                 this.logger.LogError(

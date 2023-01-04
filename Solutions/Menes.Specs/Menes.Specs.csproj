@@ -55,13 +55,66 @@
     <None Remove="Steps\TestClasses\OpenApiWebLinkResolverTest.yaml" />
   </ItemGroup>
   <ItemGroup>
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\ParameterParsing\BooleanOutputParsing - Copy.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\ParameterParsing\BooleanParameterParsing - Copy.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\ParameterParsing\Integer32InputParsing - Copy.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\ParameterParsing\Integer32OutputParsing - Copy.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\ParameterParsing\OpenApiDefaultParameterParsing - Copy.feature.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="Steps\TestClasses\OpenApiWebLinkResolverTest.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Features\ParameterParsing\Integer64InputParsing.feature.cs">
+      <DependentUpon>Integer64InputParsing.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Features\ParameterParsing\Integer64OutputParsing.feature.cs">
+      <DependentUpon>Integer64OutputParsing.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Features\ParameterParsing\Integer32OutputParsing.feature.cs">
+      <DependentUpon>Integer32OutputParsing.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Features\ParameterParsing\BooleanOutputParsing.feature.cs">
+      <DependentUpon>BooleanOutputParsing.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Features\ParameterParsing\Integer32InputParsing.feature.cs">
+      <DependentUpon>Integer32InputParsing.feature</DependentUpon>
+    </Compile>
+    <Compile Update="Features\ParameterParsing\BooleanInputParsing.feature.cs">
+      <DependentUpon>BooleanInputParsing.feature</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
     <None Update="specflow.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <SpecFlowFeatureFiles Update="Features\ParameterParsing\Integer64InputParsing.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Features\ParameterParsing\Integer64OutputParsing.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Features\ParameterParsing\Integer32OutputParsing.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Features\ParameterParsing\BooleanOutputParsing.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Features\ParameterParsing\Integer32InputParsing.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Features\ParameterParsing\BooleanInputParsing.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
   </ItemGroup>
 </Project>

@@ -30,7 +30,7 @@ namespace Marain.Claims.SpecFlow.Bindings
                 serviceCollection =>
                 {
                     serviceCollection.AddLogging();
-                    serviceCollection.AddOpenApiActionResultHosting<SimpleOpenApiContext>(null);
+                    serviceCollection.AddOpenApiAspNetPipelineHosting<SimpleOpenApiContext>(null);
 
                     var instrumentationProvider = new FakeInstrumentationProvider();
                     serviceCollection.AddSingleton(instrumentationProvider);
