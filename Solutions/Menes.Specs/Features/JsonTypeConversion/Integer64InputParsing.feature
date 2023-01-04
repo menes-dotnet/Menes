@@ -5,6 +5,20 @@ Feature: Integer64 Input Parsing
     As a developer
     I want to be able to specify 64-bit integer parameters within the OpenAPI specification and have corresponding input parameters deserialized and validated
 
+Scenario Outline: Body with valid values for simple types
+    Given I have constructed the OpenAPI specification with a request body of type 'integer', and format 'int64'
+    When I try to parse the value '<Value>' as the request body
+    Then the parameter body should be <ExpectedResult> of type System.Int64
+
+    Examples:
+        | Value                | ExpectedResult       |
+        | 0                    | 0                    |
+        | 1234                 | 1234                 |
+        | 2147483647           | 2147483647           |
+        | -2147483648          | -2147483648          |
+        | 9223372036854775807  | 9223372036854775807  |
+        | -9223372036854775808 | -9223372036854775808 |
+
 Scenario Outline: Parameters with valid values for simple types
     Given I have constructed the OpenAPI specification with a <ParameterLocation> parameter with name 'openApiInteger64', type 'integer', and format 'int64'
     When I try to parse the <ParameterLocation> value '<Value>' as the parameter 'openApiInteger64'

@@ -436,6 +436,18 @@ namespace Menes.Internal
 
             try
             {
+                // The funky thing about IOpenApiConverter is that although in most cases
+                // the string we pass for conversion is in its JSON format, strings are the
+                // exception: those appear unquoted. That's because converters are also
+                // passed values from headers, query strings, paths, and cookies, where
+                // strings are not quoted.
+                // Since we know we're receiving actual JSON, it's our job to detect when
+                // it's a string, and strip off the quotes.
+                if (value.Length >= 2 && value[0] == '"' && value[^1] == '"')
+                {
+                    value = value[1..^1];
+                }
+
                 return this.ConvertValue(schema, value);
             }
             catch (OpenApiInvalidFormatException x)

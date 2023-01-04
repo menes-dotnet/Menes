@@ -5,6 +5,21 @@ Feature: Float Input Parsing
     As a developer
     I want to be able to specify float parameters within the OpenAPI specification and have corresponding input parameters deserialized and validated
 
+Scenario Outline: Body with valid values for simple types
+    Given I have constructed the OpenAPI specification with a request body of type 'number', and format 'double'
+    When I try to parse the value '<Value>' as the request body
+    Then the parameter body should be <ExpectedResult> of type System.Double
+
+    Examples:
+        | Value         | ExpectedResult |
+        | 1234          | 1234           |
+        | 0             | 0              |
+        | -42           | -42            |
+        | 2147483647    | 2147483647     |
+        | -2147483648   | -2147483648    |
+        | 1234.5        | 1234.5         |
+        | -1234.567     | -1234.567      |
+
 Scenario Outline: Parameters with valid values for simple types
     Given I have constructed the OpenAPI specification with a <ParameterLocation> parameter with name 'openApiFloat', type 'number', and format 'float'
     When I try to parse the <ParameterLocation> value '<Value>' as the parameter 'openApiFloat'

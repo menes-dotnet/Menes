@@ -39,9 +39,9 @@ namespace Menes.Converters
         public object ConvertFrom(string content, OpenApiSchema schema)
         {
             JToken token = content;
-            var result = (DateTimeOffset)token;
+            var result = new DateTimeOffset(DateTime.SpecifyKind((DateTime)token, DateTimeKind.Utc));
 
-            this.validator.ValidateAndThrow(result, schema);
+            this.validator.ValidateAndThrow(token, schema);
 
             return result;
         }
@@ -49,9 +49,15 @@ namespace Menes.Converters
         /// <inheritdoc/>
         public string ConvertTo(object instance, OpenApiSchema schema)
         {
-            string result = JsonConvert.SerializeObject(instance, this.configuration.Formatting, this.configuration.SerializerSettings);
+            string result = instance switch
+            {
+                DateTimeOffset dt => $"\"{dt:yyyy-MM-dd}\"",
+                DateTime dt => $"\"{dt:yyyy-MM-dd}\"",
+                DateOnly dt => $"\"{dt:yyyy-MM-dd}\"",
+                _ => throw new ArgumentException($"Unsupported source type {instance.GetType().FullName}"),
+            };
 
-            this.validator.ValidateAndThrow(result, schema);
+            this.validator.ValidateAndThrow(JToken.Parse(result), schema);
 
             return result;
         }

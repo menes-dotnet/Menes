@@ -31,6 +31,20 @@ Scenario Outline: Parameters with valid values for simple types
         | cookie            | true  | true           |
         | cookie            | false | false          |
 
+Scenario Outline: Parameters with valid default values for simple types
+    Given I have constructed the OpenAPI specification with a <ParameterLocation> parameter with name 'openApiBoolean', type 'boolean', format '' and default value '<DefaultValue>'
+    When I try to parse the default value
+    Then the parameter openApiBoolean should be <ExpectedResult> of type System.Boolean
+
+    Examples:
+        | ParameterLocation | DefaultValue | ExpectedResult |
+        | query             | true         | true           |
+        | query             | false        | false          |
+        | header            | true         | true           |
+        | header            | false        | false          |
+        | cookie            | true         | true           |
+        | cookie            | false        | false          |
+
 Scenario: Array body with items of boolean type
     Given I have constructed the OpenAPI specification with a request body of type array, containing items of type 'boolean'
     When I try to parse the value '[true,false,true,true,false]' as the request body

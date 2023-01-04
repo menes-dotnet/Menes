@@ -53,7 +53,7 @@ namespace Menes.Converters
 
             this.validator.ValidateAndThrow(result, schema);
 
-            return result;
+            return '"' + result + '"';
         }
     }
 }
