@@ -46,65 +46,65 @@ Scenario: Array parameter with items of integer type via default
 
 
 Scenario: Array body with items of array type
-    Given I have constructed the OpenAPI specification with a request body of type array, containing items which are arrays themselves with item type 'integer'
+    Given I have constructed the OpenAPI specification with a request body of type array, containing items which are arrays themselves with item type 'integer' and format 'int64'
     When I try to parse the value '[[1],[2,3],[4,5,6]]' as the request body
     Then the parameter body should be [[1],[2,3],[4,5,6]] of type System.String
 
 Scenario: Array parameter with items of array type
-    Given I have constructed the OpenAPI specification with a parameter with name 'openApiNestedArray', of type array, containing items which are arrays themselves with item type 'integer'
+    Given I have constructed the OpenAPI specification with a parameter with name 'openApiNestedArray', of type array, containing items which are arrays themselves with item type 'integer' and format 'int64'
     When I try to parse the query value '[[1],[2,3],[4,5,6]]' as the parameter 'openApiNestedArray'
     Then the parameter openApiNestedArray should be [[1],[2,3],[4,5,6]] of type System.String
 
 Scenario: Array parameter with items of array type via default
-    Given I have constructed the OpenAPI specification with a parameter with name 'openApiNestedArray', of type array, containing items which are arrays themselves with item type 'integer', and the default value for the parameter is '[[1],[2,3],[4,5,6]]'
+    Given I have constructed the OpenAPI specification with a parameter with name 'openApiNestedArray', of type array, containing items which are arrays themselves with item type 'integer' and format 'int64', and the default value for the parameter is '[[1],[2,3],[4,5,6]]'
     When I try to parse the default value
     Then the parameter openApiNestedArray should be [[1],[2,3],[4,5,6]] of type System.String
 
 
 Scenario: Array body with items of object type
-    Given I have constructed the OpenAPI specification with a request body of type array, containing items which are objects which has the property structure '{ "v1": { "type": "integer" }, "v2": {"type": "integer"} }'
+    Given I have constructed the OpenAPI specification with a request body of type array, containing items which are objects which has the property structure '{ "v1": {"type":"integer","format":"int64"}, "v2": {"type": "integer","format":"int64"} }'
     When I try to parse the value '[{"v1":1,"v2":2},{"v1":-3,"v2":0}]' as the request body
     Then the parameter body should be [{"v1":1,"v2":2},{"v1":-3,"v2":0}] of type System.String
 
 Scenario: Array parameter with items of object type
-    Given I have constructed the OpenAPI specification with a parameter with name 'openApiArrayWithObjectItems', of type array, containing items which are objects which has the property structure '{ "v1": { "type": "integer" }, "v2": {"type": "integer"} }'
+    Given I have constructed the OpenAPI specification with a parameter with name 'openApiArrayWithObjectItems', of type array, containing items which are objects which has the property structure '{ "v1": {"type":"integer","format":"int64"}, "v2": {"type":"integer","format":"int64"} }'
     When I try to parse the query value '[{"v1":1,"v2":2},{"v1":-3,"v2":0}]' as the parameter 'openApiArrayWithObjectItems'
     Then the parameter openApiArrayWithObjectItems should be [{"v1":1,"v2":2},{"v1":-3,"v2":0}] of type System.String
 
 Scenario: Array parameter with items of object type via default
-    Given I have constructed the OpenAPI specification with a parameter with name 'openApiArrayWithObjectItems', of type array, containing items which are objects which has the property structure '{ "v1": { "type": "integer" }, "v2": {"type": "integer"} }', and the default value for the parameter is '[{"v1":1,"v2":2},{"v1":-3,"v2":0}]'
+    Given I have constructed the OpenAPI specification with a parameter with name 'openApiArrayWithObjectItems', of type array, containing items which are objects which has the property structure '{ "v1": {"type":"integer","format":"int64"}, "v2": {"type":"integer","format":"int64"} }', and the default value for the parameter is '[{"v1":1,"v2":2},{"v1":-3,"v2":0}]'
     When I try to parse the default value
     Then the parameter openApiArrayWithObjectItems should be [{"v1":1,"v2":2},{"v1":-3,"v2":0}] of type System.String
     
 
 Scenario: Object body with properties of simple types
-    Given I have constructed the OpenAPI specification with a request body of type object, containing properties in the structure '{ "v1": { "type": "integer" }, "v2": {"type": "integer"} }'
+    Given I have constructed the OpenAPI specification with a request body of type object, containing properties in the structure '{ "v1": {"type":"integer","format":"int64"}, "v2": {"type":"integer","format":"int64"} }'
     When I try to parse the value '{"v1": -42, "v2": 23}' as the request body
     Then the parameter body should be {"v1": -42, "v2": 23} of type System.String
     
 Scenario: Object parameter with properties of simple types
-    Given I have constructed the OpenAPI specification with a parameter with name 'openApiObject', of type object, containing properties in the structure '{ "v1": { "type": "integer" }, "v2": {"type": "integer"} }'
+    Given I have constructed the OpenAPI specification with a parameter with name 'openApiObject', of type object, containing properties in the structure '{ "v1": {"type":"integer","format":"int64"}, "v2": {"type":"integer","format":"int64"} }'
     When I try to parse the query value '{"v1": -42, "v2": 23}' as the parameter 'openApiObject'
     Then the parameter openApiObject should be {"v1": -42, "v2": 23} of type System.String
     
 Scenario: Object parameter with properties of simple types via default
-    Given I have constructed the OpenAPI specification with a parameter with name 'openApiObject', of type object, containing properties in the structure '{ "v1": { "type": "integer" }, "v2": {"type": "integer"} }', and the default value for the parameter is '{"v1":-42,"v2":23}'
+    Given I have constructed the OpenAPI specification with a parameter with name 'openApiObject', of type object, containing properties in the structure '{ "v1": {"type":"integer","format":"int64"}, "v2": {"type":"integer","format":"int64"} }', and the default value for the parameter is '{"v1":-42,"v2":23}'
     When I try to parse the default value
     Then the parameter openApiObject should be {"v1":-42,"v2":23} of type System.String
 
 
 Scenario: Object body with properties of complex types
-    Given I have constructed the OpenAPI specification with a request body of type object, containing properties in the structure '{ "values": { "type": "array", "items": { "type": "integer" } }, "details": {"type": "object", "properties": { "v1": { "type": "integer" }, "v2": { "type": "integer" } } } }'
+    Given I have constructed the OpenAPI specification with a request body of type object, containing properties in the structure '{ "values": { "type": "array", "items": {"type":"integer","format":"int64"} }, "details": {"type": "object", "properties": { "v1": {"type":"integer","format":"int64"}, "v2": {"type":"integer","format":"int64"} } } }'
     When I try to parse the value '{"values":[-10,22],"details":{"v1":0,"v2":42}}' as the request body
     Then the parameter body should be {"values":[-10,22],"details":{"v1":0,"v2":42}} of type System.String
 
 Scenario: Object parameter with properties of complex types
-    Given I have constructed the OpenAPI specification with a parameter with name 'openApiObjectWithComplexProperties', of type object, containing properties in the structure '{ "values": { "type": "array", "items": { "type": "integer" } }, "details": {"type": "object", "properties": { "v1": { "type": "integer" }, "v2": { "type": "integer" } } } }'
+    Given I have constructed the OpenAPI specification with a parameter with name 'openApiObjectWithComplexProperties', of type object, containing properties in the structure '{ "values": { "type": "array", "items": {"type":"integer","format":"int64"} }, "details": {"type": "object", "properties": { "v1": {"type":"integer","format":"int64"}, "v2": {"type":"integer","format":"int64"} } } }'
     When I try to parse the query value '{"values":[-10,22],"details":{"v1":0,"v2":42}}' as the parameter 'openApiObjectWithComplexProperties'
     Then the parameter openApiObjectWithComplexProperties should be {"values":[-10,22],"details":{"v1":0,"v2":42}} of type System.String
 
 Scenario: Object parameter with properties of complex types via default
-    Given I have constructed the OpenAPI specification with a parameter with name 'openApiObjectWithComplexProperties', of type object, containing properties in the structure '{ "values": { "type": "array", "items": { "type": "integer" } }, "details": {"type": "object", "properties": { "v1": { "type": "integer" }, "v2": { "type": "integer" } } } }', and the default value for the parameter is '{"values":[-10,22],"details":{"v1":0,"v2":42}}'
+    Given I have constructed the OpenAPI specification with a parameter with name 'openApiObjectWithComplexProperties', of type object, containing properties in the structure '{ "values": { "type": "array", "items": {"type":"integer","format":"int64"} }, "details": {"type": "object", "properties": { "v1": {"type":"integer","format":"int64"}, "v2": {"type":"integer","format":"int64"} } } }', and the default value for the parameter is '{"values":[-10,22],"details":{"v1":0,"v2":42}}'
     When I try to parse the default value
     Then the parameter openApiObjectWithComplexProperties should be {"values":[-10,22],"details":{"v1":0,"v2":42}} of type System.String
 

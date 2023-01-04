@@ -81,7 +81,7 @@ namespace Menes.Specs.Steps
             this.InitializeDocumentProviderAndPathMatcher(openApiSpec);
         }
 
-        [Given(@"I have constructed the OpenAPI specification with a response body of type '([^']*)', and format '([^']*)'")]
+        [Given("I have constructed the OpenAPI specification with a response body of type '([^']*)', and format '([^']*)'")]
         public void GivenIHaveConstructedTheOpenAPISpecificationWithAResponseBodyOfTypeAndFormat(
             string bodyType, string bodyFormat)
         {
@@ -412,6 +412,51 @@ namespace Menes.Specs.Steps
             this.InitializeDocumentProviderAndPathMatcher(openApiSpec);
         }
 
+        [Given("I have constructed the OpenAPI specification with a request body of type array, containing items which are arrays themselves with item type '([^']*)' and format '([^']*)'")]
+        public void GivenIHaveConstructedTheOpenAPISpecificationWithARequestBodyOfTypeArrayContainingItemsWhichAreArraysThemselvesWithItemTypeAndFormat(
+            string nestedArrayItemType,
+            string nestedArrayItemFormat)
+        {
+            string openApiSpec = $$"""
+            {
+                "openapi": "3.0.1",
+                "info": {
+                    "title": "Swagger Petstore (Simple)",
+                    "version": "1.0.0"
+                },
+                "servers": [ { "url": "http://petstore.swagger.io/api" } ],
+                "paths": {
+                    "/pets": {
+                        "post": {
+                            "summary": "Create a pet",
+                            "operationId": "createPets",
+                            "requestBody": {
+                                "required": true,
+                                "content": {
+                                    "application/json": {
+                                        "schema": {
+                                           "type": "array",
+                                            "items": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "{{nestedArrayItemType}}",
+                                                    "format": "{{nestedArrayItemFormat}}"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            "responses": { "201": { "description": "Created" } }
+                        }
+                    }
+                }
+            }
+            """;
+
+            this.InitializeDocumentProviderAndPathMatcher(openApiSpec);
+        }
+
         [Given("I have constructed the OpenAPI specification with a parameter with name '([^']*)', of type array, containing items which are arrays themselves with item type '([^']*)'")]
         public void GivenIConstructAnArrayParameterWithArrayItems(
             string parameterName,
@@ -454,7 +499,51 @@ namespace Menes.Specs.Steps
             this.InitializeDocumentProviderAndPathMatcher(openApiSpec);
         }
 
-        [Given("I have constructed the OpenAPI specification with a parameter with name '(.*)', of type array, containing items which are arrays themselves with item type '(.*)', and the default value for the parameter is '(.*)'")]
+        [Given("I have constructed the OpenAPI specification with a parameter with name '([^']*)', of type array, containing items which are arrays themselves with item type '([^']*)' and format '([^']*)'")]
+        public void GivenIHaveConstructedTheOpenAPISpecificationWithAParameterWithNameOfTypeArrayContainingItemsWhichAreArraysThemselvesWithItemTypeAndFormat(
+            string parameterName,
+            string nestedArrayItemType,
+            string nestedArrayItemFormat)
+        {
+            string openApiSpec = $$"""
+            {
+                "openapi": "3.0.1",
+                "info": { "title": "Swagger Petstore (Simple)", "version": "1.0.0" },
+                "servers": [ { "url": "http://petstore.swagger.io/api" } ],
+                "paths": {
+                    "/pets": {
+                        "get": {
+                            "summary": "List all pets",
+                            "operationId": "listPets",
+                            "parameters": [
+                                {
+                                    "name": "{{parameterName}}",
+                                    "in": "query",
+                                    "schema": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "{{nestedArrayItemType}}",
+                                                "format": "{{nestedArrayItemFormat}}"
+                                            }
+                                        }
+                                    }
+                                }
+                            ],
+                            "responses": {
+                                "200": { "description": "OK" }
+                            }
+                        }
+                    }
+                }
+            }
+            """;
+
+            this.InitializeDocumentProviderAndPathMatcher(openApiSpec);
+        }
+
+        [Given("I have constructed the OpenAPI specification with a parameter with name '([^']*)', of type array, containing items which are arrays themselves with item type '([^']*)', and the default value for the parameter is '([^']*)'")]
         public void GivenIConstructAnArrayParameterWithArrayItemsWithDefault(
             string parameterName,
             string nestedArrayItemType,
@@ -465,11 +554,16 @@ namespace Menes.Specs.Steps
             this.InitializeDocumentProviderAndPathMatcher(openApiSpec);
         }
 
-        [Given(@"I have constructed the OpenAPI specification with a request body with name '([^']*)', of type array, containing items which are objects which has the property structure '([^']*)'")]
-        public void GivenIHaveConstructedTheOpenAPISpecificationWithARequestBodyWithNameOfTypeArrayContainingItemsWhichAreObjectsWhichHasThePropertyStructure(
-            string openApiArrayWithObjectItems, string p1)
+        [Given("I have constructed the OpenAPI specification with a parameter with name '([^']*)', of type array, containing items which are arrays themselves with item type '([^']*)' and format '([^']*)', and the default value for the parameter is '([^']*)'")]
+        public void GivenIConstructAnArrayParameterWithArrayItemsWithFormatWithDefault(
+            string parameterName,
+            string nestedArrayItemType,
+            string nestedArrayItemFormat,
+            string parameterDefaultValue)
         {
-            throw new PendingStepException();
+            string openApiSpec = $"{{ \"openapi\": \"3.0.1\", \"info\": {{ \"title\": \"Swagger Petstore (Simple)\", \"version\": \"1.0.0\" }}, \"servers\": [ {{ \"url\": \"http://petstore.swagger.io/api\" }} ], \"paths\": {{ \"/pets\": {{ \"get\": {{ \"summary\": \"List all pets\", \"operationId\": \"listPets\", \"parameters\": [ {{ \"name\": \"{parameterName}\", \"in\": \"query\", \"schema\": {{ \"type\": \"array\", \"items\": {{ \"type\": \"array\", \"items\": {{ \"type\": \"{nestedArrayItemType}\", \"format\": \"{nestedArrayItemFormat}\" }} }}, \"default\": {parameterDefaultValue} }} }} ], \"responses\": {{ \"200\": {{ \"description\": \"OK\" }} }} }} }} }} }}";
+
+            this.InitializeDocumentProviderAndPathMatcher(openApiSpec);
         }
 
         [Given("I have constructed the OpenAPI specification with a request body of type array, containing items which are objects which has the property structure '([^']*)'")]

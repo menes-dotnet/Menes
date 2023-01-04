@@ -49,7 +49,7 @@ namespace Menes.Converters
         public string ConvertTo(object instance, OpenApiSchema schema)
         {
             string result = JsonConvert.SerializeObject(instance, this.configuration.Formatting, this.configuration.SerializerSettings);
-            this.validator.ValidateAndThrow(result, schema);
+            this.validator.ValidateAndThrow(JToken.Parse(result), schema);
 
             return result;
         }
