@@ -34,14 +34,15 @@ namespace Menes.Converters
     /// </para>
     /// <para>
     /// For this reason, this interface expects incoming string values to be unquoted, because
-    /// in most cases they are. (The one exception is if the entire request body is a single
+    /// in most cases they are. The one exception is if the entire request body is a single
     /// string. If the request <c>Content-Type</c> is <c>application/json</c> then it must be
     /// enclosing in double quotes. But for anything other than the body, those quotes will not
-    /// be present in the raw inputs. We could have insisted on consistency here, but that would
-    /// have required almost all calls to <see cref="ConvertFrom(string, OpenApiSchema)"/>
-    /// to create new strings wrapping the existing input values in quotes. This would add noise
-    /// to the code, and require additional string allocations, so instead, we just live with
-    /// asymmetry in this interface.
+    /// be present in the raw inputs. But outputs are always in JSON form,
+    /// <see cref="ConvertTo(object, Microsoft.OpenApi.Models.OpenApiSchema)"/> returns quoted
+    /// strings. We could have insisted on consistency here, but that would have required almost
+    /// all calls to <see cref="ConvertFrom(string, OpenApiSchema)"/> to create new strings
+    /// wrapping the existing input values in quotes. This would add noise to the code, and require
+    /// additional string allocations, so instead, we just live with asymmetry in this interface.
     /// </para>
     /// </remarks>
     public interface IOpenApiConverter
