@@ -55,9 +55,9 @@ Scenario: Array parameter with items of float type
     Then the parameter openApiArray should be [1,-1234.567,3,4,5] of type System.String
 
 Scenario: Array parameter with items of float type via default
-    Given I have constructed the OpenAPI specification with a parameter with name 'openApiArray', of type array, containing items of type 'number' and format 'float', and the default value for the parameter is '[1.0,2.0,-1234.567,4.0,5.0]'
+    Given I have constructed the OpenAPI specification with a parameter with name 'openApiArray', of type array, containing items of type 'number' and format 'float', and the default value for the parameter is '[1,2,-1234.567,4,5]'
     When I try to parse the default value
-    Then the parameter openApiArray should be [1.0,2.0,-1234.567,4.0,5.0] of type System.String
+    Then the parameter openApiArray should be [1,2,-1234.567,4,5] of type System.String
 
 
 Scenario: Array body with items of array type
@@ -71,9 +71,9 @@ Scenario: Array parameter with items of array type
     Then the parameter openApiNestedArray should be [[1],[2,-1234.567],[4,5,6]] of type System.String
 
 Scenario: Array parameter with items of array type via default
-    Given I have constructed the OpenAPI specification with a parameter with name 'openApiNestedArray', of type array, containing items which are arrays themselves with item type 'number' and format 'float', and the default value for the parameter is '[[1.0],[2.0,3.0],[4.0,5.0,6.0]]'
+    Given I have constructed the OpenAPI specification with a parameter with name 'openApiNestedArray', of type array, containing items which are arrays themselves with item type 'number' and format 'float', and the default value for the parameter is '[[1],[2,3],[4,5,6]]'
     When I try to parse the default value
-    Then the parameter openApiNestedArray should be [[1.0],[2.0,3.0],[4.0,5.0,6.0]] of type System.String
+    Then the parameter openApiNestedArray should be [[1],[2,3],[4,5,6]] of type System.String
 
 
 Scenario: Array body with items of object type
@@ -87,9 +87,9 @@ Scenario: Array parameter with items of object type
     Then the parameter openApiArrayWithObjectItems should be [{"v1":1,"v2":2},{"v1":-3,"v2":0}] of type System.String
 
 Scenario: Array parameter with items of object type via default
-    Given I have constructed the OpenAPI specification with a parameter with name 'openApiArrayWithObjectItems', of type array, containing items which are objects which has the property structure '{ "v1": { "type": "number", "format": "float" }, "v2": {"type": "number", "format": "float"} }', and the default value for the parameter is '[{"v1":1.0,"v2":2.0},{"v1":-3.0,"v2":0.0}]'
+    Given I have constructed the OpenAPI specification with a parameter with name 'openApiArrayWithObjectItems', of type array, containing items which are objects which has the property structure '{ "v1": { "type": "number", "format": "float" }, "v2": {"type": "number", "format": "float"} }', and the default value for the parameter is '[{"v1":1,"v2":2},{"v1":-3,"v2":0}]'
     When I try to parse the default value
-    Then the parameter openApiArrayWithObjectItems should be [{"v1":1.0,"v2":2.0},{"v1":-3.0,"v2":0.0}] of type System.String
+    Then the parameter openApiArrayWithObjectItems should be [{"v1":1,"v2":2},{"v1":-3,"v2":0}] of type System.String
     
 
 Scenario: Object body with properties of simple types
@@ -103,9 +103,9 @@ Scenario: Object parameter with properties of simple types
     Then the parameter openApiObject should be {"v1": -42, "v2": 23} of type System.String
     
 Scenario: Object parameter with properties of simple types via default
-    Given I have constructed the OpenAPI specification with a parameter with name 'openApiObject', of type object, containing properties in the structure '{ "v1": { "type": "number", "format": "float" }, "v2": {"type": "number", "format": "float"} }', and the default value for the parameter is '{"v1":-42.0,"v2":23.0}'
+    Given I have constructed the OpenAPI specification with a parameter with name 'openApiObject', of type object, containing properties in the structure '{ "v1": { "type": "number", "format": "float" }, "v2": {"type": "number", "format": "float"} }', and the default value for the parameter is '{"v1":-42,"v2":23}'
     When I try to parse the default value
-    Then the parameter openApiObject should be {"v1":-42.0,"v2":23.0} of type System.String
+    Then the parameter openApiObject should be {"v1":-42,"v2":23} of type System.String
 
 
 Scenario: Object body with properties of complex types
@@ -119,9 +119,9 @@ Scenario: Object parameter with properties of complex types
     Then the parameter openApiObjectWithComplexProperties should be {"values":[-10,22],"details":{"v1":0,"v2":42}} of type System.String
 
 Scenario: Object parameter with properties of complex types via default
-    Given I have constructed the OpenAPI specification with a parameter with name 'openApiObjectWithComplexProperties', of type object, containing properties in the structure '{ "values": { "type": "array", "items": { "type": "number", "format": "float" } }, "details": {"type": "object", "properties": { "v1": { "type": "number", "format": "float" }, "v2": { "type": "number", "format": "float" } } } }', and the default value for the parameter is '{"values":[-10.0,22.0],"details":{"v1":0.0,"v2":42.0}}'
+    Given I have constructed the OpenAPI specification with a parameter with name 'openApiObjectWithComplexProperties', of type object, containing properties in the structure '{ "values": { "type": "array", "items": { "type": "number", "format": "float" } }, "details": {"type": "object", "properties": { "v1": { "type": "number", "format": "float" }, "v2": { "type": "number", "format": "float" } } } }', and the default value for the parameter is '{"values":[-10,22],"details":{"v1":0,"v2":42}}'
     When I try to parse the default value
-    Then the parameter openApiObjectWithComplexProperties should be {"values":[-10.0,22.0],"details":{"v1":0.0,"v2":42.0}} of type System.String
+    Then the parameter openApiObjectWithComplexProperties should be {"values":[-10,22],"details":{"v1":0,"v2":42}} of type System.String
 
 
 Scenario Outline: Incorrect body values

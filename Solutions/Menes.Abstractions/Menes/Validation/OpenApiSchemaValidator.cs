@@ -13,14 +13,12 @@ namespace Menes.Validation
     using System.Globalization;
     using System.IO;
     using System.Linq;
-    using System.Reflection;
-    using System.Text;
     using System.Text.Json;
     using System.Text.Json.Nodes;
     using System.Text.RegularExpressions;
-    using System.Xml.Linq;
 
     using Menes.Exceptions;
+
     using Microsoft.Extensions.Logging;
     using Microsoft.OpenApi.Any;
     using Microsoft.OpenApi.Models;

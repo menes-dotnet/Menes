@@ -5,10 +5,10 @@
 namespace Menes.Converters
 {
     using System;
-    using System.Text.Json;
     using System.Text.Json.Nodes;
 
     using Menes.Validation;
+
     using Microsoft.OpenApi.Models;
 
     /// <summary>

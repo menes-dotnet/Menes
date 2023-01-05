@@ -12,10 +12,11 @@ Scenario Outline: Valid values for simple types
     Then the response body should be '<ExpectedResult>'
 
     Examples:
-        | Value       | ExpectedResult |
-        | 0           | 0.0            |
-        | 1234        | 1234.0         |
-        | -1234       | -1234.0        |
-        | 1234.5      | 1234.5         |
-        | -1234.567   | -1234.567      |
+        | Value         | ExpectedResult |
+        | 0             | 0              |
+        | 0.1           | 0.1            |
+        | 1234          | 1234           |
+        | -1234         | -1234          |
+        | 1234.5        | 1234.5         |
+        | -1234.567     | -1234.567      |
         | -1234.5678987 | -1234.5678987  |
