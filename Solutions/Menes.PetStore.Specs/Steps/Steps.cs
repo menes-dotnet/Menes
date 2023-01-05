@@ -10,9 +10,9 @@ namespace Menes.PetStore.Specs.Steps
     using System.Net;
     using System.Net.Http;
     using System.Text;
+    using System.Text.Json;
+    using System.Text.Json.Nodes;
     using System.Threading.Tasks;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
     using NUnit.Framework;
     using TechTalk.SpecFlow;
 
@@ -24,6 +24,7 @@ namespace Menes.PetStore.Specs.Steps
         private static readonly Uri BaseUri = new("http://localhost:7071");
 
         private readonly ScenarioContext scenarioContext;
+        private JsonObject? data;
 
         public Steps(ScenarioContext scenarioContext)
         {
@@ -80,8 +81,8 @@ namespace Menes.PetStore.Specs.Steps
         [When("I request a list of pets using the value of '(.*)' from the previous response object")]
         public Task WhenIRequestAListOfPetsUsingTheValueOfFromThePreviousResponseObject(string propertyPath)
         {
-            JToken token = this.GetRequiredTokenFromResponseObject(propertyPath);
-            string value = token.Value<string>()!;
+            JsonNode token = this.GetRequiredTokenFromResponseObject(propertyPath);
+            string value = token.GetValue<string>()!;
             return this.SendGetRequest(value);
         }
 
@@ -112,9 +113,9 @@ namespace Menes.PetStore.Specs.Steps
         [Then("the response object should have an integer property called '(.*)' with value (.*)")]
         public void ThenTheResponseShouldHaveSetTo(string propertyPath, int expectedValue)
         {
-            JToken actualToken = this.GetRequiredTokenFromResponseObject(propertyPath);
+            JsonNode actualToken = this.GetRequiredTokenFromResponseObject(propertyPath);
 
-            int actualValue = actualToken.Value<int>();
+            int actualValue = actualToken.GetValue<int>();
             Assert.AreEqual(expectedValue, actualValue);
         }
 
@@ -127,26 +128,25 @@ namespace Menes.PetStore.Specs.Steps
         [Then("the response object should have a string property called '(.*)' with value '(.*)'")]
         public void ThenTheResponseObjectShouldHaveAStringPropertyCalledWithValue(string propertyPath, string expectedValue)
         {
-            JToken actualToken = this.GetRequiredTokenFromResponseObject(propertyPath);
+            JsonNode actualToken = this.GetRequiredTokenFromResponseObject(propertyPath);
 
-            string? actualValue = actualToken.Value<string>();
+            string? actualValue = actualToken.GetValue<string>();
             Assert.AreEqual(expectedValue, actualValue);
         }
 
         [Then("the response object should not have a property called '(.*)'")]
         public void ThenTheResponseObjectShouldNotHaveAPropertyCalled(string propertyPath)
         {
-            JObject data = this.scenarioContext.Get<JObject>();
-            JToken? token = data.SelectToken(propertyPath);
+            JsonNode? token = this.GetTokenFromResponseObject(propertyPath);
             Assert.IsNull(token);
         }
 
         [Then("the response object should have an array property called '(.*)' containing (.*) entries")]
         public void ThenTheResponseObjectShouldHaveAnArrayPropertyCalledContainingEntries(string propertyPath, int expectedEntryCount)
         {
-            JToken actualToken = this.GetRequiredTokenFromResponseObject(propertyPath);
-            JToken[] tokenArray = actualToken.ToArray();
-            Assert.AreEqual(expectedEntryCount, tokenArray.Length);
+            JsonNode actualToken = this.GetRequiredTokenFromResponseObject(propertyPath);
+            JsonArray tokenArray = actualToken.AsArray();
+            Assert.AreEqual(expectedEntryCount, tokenArray.Count);
         }
 
         private async Task SendGetRequest(string path)
@@ -159,15 +159,13 @@ namespace Menes.PetStore.Specs.Steps
 
             if (!string.IsNullOrEmpty(content))
             {
-                var data = JObject.Parse(content);
-
-                this.scenarioContext.Set(data);
+                this.data = (JsonObject)JsonNode.Parse(content)!;
             }
         }
 
         private async Task SendPostRequest(string path, object body)
         {
-            string requestContentString = JsonConvert.SerializeObject(body);
+            string requestContentString = JsonSerializer.Serialize(body);
             var requestContent = new StringContent(requestContentString, Encoding.UTF8, "application/json");
 
             HttpResponseMessage response = await HttpClient.PostAsync(new Uri(BaseUri, path), requestContent).ConfigureAwait(false);
@@ -178,16 +176,27 @@ namespace Menes.PetStore.Specs.Steps
 
             if (!string.IsNullOrEmpty(responseContent))
             {
-                var data = JObject.Parse(responseContent);
-
-                this.scenarioContext.Set(data);
+                this.data = (JsonObject)JsonNode.Parse(responseContent)!;
             }
         }
 
-        private JToken GetRequiredTokenFromResponseObject(string propertyPath)
+        private JsonNode? GetTokenFromResponseObject(string propertyPath)
         {
-            JObject data = this.scenarioContext.Get<JObject>();
-            JToken? token = data.SelectToken(propertyPath);
+            JsonNode? node = this.data;
+
+            // There's no JsonPath in .NET as of .NET 7.0, so just do
+            // a dead simple dotted path expansion to make do.
+            foreach (string propertyName in propertyPath.Split('.'))
+            {
+                node = node?[propertyName];
+            }
+
+            return node;
+        }
+
+        private JsonNode GetRequiredTokenFromResponseObject(string propertyPath)
+        {
+            JsonNode? token = this.GetTokenFromResponseObject(propertyPath);
             Assert.IsNotNull(token);
             return token!;
         }

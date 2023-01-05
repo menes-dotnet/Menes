@@ -10,6 +10,7 @@ namespace Menes.Specs.Steps
     using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Text;
+    using System.Text.Json;
     using System.Threading.Tasks;
 
     using Corvus.Testing.SpecFlow;
@@ -22,8 +23,6 @@ namespace Menes.Specs.Steps
     using Microsoft.Extensions.Logging;
     using Microsoft.OpenApi.Models;
     using Microsoft.OpenApi.Readers;
-
-    using Newtonsoft.Json;
 
     using NUnit.Framework;
 
@@ -1077,7 +1076,7 @@ namespace Menes.Specs.Steps
                 "System.DateTimeOffset" => DateTimeOffset.Parse(expectedResultAsString),
                 "System.Guid" => Guid.Parse(expectedResultAsString),
                 "System.Uri" => new Uri(expectedResultAsString, UriKind.RelativeOrAbsolute),
-                "ObjectWithIdAndName" => JsonConvert.DeserializeObject<ObjectWithIdAndName>(expectedResultAsString)!,
+                "ObjectWithIdAndName" => JsonSerializer.Deserialize<ObjectWithIdAndName>(expectedResultAsString, new JsonSerializerOptions(JsonSerializerDefaults.Web))!,
                 _ => Convert.ChangeType(expectedResultAsString, Type.GetType(expectedType)!),
             };
         }

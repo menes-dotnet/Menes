@@ -34,7 +34,6 @@ namespace Menes.Validation
             .ToList();
 
         private static readonly JsonDocument JsonNullDoc = JsonDocument.Parse("null");
-        private static JsonElement NullElement => JsonNullDoc.RootElement;
 
         private readonly ILogger<OpenApiSchemaValidator> logger;
 
@@ -46,6 +45,8 @@ namespace Menes.Validation
         {
             this.logger = logger;
         }
+
+        private static JsonElement NullElement => JsonNullDoc.RootElement;
 
         /// <summary>Validates the given data, throwing an <see cref="OpenApiInvalidFormatException"/> augmented with <see cref="OpenApiProblemDetailsExtensions"/> detailing the errors.</summary>
         /// <param name="data">The data.</param>
