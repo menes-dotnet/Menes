@@ -95,6 +95,15 @@ namespace Menes.Exceptions
         }
 
         /// <summary>
+        /// Creates a <see cref="OpenApiBadRequestException"/> from an <see cref="OpenApiBadRequestException"/>.
+        /// </summary>
+        /// <param name="formatException">The <see cref="OpenApiBadRequestException"/>.</param>
+        public OpenApiBadRequestException(OpenApiInvalidFormatException formatException)
+            : this(formatException.Message, formatException.Explanation!, formatException.DetailsType, formatException.DetailsInstance)
+        {
+        }
+
+        /// <summary>
         /// Gets the detailed explanation of the problem, if present.
         /// </summary>
         public string? Explanation { get; }

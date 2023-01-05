@@ -36,6 +36,7 @@ namespace Menes.Validation
             .ToList();
 
         private static readonly JsonDocument JsonNullDoc = JsonDocument.Parse("null");
+        private static JsonElement NullElement => JsonNullDoc.RootElement;
 
         private readonly ILogger<OpenApiSchemaValidator> logger;
 
@@ -48,9 +49,7 @@ namespace Menes.Validation
             this.logger = logger;
         }
 
-        private static JsonElement NullElement => JsonNullDoc.RootElement;
-
-        /// <summary>Validates the given data, throwing an <see cref="OpenApiBadRequestException"/> augmented with <see cref="OpenApiProblemDetailsExtensions"/> detailing the errors.</summary>
+        /// <summary>Validates the given data, throwing an <see cref="OpenApiInvalidFormatException"/> augmented with <see cref="OpenApiProblemDetailsExtensions"/> detailing the errors.</summary>
         /// <param name="data">The data.</param>
         /// <param name="schema">The schema.</param>
         public void ValidateAndThrow(string data, OpenApiSchema schema)
@@ -64,7 +63,7 @@ namespace Menes.Validation
 
             if (errors.Count > 0)
             {
-                Exception exception = new OpenApiBadRequestException("Schema Validation Error", "The content does not conform to the required schema.")
+                Exception exception = new OpenApiInvalidFormatException("Schema Validation Error", "The content does not conform to the required schema.")
                     .AddProblemDetailsExtension("validationErrors", errors);
 
                 this.logger.LogError(
@@ -75,7 +74,7 @@ namespace Menes.Validation
             }
         }
 
-        /// <summary>Validates the given data, throwing an <see cref="OpenApiBadRequestException"/> augmented with <see cref="OpenApiProblemDetailsExtensions"/> detailing the errors.</summary>
+        /// <summary>Validates the given data, throwing an <see cref="OpenApiInvalidFormatException"/> augmented with <see cref="OpenApiProblemDetailsExtensions"/> detailing the errors.</summary>
         /// <param name="data">The data.</param>
         /// <param name="schema">The schema.</param>
         public void ValidateAndThrow(JsonElement? data, OpenApiSchema schema)
@@ -89,7 +88,7 @@ namespace Menes.Validation
 
             if (errors.Count > 0)
             {
-                Exception exception = new OpenApiBadRequestException("Schema Validation Error", "The content does not conform to the required schema.")
+                Exception exception = new OpenApiInvalidFormatException("Schema Validation Error", "The content does not conform to the required schema.")
                     .AddProblemDetailsExtension("validationErrors", errors);
 
                 throw exception;
@@ -110,16 +109,22 @@ namespace Menes.Validation
             // features such as AnyOf get used.
             // Really, we should just require that data always be passed in JSON form, meaning that if the
             // JSON representation includes quotes, the string should have those quotes inside it.
-            ////bool dataShouldBeJson = schema.Type == "object" || schema.Type == "array" || schema.Type == null;
-            ////if (dataShouldBeJson)
-            ////{
-                using var doc = JsonDocument.Parse(data);
-                return Validate(doc.RootElement, schema, null, string.Empty);
-            ////}
-            ////else
-            ////{
-            ////    return Validate(JsonSerializer.Deserialize<JsonElement>(JsonValue.Create(data)?.ToJsonString() ?? "null"), schema, null, string.Empty);
-            ////}
+            if (schema.Type != "string")
+            {
+                try
+                {
+                    using var doc = JsonDocument.Parse(data);
+                    return Validate(doc.RootElement, schema, null, string.Empty);
+                }
+                catch (System.Text.Json.JsonException x)
+                {
+                    throw new OpenApiInvalidFormatException($"Expected JSON object or array, but could not parse: {x.Message}");
+                }
+            }
+            else
+            {
+                return Validate(JsonSerializer.Deserialize<JsonElement>(JsonValue.Create(data)?.ToJsonString() ?? "null"), schema, null, string.Empty);
+            }
         }
 
         /////// <summary>Validates the given JSON token.</summary>
@@ -379,7 +384,7 @@ namespace Menes.Validation
 
                         if (schema.Format == JsonFormatStrings.Uri)
                         {
-                            if (!Uri.TryCreate(value, UriKind.Absolute, out _))
+                            if (!Uri.TryCreate(value, UriKind.RelativeOrAbsolute, out _))
                             {
                                 errors.Add(new ValidationError(ValidationErrorKind.UriExpected, propertyName, propertyPath, token, schema));
                             }
@@ -713,7 +718,7 @@ namespace Menes.Validation
             }
         }
 
-        private static  ChildSchemaValidationError? TryCreateChildSchemaError(JsonElement token, OpenApiSchema schema, ValidationErrorKind errorKind, string propertyName, string path)
+        private static ChildSchemaValidationError? TryCreateChildSchemaError(JsonElement token, OpenApiSchema schema, ValidationErrorKind errorKind, string propertyName, string path)
         {
             // Note: we do not pass the property name through here, because from the child schema's
             // perspective, we are starting at the root, so we don't want to confuse the validation

@@ -61,7 +61,7 @@ namespace Menes.Specs.Steps
                 validator.ValidateAndThrow(this.payload!, schema);
                 this.result = true;
             }
-            catch (OpenApiBadRequestException ex)
+            catch (OpenApiInvalidFormatException ex)
             {
                 this.result = false;
                 this.ex = ex;

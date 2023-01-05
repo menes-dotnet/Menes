@@ -4,6 +4,7 @@
 
 namespace Menes.Converters
 {
+    using System;
     using System.Text.Json;
 
     using Menes.Validation;
@@ -37,7 +38,15 @@ namespace Menes.Converters
         /// <inheritdoc/>
         public object ConvertFrom(string content, OpenApiSchema schema)
         {
-            int result = int.Parse(content);
+            int result;
+            try
+            {
+                result = int.Parse(content);
+            }
+            catch (OverflowException)
+            {
+                throw new FormatException("Number was too large to parse as an Int32");
+            }
 
             this.validator.ValidateAndThrow(content, schema);
 

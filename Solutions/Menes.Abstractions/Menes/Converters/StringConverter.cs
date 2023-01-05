@@ -34,7 +34,7 @@ namespace Menes.Converters
         /// <inheritdoc/>
         public object ConvertFrom(string content, OpenApiSchema schema)
         {
-            this.validator.ValidateAndThrow(JsonValue.Create(content)!.ToJsonString(), schema);
+            this.validator.ValidateAndThrow(content, schema);
 
             return content;
         }
@@ -53,9 +53,9 @@ namespace Menes.Converters
                 result = instance.ToString()!;
             }
 
-            this.validator.ValidateAndThrow(JsonValue.Create(result)!.ToJsonString(), schema);
+            this.validator.ValidateAndThrow(result, schema);
 
-            return result;
+            return JsonValue.Create(result)!.ToJsonString();
         }
     }
 }

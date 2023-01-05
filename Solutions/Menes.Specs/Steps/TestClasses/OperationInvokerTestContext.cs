@@ -7,10 +7,14 @@ namespace Menes.Specs.Steps.TestClasses
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using Idg.AsyncTest;
+
     using Menes.Auditing;
     using Menes.Internal;
+
     using Microsoft.Extensions.DependencyInjection;
+
     using Moq;
 
     /// <summary>

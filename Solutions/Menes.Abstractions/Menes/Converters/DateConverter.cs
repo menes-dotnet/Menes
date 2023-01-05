@@ -5,9 +5,9 @@
 namespace Menes.Converters
 {
     using System;
-    using System.Text.Json;
 
     using Menes.Validation;
+
     using Microsoft.OpenApi.Models;
 
     /// <summary>
@@ -16,17 +16,14 @@ namespace Menes.Converters
     public class DateConverter : IOpenApiConverter
     {
         private readonly OpenApiSchemaValidator validator;
-        private readonly IOpenApiConfiguration configuration;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DateConverter"/> class.
         /// </summary>
         /// <param name="validator">The <see cref="OpenApiSchemaValidator"/>.</param>
-        /// <param name="configuration">The OpenAPI host configuration.</param>
-        public DateConverter(OpenApiSchemaValidator validator, IOpenApiConfiguration configuration)
+        public DateConverter(OpenApiSchemaValidator validator)
         {
             this.validator = validator;
-            this.configuration = configuration;
         }
 
         /// <inheritdoc/>
@@ -38,7 +35,7 @@ namespace Menes.Converters
         /// <inheritdoc/>
         public object ConvertFrom(string content, OpenApiSchema schema)
         {
-            var result = DateTimeOffset.Parse(content);
+            var result = new DateTimeOffset(DateTime.SpecifyKind(DateTime.Parse(content), DateTimeKind.Utc));
 
             this.validator.ValidateAndThrow(content, schema);
 
@@ -48,11 +45,17 @@ namespace Menes.Converters
         /// <inheritdoc/>
         public string ConvertTo(object instance, OpenApiSchema schema)
         {
-            string result = JsonSerializer.Serialize(instance, typeof(DateTimeOffset), this.configuration.SerializerOptions);
+            string result = instance switch
+            {
+                DateTimeOffset dt => dt.ToString("yyyy-MM-dd"),
+                DateTime dt => dt.ToString("yyyy-MM-dd"),
+                DateOnly dt => dt.ToString("yyyy-MM-dd"),
+                _ => throw new ArgumentException($"Unsupported source type {instance.GetType().FullName}"),
+            };
 
             this.validator.ValidateAndThrow(result, schema);
 
-            return result;
+            return $"\"{result}\"";
         }
     }
 }

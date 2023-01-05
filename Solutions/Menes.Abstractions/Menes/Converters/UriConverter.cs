@@ -41,7 +41,7 @@ namespace Menes.Converters
         {
             var result = new Uri(content, UriKind.RelativeOrAbsolute);
 
-            this.validator.ValidateAndThrow(JsonValue.Create(content)!.ToJsonString(), schema);
+            this.validator.ValidateAndThrow(content, schema);
 
             return result;
         }
@@ -49,11 +49,11 @@ namespace Menes.Converters
         /// <inheritdoc/>
         public string ConvertTo(object instance, OpenApiSchema schema)
         {
-            string result = JsonSerializer.Serialize(instance, typeof(Uri), this.configuration.SerializerOptions);
+            string result = instance.ToString()!;
 
             this.validator.ValidateAndThrow(result, schema);
 
-            return result;
+            return JsonValue.Create(result)!.ToJsonString();
         }
     }
 }

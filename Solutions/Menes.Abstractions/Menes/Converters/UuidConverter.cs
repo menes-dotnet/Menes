@@ -49,11 +49,11 @@ namespace Menes.Converters
         /// <inheritdoc/>
         public string ConvertTo(object instance, OpenApiSchema schema)
         {
-            string result = JsonSerializer.Serialize(instance, typeof(Guid), this.configuration.SerializerOptions);
+            string result = instance.ToString()!;
 
             this.validator.ValidateAndThrow(result, schema);
 
-            return result;
+            return JsonValue.Create(result)!.ToJsonString();
         }
     }
 }
