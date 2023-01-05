@@ -987,7 +987,7 @@ namespace Menes.Specs.Steps
                 "ByteArrayFromBase64String" => Convert.FromBase64String(expectedResultAsString),
                 "System.DateTimeOffset" => DateTimeOffset.Parse(expectedResultAsString),
                 "System.Guid" => Guid.Parse(expectedResultAsString),
-                "System.Uri" => new Uri(expectedResultAsString),
+                "System.Uri" => new Uri(expectedResultAsString, UriKind.RelativeOrAbsolute),
                 _ => Convert.ChangeType(expectedResultAsString, Type.GetType(expectedType)!),
             };
         }

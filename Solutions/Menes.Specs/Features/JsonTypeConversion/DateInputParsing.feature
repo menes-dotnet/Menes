@@ -11,8 +11,8 @@ Scenario Outline: Body with valid values for simple types
     Then the parameter body should be <ExpectedResult> of type System.DateTimeOffset
 
     Examples:
-        | Value      | ExpectedResult       |
-        | 2017-07-21 | 2017-07-21T00:00:00Z |
+        | Value        | ExpectedResult       |
+        | "2017-07-21" | 2017-07-21T00:00:00Z |
 
 Scenario Outline: Parameters with valid values for simple types
     Given I have constructed the OpenAPI specification with a <ParameterLocation> parameter with name 'openApiDate', type 'string', and format 'date'
@@ -33,9 +33,9 @@ Scenario Outline: Parameters with valid default values for simple types
 
     Examples:
         | ParameterLocation | DefaultValue | ExpectedResult       |
-        | query             | 2017-07-21   | 2017-07-21T00:00:00Z |
-        | cookie            | 2017-07-21   | 2017-07-21T00:00:00Z |
-        | header            | 2017-07-21   | 2017-07-21T00:00:00Z |
+        | query             | "2017-07-21"   | 2017-07-21T00:00:00Z |
+        | cookie            | "2017-07-21"   | 2017-07-21T00:00:00Z |
+        | header            | "2017-07-21"   | 2017-07-21T00:00:00Z |
 
 Scenario Outline: Incorrect body values
     Given I have constructed the OpenAPI specification with a request body of type 'string', and format 'date'
