@@ -442,10 +442,11 @@ namespace Menes.Internal
                 // passed values from headers, query strings, paths, and cookies, where
                 // strings are not quoted.
                 // Since we know we're receiving actual JSON, it's our job to detect when
-                // it's a string, and strip off the quotes.
+                // it's a string, and if it is, strip off the quotes and process any escaped
+                // characters inside.
                 if (value.Length >= 2 && value[0] == '"' && value[^1] == '"')
                 {
-                    value = value[1..^1];
+                    value = JsonConvert.DeserializeObject<string>(value)!;
                 }
 
                 return this.ConvertValue(schema, value);

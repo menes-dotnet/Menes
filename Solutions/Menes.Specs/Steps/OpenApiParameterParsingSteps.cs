@@ -9,7 +9,6 @@ namespace Menes.Specs.Steps
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.IO;
-    using System.Reflection.Metadata;
     using System.Text;
     using System.Threading.Tasks;
 
@@ -777,7 +776,7 @@ namespace Menes.Specs.Steps
             }
         }
 
-        [When("I try to parse the value '([^']*)' as the request body")]
+        [When("I try to parse the value '(.*)' as the request body")]
         public async Task WhenITryToParseTheValueAsTheRequestBody(string body)
         {
             IOpenApiParameterBuilder<HttpRequest> builder = ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<IOpenApiParameterBuilder<HttpRequest>>();
@@ -791,7 +790,7 @@ namespace Menes.Specs.Steps
             this.parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!).ConfigureAwait(false);
         }
 
-        [When("I try to parse the value '([^']*)' as the request body and expect an error")]
+        [When("I try to parse the value '(.*?)' as the request body and expect an error")]
         public async Task WhenITryToParseTheValueAsTheRequestBodyAndExpectAnError(string body)
         {
             try
@@ -804,7 +803,7 @@ namespace Menes.Specs.Steps
             }
         }
 
-        [When("I try to parse the path value '([^']*)' as the parameter '([^']*)'")]
+        [When("I try to parse the path value '(.*?)' as the parameter '([^']*)'")]
         public async Task WhenITryToParseThePathValue(string value, string unusedParameterName)
         {
             IOpenApiParameterBuilder<HttpRequest> builder = ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<IOpenApiParameterBuilder<HttpRequest>>();
@@ -818,7 +817,7 @@ namespace Menes.Specs.Steps
             this.parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!).ConfigureAwait(false);
         }
 
-        [When("I try to parse the path value '([^']*)' as the parameter '([^']*)' and expect an error")]
+        [When("I try to parse the path value '(.*?)' as the parameter '([^']*)' and expect an error")]
         public async Task WhenITryToParseThePathValueAndExpectAnErrorAsync(string value, string unusedParameterName)
         {
             try
@@ -831,7 +830,7 @@ namespace Menes.Specs.Steps
             }
         }
 
-        [When("I try to parse the query value '([^']*)' as the parameter '([^']*)'")]
+        [When("I try to parse the query value '(.*?)' as the parameter '([^']*)'")]
         public async Task WhenITryToParseTheQueryValue(
             string value,
             string parameterName)
