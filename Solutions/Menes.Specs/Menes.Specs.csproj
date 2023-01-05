@@ -55,6 +55,9 @@
     <None Remove="Steps\TestClasses\OpenApiWebLinkResolverTest.yaml" />
   </ItemGroup>
   <ItemGroup>
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonTypeConversion\DateInputParsing - Copy.feature.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <EmbeddedResource Include="Steps\TestClasses\OpenApiWebLinkResolverTest.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
@@ -63,5 +66,11 @@
     <None Update="specflow.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <SpecFlowFeatureFiles Update="Features\JsonTypeConversion\ByteArrayInputParsing.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
   </ItemGroup>
 </Project>
