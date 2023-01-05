@@ -15,12 +15,15 @@ namespace Menes.Specs.Steps
     using Corvus.Testing.SpecFlow;
 
     using Menes.Internal;
+    using Menes.Specs.Fakes;
 
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
     using Microsoft.OpenApi.Models;
     using Microsoft.OpenApi.Readers;
+
+    using Newtonsoft.Json;
 
     using NUnit.Framework;
 
@@ -105,6 +108,45 @@ namespace Menes.Specs.Steps
                                             "schema": {
                                                 "type": "{{bodyType}}",
                                                 "format": "{{bodyFormat}}"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            """;
+
+            this.InitializeDocumentProviderAndPathMatcher(openApiSpec);
+        }
+
+        [Given("I have constructed the OpenAPI specification with a response body of type object, containing properties in the structure '([^']*)'")]
+        public void GivenIHaveConstructedTheOpenAPISpecificationWithAResponseBodyOfTypeObjectContainingPropertiesInTheStructure(
+            string objectProperties)
+        {
+            string openApiSpec = $$"""
+            {
+                "openapi": "3.0.1",
+                "info": {
+                    "title": "Swagger Petstore (Simple)",
+                    "version": "1.0.0"
+                },
+                "servers": [ { "url": "http://petstore.swagger.io/api" } ],
+                "paths": {
+                    "/pets": {
+                        "get": {
+                            "summary": "Get a pet",
+                            "operationId": "getPet",
+                            "responses": {
+                                "200": {
+                                    "description": "A pet",
+                                    "content": {
+                                        "application/json": {
+                                            "schema": {
+                                               "type": "object",
+                                               "properties": {{objectProperties}}
                                             }
                                         }
                                     }
@@ -678,7 +720,47 @@ namespace Menes.Specs.Steps
                                     "application/json": {
                                         "schema": {
                                            "type": "object",
-                                            "properties": {{objectProperties}}
+                                           "properties": {{objectProperties}}
+                                        }
+                                    }
+                                }
+                            },
+                            "responses": { "201": { "description": "Created" } }
+                        }
+                    }
+                }
+            }
+            """;
+
+            this.InitializeDocumentProviderAndPathMatcher(openApiSpec);
+        }
+
+        [Given("I have constructed the OpenAPI specification with a request body of type object, containing properties in the structure '([^']*)' with '([^']*)' as the discriminator")]
+        public void GivenIHaveConstructedTheOpenAPISpecificationWithARequestBodyOfTypeObjectContainingPropertiesInTheStructureWithDiscriminator(
+            string objectProperties,
+            string discriminator)
+        {
+            string openApiSpec = $$"""
+            {
+                "openapi": "3.0.1",
+                "info": {
+                    "title": "Swagger Petstore (Simple)",
+                    "version": "1.0.0"
+                },
+                "servers": [ { "url": "http://petstore.swagger.io/api" } ],
+                "paths": {
+                    "/pets": {
+                        "post": {
+                            "summary": "Create a pet",
+                            "operationId": "createPets",
+                            "requestBody": {
+                                "required": true,
+                                "content": {
+                                    "application/json": {
+                                        "schema": {
+                                           "type": "object",
+                                           "properties": {{objectProperties}},
+                                           "discriminator": { "propertyName": "{{discriminator}}" }
                                         }
                                     }
                                 }
@@ -806,6 +888,8 @@ namespace Menes.Specs.Steps
         [When("I try to parse the path value '(.*?)' as the parameter '([^']*)'")]
         public async Task WhenITryToParseThePathValue(string value, string unusedParameterName)
         {
+            _ = unusedParameterName;
+
             IOpenApiParameterBuilder<HttpRequest> builder = ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<IOpenApiParameterBuilder<HttpRequest>>();
 
             string path = $"/pets/{value}";
@@ -962,13 +1046,19 @@ namespace Menes.Specs.Steps
             Assert.AreEqual(expectedBody, this.responseBody);
         }
 
-        [Then("the parameter (.*) should be (.*) of type (.*)")]
-        public void ThenTheSerializedResultShouldBe(string parameterName, string expectedResultAsString, string expectedType)
+        [Then("the parameter (.*?) should be (.*?) of type (.*)")]
+        public void ThenTheParameterShouldBe(string parameterName, string expectedResultAsString, string expectedType)
         {
             object expectedResult = GetResultFromStringAndType(expectedResultAsString, expectedType);
 
             Assert.AreEqual(expectedResult, this.parameters![parameterName]);
             Assert.AreEqual(expectedResult.GetType(), this.parameters![parameterName]!.GetType());
+        }
+
+        [Then("the parameter (.*?) should be of type '([^']*)'")]
+        public void ThenTheParameterBodyShouldBeOfType(string parameterName, string expectedType)
+        {
+            Assert.AreEqual(expectedType, this.parameters![parameterName].GetType().Name);
         }
 
         [Then("an '(.*)' should be thrown")]
@@ -987,6 +1077,7 @@ namespace Menes.Specs.Steps
                 "System.DateTimeOffset" => DateTimeOffset.Parse(expectedResultAsString),
                 "System.Guid" => Guid.Parse(expectedResultAsString),
                 "System.Uri" => new Uri(expectedResultAsString, UriKind.RelativeOrAbsolute),
+                "ObjectWithIdAndName" => JsonConvert.DeserializeObject<ObjectWithIdAndName>(expectedResultAsString)!,
                 _ => Convert.ChangeType(expectedResultAsString, Type.GetType(expectedType)!),
             };
         }

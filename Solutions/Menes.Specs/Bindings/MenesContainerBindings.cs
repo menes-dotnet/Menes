@@ -4,6 +4,7 @@
 
 namespace Marain.Claims.SpecFlow.Bindings
 {
+    using Corvus.ContentHandling;
     using Corvus.Monitoring.Instrumentation;
     using Corvus.Testing.SpecFlow;
     using Menes;
@@ -30,7 +31,18 @@ namespace Marain.Claims.SpecFlow.Bindings
                 serviceCollection =>
                 {
                     serviceCollection.AddLogging();
-                    serviceCollection.AddOpenApiAspNetPipelineHosting<SimpleOpenApiContext>(null);
+                    serviceCollection.AddOpenApiAspNetPipelineHosting<SimpleOpenApiContext>(
+                        null,
+                        config =>
+                        {
+                            config.DiscriminatedTypes.Add("registeredDiscriminatedType1", typeof(RegisteredDiscriminatedType1));
+                            config.DiscriminatedTypes.Add("registeredDiscriminatedType2", typeof(RegisteredDiscriminatedType2));
+                        });
+                    serviceCollection.AddContent(cf =>
+                    {
+                        cf.RegisterTransientContent<RegisteredContentType1>();
+                        cf.RegisterTransientContent<RegisteredContentType2>();
+                    });
 
                     var instrumentationProvider = new FakeInstrumentationProvider();
                     serviceCollection.AddSingleton(instrumentationProvider);

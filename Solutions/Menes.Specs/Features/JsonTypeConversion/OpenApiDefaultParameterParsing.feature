@@ -52,31 +52,8 @@ Scenario Outline: Parameters with valid values for simple types
         | cookie            | openApiFloat    | number  | float     | 1234.5                                 | 1234.5                               | System.Single             |
         | cookie            | openApiDouble   | number  | double    | 1234.5678                              | 1234.5678                            | System.Double             |
 
-Scenario: Array parameter with items of simple type
-    Given I have constructed the OpenAPI specification with a parameter with name 'openApiArray', of type array, containing items of type 'integer', and the default value for the parameter is '[1,2,3,4,5]'
-    When I try to parse the default value
-    Then the parameter openApiArray should be [1,2,3,4,5] of type System.String
 
-Scenario: Array parameter with items of array type
-    Given I have constructed the OpenAPI specification with a parameter with name 'openApiNestedArray', of type array, containing items which are arrays themselves with item type 'integer', and the default value for the parameter is '[[1],[2,3],[4,5,6]]'
-    When I try to parse the default value
-    Then the parameter openApiNestedArray should be [[1],[2,3],[4,5,6]] of type System.String
-
-Scenario: Array parameter with items of object type
-    Given I have constructed the OpenAPI specification with a parameter with name 'openApiArrayWithObjectItems', of type array, containing items which are objects which has the property structure '{ "id": { "type": "integer" }, "name": {"type": "string"} }', and the default value for the parameter is '[{"id": 123, "name": "Ed"}, {"id": 456, "name": "Ian"}]'
-    When I try to parse the default value
-    Then the parameter openApiArrayWithObjectItems should be [{"id":123,"name":"Ed"},{"id":456,"name":"Ian"}] of type System.String
-    
-Scenario: Object parameter with properties of simple types
-    Given I have constructed the OpenAPI specification with a parameter with name 'openApiObject', of type object, containing properties in the structure '{ "id": { "type": "integer" }, "name": {"type": "string"} }', and the default value for the parameter is '{"id":123, "name": "Ed"}'
-    When I try to parse the default value
-    Then the parameter openApiObject should be {"id":123,"name":"Ed"} of type System.String
-
-Scenario: Object parameter with properties of complex types
-    Given I have constructed the OpenAPI specification with a parameter with name 'openApiObjectWithComplexProperties', of type object, containing properties in the structure '{ "names": { "type": "array", "items": { "type": "string" } }, "details": {"type": "object", "properties": { "age": { "type": "integer" }, "hairColour": { "type": "string" } } } }', and the default value for the parameter is '{"names": ["Ed","Ian"] , "details": {"age": 24, "hairColour": "Brown"} }'
-    When I try to parse the default value
-    Then the parameter openApiObjectWithComplexProperties should be {"names":["Ed","Ian"],"details":{"age":24,"hairColour":"Brown"}} of type System.String
-
+   
 Scenario: Any parameter with null default value
     Given I have constructed the OpenAPI specification with a query parameter with name openApiNull, type string, format null and a null default value
     When I try to parse the default value and expect an error

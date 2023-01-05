@@ -6,7 +6,6 @@ namespace Menes.Exceptions
 {
     using System;
     using System.Linq;
-    using System.Runtime.Serialization;
 
     /// <summary>
     /// An exception that is thrown by an <see cref="IOpenApiAccessControlPolicy"/> if it fails

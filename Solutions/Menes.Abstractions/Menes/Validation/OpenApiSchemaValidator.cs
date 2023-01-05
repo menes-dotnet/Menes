@@ -19,6 +19,8 @@ namespace Menes.Validation
     using Microsoft.OpenApi.Any;
     using Microsoft.OpenApi.Models;
     using Microsoft.OpenApi.Writers;
+
+    using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
 
     /// <summary>Class to validate a JSON schema against a given <see cref="JToken"/>. </summary>
@@ -41,7 +43,7 @@ namespace Menes.Validation
             this.logger = logger;
         }
 
-        /// <summary>Validates the given data, throwing an <see cref="OpenApiBadRequestException"/> augmented with <see cref="OpenApiProblemDetailsExtensions"/> detailing the errors.</summary>
+        /// <summary>Validates the given data, throwing an <see cref="OpenApiInvalidFormatException"/> augmented with <see cref="OpenApiProblemDetailsExtensions"/> detailing the errors.</summary>
         /// <param name="data">The data.</param>
         /// <param name="schema">The schema.</param>
         public void ValidateAndThrow(string data, OpenApiSchema schema)
@@ -66,7 +68,7 @@ namespace Menes.Validation
             }
         }
 
-        /// <summary>Validates the given data, throwing an <see cref="OpenApiBadRequestException"/> augmented with <see cref="OpenApiProblemDetailsExtensions"/> detailing the errors.</summary>
+        /// <summary>Validates the given data, throwing an <see cref="OpenApiInvalidFormatException"/> augmented with <see cref="OpenApiProblemDetailsExtensions"/> detailing the errors.</summary>
         /// <param name="data">The data.</param>
         /// <param name="schema">The schema.</param>
         public void ValidateAndThrow(JToken? data, OpenApiSchema schema)
@@ -82,7 +84,7 @@ namespace Menes.Validation
 
             if (errors.Count > 0)
             {
-                Exception exception = new OpenApiBadRequestException("Schema Validation Error", "The content does not conform to the required schema.")
+                Exception exception = new OpenApiInvalidFormatException("Schema Validation Error", "The content does not conform to the required schema.")
                     .AddProblemDetailsExtension("validationErrors", errors);
 
                 throw exception;
@@ -96,7 +98,15 @@ namespace Menes.Validation
         private static ICollection<ValidationError> Validate(string data, OpenApiSchema schema)
         {
             bool dataShouldBeJson = schema.Type == "object" || schema.Type == "array" || schema.Type == null;
-            JToken jsonObject = dataShouldBeJson ? JToken.Parse(data) : data;
+            JToken jsonObject;
+            try
+            {
+                jsonObject = dataShouldBeJson ? JToken.Parse(data) : data;
+            }
+            catch (JsonReaderException x)
+            {
+                throw new OpenApiInvalidFormatException($"Expected object or array. Failed to parse: {x.Message}");
+            }
 
             return Validate(jsonObject, schema);
         }

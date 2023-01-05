@@ -59,7 +59,7 @@ namespace Menes.Specs.Steps
                 validator.ValidateAndThrow(payload, schema);
                 this.scenarioContext.Set(true, ResultKey);
             }
-            catch (OpenApiBadRequestException ex)
+            catch (OpenApiInvalidFormatException ex)
             {
                 this.scenarioContext.Set(false, ResultKey);
                 this.scenarioContext.Set(ex, "Exception");
