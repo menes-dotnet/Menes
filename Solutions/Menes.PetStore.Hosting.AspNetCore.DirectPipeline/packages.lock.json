@@ -192,15 +192,15 @@
       },
       "Microsoft.OpenApi": {
         "type": "Transitive",
-        "resolved": "1.4.4",
-        "contentHash": "JzSCWm7KGtZ8TCxB5V0ZHBHAe3TJ9AQ+/v28Cq9kVbMIM+erjes7f1W7j4CYD+PiHgaPK7Xss6jAYkwqVjU5NQ=="
+        "resolved": "1.4.5",
+        "contentHash": "qsKbcFvY9/yUXiLTSsXd76RePfOHTbqMYBmHlFe0j97XZy1I7g8Rj81iw2SpA2pwQO7HgwGN+Ogd/xdKRKjJTg=="
       },
       "Microsoft.OpenApi.Readers": {
         "type": "Transitive",
-        "resolved": "1.4.4",
-        "contentHash": "SWVnL20hz01q/DTLpaVlZ8sHweQZJbNNff/MfQYuucDJkOoU0ucqDtURDLs1ynwg79foTx5r1x2Ab5MTWqM2vg==",
+        "resolved": "1.4.5",
+        "contentHash": "s5LG9sD1twambOgAb/QMuag93oY8H9jm0XA+8IgKolSuTbxJDRjZBRkkVUjZz1d6YEDS3HJjHVd541a5uNk8VQ==",
         "dependencies": {
-          "Microsoft.OpenApi": "1.4.4",
+          "Microsoft.OpenApi": "1.4.5",
           "SharpYaml": "2.1.0"
         }
       },
@@ -1113,7 +1113,7 @@
           "Microsoft.CSharp": "[4.7.0, )",
           "Microsoft.Extensions.Configuration.Abstractions": "[6.0.0, )",
           "Microsoft.Extensions.Logging": "[6.0.0, )",
-          "Microsoft.OpenApi.Readers": "[1.4.4, )",
+          "Microsoft.OpenApi.Readers": "[1.4.5, )",
           "System.Interactive": "[4.1.*, )",
           "System.Text.Encodings.Web": "[4.7.*, )",
           "Tavis.UriTemplates": "[1.1.1, )"

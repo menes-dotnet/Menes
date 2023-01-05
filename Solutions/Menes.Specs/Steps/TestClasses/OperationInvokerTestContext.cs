@@ -7,10 +7,14 @@ namespace Menes.Specs.Steps.TestClasses
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+
     using Idg.AsyncTest;
+
     using Menes.Auditing;
     using Menes.Internal;
+
     using Microsoft.Extensions.DependencyInjection;
+
     using Moq;
 
     /// <summary>
@@ -43,7 +47,6 @@ namespace Menes.Specs.Steps.TestClasses
         {
             var context = new OperationInvokerTestContext();
             services.AddSingleton(context);
-            services.AddSingleton<IOpenApiConfiguration, OpenApiConfiguration>();
             services.AddSingleton(context.OperationLocator.Object);
             services.AddSingleton<IOpenApiAccessChecker>(new AccessChecker(context));
             services.AddSingleton(context.ExceptionMapper.Object);

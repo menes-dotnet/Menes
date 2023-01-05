@@ -8,7 +8,6 @@ namespace Menes.Internal
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.IO;
-    using System.Linq;
     using System.Threading.Tasks;
     using Menes.Converters;
     using Menes.Exceptions;
@@ -58,107 +57,118 @@ namespace Menes.Internal
                     this.logger.LogDebug("Building parameters for parameter [{parameter}]", parameter.Name);
                 }
 
-                switch (parameter.In)
+                try
                 {
-                    case ParameterLocation.Cookie:
-                        if (this.TryGetParameterFromCookie(request.Cookies, parameter, out object? cookieResult))
-                        {
-                            if (this.logger.IsEnabled(LogLevel.Debug))
+                    switch (parameter.In)
+                    {
+                        case ParameterLocation.Cookie:
+                            if (this.TryGetParameterFromCookie(request.Cookies, parameter, out object? cookieResult))
                             {
-                                this.logger.LogDebug(
-                                    "Added parameter from cookie for parameter [{parameter}]",
+                                if (this.logger.IsEnabled(LogLevel.Debug))
+                                {
+                                    this.logger.LogDebug(
+                                        "Added parameter from cookie for parameter [{parameter}]",
+                                        parameter.Name);
+                                }
+
+                                parameters.Add(parameter.Name, cookieResult);
+                            }
+                            else if (parameter.Required)
+                            {
+                                this.logger.LogError(
+                                    "Failed to get the required cookie parameters from the cookie for the parameter [{parameter}]",
                                     parameter.Name);
+                                throw new OpenApiBadRequestException(
+                                    "Missing cookie",
+                                    $"Failed to get the required cookie for the parameter {parameter.Name}");
                             }
 
-                            parameters.Add(parameter.Name, cookieResult);
-                        }
-                        else if (parameter.Required)
-                        {
-                            this.logger.LogError(
-                                "Failed to get the required cookie parameters from the cookie for the parameter [{parameter}]",
-                                parameter.Name);
-                            throw new OpenApiBadRequestException(
-                                "Missing cookie",
-                                $"Failed to get the required cookie for the parameter {parameter.Name}");
-                        }
-
-                        break;
-                    case ParameterLocation.Header:
-                        if (this.TryGetParameterFromHeader(request.Headers, parameter, out object? headerResult))
-                        {
-                            if (this.logger.IsEnabled(LogLevel.Debug))
+                            break;
+                        case ParameterLocation.Header:
+                            if (this.TryGetParameterFromHeader(request.Headers, parameter, out object? headerResult))
                             {
-                                this.logger.LogDebug(
-                                    "Added parameter from headers for parameter [{parameter}]",
+                                if (this.logger.IsEnabled(LogLevel.Debug))
+                                {
+                                    this.logger.LogDebug(
+                                        "Added parameter from headers for parameter [{parameter}]",
+                                        parameter.Name);
+                                }
+
+                                parameters.Add(parameter.Name, headerResult);
+                            }
+                            else if (parameter.Required)
+                            {
+                                this.logger.LogError(
+                                    "Failed to get the required header parameters from the header for the parameter [{parameter}]",
                                     parameter.Name);
+                                throw new OpenApiBadRequestException(
+                                    "Missing header",
+                                    $"Failed to get the required header for the parameter {parameter.Name}");
                             }
 
-                            parameters.Add(parameter.Name, headerResult);
-                        }
-                        else if (parameter.Required)
-                        {
-                            this.logger.LogError(
-                                "Failed to get the required header parameters from the header for the parameter [{parameter}]",
-                                parameter.Name);
-                            throw new OpenApiBadRequestException(
-                                "Missing header",
-                                $"Failed to get the required header for the parameter {parameter.Name}");
-                        }
-
-                        break;
-                    case ParameterLocation.Path:
-                        if (this.TryGetParameterFromPath(templateParameterValues, parameter, out object? pathResult))
-                        {
-                            if (this.logger.IsEnabled(LogLevel.Debug))
+                            break;
+                        case ParameterLocation.Path:
+                            if (this.TryGetParameterFromPath(templateParameterValues, parameter, out object? pathResult))
                             {
-                                this.logger.LogDebug(
-                                    "Added parameter from path for parameter [{parameter}]",
+                                if (this.logger.IsEnabled(LogLevel.Debug))
+                                {
+                                    this.logger.LogDebug(
+                                        "Added parameter from path for parameter [{parameter}]",
+                                        parameter.Name);
+                                }
+
+                                parameters.Add(parameter.Name, pathResult);
+                            }
+                            else if (parameter.Required)
+                            {
+                                this.logger.LogError(
+                                    "Failed to get the required path parameters from the path for the parameter [{parameter}]",
                                     parameter.Name);
+                                throw new OpenApiBadRequestException(
+                                    "Missing path parameter",
+                                    $"Failed to get the required path element for the parameter {parameter.Name}");
                             }
 
-                            parameters.Add(parameter.Name, pathResult);
-                        }
-                        else if (parameter.Required)
-                        {
-                            this.logger.LogError(
-                                "Failed to get the required path parameters from the path for the parameter [{parameter}]",
-                                parameter.Name);
-                            throw new OpenApiBadRequestException(
-                                "Missing path parameter",
-                                $"Failed to get the required path element for the parameter {parameter.Name}");
-                        }
-
-                        break;
-                    case ParameterLocation.Query:
-                        if (this.TryGetParameterFromQuery(request.Query, parameter, out object? queryResult))
-                        {
-                            if (this.logger.IsEnabled(LogLevel.Debug))
+                            break;
+                        case ParameterLocation.Query:
+                            if (this.TryGetParameterFromQuery(request.Query, parameter, out object? queryResult))
                             {
-                                this.logger.LogDebug(
-                                    "Added parameter from query for parameter [{parameter}]",
+                                if (this.logger.IsEnabled(LogLevel.Debug))
+                                {
+                                    this.logger.LogDebug(
+                                        "Added parameter from query for parameter [{parameter}]",
+                                        parameter.Name);
+                                }
+
+                                parameters.Add(parameter.Name, queryResult);
+                            }
+                            else if (parameter.Required)
+                            {
+                                this.logger.LogError(
+                                    "Failed to get the required query parameters from the query for the parameter [{parameter}]",
                                     parameter.Name);
+                                throw new OpenApiBadRequestException(
+                                    "Missing query parameter",
+                                    $"Failed to get the required query string entry for the parameter {parameter.Name}");
                             }
 
-                            parameters.Add(parameter.Name, queryResult);
-                        }
-                        else if (parameter.Required)
-                        {
+                            break;
+                        default:
                             this.logger.LogError(
-                                "Failed to get the required query parameters from the query for the parameter [{parameter}]",
+                                "Failed to get the required parameters for the parameter [{parameter}], case not found",
                                 parameter.Name);
                             throw new OpenApiBadRequestException(
-                                "Missing query parameter",
-                                $"Failed to get the required query string entry for the parameter {parameter.Name}");
-                        }
-
-                        break;
-                    default:
-                        this.logger.LogError(
-                            "Failed to get the required parameters for the parameter [{parameter}], case not found",
-                            parameter.Name);
-                        throw new OpenApiBadRequestException(
-                                "Missing parameter",
-                                $"Failed to get the required parameter {parameter.Name}");
+                                    "Missing parameter",
+                                    $"Failed to get the required parameter {parameter.Name}");
+                    }
+                }
+                catch (OpenApiInvalidFormatException x)
+                {
+                    throw new OpenApiBadRequestException(x);
+                }
+                catch (FormatException)
+                {
+                    throw new OpenApiBadRequestException($"Parameter {parameter} did not have the required format");
                 }
             }
 
@@ -189,24 +199,35 @@ namespace Menes.Internal
 
         private object? TryGetDefaultValueFromSchema(OpenApiSchema schema, IOpenApiAny? defaultValue)
         {
-            return defaultValue switch
+            try
             {
-                //// Convert to DateTimeOffset rather than use the DateTime supplied by default to be consistent with our converters.
-                OpenApiDate d       when schema.Format == "date"        => new DateTimeOffset(DateTime.SpecifyKind(d.Value, DateTimeKind.Utc)),
-                //// Convert to string rather than use the DateTimeOffset supplied by default to be consistent with our current (lack of) support for strings with format "date-time".
-                OpenApiDateTime dt  when schema.Format == "date-time"   => dt.Value.ToString("yyyy-MM-ddTHH:mm:ssK"),
-                OpenApiPassword p   when schema.Format == "password"    => p.Value,
-                OpenApiByte by      when schema.Format == "byte"        => by.Value,
-                OpenApiString s     when schema.Type == "string"        => this.ConvertValue(schema, s.Value),
-                OpenApiBoolean b    when schema.Type == "boolean"       => b.Value,
-                OpenApiLong l       when schema.Format == "int64"       => l.Value,
-                OpenApiInteger i    when schema.Type == "integer"       => i.Value,
-                OpenApiFloat f      when schema.Format == "float"       => f.Value,
-                OpenApiDouble db    when schema.Type == "number"        => db.Value,
-                OpenApiArray a      when schema.Type == "array"         => HandleArray(schema.Items, a),
-                OpenApiObject o     when schema.Type == "object"        => HandleObject(schema.Properties, o),
-                _ => throw new OpenApiSpecificationException("Default value for parameter not valid."),
-            };
+                return defaultValue switch
+                {
+                    //// Convert to DateTimeOffset rather than use the DateTime supplied by default to be consistent with our converters.
+                    OpenApiDate d when schema.Format == "date" => new DateTimeOffset(DateTime.SpecifyKind(d.Value, DateTimeKind.Utc)),
+                    //// Convert to string rather than use the DateTimeOffset supplied by default to be consistent with our current (lack of) support for strings with format "date-time".
+                    OpenApiDateTime dt when schema.Format == "date-time" => dt.Value.ToString("yyyy-MM-ddTHH:mm:ssK"),
+                    OpenApiPassword p when schema.Format == "password" => p.Value,
+                    OpenApiByte by when schema.Format == "byte" => by.Value,
+                    OpenApiString s when schema.Type == "string" => this.ConvertValue(schema, s.Value),
+                    OpenApiBoolean b when schema.Type == "boolean" => b.Value,
+                    OpenApiLong l when schema.Format == "int64" => l.Value,
+                    OpenApiInteger i when schema.Type == "integer" => i.Value,
+                    OpenApiFloat f when schema.Format == "float" => f.Value,
+                    OpenApiDouble db when schema.Type == "number" => db.Value,
+                    OpenApiArray a when schema.Type == "array" => HandleArray(schema.Items, a),
+                    OpenApiObject o when schema.Type == "object" => HandleObject(schema.Properties, o),
+                    _ => throw new OpenApiSpecificationException("Default value for parameter not valid."),
+                };
+            }
+            catch (OpenApiInvalidFormatException x)
+            {
+                throw new OpenApiSpecificationException($"Default value for parameter not valid ({x.Message}).");
+            }
+            catch (FormatException)
+            {
+                throw new OpenApiSpecificationException("Default value for parameter not valid.");
+            }
 
             object HandleArray(OpenApiSchema schema, OpenApiArray array)
             {
@@ -413,7 +434,31 @@ namespace Menes.Internal
                 value = await reader.ReadToEndAsync().ConfigureAwait(false);
             }
 
-            return this.ConvertValue(schema, value);
+            try
+            {
+                // The funky thing about IOpenApiConverter is that although in most cases
+                // the string we pass for conversion is in its JSON format, strings are the
+                // exception: those appear unquoted. That's because converters are also
+                // passed values from headers, query strings, paths, and cookies, where
+                // strings are not quoted.
+                // Since we know we're receiving actual JSON, it's our job to detect when
+                // it's a string, and if it is, strip off the quotes and process any escaped
+                // characters inside.
+                if (value.Length >= 2 && value[0] == '"' && value[^1] == '"')
+                {
+                    value = JsonConvert.DeserializeObject<string>(value)!;
+                }
+
+                return this.ConvertValue(schema, value);
+            }
+            catch (OpenApiInvalidFormatException x)
+            {
+                throw new OpenApiBadRequestException(x);
+            }
+            catch (FormatException)
+            {
+                throw new OpenApiBadRequestException("Request body did not have the required format");
+            }
         }
 
         private bool TryGetParameterFromHeader(

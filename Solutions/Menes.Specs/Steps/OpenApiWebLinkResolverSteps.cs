@@ -8,15 +8,16 @@ namespace Menes.Specs.Steps
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
+
     using Menes.Internal;
     using Menes.Links;
+
     using Microsoft.Extensions.Logging;
-    using Microsoft.OpenApi.Any;
     using Microsoft.OpenApi.Models;
     using Microsoft.OpenApi.Readers;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
+
     using NUnit.Framework;
+
     using TechTalk.SpecFlow;
     using TechTalk.SpecFlow.Assist;
 
