@@ -315,6 +315,14 @@ namespace Menes.Internal
                         convertedValue = this.ConvertValue(header.Value.Schema, value);
                     }
 
+                    if (header.Value.Schema.Type == "string")
+                    {
+                        // When IOpenApiConverter produce a JSON string, they always include the surround
+                        // double quotes, because those are necessary for the result to be valid JSON.
+                        // But when we put string values in headers, we do not include the double quotes.
+                        convertedValue = convertedValue[1..^1];
+                    }
+
                     httpResponse.Headers.Add(header.Key, new Microsoft.Extensions.Primitives.StringValues(convertedValue));
 
                     if (this.logger.IsEnabled(LogLevel.Debug))

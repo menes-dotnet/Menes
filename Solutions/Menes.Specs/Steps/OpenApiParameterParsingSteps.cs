@@ -27,6 +27,7 @@ namespace Menes.Specs.Steps
     using NUnit.Framework;
 
     using TechTalk.SpecFlow;
+    using TechTalk.SpecFlow.Assist;
 
     [Binding]
     public class OpenApiParameterParsingSteps
@@ -36,6 +37,7 @@ namespace Menes.Specs.Steps
         private IDictionary<string, object>? parameters;
         private Exception? exception;
         private string? responseBody;
+        private IHeaderDictionary? responseHeaders;
 
         public OpenApiParameterParsingSteps(ScenarioContext scenarioContext)
         {
@@ -107,6 +109,45 @@ namespace Menes.Specs.Steps
                                             "schema": {
                                                 "type": "{{bodyType}}",
                                                 "format": "{{bodyFormat}}"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            """;
+
+            this.InitializeDocumentProviderAndPathMatcher(openApiSpec);
+        }
+
+        [Given("I have constructed the OpenAPI specification with a response header called '([^']*)' of type '([^']*)', and format '([^']*)'")]
+        public void GivenIHaveConstructedTheOpenAPISpecificationWithAResponseHeaderOfTypeAndFormat(
+            string headerName, string headerType, string headerFormat)
+        {
+            string openApiSpec = $$"""
+            {
+                "openapi": "3.0.1",
+                "info": {
+                    "title": "Swagger Petstore (Simple)",
+                    "version": "1.0.0"
+                },
+                "servers": [ { "url": "http://petstore.swagger.io/api" } ],
+                "paths": {
+                    "/pets": {
+                        "get": {
+                            "summary": "Get a pet",
+                            "operationId": "getPet",
+                            "responses": {
+                                "200": {
+                                    "description": "A pet",
+                                    "headers": {
+                                        "{{headerName}}": {
+                                            "schema": {
+                                                "type": "{{headerType}}",
+                                                "format": "{{headerFormat}}"
                                             }
                                         }
                                     }
@@ -1009,40 +1050,42 @@ namespace Menes.Specs.Steps
             }
         }
 
-        [When("I try to build a response body from the value '([^']*)' of type '([^']*)'")]
-        public void WhenITryToBuildAResponseBodyFromTheValueOfTypeSystem_Boolean(
+        [When("I try to build a response from the value '([^']*)' of type '([^']*)'")]
+        public void WhenITryToBuildAResponseFromTheValueOfType(
             string valueAsString, string valueType)
         {
             object value = GetResultFromStringAndType(valueAsString, valueType);
+            this.BuildAndExecuteResult(value);
+        }
 
-            IEnumerable<IResponseOutputBuilder<IHttpResponseResult>> builders = ContainerBindings.GetServiceProvider(this.scenarioContext).
-                GetServices<IResponseOutputBuilder<IHttpResponseResult>>();
-
-            this.Matcher.FindOperationPathTemplate("/pets", "GET", out OpenApiOperationPathTemplate? operationPathTemplate);
-            OpenApiOperation operation = operationPathTemplate!.Operation;
-
-            IHttpResponseResult? result = null;
-            foreach (IResponseOutputBuilder<IHttpResponseResult> builder in builders)
+        [When("I try to build a response from an OpenAPI result with these values")]
+        public void WhenITryToBuildAResponseFromAnOpenApiResultWith(Table resultValues)
+        {
+            var openApiResult = new OpenApiResult
             {
-                if (builder.CanBuildOutput(value, operation))
-                {
-                    result = builder.BuildOutput(value, operation);
-                    break;
-                }
+                StatusCode = 200,
+            };
+
+            foreach ((string name, string type, string value) in resultValues.CreateSet<(string Name, string Type, string Value)>())
+            {
+                openApiResult.Results.Add(
+                    name,
+                    GetResultFromStringAndType(value, type));
             }
 
-            var context = new DefaultHttpContext();
-            context.Response.Body = new MemoryStream();
-            result!.ExecuteResultAsync(context.Response);
-            context.Response.Body.Position = 0;
-            using StreamReader sr = new(context.Response.Body);
-            this.responseBody = sr.ReadToEnd();
+            this.BuildAndExecuteResult(openApiResult);
         }
 
         [Then("the response body should be '([^']*)'")]
         public void ThenTheResponseBodyShouldBeTrue(string expectedBody)
         {
             Assert.AreEqual(expectedBody, this.responseBody);
+        }
+
+        [Then("the response header called '([^']*)' should be '([^']*)'")]
+        public void ThenTheResponseHeaderCalledShouldBe(string headerName, string expectedHeaderValue)
+        {
+            Assert.AreEqual(expectedHeaderValue, this.responseHeaders![headerName][0]);
         }
 
         [Then("the parameter (.*?) should be (.*?) of type (.*)")]
@@ -1091,6 +1134,33 @@ namespace Menes.Specs.Steps
             this.scenarioContext.Set<IOpenApiDocumentProvider>(documentProvider);
 
             this.matcher = new PathMatcher(documentProvider);
+        }
+
+        private void BuildAndExecuteResult(object value)
+        {
+            IEnumerable<IResponseOutputBuilder<IHttpResponseResult>> builders = ContainerBindings.GetServiceProvider(this.scenarioContext).
+                GetServices<IResponseOutputBuilder<IHttpResponseResult>>();
+
+            this.Matcher.FindOperationPathTemplate("/pets", "GET", out OpenApiOperationPathTemplate? operationPathTemplate);
+            OpenApiOperation operation = operationPathTemplate!.Operation;
+
+            IHttpResponseResult? result = null;
+            foreach (IResponseOutputBuilder<IHttpResponseResult> builder in builders)
+            {
+                if (builder.CanBuildOutput(value, operation))
+                {
+                    result = builder.BuildOutput(value, operation);
+                    break;
+                }
+            }
+
+            var context = new DefaultHttpContext();
+            context.Response.Body = new MemoryStream();
+            result!.ExecuteResultAsync(context.Response);
+            context.Response.Body.Position = 0;
+            using StreamReader sr = new(context.Response.Body);
+            this.responseBody = sr.ReadToEnd();
+            this.responseHeaders = context.Response.Headers;
         }
 
         private class FakeCookieCollection : IRequestCookieCollection
