@@ -8,6 +8,7 @@ namespace Menes.Internal
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
+    using System.Text.Json.Nodes;
     using System.Threading.Tasks;
 
     using Menes.Converters;
@@ -317,10 +318,18 @@ namespace Menes.Internal
 
                     if (header.Value.Schema.Type == "string")
                     {
-                        // When IOpenApiConverter produce a JSON string, they always include the surround
-                        // double quotes, because those are necessary for the result to be valid JSON.
-                        // But when we put string values in headers, we do not include the double quotes.
-                        convertedValue = convertedValue[1..^1];
+                        // When IOpenApiConverters produce a JSON string, there are two issues:
+                        //  1.  The value is surrounded by double quotes, because those are necessary for
+                        //          the result to be valid JSON.
+                        //  2.  Some characters might be escaped, either because they have to be (e.g.,
+                        //          because the string itself contains double quotes), or just because
+                        //          they are allowed to be (JSON receivers are required to treat quoted
+                        //          characters identically to unquoted ones in cases where either would
+                        //          be valid; System.Text.Json sometimes takes advantage of this to
+                        //          escape characters in a way that can mitigate certain security holes).
+                        // But when we put string values in headers, we do not want them in JSON format.
+                        // We want them as plain strings.
+                        convertedValue = JsonNode.Parse(convertedValue)?.GetValue<string>();
                     }
 
                     httpResponse.Headers.Add(header.Key, new Microsoft.Extensions.Primitives.StringValues(convertedValue));

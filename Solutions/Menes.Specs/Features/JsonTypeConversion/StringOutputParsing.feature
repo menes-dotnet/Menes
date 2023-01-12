@@ -29,3 +29,4 @@ Scenario Outline: Header with valid values
         | Foo       | Foo            |
         | /1234/abc | /1234/abc      |
         |           |                |
+        | "Foo"     | "Foo"          |  # Some header values need quotes, e.g. ETags
