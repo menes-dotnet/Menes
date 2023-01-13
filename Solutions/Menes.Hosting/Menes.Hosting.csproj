@@ -20,4 +20,10 @@
     <ProjectReference Include="..\Menes.Abstractions\Menes.Abstractions.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="Menes.Hosting.AspNetCore" />
+    <InternalsVisibleTo Include="Menes.Hosting.AzureFunctionsWorker" />
+    <InternalsVisibleTo Include="Menes.Specs" />
+  </ItemGroup>
+
 </Project>

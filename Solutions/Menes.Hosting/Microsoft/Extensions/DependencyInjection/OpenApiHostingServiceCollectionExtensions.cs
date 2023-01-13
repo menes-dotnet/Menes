@@ -104,6 +104,9 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddAuditLogSink<ConsoleAuditLogSink>();
 
             services.AddSingleton<IOpenApiDocumentProvider, OpenApiDocumentProvider>();
+
+            // TODO: The serializer situation is a bit of a mess. This doesn't provide a clear way for the host app to
+            // supply custom converters.
             services.AddSingleton<IHalDocumentFactory>(new HalDocumentFactory(openApiConfiguration.SerializerOptions));
             services.AddSingleton<IOpenApiServiceOperationLocator, DefaultOperationLocator>();
             services.AddSingleton<IPathMatcher, PathMatcher>();

@@ -4,11 +4,10 @@
 
 namespace Menes.Internal
 {
-    using System;
     using System.Collections.Generic;
     using System.IO;
     using System.Linq;
-    using System.Text.Json.Nodes;
+    using System.Net;
     using System.Threading.Tasks;
 
     using Menes.Converters;
@@ -32,13 +31,8 @@ namespace Menes.Internal
     /// CAVEAT: It does not currently support writing cookies.
     /// </para>
     /// </remarks>
-    internal class OpenApiHttpResponseResult : IHttpResponseResult
+    internal class OpenApiHttpResponseResult : OpenApiResponseResultBase<HttpResponse, HttpResponse>, IHttpResponseResult
     {
-        private readonly OpenApiResult openApiResult;
-        private readonly OpenApiOperation operation;
-        private readonly IEnumerable<IOpenApiConverter> converters;
-        private readonly ILogger logger;
-
         /// <summary>
         /// Creates an <see cref="OpenApiHttpResponseResult"/>.
         /// </summary>
@@ -55,11 +49,8 @@ namespace Menes.Internal
             OpenApiOperation operation,
             IEnumerable<IOpenApiConverter> converters,
             ILogger logger)
+        : base(openApiResult, operation, converters, logger)
         {
-            this.openApiResult = openApiResult;
-            this.operation = operation;
-            this.converters = converters;
-            this.logger = logger;
         }
 
         /// <summary>
@@ -69,30 +60,7 @@ namespace Menes.Internal
         /// <returns>A task that completes when the work is finished.</returns>
         public async Task ExecuteResultAsync(HttpResponse httpResponse)
         {
-            if (this.logger.IsEnabled(LogLevel.Debug))
-            {
-                this.logger.LogDebug("Executing [{actionResult}]", this.openApiResult.GetLoggingInformation());
-            }
-
-            try
-            {
-                this.operation.Responses.TryGetResponseForStatusCode(this.openApiResult.StatusCode, out OpenApiResponse? response);
-
-                httpResponse.StatusCode = this.openApiResult.StatusCode;
-
-                this.BuildHeaders(httpResponse, response!);
-
-                await this.WriteBodyAsync(httpResponse, response!);
-                if (this.logger.IsEnabled(LogLevel.Debug))
-                {
-                    this.logger.LogDebug("Executed [{actionResult}]", this.openApiResult.GetLoggingInformation());
-                }
-            }
-            catch (Exception ex)
-            {
-                this.logger.LogError("Failed to execute OpenApiActionResult [{actionResult}], [{exMessage}]", this.openApiResult.GetLoggingInformation(), ex.Message);
-                throw;
-            }
+            await this.ExecuteResultCoreAsync(httpResponse);
         }
 
         /// <summary>
@@ -153,7 +121,7 @@ namespace Menes.Internal
                 .ToList();
             if (successResponses.Count != 1)
             {
-                throw new OpenApiServiceMismatchException($"An OpenApi service can only return a plain old CLR object (POCO) for operations that define exactly one success response (including the default response, if present), but '{operation.OperationId}' defines '{successResponses.Count}'. Return an {nameof(OpenApiResult)} instead, or modify the service definition to define a single successful response.");
+                throw new OpenApiServiceMismatchException($"An OpenApi service can only return a plain old CLR object (POCO) for operations that define exactly one success response (including the default response, if present), but '{operation.OperationId}' defines '{successResponses.Count}'. Return an {nameof(Menes.OpenApiResult)} instead, or modify the service definition to define a single successful response.");
             }
 
             KeyValuePair<string, OpenApiResponse> response = successResponses.Single();
@@ -211,135 +179,35 @@ namespace Menes.Internal
             return CanConstructFrom(OpenApiActionResult.GetOpenApiResultForPoco(poco, operation, logger), operation);
         }
 
-        private Task WriteBodyAsync(HttpResponse httpResponse, OpenApiResponse response)
+        /// <inheritdoc/>
+        protected override HttpResponse InitializeResponseWithStatusCode(HttpResponse httpResponse, HttpStatusCode statusCode)
         {
-            if (response.Content?.Count > 0)
-            {
-                // TODO: We should probably find the first one where we can also convert the value, rather than just the first one!
-                KeyValuePair<string, OpenApiMediaType> responseContent = response.Content.First(c => this.openApiResult.Results.ContainsKey(c.Key));
-                object responseValue = this.openApiResult.Results[responseContent.Key];
-
-                httpResponse.ContentType = responseContent.Key;
-
-                if (responseValue is Stream responseAsStream)
-                {
-                    return responseAsStream.CopyToAsync(httpResponse.Body);
-                }
-                else
-                {
-                    string outputValue = this.ConvertValue(responseContent.Value.Schema, responseValue);
-                    return httpResponse.WriteAsync(outputValue);
-                }
-            }
-
-            return Task.CompletedTask;
+            httpResponse.StatusCode = (int)statusCode;
+            return httpResponse;
         }
 
-        private string ConvertValue(OpenApiSchema schema, object value)
+        /// <inheritdoc/>
+        protected override void AddHeader(HttpResponse response, string key, string value)
         {
-            if (this.logger.IsEnabled(LogLevel.Debug))
-            {
-                this.logger.LogDebug("Converting value to match [{schema}]", schema.GetLoggingInformation());
-            }
-
-            foreach (IOpenApiConverter converter in this.converters)
-            {
-                if (converter.CanConvert(schema))
-                {
-                    if (this.logger.IsEnabled(LogLevel.Debug))
-                    {
-                        this.logger.LogDebug(
-                                            "Matched converter [{converter}] to the [{schema}]",
-                                            converter.GetType(),
-                                            schema.GetLoggingInformation());
-                    }
-
-                    return converter.ConvertTo(value, schema);
-                }
-            }
-
-            if (this.logger.IsEnabled(LogLevel.Debug))
-            {
-                this.logger.LogDebug(
-                                "Failed to convert value with [{schema}], falling back to just type",
-                                schema.GetLoggingInformation());
-            }
-
-            // We didn't hit anything directly, so let's fall back to just the type alone
-            foreach (IOpenApiConverter converter in this.converters)
-            {
-                if (converter.CanConvert(schema, true))
-                {
-                    if (this.logger.IsEnabled(LogLevel.Debug))
-                    {
-                        this.logger.LogDebug(
-                                                "Matched converter [{converter}] to the [{schema}], ignoring format",
-                                                converter.GetType(),
-                                                schema.GetLoggingInformation());
-                    }
-
-                    return converter.ConvertTo(value, schema);
-                }
-            }
-
-            this.logger.LogError(
-                "Failed to convert value with [{schema}]",
-                schema.GetLoggingInformation());
-
-            throw new OpenApiServiceMismatchException($"Failed to convert value to match [{schema.GetLoggingInformation()}]");
+            response.Headers.Add(key, new Microsoft.Extensions.Primitives.StringValues(value));
         }
 
-        private void BuildHeaders(HttpResponse httpResponse, OpenApiResponse response)
+        /// <inheritdoc/>
+        protected override void SetResponseContentType(HttpResponse response, string contentType)
         {
-            if (this.logger.IsEnabled(LogLevel.Debug))
-            {
-                this.logger.LogDebug("Building headers for response [{response}]", response.Description);
-            }
+            response.ContentType = contentType;
+        }
 
-            foreach (KeyValuePair<string, OpenApiHeader> header in response.Headers)
-            {
-                if (this.logger.IsEnabled(LogLevel.Debug))
-                {
-                    this.logger.LogDebug("Attempting to add header for response [{response}]", response.Description);
-                }
+        /// <inheritdoc/>
+        protected override Task SetResponseBodyAsStream(HttpResponse response, Stream bodyStream)
+        {
+            return bodyStream.CopyToAsync(response.Body);
+        }
 
-                if (this.openApiResult.Results.TryGetValue(header.Key, out object? value))
-                {
-                    string? convertedValue = null;
-
-                    if (value is Func<string> valueAsFuncOfString)
-                    {
-                        convertedValue = this.ConvertValue(header.Value.Schema, valueAsFuncOfString());
-                    }
-                    else
-                    {
-                        convertedValue = this.ConvertValue(header.Value.Schema, value);
-                    }
-
-                    if (header.Value.Schema.Type == "string")
-                    {
-                        // When IOpenApiConverters produce a JSON string, there are two issues:
-                        //  1.  The value is surrounded by double quotes, because those are necessary for
-                        //          the result to be valid JSON.
-                        //  2.  Some characters might be escaped, either because they have to be (e.g.,
-                        //          because the string itself contains double quotes), or just because
-                        //          they are allowed to be (JSON receivers are required to treat quoted
-                        //          characters identically to unquoted ones in cases where either would
-                        //          be valid; System.Text.Json sometimes takes advantage of this to
-                        //          escape characters in a way that can mitigate certain security holes).
-                        // But when we put string values in headers, we do not want them in JSON format.
-                        // We want them as plain strings.
-                        convertedValue = JsonNode.Parse(convertedValue)?.GetValue<string>();
-                    }
-
-                    httpResponse.Headers.Add(header.Key, new Microsoft.Extensions.Primitives.StringValues(convertedValue));
-
-                    if (this.logger.IsEnabled(LogLevel.Debug))
-                    {
-                        this.logger.LogDebug("Added header for response [{response}]", response.Description);
-                    }
-                }
-            }
+        /// <inheritdoc/>
+        protected override Task SetResponseBodyAsString(HttpResponse response, string body)
+        {
+            return response.WriteAsync(body);
         }
     }
 }

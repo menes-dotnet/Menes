@@ -4,6 +4,8 @@
 
 namespace Marain.Claims.SpecFlow.Bindings
 {
+    using System;
+
     using Corvus.ContentHandling;
     using Corvus.Monitoring.Instrumentation;
     using Corvus.Testing.SpecFlow;
@@ -11,6 +13,8 @@ namespace Marain.Claims.SpecFlow.Bindings
     using Menes.Specs.Fakes;
     using Menes.Specs.Steps.TestClasses;
     using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
+
     using TechTalk.SpecFlow;
 
     /// <summary>
@@ -30,7 +34,11 @@ namespace Marain.Claims.SpecFlow.Bindings
                 scenarioContext,
                 serviceCollection =>
                 {
-                    serviceCollection.AddLogging();
+                    // Ensures debug log code paths are executed as part of test. (Without this, it
+                    // can be hard to notice when more significant lines of code are not covered
+                    // when using test coverage visualizers like NCrunch or Visual Studio's Live
+                    // Unit Testing.)
+                    serviceCollection.AddLogging(configure => configure.SetMinimumLevel(LogLevel.Debug).AddProvider(new DummyLogger()));
                     serviceCollection.AddOpenApiAspNetPipelineHosting<SimpleOpenApiContext>(
                         null,
                         config =>
@@ -53,6 +61,30 @@ namespace Marain.Claims.SpecFlow.Bindings
 
                     OperationInvokerTestContext.AddServices(serviceCollection);
                 });
+        }
+
+        private class DummyLogger : ILoggerProvider
+        {
+            public ILogger CreateLogger(string categoryName) => new Logger();
+
+            public void Dispose()
+            {
+            }
+
+            private class Logger : ILogger, IDisposable
+            {
+                public IDisposable BeginScope<TState>(TState state) => this;
+
+                public void Dispose()
+                {
+                }
+
+                public bool IsEnabled(LogLevel logLevel) => true;
+
+                public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception? exception, Func<TState, Exception?, string> formatter)
+                {
+                }
+            }
         }
     }
 }
