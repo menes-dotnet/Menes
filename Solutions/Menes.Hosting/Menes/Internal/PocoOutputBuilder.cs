@@ -22,7 +22,7 @@ namespace Menes.Internal
         private readonly ILogger logger;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="PocoActionResultOutputBuilder"/> class.
+        /// Initializes a new instance of the <see cref="PocoOutputBuilder{TResponse}"/> class.
         /// </summary>
         /// <param name="converters">The open API converters to use with the builder.</param>
         /// <param name="logger">The logger for the output builder.</param>
@@ -67,7 +67,7 @@ namespace Menes.Internal
         /// <inheritdoc/>
         public bool CanBuildOutput(object result, OpenApiOperation operation)
         {
-            return result is not OpenApiResult && OpenApiHttpResponseResult.CanConstructFrom(result, operation, this.logger);
+            return result is not OpenApiResult && this.CanConstructFrom(result, operation, this.converters, this.logger);
         }
 
         /// <summary>
@@ -85,15 +85,17 @@ namespace Menes.Internal
             ILogger logger);
 
         /// <summary>
-        /// Determines if the action result can be constructed from the provided result and operation definition.
+        /// Determines if the resposne can be constructed from the provided result and operation definition.
         /// </summary>
-        /// <param name="openApiResult">The <see cref="OpenApiResult"/>.</param>
+        /// <param name="result">The POCO result.</param>
         /// <param name="operation">The OpenAPI operation definition.</param>
+        /// <param name="converters">The OpenAPI converters to use.</param>
         /// <param name="logger">A logger for the operation.</param>
         /// <returns>True if an action result can be constructed from this operation result.</returns>
         protected abstract bool CanConstructFrom(
-            OpenApiResult openApiResult,
+            object result,
             OpenApiOperation operation,
+            IEnumerable<IOpenApiConverter> converters,
             ILogger logger);
     }
 }

@@ -41,11 +41,17 @@ namespace Marain.Claims.SpecFlow.Bindings
                     serviceCollection.AddLogging(configure => configure.SetMinimumLevel(LogLevel.Debug).AddProvider(new DummyLogger()));
                     serviceCollection.AddOpenApiAspNetPipelineHosting<SimpleOpenApiContext>(
                         null,
-                        config =>
-                        {
-                            config.DiscriminatedTypes.Add("registeredDiscriminatedType1", typeof(RegisteredDiscriminatedType1));
-                            config.DiscriminatedTypes.Add("registeredDiscriminatedType2", typeof(RegisteredDiscriminatedType2));
-                        });
+                        ConfigureOpenApi);
+                    serviceCollection.AddOpenApiAzureFunctionsWorkerHosting<SimpleOpenApiContext>(
+                        null,
+                        ConfigureOpenApi);
+
+                    static void ConfigureOpenApi(IOpenApiConfiguration config)
+                    {
+                        config.DiscriminatedTypes.Add("registeredDiscriminatedType1", typeof(RegisteredDiscriminatedType1));
+                        config.DiscriminatedTypes.Add("registeredDiscriminatedType2", typeof(RegisteredDiscriminatedType2));
+                    }
+
                     serviceCollection.AddContent(cf =>
                     {
                         cf.RegisterTransientContent<RegisteredContentType1>();
@@ -73,7 +79,9 @@ namespace Marain.Claims.SpecFlow.Bindings
 
             private class Logger : ILogger, IDisposable
             {
-                public IDisposable BeginScope<TState>(TState state) => this;
+                public IDisposable? BeginScope<TState>(TState state)
+                    where TState : notnull
+                    => this;
 
                 public void Dispose()
                 {

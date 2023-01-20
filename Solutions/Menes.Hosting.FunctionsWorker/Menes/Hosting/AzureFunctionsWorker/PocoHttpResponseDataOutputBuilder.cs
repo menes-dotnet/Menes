@@ -47,10 +47,11 @@ internal class PocoHttpResponseDataOutputBuilder : PocoOutputBuilder<IHttpRespon
 
     /// <inheritdoc/>
     protected override bool CanConstructFrom(
-        OpenApiResult openApiResult,
+        object result,
         OpenApiOperation operation,
+        IEnumerable<IOpenApiConverter> converters,
         ILogger logger)
     {
-        return OpenApiHttpResponseDataResult.CanConstructFrom(openApiResult, operation, logger);
+        return OpenApiHttpResponseDataResult.CanConstructFrom(result, operation, logger);
     }
 }

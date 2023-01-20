@@ -46,9 +46,13 @@ namespace Menes.Internal
         }
 
         /// <inheritdoc/>
-        protected override bool CanConstructFrom(OpenApiResult openApiResult, OpenApiOperation operation, ILogger logger)
+        protected override bool CanConstructFrom(
+            object result,
+            OpenApiOperation operation,
+            IEnumerable<IOpenApiConverter> converters,
+            ILogger logger)
         {
-            return OpenApiActionResult.CanConstructFrom(openApiResult, operation, logger);
+            return OpenApiActionResult.CanConstructFrom(result, operation, logger);
         }
     }
 }

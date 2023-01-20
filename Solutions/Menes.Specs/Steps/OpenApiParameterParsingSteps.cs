@@ -34,7 +34,6 @@ namespace Menes.Specs.Steps
     {
         private readonly ScenarioContext scenarioContext;
         private IPathMatcher? matcher;
-        private IDictionary<string, object>? parameters;
         private Exception? exception;
         private string? responseBody;
         private IHeaderDictionary? responseHeaders;
@@ -44,7 +43,9 @@ namespace Menes.Specs.Steps
             this.scenarioContext = scenarioContext;
         }
 
-        private IPathMatcher Matcher => this.matcher ?? throw new InvalidOperationException("Matcher not set - test must first create a fake OpenAPI spec");
+        public IPathMatcher Matcher => this.matcher ?? throw new InvalidOperationException("Matcher not set - test must first create a fake OpenAPI spec");
+
+        public IDictionary<string, object>? Parameters { get; set; }
 
         [Given("I have constructed the OpenAPI specification with a request body of type '([^']*)', and format '([^']*)'")]
         public void GivenIHaveConstructedTheOpenAPISpecificationWithARequestBodyOfTypeAndFormat(
@@ -882,7 +883,7 @@ namespace Menes.Specs.Steps
 
             var context = new DefaultHttpContext();
 
-            this.parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!).ConfigureAwait(false);
+            this.Parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!).ConfigureAwait(false);
         }
 
         [When("I try to parse the default value and expect an error")]
@@ -909,7 +910,7 @@ namespace Menes.Specs.Steps
             context.Request.Body = new MemoryStream(Encoding.UTF8.GetBytes(body));
             context.Request.Headers.ContentType = "application/json";
 
-            this.parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!).ConfigureAwait(false);
+            this.Parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!).ConfigureAwait(false);
         }
 
         [When("I try to parse the value '(.*?)' as the request body and expect an error")]
@@ -938,7 +939,7 @@ namespace Menes.Specs.Steps
             DefaultHttpContext context = new();
             context.Request.Path = path;
 
-            this.parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!).ConfigureAwait(false);
+            this.Parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!).ConfigureAwait(false);
         }
 
         [When("I try to parse the path value '(.*?)' as the parameter '([^']*)' and expect an error")]
@@ -969,7 +970,7 @@ namespace Menes.Specs.Steps
                     { parameterName, value },
                 });
 
-            this.parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!).ConfigureAwait(false);
+            this.Parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!).ConfigureAwait(false);
         }
 
         [When("I try to parse the query value '([^']*)' as the parameter '([^']*)' and expect an error")]
@@ -999,7 +1000,7 @@ namespace Menes.Specs.Steps
             var context = new DefaultHttpContext();
             context.Request.Headers.Add(parameterName, value);
 
-            this.parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!).ConfigureAwait(false);
+            this.Parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!).ConfigureAwait(false);
         }
 
         [When("I try to parse the header value '([^']*)' as the parameter '([^']*)' and expect an error")]
@@ -1032,7 +1033,7 @@ namespace Menes.Specs.Steps
                     { parameterName, value },
                 };
 
-            this.parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!).ConfigureAwait(false);
+            this.Parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!).ConfigureAwait(false);
         }
 
         [When("I try to parse the cookie value '([^']*)' as the parameter '([^']*)' and expect an error")]
@@ -1093,14 +1094,14 @@ namespace Menes.Specs.Steps
         {
             object expectedResult = GetResultFromStringAndType(expectedResultAsString, expectedType);
 
-            Assert.AreEqual(expectedResult, this.parameters![parameterName]);
-            Assert.AreEqual(expectedResult.GetType(), this.parameters![parameterName]!.GetType());
+            Assert.AreEqual(expectedResult, this.Parameters![parameterName]);
+            Assert.AreEqual(expectedResult.GetType(), this.Parameters![parameterName]!.GetType());
         }
 
         [Then("the parameter (.*?) should be of type '([^']*)'")]
         public void ThenTheParameterBodyShouldBeOfType(string parameterName, string expectedType)
         {
-            Assert.AreEqual(expectedType, this.parameters![parameterName].GetType().Name);
+            Assert.AreEqual(expectedType, this.Parameters![parameterName].GetType().Name);
         }
 
         [Then("an '(.*)' should be thrown")]
@@ -1182,7 +1183,7 @@ namespace Menes.Specs.Steps
 
             public IEnumerator<KeyValuePair<string, string>> GetEnumerator() => this.cookies.GetEnumerator();
 
-            public bool TryGetValue(string key, [MaybeNullWhen(false)] out string? value) => this.cookies.TryGetValue(key, out value);
+            public bool TryGetValue(string key, [NotNullWhen(true)] out string? value) => this.cookies.TryGetValue(key, out value);
 
             IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
         }

@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(EndjinProjectPropsPath)" Condition="$(EndjinProjectPropsPath) != ''" />
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
     <RootNamespace>Menes.Specs</RootNamespace>
@@ -62,12 +62,14 @@
   <ItemGroup>
     <ProjectReference Include="..\Menes.Abstractions\Menes.Abstractions.csproj" />
     <ProjectReference Include="..\Menes.Hosting.AspNetCore\Menes.Hosting.AspNetCore.csproj" />
+    <ProjectReference Include="..\Menes.Hosting.FunctionsWorker\Menes.Hosting.AzureFunctionsWorker.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Steps\TestClasses\OpenApiWebLinkResolverTest.yaml" />
   </ItemGroup>
   <ItemGroup>
     <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonTypeConversion\ByteArrayOutputParsing - Copy.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\ParameterBuilders\ArrayInputParsing.feature.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Steps\TestClasses\OpenApiWebLinkResolverTest.yaml">
@@ -75,19 +77,8 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Compile Update="Features\JsonTypeConversion\StringOutputParsing.feature.cs">
-      <DependentUpon>StringOutputParsing.feature</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <None Update="specflow.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <SpecFlowFeatureFiles Update="Features\JsonTypeConversion\StringOutputParsing.feature">
-      <Visible>$(UsingMicrosoftNETSdk)</Visible>
-      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
-    </SpecFlowFeatureFiles>
   </ItemGroup>
 </Project>
