@@ -65,6 +65,7 @@
     <ProjectReference Include="..\Menes.Hosting.FunctionsWorker\Menes.Hosting.AzureFunctionsWorker.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Fakes\ExternalOpenApiService.yaml" />
     <None Remove="Steps\TestClasses\OpenApiWebLinkResolverTest.yaml" />
   </ItemGroup>
   <ItemGroup>
@@ -72,6 +73,7 @@
     <SpecFlowObsoleteCodeBehindFiles Remove="Features\ParameterBuilders\ArrayInputParsing.feature.cs" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Fakes\ExternalOpenApiService.yaml" />
     <EmbeddedResource Include="Steps\TestClasses\OpenApiWebLinkResolverTest.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>

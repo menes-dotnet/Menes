@@ -60,7 +60,7 @@ namespace Menes.Internal
             Type serviceType = typeof(TService);
             if (!this.uriTemplateProviders.TryGetValue(serviceType, out (OpenApiDocumentProvider Provider, string ConfigKey) providerAndKey))
             {
-                throw new ArgumentException($"Service of type '{serviceType.FullName}' registered");
+                throw new ArgumentException($"Service of type '{serviceType.FullName}' does not seem to have been registered with a call to {nameof(this.AddExternalServiceWithEmbeddedDefinition)}");
             }
 
             ResolvedOperationRequestInfo relativeUrl = providerAndKey.Provider.GetResolvedOperationRequestInfo(operationId, parameters);
