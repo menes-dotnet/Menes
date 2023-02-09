@@ -38,7 +38,7 @@ public static class OpenApiAzureFunctionsWorkerHostingServiceCollectionExtension
         services.AddSingleton<IOpenApiContextBuilder<HttpRequestData>, OpenApiContextBuilder<HttpRequestData, TContext>>();
         services.AddSingleton<IOpenApiParameterBuilder<HttpRequestData>, HttpRequestDataParameterBuilder>();
 
-        services.AddOpenApiHosting<HttpRequestData, HttpResponseData>(
+        services.AddOpenApiHosting<HttpRequestData, IHttpResponseDataResult>(
             configureHost,
             configureEnvironment);
 

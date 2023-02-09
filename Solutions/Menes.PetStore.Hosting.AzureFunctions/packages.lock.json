@@ -67,8 +67,8 @@
       },
       "Corvus.ContentHandling": {
         "type": "Transitive",
-        "resolved": "3.0.1-PullRequest0265.20",
-        "contentHash": "j/ZV8wfxcGiiTnXrQuUAKpDyiaAQq2sFN0+rzIKHvhugfogbLUQMIbKQt18v06Zgw1RXCh8yfTm/E61WpuIOpQ==",
+        "resolved": "4.0.0-system-text-json.22",
+        "contentHash": "cNHJiv8SsdMUz06vRiuhp9fM1ggCGxERaNQziKEwZYMhzcuZ/ff6j9fepw+HtHaW/Dq1mIugqQZ9+PmNslvgjA==",
         "dependencies": {
           "Microsoft.CodeAnalysis.CSharp": "4.4.0",
           "Microsoft.Extensions.DependencyInjection.Abstractions": "6.0.0",
@@ -1722,7 +1722,7 @@
       "menes.abstractions": {
         "type": "Project",
         "dependencies": {
-          "Corvus.ContentHandling": "[3.0.1-PullRequest0265.20, )",
+          "Corvus.ContentHandling": "[4.0.0-system-text-json.22, )",
           "Corvus.Extensions": "[1.1.10, )",
           "Corvus.Monitoring.Instrumentation.Abstractions": "[1.3.2, )",
           "Microsoft.CSharp": "[4.7.0, )",
