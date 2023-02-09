@@ -9,7 +9,7 @@ namespace Menes.Internal
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
     using System.Reflection;
-    using Newtonsoft.Json;
+    using System.Text.Json;
 
     /// <summary>
     /// An OpenAPI service operation.
@@ -101,7 +101,7 @@ namespace Menes.Internal
                         }
                         else
                         {
-                            paramArray[index] = JsonConvert.DeserializeObject(stringValue, targetType, this.configuration.SerializerSettings)!;
+                            paramArray[index] = JsonSerializer.Deserialize(stringValue, targetType, this.configuration.SerializerOptions)!;
                         }
                     }
                     else if (targetType.IsEnum)

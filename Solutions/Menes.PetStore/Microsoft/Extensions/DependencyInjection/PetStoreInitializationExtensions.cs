@@ -9,10 +9,6 @@ namespace Microsoft.Extensions.DependencyInjection
     using Menes.PetStore.Responses;
     using Menes.PetStore.Responses.Mappers;
 
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Converters;
-    using Newtonsoft.Json.Serialization;
-
     /// <summary>
     /// Common DI initialization for PetStore.
     /// </summary>
@@ -43,11 +39,11 @@ namespace Microsoft.Extensions.DependencyInjection
             services.AddHalDocumentMapper<PetResource, PetResourceMapper>();
             services.AddHalDocumentMapper<PetListResource, PetListResourceMapper>();
 
-            // This converter used to be added by default as part of Menes v1.x initialisation, but this is no longer
-            // the case in v2.0 onwards. However, we have specified that our pets will have their Size value, which is
-            // represented by the Size enumeration, returned as a string. This conversion could be done manually in the
-            // PetResourceMapper, but we can achieve the same goal using the StringEnumConverter.
-            services.AddSingleton<JsonConverter>(new StringEnumConverter(new CamelCaseNamingStrategy()));
+            ////// This converter used to be added by default as part of Menes v1.x initialisation, but this is no longer
+            ////// the case in v2.0 onwards. However, we have specified that our pets will have their Size value, which is
+            ////// represented by the Size enumeration, returned as a string. This conversion could be done manually in the
+            ////// PetResourceMapper, but we can achieve the same goal using the StringEnumConverter.
+            ////services.AddSingleton<JsonConverter>(new StringEnumConverter(new CamelCaseNamingStrategy()));
 
             return services;
         }

@@ -2,7 +2,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <Import Project="$(EndjinProjectPropsPath)" Condition="$(EndjinProjectPropsPath) != ''" />
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
     <RootNamespace>Menes.Specs</RootNamespace>
@@ -46,15 +46,34 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="Idg.AsyncTestTools" Version="1.0.0" />
+    
+    <!--
+    We don't really depend directly on Microsoft.Extensions.DependencyModel but we need this in
+    here because SpecFlow v3 does depend on it, but it depends on an ancient version (1.0.3 from 2017)
+    which drags in Newtonsoft.Json 9.0! That version is deprecated for security reasons. In any
+    case we're trying to excise all Newtonsoft code from this project, so it's unhelpful if something
+    else pulls it back in - it makes it easier to miss bits we've not removed.
+    SpecFlow v4 is upgrading to Microsoft.Extensions.DependencyModel v6, which no longer depends on
+    Newtonsoft.Json. Once we upgrade to SpecFlow v4, we'll be able to remove this line. (SpecFlow v3
+    doesn't seem to be troubled if we force this newer version to load.)
+    -->
+    <PackageReference Include="Microsoft.Extensions.DependencyModel" Version="6.0.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Menes.Abstractions\Menes.Abstractions.csproj" />
     <ProjectReference Include="..\Menes.Hosting.AspNetCore\Menes.Hosting.AspNetCore.csproj" />
+    <ProjectReference Include="..\Menes.Hosting.FunctionsWorker\Menes.Hosting.AzureFunctionsWorker.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <None Remove="Fakes\ExternalOpenApiService.yaml" />
     <None Remove="Steps\TestClasses\OpenApiWebLinkResolverTest.yaml" />
   </ItemGroup>
   <ItemGroup>
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\JsonTypeConversion\ByteArrayOutputParsing - Copy.feature.cs" />
+    <SpecFlowObsoleteCodeBehindFiles Remove="Features\ParameterBuilders\ArrayInputParsing.feature.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Fakes\ExternalOpenApiService.yaml" />
     <EmbeddedResource Include="Steps\TestClasses\OpenApiWebLinkResolverTest.yaml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>

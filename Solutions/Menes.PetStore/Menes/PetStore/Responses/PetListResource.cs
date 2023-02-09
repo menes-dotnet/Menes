@@ -4,7 +4,7 @@
 
 namespace Menes.PetStore.Responses
 {
-    using Newtonsoft.Json;
+    using System.Text.Json.Serialization;
 
     /// <summary>
     /// Wire representation of a list of pets.

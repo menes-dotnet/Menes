@@ -10,8 +10,6 @@ namespace Menes.Converters
 
     using Microsoft.OpenApi.Models;
 
-    using Newtonsoft.Json.Linq;
-
     /// <summary>
     /// An OpenAPI converter for dates.
     /// </summary>
@@ -37,10 +35,9 @@ namespace Menes.Converters
         /// <inheritdoc/>
         public object ConvertFrom(string content, OpenApiSchema schema)
         {
-            JToken token = content;
-            var result = new DateTimeOffset(DateTime.SpecifyKind((DateTime)token, DateTimeKind.Utc));
+            var result = new DateTimeOffset(DateTime.SpecifyKind(DateTime.Parse(content), DateTimeKind.Utc));
 
-            this.validator.ValidateAndThrow(token, schema);
+            this.validator.ValidateAndThrow(content, schema);
 
             return result;
         }
@@ -50,15 +47,15 @@ namespace Menes.Converters
         {
             string result = instance switch
             {
-                DateTimeOffset dt => $"\"{dt:yyyy-MM-dd}\"",
-                DateTime dt => $"\"{dt:yyyy-MM-dd}\"",
-                DateOnly dt => $"\"{dt:yyyy-MM-dd}\"",
+                DateTimeOffset dt => dt.ToString("yyyy-MM-dd"),
+                DateTime dt => dt.ToString("yyyy-MM-dd"),
+                DateOnly dt => dt.ToString("yyyy-MM-dd"),
                 _ => throw new ArgumentException($"Unsupported source type {instance.GetType().FullName}"),
             };
 
-            this.validator.ValidateAndThrow(JToken.Parse(result), schema);
+            this.validator.ValidateAndThrow(result, schema);
 
-            return result;
+            return $"\"{result}\"";
         }
     }
 }

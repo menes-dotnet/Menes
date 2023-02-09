@@ -1,0 +1,26 @@
+﻿openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Service definition for testing external service resolution
+paths:
+  '/test/{pathElement1}/path/{pathElement2}':
+    get:
+      operationId: getWithTwoPathParameters
+      parameters:
+        - name: pathElement1
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: pathElement2
+          in: path
+          required: true
+          schema:
+            type: int64
+      responses:
+        '200':
+          description: Accepted
+          content:
+            'application/json':
+              schema:
+                type: string

@@ -10,6 +10,7 @@ namespace Menes.Specs.Steps
     using System.Diagnostics.CodeAnalysis;
     using System.IO;
     using System.Text;
+    using System.Text.Json;
     using System.Threading.Tasks;
 
     using Corvus.Testing.SpecFlow;
@@ -23,27 +24,28 @@ namespace Menes.Specs.Steps
     using Microsoft.OpenApi.Models;
     using Microsoft.OpenApi.Readers;
 
-    using Newtonsoft.Json;
-
     using NUnit.Framework;
 
     using TechTalk.SpecFlow;
+    using TechTalk.SpecFlow.Assist;
 
     [Binding]
     public class OpenApiParameterParsingSteps
     {
         private readonly ScenarioContext scenarioContext;
         private IPathMatcher? matcher;
-        private IDictionary<string, object>? parameters;
         private Exception? exception;
         private string? responseBody;
+        private IHeaderDictionary? responseHeaders;
 
         public OpenApiParameterParsingSteps(ScenarioContext scenarioContext)
         {
             this.scenarioContext = scenarioContext;
         }
 
-        private IPathMatcher Matcher => this.matcher ?? throw new InvalidOperationException("Matcher not set - test must first create a fake OpenAPI spec");
+        public IPathMatcher Matcher => this.matcher ?? throw new InvalidOperationException("Matcher not set - test must first create a fake OpenAPI spec");
+
+        public IDictionary<string, object>? Parameters { get; set; }
 
         [Given("I have constructed the OpenAPI specification with a request body of type '([^']*)', and format '([^']*)'")]
         public void GivenIHaveConstructedTheOpenAPISpecificationWithARequestBodyOfTypeAndFormat(
@@ -108,6 +110,45 @@ namespace Menes.Specs.Steps
                                             "schema": {
                                                 "type": "{{bodyType}}",
                                                 "format": "{{bodyFormat}}"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            """;
+
+            this.InitializeDocumentProviderAndPathMatcher(openApiSpec);
+        }
+
+        [Given("I have constructed the OpenAPI specification with a response header called '([^']*)' of type '([^']*)', and format '([^']*)'")]
+        public void GivenIHaveConstructedTheOpenAPISpecificationWithAResponseHeaderOfTypeAndFormat(
+            string headerName, string headerType, string headerFormat)
+        {
+            string openApiSpec = $$"""
+            {
+                "openapi": "3.0.1",
+                "info": {
+                    "title": "Swagger Petstore (Simple)",
+                    "version": "1.0.0"
+                },
+                "servers": [ { "url": "http://petstore.swagger.io/api" } ],
+                "paths": {
+                    "/pets": {
+                        "get": {
+                            "summary": "Get a pet",
+                            "operationId": "getPet",
+                            "responses": {
+                                "200": {
+                                    "description": "A pet",
+                                    "headers": {
+                                        "{{headerName}}": {
+                                            "schema": {
+                                                "type": "{{headerType}}",
+                                                "format": "{{headerFormat}}"
                                             }
                                         }
                                     }
@@ -842,7 +883,7 @@ namespace Menes.Specs.Steps
 
             var context = new DefaultHttpContext();
 
-            this.parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!).ConfigureAwait(false);
+            this.Parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!).ConfigureAwait(false);
         }
 
         [When("I try to parse the default value and expect an error")]
@@ -869,7 +910,7 @@ namespace Menes.Specs.Steps
             context.Request.Body = new MemoryStream(Encoding.UTF8.GetBytes(body));
             context.Request.Headers.ContentType = "application/json";
 
-            this.parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!).ConfigureAwait(false);
+            this.Parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!).ConfigureAwait(false);
         }
 
         [When("I try to parse the value '(.*?)' as the request body and expect an error")]
@@ -898,7 +939,7 @@ namespace Menes.Specs.Steps
             DefaultHttpContext context = new();
             context.Request.Path = path;
 
-            this.parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!).ConfigureAwait(false);
+            this.Parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!).ConfigureAwait(false);
         }
 
         [When("I try to parse the path value '(.*?)' as the parameter '([^']*)' and expect an error")]
@@ -929,7 +970,7 @@ namespace Menes.Specs.Steps
                     { parameterName, value },
                 });
 
-            this.parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!).ConfigureAwait(false);
+            this.Parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!).ConfigureAwait(false);
         }
 
         [When("I try to parse the query value '([^']*)' as the parameter '([^']*)' and expect an error")]
@@ -959,7 +1000,7 @@ namespace Menes.Specs.Steps
             var context = new DefaultHttpContext();
             context.Request.Headers.Add(parameterName, value);
 
-            this.parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!).ConfigureAwait(false);
+            this.Parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!).ConfigureAwait(false);
         }
 
         [When("I try to parse the header value '([^']*)' as the parameter '([^']*)' and expect an error")]
@@ -992,7 +1033,7 @@ namespace Menes.Specs.Steps
                     { parameterName, value },
                 };
 
-            this.parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!).ConfigureAwait(false);
+            this.Parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!).ConfigureAwait(false);
         }
 
         [When("I try to parse the cookie value '([^']*)' as the parameter '([^']*)' and expect an error")]
@@ -1010,12 +1051,94 @@ namespace Menes.Specs.Steps
             }
         }
 
-        [When("I try to build a response body from the value '([^']*)' of type '([^']*)'")]
-        public void WhenITryToBuildAResponseBodyFromTheValueOfTypeSystem_Boolean(
+        [When("I try to build a response from the value '([^']*)' of type '([^']*)'")]
+        public void WhenITryToBuildAResponseFromTheValueOfType(
             string valueAsString, string valueType)
         {
             object value = GetResultFromStringAndType(valueAsString, valueType);
+            this.BuildAndExecuteResult(value);
+        }
 
+        [When("I try to build a response from an OpenAPI result with these values")]
+        public void WhenITryToBuildAResponseFromAnOpenApiResultWith(Table resultValues)
+        {
+            var openApiResult = new OpenApiResult
+            {
+                StatusCode = 200,
+            };
+
+            foreach ((string name, string type, string value) in resultValues.CreateSet<(string Name, string Type, string Value)>())
+            {
+                openApiResult.Results.Add(
+                    name,
+                    GetResultFromStringAndType(value, type));
+            }
+
+            this.BuildAndExecuteResult(openApiResult);
+        }
+
+        [Then("the response body should be '([^']*)'")]
+        public void ThenTheResponseBodyShouldBeTrue(string expectedBody)
+        {
+            Assert.AreEqual(expectedBody, this.responseBody);
+        }
+
+        [Then("the response header called '([^']*)' should be '([^']*)'")]
+        public void ThenTheResponseHeaderCalledShouldBe(string headerName, string expectedHeaderValue)
+        {
+            Assert.AreEqual(expectedHeaderValue, this.responseHeaders![headerName][0]);
+        }
+
+        [Then("the parameter (.*?) should be (.*?) of type (.*)")]
+        public void ThenTheParameterShouldBe(string parameterName, string expectedResultAsString, string expectedType)
+        {
+            object expectedResult = GetResultFromStringAndType(expectedResultAsString, expectedType);
+
+            Assert.AreEqual(expectedResult, this.Parameters![parameterName]);
+            Assert.AreEqual(expectedResult.GetType(), this.Parameters![parameterName]!.GetType());
+        }
+
+        [Then("the parameter (.*?) should be of type '([^']*)'")]
+        public void ThenTheParameterBodyShouldBeOfType(string parameterName, string expectedType)
+        {
+            Assert.AreEqual(expectedType, this.Parameters![parameterName].GetType().Name);
+        }
+
+        [Then("an '(.*)' should be thrown")]
+        public void ThenAnShouldBeThrown(string exceptionType)
+        {
+            Assert.IsNotNull(this.exception);
+
+            Assert.AreEqual(exceptionType, this.exception!.GetType().Name);
+        }
+
+        private static object GetResultFromStringAndType(string expectedResultAsString, string expectedType)
+        {
+            return expectedType switch
+            {
+                "ByteArrayFromBase64String" => Convert.FromBase64String(expectedResultAsString),
+                "System.DateTimeOffset" => DateTimeOffset.Parse(expectedResultAsString),
+                "System.Guid" => Guid.Parse(expectedResultAsString),
+                "System.Uri" => new Uri(expectedResultAsString, UriKind.RelativeOrAbsolute),
+                "ObjectWithIdAndName" => JsonSerializer.Deserialize<ObjectWithIdAndName>(expectedResultAsString, new JsonSerializerOptions(JsonSerializerDefaults.Web))!,
+                _ => Convert.ChangeType(expectedResultAsString, Type.GetType(expectedType)!),
+            };
+        }
+
+        private void InitializeDocumentProviderAndPathMatcher(string openApiSpec)
+        {
+            OpenApiDocument document = new OpenApiStringReader().Read(openApiSpec, out OpenApiDiagnostic _);
+
+            var documentProvider = new OpenApiDocumentProvider(new LoggerFactory().CreateLogger<OpenApiDocumentProvider>());
+            documentProvider.Add(document);
+
+            this.scenarioContext.Set<IOpenApiDocumentProvider>(documentProvider);
+
+            this.matcher = new PathMatcher(documentProvider);
+        }
+
+        private void BuildAndExecuteResult(object value)
+        {
             IEnumerable<IResponseOutputBuilder<IHttpResponseResult>> builders = ContainerBindings.GetServiceProvider(this.scenarioContext).
                 GetServices<IResponseOutputBuilder<IHttpResponseResult>>();
 
@@ -1038,60 +1161,7 @@ namespace Menes.Specs.Steps
             context.Response.Body.Position = 0;
             using StreamReader sr = new(context.Response.Body);
             this.responseBody = sr.ReadToEnd();
-        }
-
-        [Then("the response body should be '([^']*)'")]
-        public void ThenTheResponseBodyShouldBeTrue(string expectedBody)
-        {
-            Assert.AreEqual(expectedBody, this.responseBody);
-        }
-
-        [Then("the parameter (.*?) should be (.*?) of type (.*)")]
-        public void ThenTheParameterShouldBe(string parameterName, string expectedResultAsString, string expectedType)
-        {
-            object expectedResult = GetResultFromStringAndType(expectedResultAsString, expectedType);
-
-            Assert.AreEqual(expectedResult, this.parameters![parameterName]);
-            Assert.AreEqual(expectedResult.GetType(), this.parameters![parameterName]!.GetType());
-        }
-
-        [Then("the parameter (.*?) should be of type '([^']*)'")]
-        public void ThenTheParameterBodyShouldBeOfType(string parameterName, string expectedType)
-        {
-            Assert.AreEqual(expectedType, this.parameters![parameterName].GetType().Name);
-        }
-
-        [Then("an '(.*)' should be thrown")]
-        public void ThenAnShouldBeThrown(string exceptionType)
-        {
-            Assert.IsNotNull(this.exception);
-
-            Assert.AreEqual(exceptionType, this.exception!.GetType().Name);
-        }
-
-        private static object GetResultFromStringAndType(string expectedResultAsString, string expectedType)
-        {
-            return expectedType switch
-            {
-                "ByteArrayFromBase64String" => Convert.FromBase64String(expectedResultAsString),
-                "System.DateTimeOffset" => DateTimeOffset.Parse(expectedResultAsString),
-                "System.Guid" => Guid.Parse(expectedResultAsString),
-                "System.Uri" => new Uri(expectedResultAsString, UriKind.RelativeOrAbsolute),
-                "ObjectWithIdAndName" => JsonConvert.DeserializeObject<ObjectWithIdAndName>(expectedResultAsString)!,
-                _ => Convert.ChangeType(expectedResultAsString, Type.GetType(expectedType)!),
-            };
-        }
-
-        private void InitializeDocumentProviderAndPathMatcher(string openApiSpec)
-        {
-            OpenApiDocument document = new OpenApiStringReader().Read(openApiSpec, out OpenApiDiagnostic _);
-
-            var documentProvider = new OpenApiDocumentProvider(new LoggerFactory().CreateLogger<OpenApiDocumentProvider>());
-            documentProvider.Add(document);
-
-            this.scenarioContext.Set<IOpenApiDocumentProvider>(documentProvider);
-
-            this.matcher = new PathMatcher(documentProvider);
+            this.responseHeaders = context.Response.Headers;
         }
 
         private class FakeCookieCollection : IRequestCookieCollection
@@ -1113,7 +1183,7 @@ namespace Menes.Specs.Steps
 
             public IEnumerator<KeyValuePair<string, string>> GetEnumerator() => this.cookies.GetEnumerator();
 
-            public bool TryGetValue(string key, [MaybeNullWhen(false)] out string? value) => this.cookies.TryGetValue(key, out value);
+            public bool TryGetValue(string key, [NotNullWhen(true)] out string? value) => this.cookies.TryGetValue(key, out value);
 
             IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
         }

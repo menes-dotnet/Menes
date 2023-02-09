@@ -4,6 +4,8 @@
 
 namespace Menes.Converters
 {
+    using System.Text.Json.Nodes;
+
     using Menes.Validation;
     using Microsoft.OpenApi.Models;
 
@@ -53,7 +55,7 @@ namespace Menes.Converters
 
             this.validator.ValidateAndThrow(result, schema);
 
-            return '"' + result + '"';
+            return JsonValue.Create(result)!.ToJsonString();
         }
     }
 }

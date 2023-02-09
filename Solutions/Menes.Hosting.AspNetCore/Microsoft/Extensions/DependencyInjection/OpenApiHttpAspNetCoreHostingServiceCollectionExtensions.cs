@@ -62,7 +62,7 @@ namespace Microsoft.Extensions.DependencyInjection
         }
 
         /// <summary>
-        /// Adds <see cref="HttpRequest"/> / middleware-based hosting.
+        /// Adds <see cref="HttpRequest"/> middleware-based hosting.
         /// </summary>
         /// <typeparam name="TContext">The type of the OpenApi context.</typeparam>
         /// <param name="services">The service collection to configure.</param>

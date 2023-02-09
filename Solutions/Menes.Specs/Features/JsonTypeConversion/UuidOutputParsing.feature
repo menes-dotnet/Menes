@@ -6,11 +6,22 @@ Feature: Uuid Output Parsing
     I want to be able to specify uuid-formatted string values as or in response bodies within the OpenAPI specification and have corresponding response bodies deserialized and validated
 
 
-Scenario Outline: Valid values for simple types
+Scenario Outline: Body with valid values
     Given I have constructed the OpenAPI specification with a response body of type 'string', and format 'uuid'
-    When I try to build a response body from the value '<Value>' of type 'System.Uri'
+    When I try to build a response from the value '<Value>' of type 'System.Guid'
     Then the response body should be '<ExpectedResult>'
 
     Examples:
         | Value                                | ExpectedResult                         |
         | 9b7d63fb-1689-4697-9571-00d10b873d78 | "9b7d63fb-1689-4697-9571-00d10b873d78" |
+
+Scenario Outline: Header with valid values
+    Given I have constructed the OpenAPI specification with a response header called 'X-Test' of type 'string', and format 'uuid'
+    When I try to build a response from an OpenAPI result with these values
+        | Name   | Type        | Value   |
+        | X-Test | System.Guid | <Value> |
+    Then the response header called 'X-Test' should be '<ExpectedResult>'
+
+    Examples:
+        | Value                                | ExpectedResult                       |
+        | 9b7d63fb-1689-4697-9571-00d10b873d78 | 9b7d63fb-1689-4697-9571-00d10b873d78 |

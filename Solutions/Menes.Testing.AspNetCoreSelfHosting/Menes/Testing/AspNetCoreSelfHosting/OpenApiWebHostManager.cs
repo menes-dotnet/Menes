@@ -59,7 +59,7 @@ namespace Menes.Testing.AspNetCoreSelfHosting
         /// your startup class has executed. You can use this to swap out services for stubs or fakes.
         /// </param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public Task StartInProcessFunctionsHostAsync<TFunctionStartup>(
+        public Task<IWebHost> StartInProcessFunctionsHostAsync<TFunctionStartup>(
             string baseUrl,
             Action<IServiceCollection>? additionalServiceConfigurationCallback = null)
             where TFunctionStartup : class, IWebJobsStartup, new()
@@ -78,7 +78,7 @@ namespace Menes.Testing.AspNetCoreSelfHosting
         /// your startup class has executed. You can use this to swap out services for stubs or fakes.
         /// </param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public Task StartInProcessFunctionsHostAsync<TFunctionStartup>(
+        public Task<IWebHost> StartInProcessFunctionsHostAsync<TFunctionStartup>(
             string baseUrl,
             IConfiguration configuration,
             Action<IServiceCollection>? additionalServiceConfigurationCallback = null)
@@ -98,7 +98,7 @@ namespace Menes.Testing.AspNetCoreSelfHosting
         /// your startup class has executed. You can use this to swap out services for stubs or fakes.
         /// </param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public Task StartInProcessFunctionsHostAsync<TFunctionStartup>(
+        public Task<IWebHost> StartInProcessFunctionsHostAsync<TFunctionStartup>(
             TFunctionStartup startupInstance,
             string baseUrl,
             Action<IServiceCollection>? additionalServiceConfigurationCallback = null)
@@ -136,7 +136,7 @@ namespace Menes.Testing.AspNetCoreSelfHosting
         /// your startup class has executed. You can use this to swap out services for stubs or fakes.
         /// </param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        public Task StartInProcessFunctionsHostAsync<TFunctionStartup>(
+        public Task<IWebHost> StartInProcessFunctionsHostAsync<TFunctionStartup>(
             TFunctionStartup startupInstance,
             string baseUrl,
             IConfiguration configuration,
@@ -184,7 +184,7 @@ namespace Menes.Testing.AspNetCoreSelfHosting
         /// because that's the only way to ensure that your configuration will run after Startup. (The ASP.NET
         /// web host startup prefers to run the Startup methods after all other configuration has occurred.)
         /// </remarks>
-        public Task StartInProcessAspNetHostAsync<TStartup>(
+        public Task<IWebHost> StartInProcessAspNetHostAsync<TStartup>(
             string baseUrl,
             TStartup startupInstance)
             where TStartup : class
@@ -217,7 +217,7 @@ namespace Menes.Testing.AspNetCoreSelfHosting
         /// A callback that will allow you to configure the <see cref="IWebHostBuilder"/> for your service.
         /// </param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
-        private Task StartAspNetHostAsync(
+        private async Task<IWebHost> StartAspNetHostAsync(
             string baseUrl,
             Action<IServiceCollection> serviceConfigurationCallback,
             Action<IWebHostBuilder> webHostBuilderCallback)
@@ -242,7 +242,8 @@ namespace Menes.Testing.AspNetCoreSelfHosting
 
             this.webHosts.Add(host);
 
-            return host.StartAsync();
+            await host.StartAsync();
+            return host;
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Menes.Internal
         private readonly IEnumerable<IResponseOutputBuilder<TResponse>> outputBuilders;
 
         /// <summary>
-        /// Creates and instance of the <see cref="OpenApiActionResultBuilder"/>.
+        /// Initializes an <see cref="OpenApiResultBuilder{TResponse}"/>.
         /// </summary>
         /// <param name="outputBuilders">The output builders.</param>
         /// <param name="logger">The logger.</param>

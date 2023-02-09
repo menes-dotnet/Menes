@@ -8,10 +8,10 @@
 
 namespace Menes.Validation
 {
+    using System.Text.Json;
+    using System.Text.Json.Serialization;
+
     using Microsoft.OpenApi.Models;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Converters;
-    using Newtonsoft.Json.Linq;
 
     /// <summary>A validation error. </summary>
     public class ValidationError
@@ -22,30 +22,30 @@ namespace Menes.Validation
         /// <param name="propertyPath">The property path. </param>
         /// <param name="token">The token that failed to validate. </param>
         /// <param name="schema">The schema that contains the validation rule.</param>
-        public ValidationError(ValidationErrorKind errorKind, string? propertyName, string propertyPath, JToken token, OpenApiSchema schema)
+        public ValidationError(ValidationErrorKind errorKind, string? propertyName, string propertyPath, JsonElement token, OpenApiSchema schema)
         {
             this.Kind = errorKind;
             this.Property = propertyName;
             this.Path = propertyPath != null ? "#/" + propertyPath : "#";
 
-            var lineInfo = token as IJsonLineInfo;
-            if (lineInfo?.HasLineInfo() == true)
-            {
-                this.HasLineInfo = true;
-                this.LineNumber = lineInfo.LineNumber;
-                this.LinePosition = lineInfo.LinePosition;
-            }
-            else
-            {
-                this.LineNumber = 0;
-                this.LinePosition = 0;
-            }
+            ////var lineInfo = token as IJsonLineInfo;
+            ////if (lineInfo?.HasLineInfo() == true)
+            ////{
+            ////    this.HasLineInfo = true;
+            ////    this.LineNumber = lineInfo.LineNumber;
+            ////    this.LinePosition = lineInfo.LinePosition;
+            ////}
+            ////else
+            ////{
+            ////    this.LineNumber = 0;
+            ////    this.LinePosition = 0;
+            ////}
 
             this.Schema = schema;
         }
 
         /// <summary>Gets the error kind. </summary>
-        [JsonConverter(typeof(StringEnumConverter))]
+        [JsonConverter(typeof(JsonStringEnumConverter))]
         public ValidationErrorKind Kind { get; }
 
         /// <summary>Gets the property name. </summary>

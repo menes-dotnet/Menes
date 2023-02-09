@@ -4,10 +4,10 @@
 
 namespace Menes.Converters
 {
+    using System.Text.Json;
+
     using Menes.Validation;
     using Microsoft.OpenApi.Models;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
 
     /// <summary>
     /// An OpenAPI converter for floats.
@@ -37,11 +37,9 @@ namespace Menes.Converters
         /// <inheritdoc/>
         public object ConvertFrom(string content, OpenApiSchema schema)
         {
-            JToken token = content;
+            float result = float.Parse(content);
 
-            float result = (float)token;
-
-            this.validator.ValidateAndThrow(result, schema);
+            this.validator.ValidateAndThrow(content, schema);
 
             return result;
         }
@@ -49,9 +47,9 @@ namespace Menes.Converters
         /// <inheritdoc/>
         public string ConvertTo(object instance, OpenApiSchema schema)
         {
-            string result = JsonConvert.SerializeObject(instance, this.configuration.Formatting, this.configuration.SerializerSettings);
+            string result = JsonSerializer.Serialize(instance, typeof(float), this.configuration.SerializerOptions);
 
-            this.validator.ValidateAndThrow(JToken.Parse(result), schema);
+            this.validator.ValidateAndThrow(result, schema);
 
             return result;
         }

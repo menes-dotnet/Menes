@@ -6,25 +6,19 @@ namespace Menes.Internal
 {
     using System;
     using System.IO;
+    using System.Text.Json;
+    using System.Text.Json.Serialization;
 
     using Microsoft.OpenApi;
     using Microsoft.OpenApi.Extensions;
     using Microsoft.OpenApi.Models;
 
-    using Newtonsoft.Json;
-
     /// <summary>
     ///     Converts OpenApiDocuments to JSON using <see cref="OpenApiSerializableExtensions.SerializeAsJson{T}(T,Stream,OpenApiSpecVersion)"/>
     ///     extension method.
     /// </summary>
-    public class OpenApiDocumentJsonConverter : JsonConverter
+    public class OpenApiDocumentJsonConverter : JsonConverter<OpenApiDocument>
     {
-        /// <inheritdoc />
-        public override bool CanRead => false;
-
-        /// <inheritdoc />
-        public override bool CanWrite => true;
-
         /// <inheritdoc />
         public override bool CanConvert(Type objectType)
         {
@@ -32,27 +26,22 @@ namespace Menes.Internal
         }
 
         /// <inheritdoc />
-        public override object ReadJson(
-            JsonReader reader,
-            Type objectType,
-            object? existingValue,
-            JsonSerializer serializer)
+        public override OpenApiDocument? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
         {
             throw new NotSupportedException();
         }
 
         /// <inheritdoc />
-        public override void WriteJson(JsonWriter writer, object? value, JsonSerializer serializer)
+        public override void Write(Utf8JsonWriter writer, OpenApiDocument value, JsonSerializerOptions options)
         {
-            var document = (OpenApiDocument)value!;
-
             using var stream = new MemoryStream();
-            document.SerializeAsJson(stream, OpenApiSpecVersion.OpenApi3_0);
+            value.SerializeAsJson(stream, OpenApiSpecVersion.OpenApi3_0);
             stream.Seek(0, SeekOrigin.Begin);
+            ReadOnlySpan<byte> buffer = stream.GetBuffer();
 
-            using var reader = new StreamReader(stream);
-            string json = reader.ReadToEnd();
-            writer.WriteRaw(json);
+            Utf8JsonReader r = new(buffer[0..((int)stream.Length)]);
+            using var doc = JsonDocument.ParseValue(ref r);
+            doc.WriteTo(writer);
         }
     }
 }

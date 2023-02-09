@@ -223,14 +223,14 @@ namespace Menes
             };
         }
 
-        private static string GetContentType<T>(T instance, string? contentType)
+        private static string GetContentType<T>([DisallowNull] T instance, string? contentType)
         {
             return contentType ?? GetContentTypeOrNull(instance) ?? "application/json";
         }
 
-        private static string? GetContentTypeOrNull<T>(T instance)
+        private static string? GetContentTypeOrNull<T>([DisallowNull] T instance)
         {
-            return ContentFactory.TryGetContentType(instance, out string contentType) ? contentType : null;
+            return ContentFactory.TryGetContentType(instance, out string? contentType) ? contentType : null;
         }
     }
 }

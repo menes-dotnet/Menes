@@ -6,6 +6,8 @@ namespace Microsoft.Extensions.DependencyInjection
 {
     using System;
     using System.Linq;
+    using System.Text.Json.Serialization;
+
     using Menes;
     using Menes.Auditing;
     using Menes.Auditing.AuditLogSinks.Development;
@@ -16,7 +18,6 @@ namespace Microsoft.Extensions.DependencyInjection
     using Menes.Links;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Logging;
-    using Newtonsoft.Json;
 
     /// <summary>
     /// Extensions for a <see cref="IServiceCollection"/>.
@@ -95,18 +96,18 @@ namespace Microsoft.Extensions.DependencyInjection
                 return services;
             }
 
-            services.AddJsonNetSerializerSettingsProvider();
+            var openApiConfiguration = new OpenApiConfiguration();
 
             services.AddInstrumentation();
 
             services.AddOpenApiAuditing();
             services.AddAuditLogSink<ConsoleAuditLogSink>();
 
-            services.AddSingleton<JsonConverter, OpenApiDocumentJsonConverter>();
-            services.AddSingleton<JsonConverter, HalDocumentJsonConverter>();
             services.AddSingleton<IOpenApiDocumentProvider, OpenApiDocumentProvider>();
-            services.AddSingleton<IHalDocumentFactory, HalDocumentFactory>();
-            services.AddTransient<HalDocument>();
+
+            // TODO: The serializer situation is a bit of a mess. This doesn't provide a clear way for the host app to
+            // supply custom converters.
+            services.AddSingleton<IHalDocumentFactory>(new HalDocumentFactory(openApiConfiguration.SerializerOptions));
             services.AddSingleton<IOpenApiServiceOperationLocator, DefaultOperationLocator>();
             services.AddSingleton<IPathMatcher, PathMatcher>();
             services.AddSingleton<IOpenApiService, SwaggerService>();
@@ -142,10 +143,14 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddSingleton<IOpenApiConfiguration>(serviceProvider =>
             {
-                var config = new OpenApiConfiguration(serviceProvider);
-                configureEnvironment?.Invoke(config);
+                configureEnvironment?.Invoke(openApiConfiguration);
 
-                return config;
+                openApiConfiguration.SerializerOptions.DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull;
+                openApiConfiguration.SerializerOptions.Converters.Add(new JsonStringEnumConverter(openApiConfiguration.SerializerOptions.PropertyNamingPolicy));
+                openApiConfiguration.SerializerOptions.Converters.Add(new OpenApiDocumentJsonConverter());
+                openApiConfiguration.SerializerOptions.Converters.Add(new HalDocumentJsonConverter(serviceProvider.GetRequiredService<IHalDocumentFactory>()));
+
+                return openApiConfiguration;
             });
 
             services.AddOpenApiJsonConverters();
@@ -202,11 +207,51 @@ namespace Microsoft.Extensions.DependencyInjection
         /// Enables resolution of URLs to external services.
         /// </summary>
         /// <param name="services">The service collection.</param>
+        /// <param name="configurationSection">
+        /// The configuration section in which external service base URLs are configured.
+        /// </param>
+        /// <param name="configure">A callback for registering external services.</param>
+        /// <returns>The service collection, to enable chaining.</returns>
+        public static IServiceCollection AddExternalServices(
+            this IServiceCollection services,
+            IConfiguration configurationSection,
+            Action<IOpenApiExternalServices> configure)
+        {
+            services.AddSingleton(sp =>
+            {
+                IOpenApiExternalServices result = new OpenApiExternalServices(
+                    configurationSection,
+                    sp.GetRequiredService<ILogger<OpenApiDocumentProvider>>());
+
+                configure(result);
+
+                return result;
+            });
+
+            return services;
+        }
+
+        /// <summary>
+        /// Enables resolution of URLs to external services.
+        /// </summary>
+        /// <param name="services">The service collection.</param>
         /// <param name="configurationSectionName">
         /// The name of the configuration section in which external service base URLs are configured.
         /// </param>
         /// <param name="configure">A callback for registering external services.</param>
         /// <returns>The service collection, to enable chaining.</returns>
+        /// <remarks>
+        /// This overload dates back to when the only way to obtain an IConfiguration from Azure
+        /// Functions was via DI. This was problematic because it meant we ended up forcing the
+        /// configuration object to be put into DI. Although that's fairly common, it's an
+        /// unpleasant practice because it means we take dependencies on textual settings in
+        /// IConfiguration intead of statically-typed configuration objects. In this case, the
+        /// dynamic resolution of configuration by text is unavoidable because of the dynamic
+        /// nature of the lookup, but we still don't want to force configuration to be made
+        /// available via DI. So we now provide a preferred overload to which you pass an
+        /// <see cref="IConfiguration"/>.
+        /// </remarks>
+        [Obsolete("The overload that accepts an IConfiguration is preferred.")]
         public static IServiceCollection AddExternalServices(
             this IServiceCollection services,
             string configurationSectionName,

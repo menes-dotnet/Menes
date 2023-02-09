@@ -46,11 +46,12 @@ namespace Menes.Internal
 
         /// <inheritdoc/>
         protected override bool CanConstructFrom(
-            OpenApiResult openApiResult,
+            object result,
             OpenApiOperation operation,
+            IEnumerable<IOpenApiConverter> converters,
             ILogger logger)
         {
-            return OpenApiHttpResponseResult.CanConstructFrom(openApiResult, operation, logger);
+            return OpenApiHttpResponseResult.CanConstructFrom(result, operation, logger);
         }
     }
 }

@@ -8,10 +8,10 @@ namespace Menes.Hal
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
     using System.Linq;
-    using Corvus.Extensions.Json;
+    using System.Text.Json;
+    using System.Text.Json.Nodes;
+
     using Menes.Links;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
 
     /// <summary>
     /// A HAL document.
@@ -27,23 +27,23 @@ namespace Menes.Hal
         /// <summary>
         /// Initializes a new instance of the <see cref="HalDocument"/> class.
         /// </summary>
-        /// <param name="serializerSettingsProvider">The Json serializer settings provider.</param>
-        public HalDocument(IJsonSerializerSettingsProvider serializerSettingsProvider)
+        /// <param name="serializerOptions">The Json serializer settings provider.</param>
+        public HalDocument(JsonSerializerOptions serializerOptions)
         {
-            this.SerializerSettings = serializerSettingsProvider.Instance;
+            this.JsonSerializerOptions = serializerOptions;
         }
 
         /// <summary>
         /// Gets the serializer settings for the HAL document.
         /// </summary>
-        public JsonSerializerSettings SerializerSettings { get; }
+        public JsonSerializerOptions JsonSerializerOptions { get; }
 
         /// <summary>
         /// Gets the properties for the HalDocument.
         /// </summary>
-        public JObject Properties
+        public JsonObject Properties
         {
-            get => this.PropertiesInternalNullable ??= new JObject();
+            get => this.PropertiesInternalNullable ??= new JsonObject();
             internal set => this.PropertiesInternalNullable = value ?? throw new ArgumentNullException(nameof(this.Properties));
         }
 
@@ -89,11 +89,11 @@ namespace Menes.Hal
         /// </summary>
         /// <remarks>
         /// The public <see cref="Properties"/> property's get accessor will construct a new
-        /// <see cref="JObject"/> if a value is not already present so as to avoid ever returning
+        /// <see cref="JsonObject"/> if a value is not already present so as to avoid ever returning
         /// null. In most cases this is what we want, but our seralization support code can handle
         /// the case where this was never given a value more efficiently.
         /// </remarks>
-        internal JObject? PropertiesInternalNullable { get; set; }
+        internal JsonObject? PropertiesInternalNullable { get; set; }
 
         /// <summary>
         /// Removes an embedded resource based on its href.
@@ -116,7 +116,12 @@ namespace Menes.Hal
         public void SetProperties<T>(T properties)
             where T : notnull
         {
-            this.Properties = JObject.FromObject(properties, JsonSerializer.Create(this.SerializerSettings));
+            if (JsonSerializer.SerializeToNode(properties, this.JsonSerializerOptions) is not JsonObject jo)
+            {
+                throw new ArgumentException("Properties could not be serialized as a JSON object");
+            }
+
+            this.Properties = jo;
         }
 
         /// <summary>
@@ -139,19 +144,18 @@ namespace Menes.Hal
         /// <returns>True if it was possible to get the properties as the given type.</returns>
         public bool TryGetProperties<T>([MaybeNullWhen(false)] out T result)
         {
-            if (typeof(JObject).IsAssignableFrom(typeof(T)))
+            if (typeof(T) == typeof(JsonObject))
             {
                 result = (T)(object)this.Properties;
                 return true;
             }
 
-            using JsonReader reader = this.Properties.CreateReader();
             try
             {
-                result = JsonSerializer.Create(this.SerializerSettings).Deserialize<T>(reader)!;
+                result = this.Properties.Deserialize<T>(this.JsonSerializerOptions)!;
                 return true;
             }
-            catch (JsonSerializationException)
+            catch (JsonException)
             {
                 result = default!;
                 return false;
@@ -271,8 +275,6 @@ namespace Menes.Hal
                     yield return embeddedResource;
                 }
             }
-
-            yield break;
         }
 
         private List<WebLink> EnsureListForLink(string rel)

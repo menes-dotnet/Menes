@@ -5,10 +5,11 @@
 namespace Menes.Converters
 {
     using System;
+    using System.Text.Json.Nodes;
+
     using Menes.Validation;
+
     using Microsoft.OpenApi.Models;
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
 
     /// <summary>
     /// An OpenAPI converter for dates.
@@ -16,17 +17,14 @@ namespace Menes.Converters
     public class UriConverter : IOpenApiConverter
     {
         private readonly OpenApiSchemaValidator validator;
-        private readonly IOpenApiConfiguration configuration;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="UriConverter"/> class.
         /// </summary>
         /// <param name="validator">The <see cref="OpenApiSchemaValidator"/>.</param>
-        /// <param name="configuration">The OpenAPI host configuration.</param>
-        public UriConverter(OpenApiSchemaValidator validator, IOpenApiConfiguration configuration)
+        public UriConverter(OpenApiSchemaValidator validator)
         {
             this.validator = validator;
-            this.configuration = configuration;
         }
 
         /// <inheritdoc/>
@@ -38,10 +36,9 @@ namespace Menes.Converters
         /// <inheritdoc/>
         public object ConvertFrom(string content, OpenApiSchema schema)
         {
-            JToken token = content;
-            var result = new Uri(token.Value<string>()!, UriKind.RelativeOrAbsolute);
+            var result = new Uri(content, UriKind.RelativeOrAbsolute);
 
-            this.validator.ValidateAndThrow(result, schema);
+            this.validator.ValidateAndThrow(content, schema);
 
             return result;
         }
@@ -49,11 +46,11 @@ namespace Menes.Converters
         /// <inheritdoc/>
         public string ConvertTo(object instance, OpenApiSchema schema)
         {
-            string result = JsonConvert.SerializeObject(instance, this.configuration.Formatting, this.configuration.SerializerSettings);
+            string result = instance.ToString()!;
 
-            this.validator.ValidateAndThrow(JToken.Parse(result), schema);
+            this.validator.ValidateAndThrow(result, schema);
 
-            return result;
+            return JsonValue.Create(result)!.ToJsonString();
         }
     }
 }

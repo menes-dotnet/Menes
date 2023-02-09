@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29209.62
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menes.Abstractions", "Menes.Abstractions\Menes.Abstractions.csproj", "{3999C2E9-6B65-4B54-8714-2E3E479C888B}"
 EndProject
@@ -40,6 +40,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DevOps", "DevOps", "{D2C950
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Menes.PetStore.Hosting.AspNetCore.DirectPipeline", "Menes.PetStore.Hosting.AspNetCore.DirectPipeline\Menes.PetStore.Hosting.AspNetCore.DirectPipeline.csproj", "{3EE2BADC-7BDD-4D7A-ACD6-88EDAD23E425}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Menes.Hosting.AzureFunctionsWorker", "Menes.Hosting.FunctionsWorker\Menes.Hosting.AzureFunctionsWorker.csproj", "{E787FFBE-39A6-446B-98B5-01004322AADD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -83,6 +85,10 @@ Global
 		{3EE2BADC-7BDD-4D7A-ACD6-88EDAD23E425}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3EE2BADC-7BDD-4D7A-ACD6-88EDAD23E425}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3EE2BADC-7BDD-4D7A-ACD6-88EDAD23E425}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E787FFBE-39A6-446B-98B5-01004322AADD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E787FFBE-39A6-446B-98B5-01004322AADD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E787FFBE-39A6-446B-98B5-01004322AADD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E787FFBE-39A6-446B-98B5-01004322AADD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
