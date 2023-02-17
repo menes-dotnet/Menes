@@ -22,7 +22,7 @@ jobs:
     service_connection_nuget_org: $(Endjin_Service_Connection_NuGet_Org)
     service_connection_github: $(Endjin_Service_Connection_GitHub)
     solution_to_build: $(Endjin_Solution_To_Build)
-    netSdkVersion: '7.x' # Need to downgrade SDK until https://github.com/endjin/Endjin.RecommendedPractices.Build/issues/69 is addressed
+    netSdkVersion: '7.0.102' # Need to downgrade SDK until https://github.com/endjin/Endjin.RecommendedPractices.Build/issues/69 is addressed
     additionalNetSdkVersions:
     - '6.x'
     compileTasksServiceConnection: endjin-acr-reader
