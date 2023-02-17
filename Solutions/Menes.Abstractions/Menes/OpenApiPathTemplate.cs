@@ -5,8 +5,10 @@
 namespace Menes
 {
     using System.Text.RegularExpressions;
+
+    using Corvus.UriTemplates.TavisApi;
+
     using Microsoft.OpenApi.Models;
-    using Tavis.UriTemplates;
 
     /// <summary>
     /// A path template from the OpenAPI document.

@@ -5,8 +5,10 @@
 namespace Menes
 {
     using System.Diagnostics.CodeAnalysis;
+
+    using Corvus.UriTemplates.TavisApi;
+
     using Microsoft.OpenApi.Models;
-    using Tavis.UriTemplates;
 
     /// <summary>
     /// Provides services over a collection of OpenApi documents.

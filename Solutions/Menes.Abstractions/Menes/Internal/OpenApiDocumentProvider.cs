@@ -11,12 +11,12 @@ namespace Menes
     using System.Text;
     using System.Text.Encodings.Web;
     using Corvus.Extensions;
+    using Corvus.UriTemplates.TavisApi;
     using Menes.Exceptions;
     using Menes.Internal;
     using Menes.Validation;
     using Microsoft.Extensions.Logging;
     using Microsoft.OpenApi.Models;
-    using Tavis.UriTemplates;
 
     /// <summary>
     /// A URI template provider for Open API operations.
@@ -70,7 +70,7 @@ namespace Menes
         /// <inheritdoc/>
         public UriTemplate GetUriTemplateForOperation(string operationId)
         {
-            return new UriTemplate(this.PathTemplatesByOperationId[operationId]?.UriTemplate.ToString());
+            return new UriTemplate(this.PathTemplatesByOperationId[operationId].UriTemplate.ToString());
         }
 
         /// <inheritdoc/>
