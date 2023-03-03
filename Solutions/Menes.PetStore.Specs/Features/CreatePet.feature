@@ -37,3 +37,7 @@ Scenario Outline: Attempt to create a new pet with invalid data
 		| Missing tag    | 2000    | Fluffy |                  | large |
 		| Missing size   | 2000    | Fluffy | three-headed-dog |       |
 		| Invalid size   | 2000    | Fluffy | three-headed-dog | huge  |
+
+Scenario: Attempt to create a new pet without supplying any of the required properties
+	When I request that a new pet be created without supplying any required properties
+	Then the response status code should be 'BadRequest'

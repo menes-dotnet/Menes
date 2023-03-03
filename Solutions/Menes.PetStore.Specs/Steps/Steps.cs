@@ -70,6 +70,17 @@ namespace Menes.PetStore.Specs.Steps
             return this.SendPostRequest("/pets", pet);
         }
 
+        [When("I request that a new pet be created without supplying any required properties")]
+        public Task WhenIRequestThatANewPetBeCreatedWithoutSupplyingData()
+        {
+            var pet = new
+            {
+                xxxxxx = "name",
+            };
+
+            return this.SendPostRequest("/pets", pet);
+        }
+
         [Given("I have requested a list of pets with a limit of (.*)")]
         [When("I request a list of pets with a limit of (.*)")]
         public Task WhenIRequestAListOfPetsWithALimitOf(int limit)
