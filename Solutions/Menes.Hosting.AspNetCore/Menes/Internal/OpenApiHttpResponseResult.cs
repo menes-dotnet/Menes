@@ -16,6 +16,7 @@ namespace Menes.Internal
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Primitives;
+    using Microsoft.Net.Http.Headers;
     using Microsoft.OpenApi.Models;
     using Newtonsoft.Json.Linq;
 
@@ -320,12 +321,9 @@ namespace Menes.Internal
                     // If the input value was a string, it will have been returned as if it were a serialized JSON element.
                     // This means it will be quoted, which we don't want for values going in the headers, so we'll get rid
                     // of the quotes if they are present.
-                    if (convertedValue[0] == '"')
-                    {
-                        convertedValue = convertedValue[1..^1];
-                    }
+                    StringSegment processedValue = HeaderUtilities.RemoveQuotes(convertedValue);
 
-                    httpResponse.Headers.Add(header.Key, new StringValues(convertedValue));
+                    httpResponse.Headers.Add(header.Key, new StringValues(processedValue.Value));
 
                     if (this.logger.IsEnabled(LogLevel.Debug))
                     {
