@@ -322,7 +322,7 @@ namespace Menes.Internal
                     // of the quotes if they are present.
                     if (convertedValue[0] == '"')
                     {
-                        convertedValue = convertedValue[1..^2];
+                        convertedValue = convertedValue[1..^1];
                     }
 
                     httpResponse.Headers.Add(header.Key, new StringValues(convertedValue));
