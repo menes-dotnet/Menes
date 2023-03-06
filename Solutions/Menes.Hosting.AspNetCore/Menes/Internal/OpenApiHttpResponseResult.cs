@@ -9,14 +9,13 @@ namespace Menes.Internal
     using System.IO;
     using System.Linq;
     using System.Threading.Tasks;
-
+    using Corvus.Extensions.Json;
     using Menes.Converters;
     using Menes.Exceptions;
 
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Logging;
     using Microsoft.Extensions.Primitives;
-    using Microsoft.Net.Http.Headers;
     using Microsoft.OpenApi.Models;
     using Newtonsoft.Json.Linq;
 
@@ -320,10 +319,16 @@ namespace Menes.Internal
 
                     // If the input value was a string, it will have been returned as if it were a serialized JSON element.
                     // This means it will be quoted, which we don't want for values going in the headers, so we'll get rid
-                    // of the quotes if they are present.
-                    StringSegment processedValue = HeaderUtilities.RemoveQuotes(convertedValue);
+                    // of the quotes if they are present. In order to ensure any other escaped characters introduced during
+                    // serialization are written correctly, we need to do this by deserializing the data and extracting the
+                    // string value from the resulting JToken.
+                    if (convertedValue.Length > 0 && convertedValue[0] == '"')
+                    {
+                        var tokenValue = JToken.Parse(convertedValue);
+                        convertedValue = tokenValue.ToObject<string>();
+                    }
 
-                    httpResponse.Headers.Add(header.Key, new StringValues(processedValue.Value));
+                    httpResponse.Headers.Add(header.Key, new StringValues(convertedValue));
 
                     if (this.logger.IsEnabled(LogLevel.Debug))
                     {
