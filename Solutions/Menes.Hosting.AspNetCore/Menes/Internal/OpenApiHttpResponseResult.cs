@@ -15,7 +15,9 @@ namespace Menes.Internal
 
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.Primitives;
     using Microsoft.OpenApi.Models;
+    using Newtonsoft.Json.Linq;
 
     /// <summary>
     /// Wraps an <see cref="OpenApiResult"/> instance with the ability to apply the result to an
@@ -315,7 +317,15 @@ namespace Menes.Internal
                         convertedValue = this.ConvertValue(header.Value.Schema, value);
                     }
 
-                    httpResponse.Headers.Add(header.Key, new Microsoft.Extensions.Primitives.StringValues(convertedValue));
+                    // If the input value was a string, it will have been returned as if it were a serialized JSON element.
+                    // This means it will be quoted, which we don't want for values going in the headers, so we'll get rid
+                    // of the quotes if they are present.
+                    if (convertedValue[0] == '"')
+                    {
+                        convertedValue = convertedValue[1..^2];
+                    }
+
+                    httpResponse.Headers.Add(header.Key, new StringValues(convertedValue));
 
                     if (this.logger.IsEnabled(LogLevel.Debug))
                     {

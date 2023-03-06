@@ -110,6 +110,12 @@ namespace Menes.PetStore.Specs.Steps
 
             Assert.IsTrue(response.Headers.TryGetValues(headerName, out IEnumerable<string>? values));
             Assert.IsNotEmpty(values!);
+
+            // Ensure the supplied value is a valid URI
+            string rawLocation = values!.First();
+            string decodedLocation = Uri.UnescapeDataString(rawLocation);
+
+            Assert.IsTrue(Uri.IsWellFormedUriString(decodedLocation, UriKind.RelativeOrAbsolute));
         }
 
         [Then("the response should not contain the '(.*)' header")]
