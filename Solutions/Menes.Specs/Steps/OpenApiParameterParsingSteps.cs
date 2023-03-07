@@ -20,6 +20,7 @@ namespace Menes.Specs.Steps
     using Microsoft.AspNetCore.Http;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+    using Microsoft.Extensions.Primitives;
     using Microsoft.OpenApi.Models;
     using Microsoft.OpenApi.Readers;
 
@@ -37,6 +38,7 @@ namespace Menes.Specs.Steps
         private IDictionary<string, object>? parameters;
         private Exception? exception;
         private string? responseBody;
+        private HttpResponse? response;
 
         public OpenApiParameterParsingSteps(ScenarioContext scenarioContext)
         {
@@ -108,6 +110,44 @@ namespace Menes.Specs.Steps
                                             "schema": {
                                                 "type": "{{bodyType}}",
                                                 "format": "{{bodyFormat}}"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            """;
+
+            this.InitializeDocumentProviderAndPathMatcher(openApiSpec);
+        }
+
+        [Given("I have constructed the OpenAPI specification with a response header called '([^']*)' of type '([^']*)', and format '([^']*)'")]
+        public void GivenIHaveConstructedTheOpenAPISpecificationWithAResponseHeaderCalledOfTypeAndFormat(string headerName, string headerType, string headerFormat)
+        {
+            string openApiSpec = $$"""
+            {
+                "openapi": "3.0.1",
+                "info": {
+                    "title": "Swagger Petstore (Simple)",
+                    "version": "1.0.0"
+                },
+                "servers": [ { "url": "http://petstore.swagger.io/api" } ],
+                "paths": {
+                    "/pets": {
+                        "get": {
+                            "summary": "Get a pet",
+                            "operationId": "getPet",
+                            "responses": {
+                                "201": {
+                                    "description": "A pet",
+                                    "headers": {
+                                        "{{headerName}}": {
+                                            "schema": {
+                                                "type": "{{headerType}}",
+                                                "format": "{{headerFormat}}"
                                             }
                                         }
                                     }
@@ -1038,12 +1078,53 @@ namespace Menes.Specs.Steps
             context.Response.Body.Position = 0;
             using StreamReader sr = new(context.Response.Body);
             this.responseBody = sr.ReadToEnd();
+            this.response = context.Response;
+        }
+
+        [When("I try to build a response with a header called '([^']*)' from the value '([^']*)' of type '([^']*)'")]
+        public void WhenITryToBuildAResponseWithAHeaderCalledFromTheValueOfType(string headerName, string valueAsString, string valueType)
+        {
+            object value = GetResultFromStringAndType(valueAsString, valueType);
+
+            IEnumerable<IResponseOutputBuilder<IHttpResponseResult>> builders = ContainerBindings.GetServiceProvider(this.scenarioContext).
+                GetServices<IResponseOutputBuilder<IHttpResponseResult>>();
+
+            this.Matcher.FindOperationPathTemplate("/pets", "GET", out OpenApiOperationPathTemplate? operationPathTemplate);
+            OpenApiOperation operation = operationPathTemplate!.Operation;
+
+            OpenApiResult openApiResult = new() { StatusCode = 201 };
+            openApiResult.Results.Add(headerName, value);
+
+            IHttpResponseResult? result = null;
+            foreach (IResponseOutputBuilder<IHttpResponseResult> builder in builders)
+            {
+                if (builder.CanBuildOutput(openApiResult, operation))
+                {
+                    result = builder.BuildOutput(openApiResult, operation);
+                    break;
+                }
+            }
+
+            var context = new DefaultHttpContext();
+            context.Response.Body = new MemoryStream();
+            result!.ExecuteResultAsync(context.Response);
+            context.Response.Body.Position = 0;
+            using StreamReader sr = new(context.Response.Body);
+            this.responseBody = sr.ReadToEnd();
+            this.response = context.Response;
         }
 
         [Then("the response body should be '([^']*)'")]
         public void ThenTheResponseBodyShouldBeTrue(string expectedBody)
         {
             Assert.AreEqual(expectedBody, this.responseBody);
+        }
+
+        [Then("the response should container a header called '([^']*)' with value  '([^']*)'")]
+        public void ThenTheResponseShouldContainerAHeaderCalledWithValue(string headerName, string expectedValue)
+        {
+            Assert.IsTrue(this.response!.Headers.TryGetValue(headerName, out StringValues value));
+            Assert.AreEqual(expectedValue, value[0]);
         }
 
         [Then("the parameter (.*?) should be (.*?) of type (.*)")]
