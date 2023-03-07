@@ -342,9 +342,13 @@ namespace Menes.PetStore
 
             HalDocument response = await this.petMapper.MapAsync(result).ConfigureAwait(false);
 
-            return this
+            OpenApiResult openApiResponse = this
                 .OkResult(response, "application/hal+json")
                 .WithAuditData(("id", result.Id));
+
+            openApiResponse.Results.Add("ETag", $"\"{result.GetHashCode()}\"");
+
+            return openApiResponse;
         }
     }
 }

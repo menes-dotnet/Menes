@@ -189,6 +189,10 @@ paths:
             application/hal+json:
               schema:
                 $ref: "#/components/schemas/Pet"
+          headers:
+            ETag:
+              schema:
+                type: string
         '404':
           description: No pet with that ID
         default:
