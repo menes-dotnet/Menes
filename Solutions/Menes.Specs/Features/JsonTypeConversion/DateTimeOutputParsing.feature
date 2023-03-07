@@ -12,5 +12,5 @@ Scenario Outline: Valid values for simple types
     Then the response body should be '<ExpectedResult>'
 
     Examples:
-        | Value                | ExpectedResult |
-        | 2017-07-21T00:00:00Z | "2017-07-21T00:00:00Z"   |
+        | Value                | ExpectedResult       |
+        | 2017-07-21T00:00:00Z | 2017-07-21T00:00:00Z |
