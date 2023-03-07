@@ -6,6 +6,8 @@ namespace Menes.Converters
 {
     using Menes.Validation;
     using Microsoft.OpenApi.Models;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
 
     /// <summary>
     /// An OpenAPI converter for strings.
@@ -13,14 +15,17 @@ namespace Menes.Converters
     public class StringConverter : IOpenApiConverter
     {
         private readonly OpenApiSchemaValidator validator;
+        private readonly IOpenApiConfiguration configuration;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="StringConverter"/> class.
         /// </summary>
         /// <param name="validator">The <see cref="OpenApiSchemaValidator"/>.</param>
-        public StringConverter(OpenApiSchemaValidator validator)
+        /// <param name="configuration">The OpenAPI host configuration.</param>
+        public StringConverter(OpenApiSchemaValidator validator, IOpenApiConfiguration configuration)
         {
             this.validator = validator;
+            this.configuration = configuration;
         }
 
         /// <inheritdoc/>
@@ -40,20 +45,11 @@ namespace Menes.Converters
         /// <inheritdoc/>
         public string ConvertTo(object instance, OpenApiSchema schema)
         {
-            string result;
+            string result = JsonConvert.SerializeObject(instance, this.configuration.Formatting, this.configuration.SerializerSettings);
 
-            if (instance is string stringValue)
-            {
-                result = stringValue;
-            }
-            else
-            {
-                result = instance.ToString()!;
-            }
+            this.validator.ValidateAndThrow(JToken.Parse(result), schema);
 
-            this.validator.ValidateAndThrow(result, schema);
-
-            return '"' + result + '"';
+            return result;
         }
     }
 }
