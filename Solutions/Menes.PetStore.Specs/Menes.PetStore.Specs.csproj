@@ -41,7 +41,7 @@
 
   <ItemGroup>
     <PackageReference Include="Corvus.Testing.SpecFlow.NUnit" Version="2.0.1" />
-    <PackageReference Include="Endjin.RecommendedPractices.GitHub" Version="2.1.7">
+    <PackageReference Include="Endjin.RecommendedPractices.GitHub" Version="2.1.12">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
