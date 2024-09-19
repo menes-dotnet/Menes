@@ -19,7 +19,7 @@
     <PackageReference Include="Corvus.Extensions" Version="1.1.11" />
     <PackageReference Include="Corvus.Extensions.Newtonsoft.Json" Version="3.0.0" />
     <PackageReference Include="Corvus.Monitoring.Instrumentation.Abstractions" Version="1.3.3" />
-    <PackageReference Include="Corvus.UriTemplates" Version="1.2.2" />
+    <PackageReference Include="Corvus.UriTemplates" Version="2.2.0" />
     <PackageReference Include="Endjin.RecommendedPractices.GitHub" Version="2.1.13">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
