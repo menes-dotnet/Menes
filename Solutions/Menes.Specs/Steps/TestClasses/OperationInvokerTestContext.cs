@@ -11,7 +11,9 @@ namespace Menes.Specs.Steps.TestClasses
     using Idg.AsyncTest;
 
     using Menes.Auditing;
-    using Menes.Internal;    using Microsoft.Extensions.DependencyInjection;
+    using Menes.Internal;
+
+    using Microsoft.Extensions.DependencyInjection;
 
     using NSubstitute;
 
