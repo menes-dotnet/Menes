@@ -64,9 +64,7 @@ namespace Menes.Specs.Steps.TestClasses
 
         public class CheckAccessArguments
         {
-            public CheckAccessArguments(
-                IOpenApiContext context,
-                AccessCheckOperationDescriptor[] requests)
+            public CheckAccessArguments(IOpenApiContext context, AccessCheckOperationDescriptor[] requests)
             {
                 this.Context = context;
                 this.Requests = requests;

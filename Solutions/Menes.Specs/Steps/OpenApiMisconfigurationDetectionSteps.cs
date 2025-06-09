@@ -7,14 +7,21 @@ namespace Menes.Specs.Steps
     using System;
     using System.Collections.Generic;
     using System.Linq;
+
     using Corvus.Testing.ReqnRoll;
+
     using Menes.Converters;
     using Menes.Exceptions;
-    using Menes.Internal;    using Microsoft.Extensions.DependencyInjection;
+    using Menes.Internal;
+
+    using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
     using Microsoft.OpenApi.Models;
+
     using NSubstitute;
+
     using NUnit.Framework;
+
     using Reqnroll;
 
     [Binding]

@@ -2,7 +2,7 @@
 // Copyright (c) Endjin Limited. All rights reserved.
 // </copyright>
 
-namespace Marain.Claims.SpecFlow.Bindings
+namespace Menes.Specs.Bindings
 {
     using Corvus.ContentHandling;
     using Corvus.Monitoring.Instrumentation;

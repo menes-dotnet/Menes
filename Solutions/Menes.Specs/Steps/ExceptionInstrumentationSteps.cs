@@ -5,9 +5,13 @@
 namespace Menes.Specs.Steps
 {
     using System;
+
     using Idg.AsyncTest.TaskExtensions;
+
     using Menes.Specs.Fakes;
+
     using NUnit.Framework;
+
     using Reqnroll;
 
     [Binding]
