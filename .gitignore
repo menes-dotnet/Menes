@@ -344,3 +344,4 @@ _codeCoverage/
 _packages/
 *.ncrunchproject
 *.ncrunchsolution
+.zf/extensions/
