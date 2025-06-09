@@ -11,31 +11,28 @@ namespace Menes.Specs.Steps.TestClasses
     using Idg.AsyncTest;
 
     using Menes.Auditing;
-    using Menes.Internal;
+    using Menes.Internal;    using Microsoft.Extensions.DependencyInjection;
 
-    using Microsoft.Extensions.DependencyInjection;
-
-    using Moq;
+    using NSubstitute;
 
     /// <summary>
     /// Provides the various supporting objects required to be able to instantiate an
     /// <see cref="OpenApiOperationInvoker{TRequest, TResponse}"/>.
     /// </summary>
     internal class OperationInvokerTestContext
-    {
-        /// <summary>
+    {        /// <summary>
         /// Gets an object enabling the calls to the <see cref="IOpenApiAccessChecker"/> to be inspected and its
         /// responses determined. This is only available if you call <see cref="UseManualAccessChecks"/>.
         /// </summary>
         public CompletionSourceWithArgs<CheckAccessArguments, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>>? AccessCheckCalls { get; private set; }
 
-        public Mock<IOpenApiServiceOperationLocator> OperationLocator { get; } = new Mock<IOpenApiServiceOperationLocator>();
+        public IOpenApiServiceOperationLocator OperationLocator { get; } = Substitute.For<IOpenApiServiceOperationLocator>();
 
-        public Mock<IOpenApiExceptionMapper> ExceptionMapper { get; } = new Mock<IOpenApiExceptionMapper>();
+        public IOpenApiExceptionMapper ExceptionMapper { get; } = Substitute.For<IOpenApiExceptionMapper>();
 
-        public Mock<IOpenApiResultBuilder<object>> ResultBuilder { get; } = new Mock<IOpenApiResultBuilder<object>>();
+        public IOpenApiResultBuilder<object> ResultBuilder { get; } = Substitute.For<IOpenApiResultBuilder<object>>();
 
-        public Mock<IOpenApiParameterBuilder<object>> ParameterBuilder { get; } = new Mock<IOpenApiParameterBuilder<object>>();
+        public IOpenApiParameterBuilder<object> ParameterBuilder { get; } = Substitute.For<IOpenApiParameterBuilder<object>>();
 
         public CompletionSource OperationCompletionSource { get; } = new CompletionSource();
 
@@ -47,12 +44,12 @@ namespace Menes.Specs.Steps.TestClasses
         {
             var context = new OperationInvokerTestContext();
             services.AddSingleton(context);
-            services.AddSingleton(context.OperationLocator.Object);
+            services.AddSingleton(context.OperationLocator);
             services.AddSingleton<IOpenApiAccessChecker>(new AccessChecker(context));
-            services.AddSingleton(context.ExceptionMapper.Object);
-            services.AddSingleton(context.ResultBuilder.Object);
-            services.AddSingleton(context.ParameterBuilder.Object);
-            services.AddSingleton(new Mock<IAuditContext>().Object);
+            services.AddSingleton(context.ExceptionMapper);
+            services.AddSingleton(context.ResultBuilder);
+            services.AddSingleton(context.ParameterBuilder);
+            services.AddSingleton(Substitute.For<IAuditContext>());
             services.AddSingleton<OpenApiOperationInvoker<object, object>>();
         }
 

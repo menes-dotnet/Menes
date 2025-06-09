@@ -7,7 +7,7 @@ namespace Menes.Specs.Steps
     using System.Threading.Tasks;
     using Menes.Specs.Fakes;
     using NUnit.Framework;
-    using TechTalk.SpecFlow;
+    using Reqnroll;
 
     [Binding]
     public class OperationInstrumentationSteps : InstrumentationStepsBase

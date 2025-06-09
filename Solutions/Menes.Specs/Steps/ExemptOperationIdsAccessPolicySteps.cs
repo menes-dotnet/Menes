@@ -12,7 +12,7 @@ namespace Menes.Specs.Steps
     using Menes;
     using Menes.AccessControlPolicies;
     using NUnit.Framework;
-    using TechTalk.SpecFlow;
+    using Reqnroll;
 
     [Binding]
     public class ExemptOperationIdsAccessPolicySteps

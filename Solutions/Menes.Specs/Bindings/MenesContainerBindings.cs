@@ -6,12 +6,12 @@ namespace Marain.Claims.SpecFlow.Bindings
 {
     using Corvus.ContentHandling;
     using Corvus.Monitoring.Instrumentation;
-    using Corvus.Testing.SpecFlow;
+    using Corvus.Testing.ReqnRoll;
     using Menes;
     using Menes.Specs.Fakes;
     using Menes.Specs.Steps.TestClasses;
     using Microsoft.Extensions.DependencyInjection;
-    using TechTalk.SpecFlow;
+    using Reqnroll;
 
     /// <summary>
     ///     Container related bindings to configure the service provider for features.

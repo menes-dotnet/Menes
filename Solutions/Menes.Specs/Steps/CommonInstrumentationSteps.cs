@@ -5,12 +5,11 @@
 namespace Menes.Specs.Steps
 {
     using System.Threading.Tasks;
-    using Idg.AsyncTest.TaskExtensions;
-    using Menes.Specs.Fakes;
+    using Idg.AsyncTest.TaskExtensions;    using Menes.Specs.Fakes;
     using Microsoft.OpenApi.Models;
-    using Moq;
+    using NSubstitute;
     using NUnit.Framework;
-    using TechTalk.SpecFlow;
+    using Reqnroll;
 
     [Binding]
     public class CommonInstrumentationSteps : InstrumentationStepsBase
@@ -26,7 +25,7 @@ namespace Menes.Specs.Steps
             var template = new OpenApiOperationPathTemplate(
                 new OpenApiOperation { OperationId = operationId },
                 new OpenApiPathTemplate(path, new OpenApiPathItem()));
-            this.InvokerContext.OperationInvocationTask = this.Invoker.InvokeAsync(method, path, new object(), template, new Mock<IOpenApiContext>().Object);
+            this.InvokerContext.OperationInvocationTask = this.Invoker.InvokeAsync(method, path, new object(), template, Substitute.For<IOpenApiContext>());
         }
 
         [When("the operation invoker has been invoked")]

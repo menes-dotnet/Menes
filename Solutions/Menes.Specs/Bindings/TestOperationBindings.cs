@@ -8,14 +8,13 @@ namespace Menes.Specs.Bindings
     using System.Collections.Generic;
     using System.Reflection;
     using System.Threading.Tasks;
-    using Corvus.Testing.SpecFlow;
+    using Corvus.Testing.ReqnRoll;
     using Menes.Internal;
     using Menes.Specs.Fakes;
-    using Menes.Specs.Steps.TestClasses;
-    using Microsoft.Extensions.DependencyInjection;
-    using Moq;
+    using Menes.Specs.Steps.TestClasses;    using Microsoft.Extensions.DependencyInjection;
+    using NSubstitute;
     using NUnit.Framework;
-    using TechTalk.SpecFlow;
+    using Reqnroll;
 
     /// <summary>
     /// Provides tests with the ability to invoke simple test OpenApi operations by specifying the
@@ -55,8 +54,8 @@ namespace Menes.Specs.Bindings
             OperationInvokerTestContext invokerContext = ContainerBindings.GetServiceProvider(scenarioContext).GetRequiredService<OperationInvokerTestContext>();
 
             invokerContext.ParameterBuilder
-                .Setup(pb => pb.BuildParametersAsync(It.IsAny<object>(), It.IsAny<OpenApiOperationPathTemplate>()))
-                .ReturnsAsync(new Dictionary<string, object>());
+                .BuildParametersAsync(Arg.Any<object>(), Arg.Any<OpenApiOperationPathTemplate>())
+                .Returns(new Dictionary<string, object>());
         }
 
         [Given("the operation locator maps the operation id '(.*)' to an operation named '(.*)'")]
@@ -67,10 +66,14 @@ namespace Menes.Specs.Bindings
             var operation = new OpenApiServiceOperation(
                 this,
                 OperationMethodInfo,
-                new Mock<IOpenApiConfiguration>().Object);
+                Substitute.For<IOpenApiConfiguration>());
             this.InvokerContext.OperationLocator
-                .Setup(m => m.TryGetOperation(operationId, out operation))
-                .Returns(true);
+                .TryGetOperation(operationId, out Arg.Any<OpenApiServiceOperation?>())
+                .Returns(x =>
+                    {
+                        x[1] = operation;
+                        return true;
+                    });
         }
 
         private Task TestOperation()

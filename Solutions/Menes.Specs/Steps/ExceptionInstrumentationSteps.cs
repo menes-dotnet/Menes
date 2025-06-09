@@ -8,7 +8,7 @@ namespace Menes.Specs.Steps
     using Idg.AsyncTest.TaskExtensions;
     using Menes.Specs.Fakes;
     using NUnit.Framework;
-    using TechTalk.SpecFlow;
+    using Reqnroll;
 
     [Binding]
     public class ExceptionInstrumentationSteps : InstrumentationStepsBase

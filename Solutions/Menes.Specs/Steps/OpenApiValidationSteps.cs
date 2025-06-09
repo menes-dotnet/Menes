@@ -5,7 +5,7 @@
 namespace Menes.Specs.Steps
 {
     using System;
-    using Corvus.Testing.SpecFlow;
+    using Corvus.Testing.ReqnRoll;
     using Menes.Exceptions;
     using Menes.Validation;
     using Microsoft.Extensions.DependencyInjection;
@@ -14,7 +14,7 @@ namespace Menes.Specs.Steps
     using Microsoft.OpenApi.Readers;
     using Newtonsoft.Json.Linq;
     using NUnit.Framework;
-    using TechTalk.SpecFlow;
+    using Reqnroll;
 
     [Binding]
     public class OpenApiValidationSteps

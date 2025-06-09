@@ -328,7 +328,8 @@ namespace Menes.Internal
                         convertedValue = tokenValue.ToObject<string>();
                     }
 
-                    httpResponse.Headers.Add(header.Key, new StringValues(convertedValue));
+                    // Use Append instead of Add to avoid ArgumentException for duplicate keys
+                    httpResponse.Headers.Append(header.Key, new StringValues(convertedValue));
 
                     if (this.logger.IsEnabled(LogLevel.Debug))
                     {

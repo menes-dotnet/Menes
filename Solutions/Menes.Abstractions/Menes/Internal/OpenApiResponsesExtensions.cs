@@ -32,7 +32,7 @@ namespace Menes.Internal
         {
             if (statusCode.HasValue)
             {
-                if (responses.TryGetValue(statusCode.ToString(), out response))
+                if (responses.TryGetValue(statusCode.ToString()!, out response))
                 {
                     return true;
                 }

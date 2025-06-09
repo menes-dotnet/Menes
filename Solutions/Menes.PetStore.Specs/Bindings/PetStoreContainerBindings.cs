@@ -4,10 +4,10 @@
 
 namespace Menes.PetStore.Specs.Bindings
 {
-    using Corvus.Testing.SpecFlow;
+    using Corvus.Testing.ReqnRoll;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
-    using TechTalk.SpecFlow;
+    using Reqnroll;
 
     public static class PetStoreContainerBindings
     {

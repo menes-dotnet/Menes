@@ -6,14 +6,14 @@ namespace Menes.Specs.Steps
 {
     using System.Linq;
     using Corvus.Extensions.Json;
-    using Corvus.Testing.SpecFlow;
+    using Corvus.Testing.ReqnRoll;
     using Menes.Hal;
     using Menes.Links;
     using Microsoft.Extensions.DependencyInjection;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
     using NUnit.Framework;
-    using TechTalk.SpecFlow;
+    using Reqnroll;
 
     [Binding]
     public class HalDocumentSteps

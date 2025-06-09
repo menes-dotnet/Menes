@@ -7,16 +7,15 @@ namespace Menes.Specs.Steps
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Corvus.Testing.SpecFlow;
+    using Corvus.Testing.ReqnRoll;
     using Menes.Converters;
     using Menes.Exceptions;
-    using Menes.Internal;
-    using Microsoft.Extensions.DependencyInjection;
+    using Menes.Internal;    using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
     using Microsoft.OpenApi.Models;
-    using Moq;
+    using NSubstitute;
     using NUnit.Framework;
-    using TechTalk.SpecFlow;
+    using Reqnroll;
 
     [Binding]
     public class OpenApiMisconfigurationDetectionSteps
@@ -128,7 +127,7 @@ namespace Menes.Specs.Steps
             this.exception = null;
             try
             {
-                var exceptionHandler = new OpenApiExceptionMapper(ContainerBindings.GetServiceProvider(this.scenarioContext), new Mock<ILogger<OpenApiExceptionMapper>>().Object);
+                var exceptionHandler = new OpenApiExceptionMapper(ContainerBindings.GetServiceProvider(this.scenarioContext), Substitute.For<ILogger<OpenApiExceptionMapper>>());
                 exceptionHandler.GetResponse(new InvalidOperationException(), this.operation!);
             }
             catch (Exception x)
@@ -141,7 +140,7 @@ namespace Menes.Specs.Steps
         public void WhenIAddTheOpenApiDocumentContainingTheOpenApiOperationToAOpenApiDocumentProvider()
         {
             this.exception = null;
-            var doc = new OpenApiDocumentProvider(new Mock<ILogger<OpenApiDocumentProvider>>().Object);
+            var doc = new OpenApiDocumentProvider(Substitute.For<ILogger<OpenApiDocumentProvider>>());
             try
             {
                 doc.Add(this.document!);

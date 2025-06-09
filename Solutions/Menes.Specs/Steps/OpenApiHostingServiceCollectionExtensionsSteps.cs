@@ -16,7 +16,7 @@ namespace Menes.Specs.Steps
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.DependencyInjection;
     using NUnit.Framework;
-    using TechTalk.SpecFlow;
+    using Reqnroll;
 
     [Binding]
     public class OpenApiHostingServiceCollectionExtensionsSteps

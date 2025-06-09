@@ -8,15 +8,13 @@ namespace Menes.Specs.Steps
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
-    using Corvus.Testing.SpecFlow;
+    using Corvus.Testing.ReqnRoll;
     using Menes.Hal;
-    using Menes.Links;
-    using Microsoft.Extensions.DependencyInjection;
+    using Menes.Links;    using Microsoft.Extensions.DependencyInjection;
     using Microsoft.OpenApi.Models;
-    using Moq;
+    using NSubstitute;
     using NUnit.Framework;
-    using TechTalk.SpecFlow;
-    using TechTalk.SpecFlow.Assist;
+    using Reqnroll;
 
     [Binding]
     public class OpenApiAccessCheckerExtensionsSteps
@@ -73,14 +71,14 @@ namespace Menes.Specs.Steps
         public Task WhenIRequestAnAccessCheckOnTheHalDocumentCalledWithTheFollowingOptions(string halDocumentName, Table optionsTable)
         {
             HalDocument doc = this.scenarioContext.Get<HalDocument>(halDocumentName);
-            var mock = new Mock<IOpenApiAccessChecker>();
-            mock.Setup(x => x.CheckAccessPoliciesAsync(It.IsAny<IOpenApiContext>(), It.IsAny<AccessCheckOperationDescriptor[]>())).Returns((IOpenApiContext _, AccessCheckOperationDescriptor[] descriptors) => this.MockCheckAccessPoliciesAsync(descriptors));
+            var mock = Substitute.For<IOpenApiAccessChecker>();
+            mock.CheckAccessPoliciesAsync(Arg.Any<IOpenApiContext>(), Arg.Any<AccessCheckOperationDescriptor[]>()).Returns(call => this.MockCheckAccessPoliciesAsync(call.Arg<AccessCheckOperationDescriptor[]>()));
 
-            // Normally this would be invoked as an extension method on mock.Object,
+            // Normally this would be invoked as an extension method on mock,
             // but it's invoked as a static method here as otherwise it looks like we're
             // running our test against a mock, which is misleading.
 #pragma warning disable RCS1196 // Call extension method as instance method.
-            return OpenApiAccessCheckerExtensions.RemoveForbiddenLinksAsync(mock.Object, doc, new SimpleOpenApiContext(), Enum.Parse<HalDocumentLinkRemovalOptions>(optionsTable.Rows[0][0]));
+            return OpenApiAccessCheckerExtensions.RemoveForbiddenLinksAsync(mock, doc, new SimpleOpenApiContext(), Enum.Parse<HalDocumentLinkRemovalOptions>(optionsTable.Rows[0][0]));
 #pragma warning restore RCS1196 // Call extension method as instance method.
         }
 

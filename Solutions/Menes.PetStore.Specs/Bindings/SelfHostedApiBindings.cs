@@ -8,7 +8,7 @@ namespace Menes.PetStore.Specs.Bindings
     using System.Linq;
     using System.Threading.Tasks;
 
-    using Corvus.Testing.SpecFlow;
+    using Corvus.Testing.ReqnRoll;
 
     using Menes.PetStore.Specs.Internals;
     using Menes.PetStore.Specs.Stubs;
@@ -19,8 +19,7 @@ namespace Menes.PetStore.Specs.Bindings
     using Microsoft.Extensions.Logging;
 
     using NUnit.Framework.Internal;
-
-    using TechTalk.SpecFlow;
+    using Reqnroll;
 
     [Binding]
     public static class SelfHostedApiBindings
@@ -40,7 +39,7 @@ namespace Menes.PetStore.Specs.Bindings
             if (emulateFunctionsHost)
             {
                 IConfiguration config = new ConfigurationBuilder()
-                    .AddInMemoryCollection(new Dictionary<string, string>
+                    .AddInMemoryCollection(new Dictionary<string, string?>
                     {
                         { "TestKey", "TestValue" },
                     })

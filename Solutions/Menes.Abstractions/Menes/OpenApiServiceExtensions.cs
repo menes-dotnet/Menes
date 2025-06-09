@@ -230,7 +230,7 @@ namespace Menes
 
         private static string? GetContentTypeOrNull<T>(T instance)
         {
-            return ContentFactory.TryGetContentType(instance, out string contentType) ? contentType : null;
+            return ContentFactory.TryGetContentType(instance!, out string? contentType) ? contentType : null;
         }
     }
 }

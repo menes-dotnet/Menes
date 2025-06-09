@@ -7,14 +7,14 @@ namespace Menes.Specs.Steps
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Corvus.Testing.SpecFlow;
+    using Corvus.Testing.ReqnRoll;
     using Menes.Converters;
     using Menes.Internal;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
     using Microsoft.OpenApi.Models;
     using NUnit.Framework;
-    using TechTalk.SpecFlow;
+    using Reqnroll;
 
     [Binding]
     public class HttpResultBuilderSteps
