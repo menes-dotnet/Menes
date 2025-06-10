@@ -6,6 +6,7 @@ namespace Menes.Internal
 {
     using System;
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using Corvus.ContentHandling;
     using Corvus.Extensions;
 
@@ -56,13 +57,13 @@ namespace Menes.Internal
         }
 
         /// <inheritdoc/>
-        public bool TryGetOperationId(object owner, string relationType, out string operationId)
+        public bool TryGetOperationId(object owner, string relationType, [NotNullWhen(true)] out string? operationId)
         {
             return this.TryGetOperationId(owner, relationType, GlobalContext, out operationId);
         }
 
         /// <inheritdoc/>
-        public bool TryGetOperationId(object owner, string relationType, string context, out string operationId)
+        public bool TryGetOperationId(object owner, string relationType, string context, [NotNullWhen(true)] out string? operationId)
         {
             if (ContentFactory.TryGetContentType(owner, out string? ownerContentType) && this.TryGetOperationId(ownerContentType, relationType, context, out operationId))
             {
@@ -85,10 +86,10 @@ namespace Menes.Internal
             return contentType ?? typeof(T).FullName ?? throw new InvalidOperationException($"Could not determine content type for type {typeof(T).FullName}. Ensure that the type is registered with the ContentFactory.");
         }
 
-        private bool TryGetOperationId(string contentType, string relationType, string context, out string operationName)
+        private bool TryGetOperationId(string contentType, string relationType, string context, [NotNullWhen(true)] out string? operationName)
         {
-            MediaType targetMediaType = new(contentType, relationType);
-            return this.operationMappings.TryGetRecursive(targetMediaType, m => GetKey(context, m), out operationName!);
+            MediaType targetMediaType = new MediaType(contentType, relationType);
+            return this.operationMappings.TryGetRecursive(targetMediaType, m => GetKey(context, m), out operationName);
         }
     }
 }

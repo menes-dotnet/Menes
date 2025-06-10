@@ -33,7 +33,7 @@ namespace Menes.Internal
             string relationType,
             params (string, object?)[] parameters)
         {
-            if (this.linkOperationMapper.TryGetOperationId(owner, relationType, out string operationId))
+            if (this.linkOperationMapper.TryGetOperationId(owner, relationType, out string? operationId))
             {
                 ResolvedOperationRequestInfo operation = this.templateProvider.GetResolvedOperationRequestInfo(operationId, parameters);
                 return new OpenApiWebLink(operationId, operation.Uri, operation.OperationType);
@@ -52,7 +52,7 @@ namespace Menes.Internal
             string context,
             params (string, object?)[] parameters)
         {
-            if (this.linkOperationMapper.TryGetOperationId(owner, relationType, context, out string operationId))
+            if (this.linkOperationMapper.TryGetOperationId(owner, relationType, context, out string? operationId))
             {
                 ResolvedOperationRequestInfo operation = this.templateProvider.GetResolvedOperationRequestInfo(operationId, parameters);
                 return new OpenApiWebLink(operationId, operation.Uri, operation.OperationType);

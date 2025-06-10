@@ -21,7 +21,7 @@ namespace Menes.Links
         /// <param name="operationId">The <see cref="OperationId"/>.</param>
         /// <param name="href">The <see cref="WebLink.Href"/>.</param>
         /// <param name="operationType">The <see cref="OperationType"/>.</param>
-        public OpenApiWebLink(string operationId, string href, OperationType operationType)
+        public OpenApiWebLink(string? operationId, string href, OperationType operationType)
             : base(href)
         {
             this.OperationType = operationType;
@@ -38,7 +38,7 @@ namespace Menes.Links
         /// Gets or sets the OpenApi OperationId that this link was generated from.
         /// </summary>
         [JsonIgnore]
-        public string OperationId { get; set; }
+        public string? OperationId { get; set; }
 
         /// <summary>
         /// Checks equality of two OpenApiWebLink instances.
