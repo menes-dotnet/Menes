@@ -82,12 +82,12 @@ namespace Menes.Internal
         private static string GetContentType<T>()
         {
             ContentFactory.TryGetContentType<T>(out string? contentType);
-            return contentType ?? typeof(T).FullName!;
+            return contentType ?? typeof(T).FullName ?? throw new InvalidOperationException($"Could not determine content type for type {typeof(T).FullName}. Ensure that the type is registered with the ContentFactory.");
         }
 
         private bool TryGetOperationId(string contentType, string relationType, string context, out string operationName)
         {
-            var targetMediaType = new MediaType(contentType, relationType);
+            MediaType targetMediaType = new(contentType, relationType);
             return this.operationMappings.TryGetRecursive(targetMediaType, m => GetKey(context, m), out operationName!);
         }
     }
