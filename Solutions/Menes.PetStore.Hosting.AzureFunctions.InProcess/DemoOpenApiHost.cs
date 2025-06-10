@@ -1,5 +1,7 @@
 using System.Threading.Tasks;
+
 using Menes.Hosting.AspNetCore;
+
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.WebJobs;
