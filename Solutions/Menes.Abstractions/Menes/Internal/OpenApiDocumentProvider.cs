@@ -123,7 +123,7 @@ namespace Menes
                 }
             }
 
-            return new ResolvedOperationRequestInfo(template.Resolve() + queryString,                operation.Key);
+            return new ResolvedOperationRequestInfo(template.Resolve() + queryString, operation.Key);
         }
 
         /// <summary>
