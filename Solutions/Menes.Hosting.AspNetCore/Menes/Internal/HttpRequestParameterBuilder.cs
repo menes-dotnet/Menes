@@ -621,9 +621,9 @@ namespace Menes.Internal
                         parameter.Name);
                 }
 
-                if (value[0] is not null)
+                if (value[0] is string valueString)
                 {
-                    result = this.ConvertValue(parameter.Schema, value[0]!);
+                    result = this.ConvertValue(parameter.Schema, valueString);
                     return true;
                 }
             }

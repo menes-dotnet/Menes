@@ -30,9 +30,9 @@ namespace Menes.Internal
         /// </returns>
         public static bool TryGetResponseForStatusCode(this OpenApiResponses responses, int? statusCode, [NotNullWhen(true)] out OpenApiResponse? response)
         {
-            if (statusCode.HasValue)
+            if (statusCode is int statusCodeValue)
             {
-                if (responses.TryGetValue(statusCode.ToString()!, out response))
+                if (responses.TryGetValue(statusCodeValue.ToString(), out response))
                 {
                     return true;
                 }

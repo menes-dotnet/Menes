@@ -64,7 +64,7 @@ namespace Menes.Internal
         /// <inheritdoc/>
         public bool TryGetOperationId(object owner, string relationType, string context, out string operationId)
         {
-            if (ContentFactory.TryGetContentType(owner, out string? ownerContentType) && this.TryGetOperationId(ownerContentType!, relationType, context, out operationId))
+            if (ContentFactory.TryGetContentType(owner, out string? ownerContentType) && this.TryGetOperationId(ownerContentType, relationType, context, out operationId))
             {
                 return true;
             }

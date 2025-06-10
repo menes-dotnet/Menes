@@ -65,7 +65,8 @@ namespace Menes.Internal
 
             ResolvedOperationRequestInfo relativeUrl = providerAndKey.Provider.GetResolvedOperationRequestInfo(operationId, parameters);
 
-            string baseUrl = this.configuration[providerAndKey.ConfigKey]!;
+            string baseUrl = this.configuration[providerAndKey.ConfigKey] ?? throw new InvalidOperationException($"Expected configuration {providerAndKey.ConfigKey} was not found");
+
             return new Uri(new Uri(baseUrl), relativeUrl.Uri);
         }
     }
