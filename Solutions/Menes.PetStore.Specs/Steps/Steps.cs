@@ -14,7 +14,7 @@ namespace Menes.PetStore.Specs.Steps
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
     using NUnit.Framework;
-    using TechTalk.SpecFlow;
+    using Reqnroll;
 
     [Binding]
     public class Steps
@@ -50,7 +50,7 @@ namespace Menes.PetStore.Specs.Steps
                 Assert.Fail("Exactly one row of pet details must be supplied.");
             }
 
-            TableRow petRow = table.Rows[0];
+            DataTableRow petRow = table.Rows[0];
 
             // We want to be able to send invalid values for Id to test that the validation is working correctly.
             // But if the value is a valid integer, we need to make sure it's passed correctly, so...

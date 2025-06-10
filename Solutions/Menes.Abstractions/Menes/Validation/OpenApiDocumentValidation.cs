@@ -40,7 +40,7 @@ namespace Menes.Validation
             var validator = new OpenApiValidator(new ValidationRuleSet(
                 new[]
                 {
-                        new ValidationRule<OpenApiSchema>(ValidateSchema),
+                    new ValidationRule<OpenApiSchema>("ValidateSchema", ValidateSchema),
                 }));
             var walker = new OpenApiWalker(validator);
             walker.Walk(document);

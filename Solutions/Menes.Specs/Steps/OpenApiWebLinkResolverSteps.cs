@@ -17,9 +17,7 @@ namespace Menes.Specs.Steps
     using Microsoft.OpenApi.Readers;
 
     using NUnit.Framework;
-
-    using TechTalk.SpecFlow;
-    using TechTalk.SpecFlow.Assist;
+    using Reqnroll;
 
     [Binding]
     public class OpenApiWebLinkResolverSteps

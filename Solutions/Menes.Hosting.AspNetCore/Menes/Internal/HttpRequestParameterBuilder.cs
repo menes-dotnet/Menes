@@ -621,8 +621,11 @@ namespace Menes.Internal
                         parameter.Name);
                 }
 
-                result = this.ConvertValue(parameter.Schema, value[0]);
-                return true;
+                if (value[0] is string valueString)
+                {
+                    result = this.ConvertValue(parameter.Schema, valueString);
+                    return true;
+                }
             }
 
             if (parameter.Schema.Default != null)

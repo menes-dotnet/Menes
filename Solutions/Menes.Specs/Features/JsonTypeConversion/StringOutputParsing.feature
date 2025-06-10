@@ -25,5 +25,4 @@ Scenario Outline: Header with valid values
         | Value     | ExpectedResult |
         | Foo       | Foo            |
         | /1234/abc | /1234/abc      |
-        |           |                |
         | "Foo"     | "Foo"          |

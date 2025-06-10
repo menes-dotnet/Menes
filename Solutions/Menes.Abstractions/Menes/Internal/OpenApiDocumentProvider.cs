@@ -74,8 +74,13 @@ namespace Menes
         }
 
         /// <inheritdoc/>
-        public ResolvedOperationRequestInfo GetResolvedOperationRequestInfo(string operationId, params (string Name, object? Value)[] parameters)
+        public ResolvedOperationRequestInfo GetResolvedOperationRequestInfo(string? operationId, params (string Name, object? Value)[] parameters)
         {
+            if (operationId == null)
+            {
+                throw new ArgumentNullException(nameof(operationId), "Operation ID cannot be null.");
+            }
+
             if (this.logger.IsEnabled(LogLevel.Debug))
             {
                 this.logger.LogDebug("Getting URI for [{operation}]", operationId);
@@ -118,9 +123,7 @@ namespace Menes
                 }
             }
 
-            return new ResolvedOperationRequestInfo(
-                template.Resolve() + queryString.ToString(),
-                operation.Key);
+            return new ResolvedOperationRequestInfo(template.Resolve() + queryString, operation.Key);
         }
 
         /// <summary>

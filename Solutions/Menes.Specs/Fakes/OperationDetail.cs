@@ -19,7 +19,7 @@ namespace Menes.Specs.Fakes
     /// </remarks>
     public sealed class OperationDetail : IOperationInstance
     {
-        private readonly List<AdditionalInstrumentationDetail> furtherDetails = new();
+        private readonly List<AdditionalInstrumentationDetail> furtherDetails = [];
         private readonly Action<OperationDetail> onDisposed;
 
         public OperationDetail(
@@ -55,6 +55,14 @@ namespace Menes.Specs.Fakes
         /// <see cref="IOperationsInstrumentation.StartOperation(string, AdditionalInstrumentationDetail)"/>.
         /// </summary>
         public bool IsDisposed { get; private set; }
+
+        public void AddOperationProperty(string name, string value)
+        {
+        }
+
+        public void AddOperationMetric(string name, double value)
+        {
+        }
 
         void IOperationInstance.AddOperationDetail(AdditionalInstrumentationDetail detail)
         {

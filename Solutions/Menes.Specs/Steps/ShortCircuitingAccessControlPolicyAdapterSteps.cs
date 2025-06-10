@@ -13,16 +13,16 @@ namespace Menes.Specs.Steps
     using Idg.AsyncTest.TaskExtensions;
     using Menes;
     using Menes.AccessControlPolicies;
-    using Moq;
+    using NSubstitute;
     using NUnit.Framework;
-    using TechTalk.SpecFlow;
+    using Reqnroll;
 
     [Binding]
     public class ShortCircuitingAccessControlPolicyAdapterSteps
     {
-        private Mock<IOpenApiAccessControlPolicy>? firstPolicy;
+        private IOpenApiAccessControlPolicy? firstPolicy;
         private CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>>? firstPolicyCompletion;
-        private List<(Mock<IOpenApiAccessControlPolicy> Policy, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> Completion)>? otherPolicies;
+        private List<(IOpenApiAccessControlPolicy Policy, CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>> Completion)>? otherPolicies;
         private ClaimsPrincipal? claimsPrincipal;
         private string? tenantId;
         private Task<IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>>? checkResultTask;
@@ -30,22 +30,20 @@ namespace Menes.Specs.Steps
         [Given("I have configured (.*) other access policies")]
         public void GivenIHaveConfiguredOtherAccessPolicies(int numberOfPolicies)
         {
-            this.firstPolicy = new Mock<IOpenApiAccessControlPolicy>();
+            this.firstPolicy = Substitute.For<IOpenApiAccessControlPolicy>();
             this.firstPolicyCompletion = new CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>>();
             this.firstPolicy
-                .Setup(m => m.ShouldAllowAsync(It.IsAny<IOpenApiContext>(), It.IsAny<AccessCheckOperationDescriptor[]>()))
-                .Returns((IOpenApiContext context, AccessCheckOperationDescriptor[] requests)
-                => this.firstPolicyCompletion.GetTask(new ShouldAllowArgs(requests, context)));
+                .ShouldAllowAsync(Arg.Any<IOpenApiContext>(), Arg.Any<AccessCheckOperationDescriptor[]>())
+                .Returns(call => this.firstPolicyCompletion.GetTask(new ShouldAllowArgs(call.Arg<AccessCheckOperationDescriptor[]>(), call.Arg<IOpenApiContext>())));
 
             this.otherPolicies = Enumerable
                 .Range(0, numberOfPolicies)
                 .Select(_ =>
                 {
-                    var mock = new Mock<IOpenApiAccessControlPolicy>();
+                    var mock = Substitute.For<IOpenApiAccessControlPolicy>();
                     var args = new CompletionSourceWithArgs<ShouldAllowArgs, IDictionary<AccessCheckOperationDescriptor, AccessControlPolicyResult>>();
-                    mock.Setup(m => m.ShouldAllowAsync(It.IsAny<IOpenApiContext>(), It.IsAny<AccessCheckOperationDescriptor[]>()))
-                        .Returns((IOpenApiContext context, AccessCheckOperationDescriptor[] requests)
-                            => args.GetTask(new ShouldAllowArgs(requests, context)));
+                    mock.ShouldAllowAsync(Arg.Any<IOpenApiContext>(), Arg.Any<AccessCheckOperationDescriptor[]>())
+                        .Returns(call => args.GetTask(new ShouldAllowArgs(call.Arg<AccessCheckOperationDescriptor[]>(), call.Arg<IOpenApiContext>())));
 
                     return (mock, args);
                 })
@@ -59,8 +57,8 @@ namespace Menes.Specs.Steps
             string operationId)
         {
             var adapter = new ShortCircuitingAccessControlPolicyAdapter(
-                this.firstPolicy!.Object,
-                this.otherPolicies!.Select(op => op.Policy.Object));
+                this.firstPolicy!,
+                this.otherPolicies!.Select(op => op.Policy));
 
             this.claimsPrincipal = new ClaimsPrincipal();
             this.tenantId = Guid.NewGuid().ToString();

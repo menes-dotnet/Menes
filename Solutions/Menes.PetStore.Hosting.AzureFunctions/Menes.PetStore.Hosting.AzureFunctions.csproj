@@ -2,10 +2,9 @@
   <Import Project="$(EndjinProjectPropsPath)" Condition="$(EndjinProjectPropsPath) != ''" />
 
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
-    <AzureFunctionsVersion>v3</AzureFunctionsVersion>
-
+    <AzureFunctionsVersion>v4</AzureFunctionsVersion>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 
@@ -23,7 +22,7 @@
 
     <!--
     This ensures that during CI builds, the package restore will use exactly what's in the lock
-    file, giving us repeatability. New versions of any of the packages for which we take floating
+    file, giving us repeatability. New versions of the packages for which we take floating
     version references (either directly, or implicitly through transitive dependencies) will not
     be picked up during those builds.
     When using the project locally, this won't be set, meaning that if any floating references
@@ -34,13 +33,13 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Endjin.RecommendedPractices.GitHub" Version="2.1.13">
+    <PackageReference Include="Endjin.RecommendedPractices.GitHub" Version="2.1.18">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.1.3" />
+    <PackageReference Include="Microsoft.NET.Sdk.Functions" Version="4.6.0" />
     <PackageReference Include="Microsoft.Azure.Functions.Extensions" Version="1.1.0" />
-    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="[8.0.*,)" />
   </ItemGroup>
 
   <ItemGroup>

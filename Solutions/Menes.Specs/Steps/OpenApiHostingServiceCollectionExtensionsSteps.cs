@@ -7,16 +7,20 @@ namespace Menes.Specs.Steps
     using System;
     using System.Linq;
     using System.Reflection;
+
     using Menes.Auditing;
     using Menes.Auditing.AuditLogSinks.Development;
     using Menes.Auditing.Internal;
     using Menes.Hal;
     using Menes.Specs.Steps.TestClasses;
+
     using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.DependencyInjection;
+
     using NUnit.Framework;
-    using TechTalk.SpecFlow;
+
+    using Reqnroll;
 
     [Binding]
     public class OpenApiHostingServiceCollectionExtensionsSteps
@@ -67,7 +71,7 @@ namespace Menes.Specs.Steps
                 .AddHalDocumentMapper<Pet, MappingContext, PetHalDocumentMapperWithContext>();
         }
 
-        [Then("a service is available as a Singleton for type IOpenApiHost{HttpRequest, IActionResult}")]
+        [Then("a service is available as a Singleton for type IOpenApiHost\\{HttpRequest, IActionResult\\}")]
         public void ThenAServiceIsAddedAsASingletonForTypeIOpenApiHostHttpRequestIActionResult()
         {
             this.AssertServiceIsAvailableFromServiceProvider<IOpenApiHost<HttpRequest, IActionResult>>();
@@ -95,14 +99,14 @@ namespace Menes.Specs.Steps
             this.AssertServiceIsASingleton<IHalDocumentMapper>();
         }
 
-        [Then("it should be available as a Singleton with a service type of IHalDocumentMapper{TResource}")]
+        [Then("it should be available as a Singleton with a service type of IHalDocumentMapper\\{TResource}")]
         public void ThenItShouldBeAvailableAsASingletonWithAServiceTypeOfIHalDocumentMapperTResource()
         {
             this.AssertServiceIsAvailableFromServiceProvider<IHalDocumentMapper<Pet>>();
             this.AssertServiceIsASingleton<IHalDocumentMapper<Pet>>();
         }
 
-        [Then("it should be available as a Singleton with a service type of IHalDocumentMapper{TResource, TContext}")]
+        [Then("it should be available as a Singleton with a service type of IHalDocumentMapper\\{TResource, TContext}")]
         public void ThenItShouldBeAvailableAsASingletonWithAServiceTypeOfIHalDocumentMapperWithResourceAndContext()
         {
             this.AssertServiceIsAvailableFromServiceProvider<IHalDocumentMapper<Pet, MappingContext>>();
@@ -113,8 +117,7 @@ namespace Menes.Specs.Steps
         public void WhenIRequestAnInstanceOfTheOpenApiHost()
         {
             ServiceProvider provider = this.scenarioContext.Get<ServiceProvider>();
-            IOpenApiHost<HttpRequest, IActionResult> host =
-                provider.GetRequiredService<IOpenApiHost<HttpRequest, IActionResult>>();
+            IOpenApiHost<HttpRequest, IActionResult> host = provider.GetRequiredService<IOpenApiHost<HttpRequest, IActionResult>>();
 
             this.scenarioContext.Set(host);
         }
@@ -154,7 +157,7 @@ namespace Menes.Specs.Steps
 
             try
             {
-                createdMapMethod.Invoke(exceptionMapper, new object?[] { statusCode, null });
+                createdMapMethod.Invoke(exceptionMapper, [statusCode, null]);
 
                 Assert.Fail($"Exception of type '{exceptionType}' was not registered");
             }

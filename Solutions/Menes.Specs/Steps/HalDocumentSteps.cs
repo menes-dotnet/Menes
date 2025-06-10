@@ -5,15 +5,21 @@
 namespace Menes.Specs.Steps
 {
     using System.Linq;
+
     using Corvus.Extensions.Json;
-    using Corvus.Testing.SpecFlow;
+    using Corvus.Testing.ReqnRoll;
+
     using Menes.Hal;
     using Menes.Links;
+
     using Microsoft.Extensions.DependencyInjection;
+
     using Newtonsoft.Json;
     using Newtonsoft.Json.Linq;
+
     using NUnit.Framework;
-    using TechTalk.SpecFlow;
+
+    using Reqnroll;
 
     [Binding]
     public class HalDocumentSteps
@@ -28,7 +34,7 @@ namespace Menes.Specs.Steps
         [Given("I have a domain class")]
         public void GivenIHaveADomainClass()
         {
-            var myDto = new TestDomainClass
+            TestDomainClass myDto = new()
             {
                 Property1 = 500,
                 Property2 = "This is a string",
@@ -38,7 +44,7 @@ namespace Menes.Specs.Steps
             this.scenarioContext.Set(myDto);
         }
 
-        [Given("I have created an instance of HalDocument{T} from the domain class")]
+        [Given("I have created an instance of HalDocument\\{T} from the domain class")]
         public void GivenIHaveCreatedAnInstanceOfHalDocumentFromTheDomainClass()
         {
             IHalDocumentFactory halDocumentFactory = ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<IHalDocumentFactory>();
@@ -54,8 +60,8 @@ namespace Menes.Specs.Steps
             // We're actually going to serialize to a JObject as this will make it easier to
             // check the results.
             IJsonSerializerSettingsProvider serializerSettingsProvider = ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<IJsonSerializerSettingsProvider>();
-            var serializer = JsonSerializer.Create(serializerSettingsProvider.Instance);
-            var result = JObject.FromObject(document, serializer);
+            JsonSerializer serializer = JsonSerializer.Create(serializerSettingsProvider.Instance);
+            JObject result = JObject.FromObject(document, serializer);
 
             this.scenarioContext.Set(result);
         }
@@ -66,7 +72,7 @@ namespace Menes.Specs.Steps
             JObject previouslySerializedHalDocument = this.scenarioContext.Get<JObject>();
 
             IJsonSerializerSettingsProvider serializerSettingsProvider = ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<IJsonSerializerSettingsProvider>();
-            var serializer = JsonSerializer.Create(serializerSettingsProvider.Instance);
+            JsonSerializer serializer = JsonSerializer.Create(serializerSettingsProvider.Instance);
             HalDocument result = previouslySerializedHalDocument.ToObject<HalDocument>(serializer)!;
 
             this.scenarioContext.Set(result);

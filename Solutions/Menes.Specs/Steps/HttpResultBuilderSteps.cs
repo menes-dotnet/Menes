@@ -7,14 +7,19 @@ namespace Menes.Specs.Steps
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Corvus.Testing.SpecFlow;
+
+    using Corvus.Testing.ReqnRoll;
+
     using Menes.Converters;
     using Menes.Internal;
+
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
     using Microsoft.OpenApi.Models;
+
     using NUnit.Framework;
-    using TechTalk.SpecFlow;
+
+    using Reqnroll;
 
     [Binding]
     public class HttpResultBuilderSteps
@@ -57,15 +62,11 @@ namespace Menes.Specs.Steps
             this.exception = null;
             try
             {
-                var resultBuilder =
-                    new OpenApiActionResultBuilder(
-                        new[]
-                        {
-                            new OpenApiResultActionResultOutputBuilder(
-                            Enumerable.Empty<IOpenApiConverter>(),
-                            ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<ILogger<OpenApiResultActionResultOutputBuilder>>()),
-                        },
-                        ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<ILogger<OpenApiActionResultBuilder>>());
+                OpenApiActionResultBuilder resultBuilder = new(
+                    [new OpenApiResultActionResultOutputBuilder(
+                        [],
+                        ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<ILogger<OpenApiResultActionResultOutputBuilder>>())],
+                    ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<ILogger<OpenApiActionResultBuilder>>());
                 resultBuilder.BuildResult(this.result!, this.operation!);
             }
             catch (Exception x)

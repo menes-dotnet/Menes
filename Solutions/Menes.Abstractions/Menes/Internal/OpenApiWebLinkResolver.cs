@@ -33,13 +33,13 @@ namespace Menes.Internal
             string relationType,
             params (string, object?)[] parameters)
         {
-            if (this.linkOperationMapper.TryGetOperationId(owner, relationType, out string operationId))
+            if (this.linkOperationMapper.TryGetOperationId(owner, relationType, out string? operationId))
             {
                 ResolvedOperationRequestInfo operation = this.templateProvider.GetResolvedOperationRequestInfo(operationId, parameters);
                 return new OpenApiWebLink(operationId, operation.Uri, operation.OperationType);
             }
 
-            ContentFactory.TryGetContentType(owner, out string contentType);
+            ContentFactory.TryGetContentType(owner, out string? contentType);
             string fullTypeName = owner.GetType().FullName!;
 
             throw new OpenApiLinkResolutionException(relationType, fullTypeName, contentType);
@@ -52,13 +52,13 @@ namespace Menes.Internal
             string context,
             params (string, object?)[] parameters)
         {
-            if (this.linkOperationMapper.TryGetOperationId(owner, relationType, context, out string operationId))
+            if (this.linkOperationMapper.TryGetOperationId(owner, relationType, context, out string? operationId))
             {
                 ResolvedOperationRequestInfo operation = this.templateProvider.GetResolvedOperationRequestInfo(operationId, parameters);
                 return new OpenApiWebLink(operationId, operation.Uri, operation.OperationType);
             }
 
-            ContentFactory.TryGetContentType(owner, out string contentType);
+            ContentFactory.TryGetContentType(owner, out string? contentType);
             string fullTypeName = owner.GetType().FullName!;
 
             throw new OpenApiLinkResolutionException(relationType, fullTypeName, contentType);

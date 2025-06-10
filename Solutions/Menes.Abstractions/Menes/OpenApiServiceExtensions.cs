@@ -39,11 +39,12 @@ namespace Menes
         /// <returns>An OpenApi result with the OK status code and the object in the response body against the relevant content type.</returns>
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:Remove unused parameter", Justification = "For symmetry with other extension methods")]
         public static OpenApiResult OkResult<T>(this IOpenApiService service, [DisallowNull] T result, string? contentType = null)
+            where T : notnull
         {
             return new OpenApiResult
             {
                 StatusCode = (int)HttpStatusCode.OK,
-                Results = { { GetContentType(result, contentType), result! } },
+                Results = { { GetContentType(result, contentType), result } },
             };
         }
 
@@ -171,6 +172,7 @@ namespace Menes
             string location,
             [DisallowNull] T result,
             string? contentType = null)
+            where T : notnull
         {
             return new OpenApiResult
             {
@@ -224,13 +226,15 @@ namespace Menes
         }
 
         private static string GetContentType<T>(T instance, string? contentType)
+            where T : notnull
         {
             return contentType ?? GetContentTypeOrNull(instance) ?? "application/json";
         }
 
         private static string? GetContentTypeOrNull<T>(T instance)
+            where T : notnull
         {
-            return ContentFactory.TryGetContentType(instance, out string contentType) ? contentType : null;
+            return ContentFactory.TryGetContentType(instance, out string? contentType) ? contentType : null;
         }
     }
 }

@@ -1,0 +1,6 @@
+{
+  "$schema": "https://schemas.reqnroll.net/reqnroll-config-latest.json",
+  "stepAssemblies": [
+    { "assembly": "Corvus.Testing.ReqnRoll" }
+  ]
+}

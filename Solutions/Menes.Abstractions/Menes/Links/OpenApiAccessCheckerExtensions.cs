@@ -43,12 +43,11 @@ namespace Menes.Links
                 target,
                 linkMap,
                 (options & HalDocumentLinkRemovalOptions.NonRecursive) == 0,
-                (options & HalDocumentLinkRemovalOptions.Unsafe) != 0);
-
-            // Build a second map of operation descriptors (needed to invoke the access policy check) to our OpenApiWebLinks.
+                (options & HalDocumentLinkRemovalOptions.Unsafe) != 0);            // Build a second map of operation descriptors (needed to invoke the access policy check) to our OpenApiWebLinks.
             var operationDescriptorMap = linkMap
                 .Keys
-                .Select(link => (Descriptor: new AccessCheckOperationDescriptor(link.Item2.Href, link.Item2.OperationId, link.Item2.OperationType.ToString().ToLowerInvariant()), Link: link))
+                .Where(link => link.Item2.OperationId != null) // Filter out links with null OperationId
+                .Select(link => (Descriptor: new AccessCheckOperationDescriptor(link.Item2.Href, link.Item2.OperationId!, link.Item2.OperationType.ToString().ToLowerInvariant()), Link: link))
                 .GroupBy(x => x.Descriptor)
                 .ToDictionary(descriptor => descriptor.Key, descriptor => descriptor.Select(link => link.Link).ToArray());
 
@@ -75,7 +74,7 @@ namespace Menes.Links
 
         private static void AddHalDocumentLinksToMap(HalDocument target, Dictionary<(string Relation, OpenApiWebLink Link), List<HalDocument>> linkMap, bool recursive, bool unsafeChecking)
         {
-            foreach (string rel in target.GetLinkRelations())
+            foreach (string? rel in target.GetLinkRelations())
             {
                 foreach (OpenApiWebLink current in target.GetLinksForRelation(rel).Cast<OpenApiWebLink>())
                 {

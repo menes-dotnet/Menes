@@ -11,8 +11,7 @@ namespace Menes.Specs.Steps
     using System.IO;
     using System.Text;
     using System.Threading.Tasks;
-
-    using Corvus.Testing.SpecFlow;
+    using Corvus.Testing.ReqnRoll;
 
     using Menes.Internal;
     using Menes.Specs.Fakes;
@@ -27,8 +26,7 @@ namespace Menes.Specs.Steps
     using Newtonsoft.Json;
 
     using NUnit.Framework;
-
-    using TechTalk.SpecFlow;
+    using Reqnroll;
 
     [Binding]
     public class OpenApiParameterParsingSteps
@@ -259,7 +257,7 @@ namespace Menes.Specs.Steps
             string parameterDefaultValue)
         {
             //// Build OpenAPI spec object from scratch to mimic reality. Cutting corners by initializing an
-            //// OpenApiDocument directly removes the ability for the the parameter type to be inferred. Something
+            //// OpenApiDocument directly removes the ability for the parameter type to be inferred. Something
             //// that this test is trying to cover.
 
             string openApiSpec = $"{{ \"openapi\": \"3.0.1\", \"info\": {{ \"title\": \"Swagger Petstore (Simple)\", \"version\": \"1.0.0\" }}, \"servers\": [ {{ \"url\": \"http://petstore.swagger.io/api\" }} ], \"paths\": {{ \"/pets\": {{ \"get\": {{ \"summary\": \"List all pets\", \"operationId\": \"listPets\", \"parameters\": [ {{ \"name\": \"{parameterName}\", \"in\": \"{parameterLocation}\", \"schema\": {{ \"type\": \"{parameterType}\", \"format\": \"{parameterFormat}\", \"default\": {parameterDefaultValue} }} }} ], \"responses\": {{ \"200\": {{ \"description\": \"OK\" }} }} }} }} }} }}";
@@ -935,8 +933,13 @@ namespace Menes.Specs.Steps
             string path = $"/pets/{value}";
             this.Matcher.FindOperationPathTemplate(path, "GET", out OpenApiOperationPathTemplate? operationPathTemplate);
 
-            DefaultHttpContext context = new();
-            context.Request.Path = path;
+            DefaultHttpContext context = new()
+            {
+                Request =
+                {
+                    Path = path,
+                },
+            };
 
             this.parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!).ConfigureAwait(false);
         }
@@ -963,11 +966,16 @@ namespace Menes.Specs.Steps
 
             this.Matcher.FindOperationPathTemplate("/pets", "GET", out OpenApiOperationPathTemplate? operationPathTemplate);
 
-            var context = new DefaultHttpContext();
-            context.Request.Query = new QueryCollection(new Dictionary<string, Microsoft.Extensions.Primitives.StringValues>
+            var context = new DefaultHttpContext
+            {
+                Request =
                 {
-                    { parameterName, value },
-                });
+                    Query = new QueryCollection(new Dictionary<string, Microsoft.Extensions.Primitives.StringValues>
+                    {
+                        { parameterName, value },
+                    }),
+                },
+            };
 
             this.parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!).ConfigureAwait(false);
         }
@@ -997,7 +1005,7 @@ namespace Menes.Specs.Steps
             this.Matcher.FindOperationPathTemplate("/pets", "GET", out OpenApiOperationPathTemplate? operationPathTemplate);
 
             var context = new DefaultHttpContext();
-            context.Request.Headers.Add(parameterName, value);
+            context.Request.Headers.Append(parameterName, value);
 
             this.parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!).ConfigureAwait(false);
         }
@@ -1018,27 +1026,28 @@ namespace Menes.Specs.Steps
         }
 
         [When("I try to parse the cookie value '([^']*)' as the parameter '([^']*)'")]
-        public async Task WhenITryToParseTheCookieValue(
-            string value,
-            string parameterName)
+        public async Task WhenITryToParseTheCookieValue(string value, string parameterName)
         {
             IOpenApiParameterBuilder<HttpRequest> builder = ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<IOpenApiParameterBuilder<HttpRequest>>();
 
             this.Matcher.FindOperationPathTemplate("/pets", "GET", out OpenApiOperationPathTemplate? operationPathTemplate);
 
-            var context = new DefaultHttpContext();
-            context.Request.Cookies = new FakeCookieCollection()
+            DefaultHttpContext context = new()
+            {
+                Request =
                 {
-                    { parameterName, value },
-                };
+                    Cookies = new FakeCookieCollection()
+                    {
+                        { parameterName, value },
+                    },
+                },
+            };
 
             this.parameters = await builder.BuildParametersAsync(context.Request, operationPathTemplate!).ConfigureAwait(false);
         }
 
         [When("I try to parse the cookie value '([^']*)' as the parameter '([^']*)' and expect an error")]
-        public async Task WhenITryToParseTheCookieValueAndExpectAnErrorAsync(
-            string value,
-            string parameterName)
+        public async Task WhenITryToParseTheCookieValueAndExpectAnErrorAsync(string value, string parameterName)
         {
             try
             {
@@ -1051,8 +1060,7 @@ namespace Menes.Specs.Steps
         }
 
         [When("I try to build a response body from the value '([^']*)' of type '([^']*)'")]
-        public void WhenITryToBuildAResponseBodyFromTheValueOfTypeSystem_Boolean(
-            string valueAsString, string valueType)
+        public void WhenITryToBuildAResponseBodyFromTheValueOfTypeSystem_Boolean(string valueAsString, string valueType)
         {
             object value = GetResultFromStringAndType(valueAsString, valueType);
 
@@ -1194,7 +1202,7 @@ namespace Menes.Specs.Steps
 
             public IEnumerator<KeyValuePair<string, string>> GetEnumerator() => this.cookies.GetEnumerator();
 
-            public bool TryGetValue(string key, [MaybeNullWhen(false)] out string? value) => this.cookies.TryGetValue(key, out value);
+            public bool TryGetValue(string key, [MaybeNullWhen(false)] out string value) => this.cookies.TryGetValue(key, out value);
 
             IEnumerator IEnumerable.GetEnumerator() => this.GetEnumerator();
         }

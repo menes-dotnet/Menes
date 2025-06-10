@@ -8,24 +8,23 @@ namespace Menes.Specs.Steps
     using System.Collections.Generic;
     using System.Reflection;
     using System.Threading.Tasks;
-    using Corvus.Testing.SpecFlow;
+    using Corvus.Testing.ReqnRoll;
     using Idg.AsyncTest.TaskExtensions;
     using Menes.Exceptions;
     using Menes.Internal;
-    using Menes.Specs.Steps.TestClasses;
-    using Microsoft.Extensions.DependencyInjection;
+    using Menes.Specs.Steps.TestClasses;    using Microsoft.Extensions.DependencyInjection;
     using Microsoft.OpenApi.Models;
-    using Moq;
+    using NSubstitute;
     using NUnit.Framework;
-    using TechTalk.SpecFlow;
+    using Reqnroll;
 
     [Binding]
     public class OpenApiOperationInvokerSteps : IOpenApiService
     {
         private const string OperationInvokedScenarioContextKey = "OperationInvoked";
 
-        private readonly Mock<IOpenApiConfiguration> openApiConfiguration = new();
-        private readonly Mock<IOpenApiContext> openApiContext = new();
+        private readonly IOpenApiConfiguration openApiConfiguration = Substitute.For<IOpenApiConfiguration>();
+        private readonly IOpenApiContext openApiContext = Substitute.For<IOpenApiContext>();
         private readonly OpenApiResult exceptionMapperResult = new();
         private readonly object resultBuilderResult = new();
         private readonly object resultBuilderErrorResult = new();
@@ -65,30 +64,33 @@ namespace Menes.Specs.Steps
                 nameof(this.ServiceMethodImplementation),
                 BindingFlags.NonPublic | BindingFlags.Instance)
                 ?? throw new InvalidOperationException($"Unable to get method info for {nameof(this.ServiceMethodImplementation)}");
-
-            var openApiServiceOperation = new OpenApiServiceOperation(this, serviceMethod, this.openApiConfiguration.Object);
+            var openApiServiceOperation = new OpenApiServiceOperation(this, serviceMethod, this.openApiConfiguration);
             this.InvokerContext.OperationLocator
-                .Setup(m => m.TryGetOperation(operationId, out openApiServiceOperation))
-                .Returns(true);
+                .TryGetOperation(operationId, out Arg.Any<OpenApiServiceOperation>()!)
+                .Returns(x =>
+                {
+                    x[1] = openApiServiceOperation;
+                    return true;
+                });
         }
 
         [When("I handle a '(.*)' request for '(.*)'")]
         public async Task WhenIHandleARequestFor(string method, string path)
         {
-            var parameterBuilder = new Mock<IOpenApiParameterBuilder<object>>();
+            var parameterBuilder = Substitute.For<IOpenApiParameterBuilder<object>>();
             parameterBuilder
-                .Setup(m => m.BuildParametersAsync(It.IsAny<object>(), this.operationPathTemplate!))
+                .BuildParametersAsync(Arg.Any<object>(), this.operationPathTemplate!)
                 .Returns(Task.FromResult<IDictionary<string, object>>(new Dictionary<string, object>()));
 
             this.InvokerContext.ExceptionMapper
-                .Setup(m => m.GetResponse(It.IsAny<Exception>(), It.IsAny<OpenApiOperation>()))
+                .GetResponse(Arg.Any<Exception>(), Arg.Any<OpenApiOperation>())
                 .Returns(this.exceptionMapperResult);
 
             this.InvokerContext.ResultBuilder
-                .Setup(m => m.BuildResult(It.IsAny<object>(), this.openApiOperation!))
+                .BuildResult(Arg.Any<object>(), this.openApiOperation!)
                 .Returns(this.resultBuilderResult);
             this.InvokerContext.ResultBuilder
-                .Setup(m => m.BuildErrorResult(It.IsAny<int>()))
+                .BuildErrorResult(Arg.Any<int>())
                 .Returns(this.resultBuilderErrorResult);
 
             IOpenApiConfiguration configuration = ContainerBindings.GetServiceProvider(this.scenarioContext).GetRequiredService<IOpenApiConfiguration>();
@@ -98,13 +100,12 @@ namespace Menes.Specs.Steps
             }
 
             this.InvokerContext.UseManualAccessChecks();
-
             this.invokerResultTask = this.Invoker.InvokeAsync(
                 path,
                 method,
                 new object(),
                 this.operationPathTemplate!,
-                this.openApiContext.Object);
+                this.openApiContext);
 
             await this.InvokerContext.AccessCheckCalls!.WaitAsync().WithTimeout().ConfigureAwait(false);
         }
@@ -163,7 +164,7 @@ namespace Menes.Specs.Steps
         [Then("the access checker should receive the Open API context")]
         public void ThenTheAccessCheckerShouldReceiveTheOpenAPIContext()
         {
-            Assert.AreSame(this.openApiContext.Object, this.InvokerContext.AccessCheckCalls!.Arguments[0].Context);
+            Assert.AreSame(this.openApiContext, this.InvokerContext.AccessCheckCalls!.Arguments[0].Context);
         }
 
         [Then("the invoker should complete without exceptions")]
@@ -187,31 +188,31 @@ namespace Menes.Specs.Steps
         [Then("the invoker should map an '(.*)' with no explanation")]
         public void ThenTheInvokerShouldMapAnOpenApiForbiddenExceptionWithNoExplanation(string exceptionType)
         {
-            this.InvokerContext.ExceptionMapper.Verify(m => m.GetResponse(
-                It.Is<Exception>(x => x.GetType().Name == exceptionType && !x.Data.Contains("detail")),
-                this.openApiOperation!));
+            this.InvokerContext.ExceptionMapper.Received().GetResponse(
+                Arg.Is<Exception>(x => x.GetType().Name == exceptionType && !x.Data.Contains("detail")),
+                this.openApiOperation!);
         }
 
         [Then("the invoker should map an OpenApiForbiddenException with an explanation of '(.*)'")]
         public void ThenTheInvokerShouldMapAnOpenApiForbiddenExceptionWithAnExplanationOf(string explanation)
         {
-            this.InvokerContext.ExceptionMapper.Verify(m => m.GetResponse(
-                It.Is<Exception>(x => x is OpenApiForbiddenException && ((string?)x.Data["detail"]) == explanation),
-                this.openApiOperation!));
+            this.InvokerContext.ExceptionMapper.Received().GetResponse(
+                Arg.Is<Exception>(x => x is OpenApiForbiddenException && ((string?)x.Data["detail"]) == explanation),
+                this.openApiOperation!);
         }
 
         [Then("the invoker should pass the method result to the result builder")]
         public void ThenTheInvokerShouldPassTheMethodResultToTheResultBuilder()
         {
-            this.InvokerContext.ResultBuilder.Verify(m => m.BuildResult(
+            this.InvokerContext.ResultBuilder.Received().BuildResult(
                 this.scenarioContext[OperationInvokedScenarioContextKey],
-                this.openApiOperation!));
+                this.openApiOperation!);
         }
 
         [Then("the invoker should pass the result from the exception mapper to the result builder")]
         public void ThenTheInvokerShouldPassTheResultFromTheExceptionMapperToTheResultBuilder()
         {
-            this.InvokerContext.ResultBuilder.Verify(m => m.BuildResult(this.exceptionMapperResult, this.openApiOperation!));
+            this.InvokerContext.ResultBuilder.Received().BuildResult(this.exceptionMapperResult, this.openApiOperation!);
         }
 
         [Then("the invoker should return the result from the result builder")]
@@ -226,7 +227,7 @@ namespace Menes.Specs.Steps
         {
             object result = await this.invokerResultTask!.ConfigureAwait(false);
             Assert.AreSame(this.resultBuilderErrorResult, result);
-            this.InvokerContext.ResultBuilder.Verify(m => m.BuildErrorResult(statusCode));
+            this.InvokerContext.ResultBuilder.Received().BuildErrorResult(statusCode);
         }
 
         private Task<OpenApiResult> ServiceMethodImplementation()

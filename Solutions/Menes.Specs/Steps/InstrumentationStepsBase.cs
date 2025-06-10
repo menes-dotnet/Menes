@@ -4,13 +4,13 @@
 
 namespace Menes.Specs.Steps
 {
-    using Corvus.Testing.SpecFlow;
+    using Corvus.Testing.ReqnRoll;
     using Menes.Internal;
     using Menes.Specs.Fakes;
     using Menes.Specs.Steps.TestClasses;
     using Microsoft.Extensions.DependencyInjection;
     using NUnit.Framework;
-    using TechTalk.SpecFlow;
+    using Reqnroll;
 
     public abstract class InstrumentationStepsBase
     {

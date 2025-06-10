@@ -5,7 +5,6 @@
 namespace Menes.Exceptions
 {
     using System;
-    using System.Runtime.Serialization;
 
     /// <summary>
     /// An exception which, when thrown from an <see cref="IOpenApiService"/> operation method,
@@ -47,18 +46,6 @@ namespace Menes.Exceptions
         /// <param name="innerException">The inner exception.</param>
         protected OpenApiNotFoundException(string message, Exception innerException)
             : base(message, innerException)
-        {
-        }
-
-        /// <summary>Constructor used by .NET serialization infrastructure..</summary>
-        /// <param name="info">The <see cref="SerializationInfo"></see> that holds the serialized object data about the exception being thrown.</param>
-        /// <param name="context">The <see cref="StreamingContext"></see> that contains contextual information about the source or destination.</param>
-        /// <exception cref="ArgumentNullException">The <paramref name="info">info</paramref> parameter is null.</exception>
-        /// <exception cref="SerializationException">The class name is null or <see cref="P:System.Exception.HResult"></see> is zero (0).</exception>
-        protected OpenApiNotFoundException(
-          SerializationInfo info,
-          StreamingContext context)
-            : base(info, context)
         {
         }
     }
