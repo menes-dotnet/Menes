@@ -44,7 +44,7 @@ namespace Menes.PetStore.Specs.Bindings
                         { "TestKey", "TestValue" },
                     })
                     .Build();
-                return hostManager.StartInProcessFunctionsHostAsync<Menes.PetStore.Hosting.Startup>(
+                return hostManager.StartInProcessFunctionsHostAsync<Menes.PetStore.Hosting.AzureFunctions.InProcess.Startup>(
                     "http://localhost:7071",
                     config,
                     ConfigureServices);

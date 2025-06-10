@@ -19,15 +19,15 @@ namespace Menes.PetStore.Specs.Steps
     [Binding]
     public class Steps
     {
-        private static readonly HttpClient HttpClient = HttpClientFactory.Create();
-
         private static readonly Uri BaseUri = new("http://localhost:7071");
 
         private readonly ScenarioContext scenarioContext;
+        private readonly HttpClient httpClient;
 
         public Steps(ScenarioContext scenarioContext)
         {
             this.scenarioContext = scenarioContext;
+            this.httpClient = new HttpClient();
         }
 
         [When("I request a list of pets")]
@@ -171,7 +171,7 @@ namespace Menes.PetStore.Specs.Steps
 
         private async Task SendGetRequest(string path)
         {
-            HttpResponseMessage response = await HttpClient.GetAsync(new Uri(BaseUri, path)).ConfigureAwait(false);
+            HttpResponseMessage response = await this.httpClient.GetAsync(new Uri(BaseUri, path)).ConfigureAwait(false);
 
             this.scenarioContext.Set(response);
 
@@ -190,7 +190,7 @@ namespace Menes.PetStore.Specs.Steps
             string requestContentString = JsonConvert.SerializeObject(body);
             var requestContent = new StringContent(requestContentString, Encoding.UTF8, "application/json");
 
-            HttpResponseMessage response = await HttpClient.PostAsync(new Uri(BaseUri, path), requestContent).ConfigureAwait(false);
+            HttpResponseMessage response = await this.httpClient.PostAsync(new Uri(BaseUri, path), requestContent).ConfigureAwait(false);
 
             this.scenarioContext.Set(response);
 
