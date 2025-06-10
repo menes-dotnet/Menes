@@ -12,3 +12,15 @@ This affects the following members:
 * `OpenApiPathTemplate.UriTemplate`
 
 There are no substantial changes to Menes itself in this version.
+
+## v5.0.1
+
+* Ensure string values in headers are not quoted.
+
+## v5.0.2
+
+* Further changes to `StringConverter` to ensure special characters are properly escaped.
+
+## v5.0.3
+
+* Bump `Corvus.Testing.SpecFlow.NUnit` from `2.0.0` to `2.0.1`. 

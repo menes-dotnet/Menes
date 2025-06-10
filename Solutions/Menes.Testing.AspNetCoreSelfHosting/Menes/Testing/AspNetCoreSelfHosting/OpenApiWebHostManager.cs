@@ -31,7 +31,7 @@ namespace Menes.Testing.AspNetCoreSelfHosting
     /// </para>
     /// <para>
     /// Note that this assumes you're using an instance method in your function host rather than the older static method
-    /// approach. This means that your initialisation will have been moved into a Startup class that implements
+    /// approach. This means that your initialization will have been moved into a Startup class that implements
     /// <c>IWebJobsStartup</c> or <c>FunctionsStartup</c>; this is the class that should be supplied to
     /// <see cref="StartAspNetHostAsync"/>.
     /// </para>
@@ -70,7 +70,7 @@ namespace Menes.Testing.AspNetCoreSelfHosting
         /// host's request routing.
         /// </summary>
         /// <typeparam name="TFunctionStartup">The type of the startup class. This should be the type of the class from the
-        /// function host project that is used to initialise the OpenApi services and dependencies.</typeparam>
+        /// function host project that is used to initialize the OpenApi services and dependencies.</typeparam>
         /// <param name="baseUrl">The url that the function will be exposed on.</param>
         /// <param name="configuration">Configuration to supply to the startup class.</param>
         /// <param name="additionalServiceConfigurationCallback">
@@ -90,7 +90,7 @@ namespace Menes.Testing.AspNetCoreSelfHosting
         /// host's request routing.
         /// </summary>
         /// <typeparam name="TFunctionStartup">The type of the startup class. This should be the type of the class from the
-        /// function host project that is used to initialise the OpenApi services and dependencies.</typeparam>
+        /// function host project that is used to initialize the OpenApi services and dependencies.</typeparam>
         /// <param name="startupInstance">The startup instance to use.</param>
         /// <param name="baseUrl">The url that the function will be exposed on.</param>
         /// <param name="additionalServiceConfigurationCallback">
@@ -127,7 +127,7 @@ namespace Menes.Testing.AspNetCoreSelfHosting
         /// host's request routing.
         /// </summary>
         /// <typeparam name="TFunctionStartup">The type of the startup class. This should be the type of the class from the
-        /// function host project that is used to initialise the OpenApi services and dependencies.</typeparam>
+        /// function host project that is used to initialize the OpenApi services and dependencies.</typeparam>
         /// <param name="startupInstance">The startup instance to use.</param>
         /// <param name="baseUrl">The url that the function will be exposed on.</param>
         /// <param name="configuration">Configuration to supply to the startup class.</param>
@@ -174,7 +174,7 @@ namespace Menes.Testing.AspNetCoreSelfHosting
         /// Starts a new in-process host using the given Uri and a pre-instantiated instance of the startup class.
         /// </summary>
         /// <typeparam name="TStartup">The type of the startup class. This should be the type of the class from the
-        /// ASP.NET host project that is used to initialise the OpenApi services and dependencies.</typeparam>
+        /// ASP.NET host project that is used to initialize the OpenApi services and dependencies.</typeparam>
         /// <param name="baseUrl">The url that the function will be exposed on.</param>
         /// <param name="startupInstance">The instantiated startup class to use.</param>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
@@ -194,7 +194,7 @@ namespace Menes.Testing.AspNetCoreSelfHosting
                 webHostBuilder => webHostBuilder.UseStartup<TStartup>());
 
         /// <summary>
-        /// Stops all of the function hosts that were started via <see cref="StartAspNetHostAsync"/>.
+        /// Stops all the function hosts that were started via <see cref="StartAspNetHostAsync"/>.
         /// </summary>
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task StopAllHostsAsync()

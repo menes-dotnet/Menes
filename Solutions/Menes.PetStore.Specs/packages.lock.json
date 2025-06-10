@@ -1830,13 +1830,13 @@
           "Menes.PetStore": "[1.0.0, )"
         }
       },
-      "menes.petstore.hosting.azurefunctions": {
+      "menes.petstore.hosting.azurefunctions.inprocess": {
         "type": "Project",
         "dependencies": {
+          "Menes.Hosting": "[1.0.0, )",
           "Menes.Hosting.AspNetCore": "[1.0.0, )",
           "Menes.PetStore": "[1.0.0, )",
           "Microsoft.Azure.Functions.Extensions": "[1.1.0, )",
-          "Microsoft.Extensions.Logging.Console": "[8.0.*, )",
           "Microsoft.NET.Sdk.Functions": "[4.6.0, )"
         }
       },

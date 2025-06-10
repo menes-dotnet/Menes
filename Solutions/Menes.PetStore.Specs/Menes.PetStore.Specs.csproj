@@ -49,8 +49,8 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Menes.PetStore.Hosting.AspNetCore.DirectPipeline\Menes.PetStore.Hosting.AspNetCore.DirectPipeline.csproj" />
-    <ProjectReference Include="..\Menes.PetStore.Hosting.AzureFunctions\Menes.PetStore.Hosting.AzureFunctions.csproj" />
     <ProjectReference Include="..\Menes.Testing.AspNetCoreSelfHosting\Menes.Testing.AspNetCoreSelfHosting.csproj" />
+    <ProjectReference Include="..\Menes.PetStore.Hosting.AzureFunctions.InProcess\Menes.PetStore.Hosting.AzureFunctions.InProcess.csproj" />
   </ItemGroup>
   <ItemGroup>
     <None Update="reqnroll.json">
