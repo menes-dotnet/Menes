@@ -27,7 +27,7 @@ namespace Menes.PetStore.Specs.Steps
         public Steps(ScenarioContext scenarioContext)
         {
             this.scenarioContext = scenarioContext;
-            this.httpClient = new HttpClient();
+            this.httpClient = HttpClientFactory.Create();
         }
 
         [When("I request a list of pets")]
