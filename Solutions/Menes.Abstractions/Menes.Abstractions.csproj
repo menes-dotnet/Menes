@@ -16,7 +16,7 @@
     <PackageReference Include="Corvus.ContentHandling" Version="4.0.0" />
     <PackageReference Include="Corvus.Extensions" Version="1.1.13" />
     <PackageReference Include="Corvus.Extensions.Newtonsoft.Json" Version="3.0.2" />
-    <PackageReference Include="Corvus.Monitoring.Instrumentation.Abstractions" Version="3.0.1" />
+    <PackageReference Include="Corvus.Monitoring.Instrumentation.Abstractions" Version="4.0.0" />
     <PackageReference Include="Corvus.UriTemplates" Version="2.3.2" />
     <PackageReference Include="Endjin.RecommendedPractices.GitHub" Version="2.1.18">
       <PrivateAssets>all</PrivateAssets>
