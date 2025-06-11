@@ -122,10 +122,10 @@
       },
       "Corvus.Monitoring.Instrumentation.Abstractions": {
         "type": "Transitive",
-        "resolved": "3.0.1",
-        "contentHash": "G1ocdBKceYqzAIAiMLM/ANuDpIOz9wuoCk6Wtj2fe8t1hZ+FeZdBj1x2D/SuAcc5QXgYFCLwmS/xczHq68wyEw==",
+        "resolved": "4.0.0",
+        "contentHash": "XFlXMBm7mrIoUshNKWnPZKcdqKuSsxXFym+Og3BgzQD6IJ9XoQOBQQdxdxuiSfH+EdfZ6QyGGGc4TD0of8UCmg==",
         "dependencies": {
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "9.0.0"
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.2"
         }
       },
       "Corvus.Testing.ReqnRoll": {
@@ -241,8 +241,8 @@
       },
       "Microsoft.Extensions.DependencyInjection.Abstractions": {
         "type": "Transitive",
-        "resolved": "9.0.0",
-        "contentHash": "+6f2qv2a3dLwd5w6JanPIPs47CxRbnk+ZocMJUhv9NxP88VlOcJYZs9jY+MYSjxvady08bUZn6qgiNh7DadGgg=="
+        "resolved": "8.0.2",
+        "contentHash": "3iE7UF7MQkCv1cxzCahz+Y/guQbTqieyxyaWKhrRO91itI9cOKO76OHeQDahqG4MmW5umr3CcCvGmK92lWNlbg=="
       },
       "Microsoft.Extensions.DependencyModel": {
         "type": "Transitive",
@@ -510,7 +510,7 @@
           "Corvus.ContentHandling": "[4.0.0, )",
           "Corvus.Extensions": "[1.1.13, )",
           "Corvus.Extensions.Newtonsoft.Json": "[3.0.2, )",
-          "Corvus.Monitoring.Instrumentation.Abstractions": "[3.0.1, )",
+          "Corvus.Monitoring.Instrumentation.Abstractions": "[4.0.0, )",
           "Corvus.UriTemplates": "[2.3.2, )",
           "Microsoft.CSharp": "[4.7.0, )",
           "Microsoft.Extensions.Configuration.Abstractions": "[8.0.*, )",
