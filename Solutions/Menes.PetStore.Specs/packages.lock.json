@@ -27,26 +27,11 @@
           "Microsoft.SourceLink.GitHub": "1.1.1"
         }
       },
-      "Roslynator.Analyzers": {
-        "type": "Direct",
-        "requested": "[4.13.1, )",
-        "resolved": "4.13.1",
-        "contentHash": "KZpLy6ZlCebMk+d/3I5KU2R7AOb4LNJ6tPJqPtvFXmO8bEBHQvCIAvJOnY2tu4C9/aVOROTDYUFADxFqw1gh/g=="
-      },
-      "StyleCop.Analyzers": {
-        "type": "Direct",
-        "requested": "[1.2.0-beta.556, )",
-        "resolved": "1.2.0-beta.556",
-        "contentHash": "llRPgmA1fhC0I0QyFLEcjvtM2239QzKr/tcnbsjArLMJxJlu0AA5G7Fft0OI30pHF3MW63Gf4aSSsjc5m82J1Q==",
-        "dependencies": {
-          "StyleCop.Analyzers.Unstable": "1.2.0.556"
-        }
-      },
       "System.Formats.Asn1": {
         "type": "Direct",
-        "requested": "[6.0.1, )",
-        "resolved": "6.0.1",
-        "contentHash": "glgtKqWJpH9GDw0m9I5xFiF6WDIQqi/eZXU6MkMRPzAWEERGGAJh+qztkrlWSDbokQ1jalj5NcBNIvVoSDpSSA=="
+        "requested": "[9.0.6, )",
+        "resolved": "9.0.6",
+        "contentHash": "8LbKs3WVqyDSszFZJA9Uxg9z+C6WbPbFTSPm/HjFEsWx49XWs0ueqaAKPWncvFJ8yl4H4C/RTnUMhCKoXkddkg=="
       },
       "CommunityToolkit.HighPerformance": {
         "type": "Transitive",
@@ -1234,11 +1219,6 @@
         "resolved": "2.1.1",
         "contentHash": "BISoFuW2AwZYXxrZGaBnedo21BvrdgC4kkWd6QYrOdhOGSsZB0RSqcBw09l9caUE1g3sykJoRfSbtSzZS6tYig=="
       },
-      "StyleCop.Analyzers.Unstable": {
-        "type": "Transitive",
-        "resolved": "1.2.0.556",
-        "contentHash": "zvn9Mqs/ox/83cpYPignI8hJEM2A93s2HkHs8HYMOAQW0PkampyoErAiIyKxgTLqbbad29HX/shv/6LGSjPJNQ=="
-      },
       "System.Buffers": {
         "type": "Transitive",
         "resolved": "4.6.0",
@@ -1848,7 +1828,7 @@
           "Microsoft.AspNetCore": "[2.3.0, )",
           "Microsoft.AspNetCore.Mvc.Abstractions": "[2.3.0, )",
           "Microsoft.Azure.WebJobs": "[3.0.41, )",
-          "System.Formats.Asn1": "[6.0.1, )"
+          "System.Formats.Asn1": "[9.0.6, )"
         }
       }
     }
